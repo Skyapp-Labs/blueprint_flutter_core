@@ -1,9 +1,6 @@
-// foundation/core/controllers/fx_controller_mixin.dart
-
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// import 'package:skyapp_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
 import 'package:skyapp_flutter_core/src/core/errors/network_exception.dart';
 import 'package:skyapp_flutter_core/src/core/errors/unauthorized_exception.dart';
 import 'package:skyapp_flutter_core/src/core/network/network_providers.dart';

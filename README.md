@@ -20,6 +20,20 @@ TODO: List what your package can do. Maybe include images, gifs, or videos.
 
 ## Getting started
 
+Import the entry library you need instead of deep `lib/src/...` paths:
+
+| Library | Contents |
+|--------|----------|
+| `skyapp_flutter_core.dart` | `AppConfig`, `SkyappFlutterCore`, environment, `ApiEndpoints` |
+| `skyapp_foundation.dart` | Errors, pagination models, JWT, logger, `FxControllerMixin` |
+| `skyapp_theme.dart` | Fx theme tokens, `ThemeController` |
+| `skyapp_widgets.dart` | Fx widgets, `ScreenUtil`, validators, formatters |
+| `skyapp_network.dart` | `ApiClient`, services, Firebase client, interceptors |
+| `skyapp_auth.dart` | Auth flows, controllers, email/phone widgets |
+| `skyapp_notifications.dart` | Notifications |
+| `skyapp_profile.dart` | Profile |
+| `skyapp_all.dart` | Re-exports all of the above (prefer granular imports in large apps) |
+
 TODO: List prerequisites and provide or point to information on how to
 start using the package.
 

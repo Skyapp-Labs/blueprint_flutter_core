@@ -1,5 +1,5 @@
 name: skyapp_flutter_core
-description: Shared foundation layer — auth, networking, theme, and Fx widgets for Skyapp Flutter apps.
+description: Flutter core package with UI kit, theming, and feature modules for building scalable apps.
 version: 0.0.1
 publish_to: "none"
 
