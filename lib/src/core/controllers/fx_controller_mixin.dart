@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:skyapp_flutter_core/src/core/errors/network_exception.dart';
-import 'package:skyapp_flutter_core/src/core/errors/unauthorized_exception.dart';
-import 'package:skyapp_flutter_core/src/core/network/network_providers.dart';
-import 'package:skyapp_flutter_core/src/core/network/service_context.dart';
-import 'package:skyapp_flutter_core/src/core/config/app_config.dart';
+import 'package:blueprint_flutter_core/src/core/errors/network_exception.dart';
+import 'package:blueprint_flutter_core/src/core/errors/unauthorized_exception.dart';
+import 'package:blueprint_flutter_core/src/core/network/network_providers.dart';
+import 'package:blueprint_flutter_core/src/core/network/service_context.dart';
+import 'package:blueprint_flutter_core/src/core/config/app_config.dart';
 
 part 'fx_state.dart';
 

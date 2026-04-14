@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:skyapp_flutter_core/src/core/errors/api_error_response.dart';
-import 'package:skyapp_flutter_core/src/core/errors/network_exception.dart';
-import 'package:skyapp_flutter_core/src/core/errors/unauthorized_exception.dart';
+import 'package:blueprint_flutter_core/src/core/errors/api_error_response.dart';
+import 'package:blueprint_flutter_core/src/core/errors/network_exception.dart';
+import 'package:blueprint_flutter_core/src/core/errors/unauthorized_exception.dart';
 
 /// Maps raw [DioException]s into typed [NetworkException] or
 /// [UnauthorizedException] errors that the rest of the app can handle.

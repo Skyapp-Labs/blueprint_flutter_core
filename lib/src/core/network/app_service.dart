@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-import 'package:skyapp_flutter_core/src/core/network/api_endpoints.dart';
-import 'package:skyapp_flutter_core/src/core/network/service_context.dart';
+import 'package:blueprint_flutter_core/src/core/network/api_endpoints.dart';
+import 'package:blueprint_flutter_core/src/core/network/service_context.dart';
 
 abstract class AppService {
   AppService(ServiceContext ctx)

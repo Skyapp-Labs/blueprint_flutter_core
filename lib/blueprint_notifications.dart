@@ -1,7 +1,7 @@
 /// Push notifications: controller, service, models, and tiles.
 ///
 /// ```dart
-/// import 'package:skyapp_flutter_core/skyapp_notifications.dart';
+/// import 'package:blueprint_flutter_core/blueprint_notifications.dart';
 /// ```
 library;
 

@@ -1,7 +1,7 @@
 /// Cross-cutting utilities: errors, shared models, controller helpers, logging.
 ///
 /// ```dart
-/// import 'package:skyapp_flutter_core/skyapp_foundation.dart';
+/// import 'package:blueprint_flutter_core/blueprint_foundation.dart';
 /// ```
 library;
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/widgets/buttons/fx_button.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/display/fx_text.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/phone_auth/widgets/fx_phone_auth.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_button.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/fx_phone_auth.dart';
 
 class OtpStep extends StatelessWidget with FxUiToolkit {
   OtpStep({

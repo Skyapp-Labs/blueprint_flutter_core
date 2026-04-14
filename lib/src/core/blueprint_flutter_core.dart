@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 
-import 'package:skyapp_flutter_core/src/core/config/app_config.dart';
+import 'package:blueprint_flutter_core/src/core/config/app_config.dart';
 
 /// Root widget that wires [ProviderScope] with [appConfigProvider] for the
 /// foundation layer.
@@ -11,15 +11,15 @@ import 'package:skyapp_flutter_core/src/core/config/app_config.dart';
 /// void main() {
 ///   WidgetsFlutterBinding.ensureInitialized();
 ///   runApp(
-///     SkyappFlutterCore(
+///     BlueprintFlutterCore(
 ///       config: MyAppConfig(),
 ///       child: const MyApp(),
 ///     ),
 ///   );
 /// }
 /// ```
-class SkyappFlutterCore extends StatelessWidget {
-  const SkyappFlutterCore({
+class BlueprintFlutterCore extends StatelessWidget {
+  const BlueprintFlutterCore({
     super.key,
     required this.config,
     required this.child,

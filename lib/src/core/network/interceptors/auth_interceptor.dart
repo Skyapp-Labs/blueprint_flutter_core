@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:skyapp_flutter_core/src/core/network/token_manager.dart';
-import 'package:skyapp_flutter_core/src/core/errors/unauthorized_exception.dart';
-import 'package:skyapp_flutter_core/src/core/network/interceptors/error_mapper.dart';
-import 'package:skyapp_flutter_core/src/core/network/interceptors/refresh_coordinator.dart';
+import 'package:blueprint_flutter_core/src/core/network/token_manager.dart';
+import 'package:blueprint_flutter_core/src/core/errors/unauthorized_exception.dart';
+import 'package:blueprint_flutter_core/src/core/network/interceptors/error_mapper.dart';
+import 'package:blueprint_flutter_core/src/core/network/interceptors/refresh_coordinator.dart';
 
 /// Injects Bearer tokens and handles auth failures for all outgoing requests.
 ///

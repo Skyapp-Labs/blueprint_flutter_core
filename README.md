@@ -24,15 +24,15 @@ Import the entry library you need instead of deep `lib/src/...` paths:
 
 | Library | Contents |
 |--------|----------|
-| `skyapp_flutter_core.dart` | `AppConfig`, `SkyappFlutterCore`, environment, `ApiEndpoints` |
-| `skyapp_foundation.dart` | Errors, pagination models, JWT, logger, `FxControllerMixin` |
-| `skyapp_theme.dart` | Fx theme tokens, `ThemeController` |
-| `skyapp_widgets.dart` | Fx widgets, `ScreenUtil`, validators, formatters |
-| `skyapp_network.dart` | `ApiClient`, services, Firebase client, interceptors |
-| `skyapp_auth.dart` | Auth flows, controllers, email/phone widgets |
-| `skyapp_notifications.dart` | Notifications |
-| `skyapp_profile.dart` | Profile |
-| `skyapp_all.dart` | Re-exports all of the above (prefer granular imports in large apps) |
+| `blueprint_flutter_core.dart` | `AppConfig`, `BlueprintFlutterCore`, environment, `ApiEndpoints` |
+| `blueprint_foundation.dart` | Errors, pagination models, JWT, logger, `FxControllerMixin` |
+| `blueprint_theme.dart` | Fx theme tokens, `ThemeController` |
+| `blueprint_widgets.dart` | Fx widgets, `ScreenUtil`, validators, formatters |
+| `blueprint_network.dart` | `ApiClient`, services, Firebase client, interceptors |
+| `blueprint_auth.dart` | Auth flows, controllers, email/phone widgets |
+| `blueprint_notifications.dart` | Notifications |
+| `blueprint_profile.dart` | Profile |
+| `blueprint_all.dart` | Re-exports all of the above (prefer granular imports in large apps) |
 
 TODO: List prerequisites and provide or point to information on how to
 start using the package.

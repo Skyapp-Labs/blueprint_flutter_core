@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/theme/base_colors.dart';
-import 'package:skyapp_flutter_core/src/core/theme/base_sizes.dart';
+import 'package:blueprint_flutter_core/src/core/theme/base_colors.dart';
+import 'package:blueprint_flutter_core/src/core/theme/base_sizes.dart';
 
 /// Blueprint contract for typography.
 ///

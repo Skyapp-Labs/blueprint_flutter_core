@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:skyapp_flutter_core/src/core/config/app_config.dart';
-import 'package:skyapp_flutter_core/src/core/network/interceptors/auth_interceptor.dart';
+import 'package:blueprint_flutter_core/src/core/config/app_config.dart';
+import 'package:blueprint_flutter_core/src/core/network/interceptors/auth_interceptor.dart';
 // import 'interceptors/error_interceptor.dart';
-import 'package:skyapp_flutter_core/src/core/network/interceptors/log_interceptor.dart' as bp;
-import 'package:skyapp_flutter_core/src/core/network/token_manager.dart';
+import 'package:blueprint_flutter_core/src/core/network/interceptors/log_interceptor.dart' as bp;
+import 'package:blueprint_flutter_core/src/core/network/token_manager.dart';
 
 /// Configured Dio HTTP client used by all foundation services.
 ///

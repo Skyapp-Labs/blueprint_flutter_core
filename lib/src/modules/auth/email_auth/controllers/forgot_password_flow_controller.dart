@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:skyapp_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/email_auth/controllers/forgot_password_flow_state.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/email_auth/controllers/forgot_password_flow_state.dart';
 
 part 'forgot_password_flow_controller.g.dart';
 

@@ -1,4 +1,4 @@
-import 'package:skyapp_flutter_core/src/core/models/pagination_meta.dart';
+import 'package:blueprint_flutter_core/src/core/models/pagination_meta.dart';
 
 /// Generic wrapper for all paginated API responses.
 ///

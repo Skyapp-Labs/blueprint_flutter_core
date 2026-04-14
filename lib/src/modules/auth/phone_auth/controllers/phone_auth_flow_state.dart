@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:skyapp_flutter_core/src/modules/auth/phone_auth/models/otp_data.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/phone_auth/models/phone_lookup_result.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/models/otp_data.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/models/phone_lookup_result.dart';
 
 part 'phone_auth_flow_state.freezed.dart';
 

@@ -1,4 +1,4 @@
-import 'package:skyapp_flutter_core/src/core/errors/app_exception.dart';
+import 'package:blueprint_flutter_core/src/core/errors/app_exception.dart';
 
 /// Thrown when the access token has expired AND the refresh attempt also
 /// failed (e.g. refresh token revoked, session expired).

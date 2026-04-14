@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
 /// Empty state display with an icon/illustration, title, subtitle,
 /// and an optional action button.

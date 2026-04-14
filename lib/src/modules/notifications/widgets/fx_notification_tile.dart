@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/utils/formatters/date_formatter.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:skyapp_flutter_core/src/modules/notifications/models/app_notification.dart';
+import 'package:blueprint_flutter_core/src/core/utils/formatters/date_formatter.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/modules/notifications/models/app_notification.dart';
 
 /// A notification list item with read/unread state and swipe-to-delete.
 class FxNotificationTile extends StatelessWidget with FxUiToolkit {

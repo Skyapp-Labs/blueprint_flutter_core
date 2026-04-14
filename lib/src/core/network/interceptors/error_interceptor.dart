@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:skyapp_flutter_core/src/core/errors/api_error_response.dart';
-import 'package:skyapp_flutter_core/src/core/errors/network_exception.dart';
-import 'package:skyapp_flutter_core/src/core/errors/unauthorized_exception.dart';
-import 'package:skyapp_flutter_core/src/core/network/token_manager.dart';
+import 'package:blueprint_flutter_core/src/core/errors/api_error_response.dart';
+import 'package:blueprint_flutter_core/src/core/errors/network_exception.dart';
+import 'package:blueprint_flutter_core/src/core/errors/unauthorized_exception.dart';
+import 'package:blueprint_flutter_core/src/core/network/token_manager.dart';
 
 /// Handles 401 responses by attempting a token refresh then retrying
 /// the original request once. If the refresh also fails, throws

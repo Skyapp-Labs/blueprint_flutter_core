@@ -1,7 +1,7 @@
 /// Fx UI toolkit: context mixin, layout, inputs, overlays, feedback, and display widgets.
 ///
 /// ```dart
-/// import 'package:skyapp_flutter_core/skyapp_widgets.dart';
+/// import 'package:blueprint_flutter_core/blueprint_widgets.dart';
 /// ```
 library;
 

@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:skyapp_flutter_core/src/core/data/fx_countries.dart';
-import 'package:skyapp_flutter_core/src/core/utils/validators.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/display/fx_country_flag.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/overlay/_index.dart';
+import 'package:blueprint_flutter_core/src/core/data/fx_countries.dart';
+import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/overlay/_index.dart';
 
 part 'fx_select_field.dart';
 part 'fx_select_field_data.dart';

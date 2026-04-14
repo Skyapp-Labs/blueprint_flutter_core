@@ -1,4 +1,4 @@
-import 'package:skyapp_flutter_core/src/core/errors/app_exception.dart';
+import 'package:blueprint_flutter_core/src/core/errors/app_exception.dart';
 
 /// Thrown when a network/HTTP request fails.
 ///

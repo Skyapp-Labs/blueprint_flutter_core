@@ -1,9 +1,9 @@
-import 'package:skyapp_flutter_core/src/core/controllers/fx_controller_mixin.dart';
-import 'package:skyapp_flutter_core/src/core/network/firebase/firebase_client.dart';
-import 'package:skyapp_flutter_core/src/core/utils/logger.dart';
-import 'package:skyapp_flutter_core/src/modules/notifications/models/app_notification.dart';
-import 'package:skyapp_flutter_core/src/modules/notifications/models/device_registration.dart';
-import 'package:skyapp_flutter_core/src/modules/notifications/services/notification_service.dart';
+import 'package:blueprint_flutter_core/src/core/controllers/fx_controller_mixin.dart';
+import 'package:blueprint_flutter_core/src/core/network/firebase/firebase_client.dart';
+import 'package:blueprint_flutter_core/src/core/utils/logger.dart';
+import 'package:blueprint_flutter_core/src/modules/notifications/models/app_notification.dart';
+import 'package:blueprint_flutter_core/src/modules/notifications/models/device_registration.dart';
+import 'package:blueprint_flutter_core/src/modules/notifications/services/notification_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notification_controller.g.dart';

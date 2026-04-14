@@ -1,9 +1,9 @@
-import 'package:skyapp_flutter_core/src/core/controllers/fx_controller_mixin.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/enums/auth_status.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/models/user.dart';
-import 'package:skyapp_flutter_core/src/modules/profile/models/profile_update.dart';
-import 'package:skyapp_flutter_core/src/modules/profile/services/profile_service.dart';
+import 'package:blueprint_flutter_core/src/core/controllers/fx_controller_mixin.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_status.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/user.dart';
+import 'package:blueprint_flutter_core/src/modules/profile/models/profile_update.dart';
+import 'package:blueprint_flutter_core/src/modules/profile/services/profile_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'profile_controller.g.dart';

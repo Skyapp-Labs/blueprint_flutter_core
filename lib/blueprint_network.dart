@@ -1,9 +1,9 @@
 /// HTTP client, Dio, services, Firebase client, and networking utilities.
 ///
-/// [ApiEndpoints] is exported from `skyapp_flutter_core.dart` with [AppConfig].
+/// [ApiEndpoints] is exported from `blueprint_flutter_core.dart` with [AppConfig].
 ///
 /// ```dart
-/// import 'package:skyapp_flutter_core/skyapp_network.dart';
+/// import 'package:blueprint_flutter_core/blueprint_network.dart';
 /// ```
 library;
 

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/email_auth/controllers/forgot_password_flow_controller.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/email_auth/controllers/forgot_password_flow_state.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/_enter_email_step.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/_new_password_step.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/_verify_pin_step.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/fx_forgot_password_data.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/email_auth/controllers/forgot_password_flow_controller.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/email_auth/controllers/forgot_password_flow_state.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/_enter_email_step.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/_new_password_step.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/_verify_pin_step.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/fx_forgot_password_data.dart';
 
 /// Multi-step forgot password widget.
 ///

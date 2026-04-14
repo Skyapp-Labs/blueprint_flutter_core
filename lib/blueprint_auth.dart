@@ -1,7 +1,7 @@
 /// Auth: [AuthController], email / phone flows, services, and models.
 ///
 /// ```dart
-/// import 'package:skyapp_flutter_core/skyapp_auth.dart';
+/// import 'package:blueprint_flutter_core/blueprint_auth.dart';
 /// ```
 library;
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/models/user.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/user.dart';
 
 /// Persists the refresh token and user profile to secure storage.
 ///

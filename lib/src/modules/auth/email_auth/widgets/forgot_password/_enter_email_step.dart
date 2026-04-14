@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/utils/validators.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/buttons/fx_button.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/inputs/_index.dart' show FxTextField;
-import 'package:skyapp_flutter_core/src/core/widgets/layout/fx_scrollable_form.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/fx_forgot_password_data.dart';
+import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_button.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_index.dart' show FxTextField;
+import 'package:blueprint_flutter_core/src/core/widgets/layout/fx_scrollable_form.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/fx_forgot_password_data.dart';
 
 /// Step 1: User enters their email to receive a reset PIN.
 class EnterEmailStep extends StatefulWidget {

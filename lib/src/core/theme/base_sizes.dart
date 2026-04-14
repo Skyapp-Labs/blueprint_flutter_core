@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' show ThemeExtension;
 
-import 'package:skyapp_flutter_core/src/core/utils/screen_util.dart';
+import 'package:blueprint_flutter_core/src/core/utils/screen_util.dart';
 
 /// Spacing, radius, and elevation constants.
 ///

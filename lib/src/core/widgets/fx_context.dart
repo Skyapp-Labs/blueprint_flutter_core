@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:skyapp_flutter_core/src/core/theme/base_colors.dart';
-import 'package:skyapp_flutter_core/src/core/theme/base_sizes.dart';
-import 'package:skyapp_flutter_core/src/core/theme/base_typography.dart';
-import 'package:skyapp_flutter_core/src/core/theme/theme_controller.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/overlay/_index.dart';
+import 'package:blueprint_flutter_core/src/core/theme/base_colors.dart';
+import 'package:blueprint_flutter_core/src/core/theme/base_sizes.dart';
+import 'package:blueprint_flutter_core/src/core/theme/base_typography.dart';
+import 'package:blueprint_flutter_core/src/core/theme/theme_controller.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/overlay/_index.dart';
 
 mixin FxUiToolkit {
   BuildContext? _context;

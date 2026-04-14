@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
 /// An icon button with an optional text label beneath it.
 class FxIconButton extends StatelessWidget with FxUiToolkit {

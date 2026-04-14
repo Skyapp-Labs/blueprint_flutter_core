@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:skyapp_flutter_core/src/core/network/token_manager.dart';
-import 'package:skyapp_flutter_core/src/core/network/interceptors/error_mapper.dart';
-import 'package:skyapp_flutter_core/src/core/network/interceptors/pending_request_handler.dart';
+import 'package:blueprint_flutter_core/src/core/network/token_manager.dart';
+import 'package:blueprint_flutter_core/src/core/network/interceptors/error_mapper.dart';
+import 'package:blueprint_flutter_core/src/core/network/interceptors/pending_request_handler.dart';
 
 /// Manages the token refresh lifecycle.
 ///

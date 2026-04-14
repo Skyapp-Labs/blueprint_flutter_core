@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
 class FxScrollableForm extends StatelessWidget with FxUiToolkit {
   FxScrollableForm({

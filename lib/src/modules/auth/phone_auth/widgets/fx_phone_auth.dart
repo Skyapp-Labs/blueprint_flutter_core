@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:skyapp_flutter_core/src/core/widgets/display/fx_country_flag.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/feedback/_index.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/inputs/_index.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/phone_auth/controllers/phone_auth_flow_controller.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/phone_auth/controllers/phone_auth_flow_state.dart' show FxPhoneAuthStep;
-import 'package:skyapp_flutter_core/src/modules/auth/phone_auth/models/user_details_input.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/feedback/_index.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_index.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/controllers/phone_auth_flow_controller.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/controllers/phone_auth_flow_state.dart' show FxPhoneAuthStep;
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/models/user_details_input.dart';
 
-import 'package:skyapp_flutter_core/src/modules/auth/phone_auth/widgets/_user_details_step.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/phone_auth/widgets/_otp_verification_step.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/phone_auth/widgets/_phone_entry_step.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/_user_details_step.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/_otp_verification_step.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/_phone_entry_step.dart';
 
 part 'fx_otp_input.dart';
 part 'fx_phone_auth_theme.dart';

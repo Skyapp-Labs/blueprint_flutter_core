@@ -1,8 +1,8 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:skyapp_flutter_core/src/modules/auth/core/enums/auth_method.dart';
-import 'package:skyapp_flutter_core/src/core/network/api_endpoints.dart';
-import 'package:skyapp_flutter_core/src/core/config/app_environment.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
+import 'package:blueprint_flutter_core/src/core/network/api_endpoints.dart';
+import 'package:blueprint_flutter_core/src/core/config/app_environment.dart';
 
 part 'app_config.g.dart';
 

@@ -1,5 +1,5 @@
-import 'package:skyapp_flutter_core/src/core/network/app_service.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/models/auth_tokens.dart';
+import 'package:blueprint_flutter_core/src/core/network/app_service.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/auth_tokens.dart';
 
 /// Handles all OTP-specific API calls for the phone auth flow.
 class EmailAuthService extends AppService {

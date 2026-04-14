@@ -1,4 +1,4 @@
-name: skyapp_flutter_core
+name: blueprint_flutter_core
 description: Flutter core package with UI kit, theming, and feature modules for building scalable apps.
 version: 0.0.1
 publish_to: "none"

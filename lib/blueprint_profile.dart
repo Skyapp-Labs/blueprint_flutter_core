@@ -1,7 +1,7 @@
 /// Profile: controller, service, models, and avatar widget.
 ///
 /// ```dart
-/// import 'package:skyapp_flutter_core/skyapp_profile.dart';
+/// import 'package:blueprint_flutter_core/blueprint_profile.dart';
 /// ```
 library;
 

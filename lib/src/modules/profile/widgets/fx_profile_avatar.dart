@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/display/fx_avatar.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/models/user.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/display/fx_avatar.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/user.dart';
 
 /// Avatar widget that displays the current user's photo or initials,
 /// with an optional upload tap handler.

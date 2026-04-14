@@ -1,7 +1,7 @@
-import 'package:skyapp_flutter_core/src/core/network/app_service.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/models/auth_tokens.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/models/session.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/models/user.dart';
+import 'package:blueprint_flutter_core/src/core/network/app_service.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/auth_tokens.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/session.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/user.dart';
 
 /// Handles all shared /auth/* and /users/* API calls.
 class AuthService extends AppService {

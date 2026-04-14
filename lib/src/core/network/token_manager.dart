@@ -1,4 +1,4 @@
-import 'package:skyapp_flutter_core/src/core/utils/jwt_helper.dart';
+import 'package:blueprint_flutter_core/src/core/utils/jwt_helper.dart';
 
 /// Holds the access token in memory only — never persisted to disk.
 ///

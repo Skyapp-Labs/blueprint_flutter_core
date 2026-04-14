@@ -27,7 +27,7 @@ abstract final class FxCountries {
   static Future<void> load() async {
     if (_cache.isNotEmpty) return;
     final json = await rootBundle.loadString(
-      'packages/skyapp_flutter_core/assets/data/countries.json',
+      'packages/blueprint_flutter_core/assets/data/countries.json',
     );
     final list = jsonDecode(json) as List<dynamic>;
     _cache = list.map((e) => FxCountry.fromJson(e as Map<String, dynamic>)).toList();

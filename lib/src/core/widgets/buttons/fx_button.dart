@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
 enum FxButtonVariant { primary, secondary, outline, text, danger }
 

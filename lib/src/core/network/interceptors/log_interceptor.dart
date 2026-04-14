@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:skyapp_flutter_core/src/core/errors/api_error_response.dart';
-import 'package:skyapp_flutter_core/src/core/utils/logger.dart';
+import 'package:blueprint_flutter_core/src/core/errors/api_error_response.dart';
+import 'package:blueprint_flutter_core/src/core/utils/logger.dart';
 
 /// Logs all requests and responses in development/staging.
 /// Silenced automatically in production via [FxLogger].

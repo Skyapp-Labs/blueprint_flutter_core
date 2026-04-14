@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/utils/formatters/text_formatter.dart';
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/utils/formatters/text_formatter.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
 /// Displays a user avatar with image URL, initials fallback, and sizes.
 class FxAvatar extends StatelessWidget with FxUiToolkit {

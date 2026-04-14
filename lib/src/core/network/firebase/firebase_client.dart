@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
-import 'package:skyapp_flutter_core/src/core/config/firebase_config.dart';
-import 'package:skyapp_flutter_core/src/core/utils/logger.dart';
+import 'package:blueprint_flutter_core/src/core/config/firebase_config.dart';
+import 'package:blueprint_flutter_core/src/core/utils/logger.dart';
 
 /// Initialises Firebase using the platform-appropriate [FirebaseOptions].
 class FirebaseClient {

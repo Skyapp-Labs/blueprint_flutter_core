@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:skyapp_flutter_core/src/modules/auth/core/enums/auth_status.dart';
-import 'package:skyapp_flutter_core/src/modules/auth/core/models/user.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_status.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/user.dart';
 
 part 'auth_state.freezed.dart';
 

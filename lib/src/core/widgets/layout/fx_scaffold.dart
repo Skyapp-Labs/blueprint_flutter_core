@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:skyapp_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
 /// A scaffold that wires the blueprint theme and handles safe area consistently.
 class FxScaffold extends StatelessWidget with FxUiToolkit {
