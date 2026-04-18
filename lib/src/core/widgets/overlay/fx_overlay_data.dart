@@ -1,4 +1,4 @@
-part of '_index.dart';
+part of '_overlay.dart';
 
 class FxOverlayData<T> {
   /// Title displayed at the top of the overlay.

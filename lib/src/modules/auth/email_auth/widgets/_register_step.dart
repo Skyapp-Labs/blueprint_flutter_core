@@ -6,7 +6,7 @@ import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_button.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/_index.dart' show FxTextField;
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart' show FxTextField;
 import 'package:blueprint_flutter_core/src/core/widgets/layout/fx_scrollable_form.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/email_auth/models/register_request.dart';

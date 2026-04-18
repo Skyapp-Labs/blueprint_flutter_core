@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_button.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/_index.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/fx_phone_auth.dart';
 
 class DetailsStep extends StatefulWidget {

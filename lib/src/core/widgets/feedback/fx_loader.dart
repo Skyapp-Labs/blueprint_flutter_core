@@ -1,4 +1,4 @@
-part of '_index.dart';
+import 'package:flutter/material.dart';
 
 /// Full-screen and inline loading indicators.
 class FxLoader extends StatelessWidget {

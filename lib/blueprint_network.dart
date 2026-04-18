@@ -7,8 +7,6 @@
 /// ```
 library;
 
-export 'src/core/config/firebase_config.dart';
-export 'src/core/data/fx_countries.dart';
 export 'src/core/network/api_client.dart';
 export 'src/core/network/app_service.dart';
 export 'src/core/network/firebase/firebase_client.dart';

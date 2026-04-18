@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/feedback/_index.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/feedback/_feedback.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/_index.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/controllers/phone_auth_flow_controller.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/controllers/phone_auth_flow_state.dart' show FxPhoneAuthStep;

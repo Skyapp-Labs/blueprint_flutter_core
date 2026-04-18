@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_button.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/_index.dart' show FxTextField;
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart' show FxTextField;
 import 'package:blueprint_flutter_core/src/core/widgets/layout/fx_scrollable_form.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/fx_forgot_password_data.dart';
 

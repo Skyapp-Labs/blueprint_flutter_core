@@ -1,4 +1,12 @@
-part of '_index.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
+import 'package:blueprint_flutter_core/src/core/data/fx_countries.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_select_field.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
 
 /// Phone number input with country dial code prefix.
 ///

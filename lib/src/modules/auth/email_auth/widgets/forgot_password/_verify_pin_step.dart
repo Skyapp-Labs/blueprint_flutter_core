@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/feedback/_index.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/feedback/_feedback.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/_index.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/email_auth/widgets/forgot_password/fx_forgot_password_data.dart';
 
 /// Step 2: User enters the PIN sent to their email.

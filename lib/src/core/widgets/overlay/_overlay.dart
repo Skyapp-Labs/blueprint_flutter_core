@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/_index.dart' show FxSearchField;
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart' show FxSearchField;
 
 
 part 'fx_bottom_sheet.dart';

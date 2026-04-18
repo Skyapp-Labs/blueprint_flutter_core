@@ -1,4 +1,4 @@
-part of '_index.dart';
+part of '_overlay.dart';
 
 class FxOverlayContainer<T> extends StatelessWidget with FxUiToolkit {
 

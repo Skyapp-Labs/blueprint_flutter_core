@@ -1,4 +1,4 @@
-part of '_index.dart';
+import 'package:flutter/material.dart';
 
 /// Manages focus, text editing controllers, loading state, and submission
 /// logic for [FxPinInput]. Owned and disposed by [FxPinInputState].

@@ -1,4 +1,7 @@
-part of '_index.dart';
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
 /// A search field with debounced [onChanged] and a clear button.
 class FxSearchField extends StatefulWidget {

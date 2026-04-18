@@ -6,7 +6,7 @@ import 'package:blueprint_flutter_core/src/core/theme/base_colors.dart';
 import 'package:blueprint_flutter_core/src/core/theme/base_sizes.dart';
 import 'package:blueprint_flutter_core/src/core/theme/base_typography.dart';
 import 'package:blueprint_flutter_core/src/core/theme/theme_controller.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/overlay/_index.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart';
 
 mixin FxUiToolkit {
   BuildContext? _context;

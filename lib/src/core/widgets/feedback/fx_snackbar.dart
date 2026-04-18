@@ -1,4 +1,4 @@
-part of '_index.dart';
+import 'package:flutter/material.dart';
 
 enum FxSnackbarType { success, error, info, warning }
 

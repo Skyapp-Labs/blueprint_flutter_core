@@ -1,4 +1,5 @@
-part of '_index.dart';
+import 'package:flutter/material.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
 /// A styled text input field with label, hint, error, prefix, suffix,
 /// and password visibility toggle support.

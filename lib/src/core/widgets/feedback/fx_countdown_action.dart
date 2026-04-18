@@ -1,4 +1,9 @@
-part of '_index.dart';
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
 /// A tappable action widget with a countdown timer.
 ///

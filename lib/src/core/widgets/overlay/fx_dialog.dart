@@ -1,4 +1,4 @@
-part of '_index.dart';
+part of '_overlay.dart';
 
 enum FxDialogStyle {
   /// Standard centered modal — for confirmations, alerts, short forms

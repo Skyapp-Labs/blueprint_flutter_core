@@ -24,15 +24,13 @@ Import the entry library you need instead of deep `lib/src/...` paths:
 
 | Library | Contents |
 |--------|----------|
-| `blueprint_flutter_core.dart` | `AppConfig`, `BlueprintFlutterCore`, environment, `ApiEndpoints` |
-| `blueprint_foundation.dart` | Errors, pagination models, JWT, logger, `FxControllerMixin` |
+| `blueprint_flutter_core.dart` | `AppConfig`, `BlueprintFlutterCore`, environment, `ApiEndpoints`, errors, pagination models, JWT, logger, `FxControllerMixin` |
 | `blueprint_theme.dart` | Fx theme tokens, `ThemeController` |
 | `blueprint_widgets.dart` | Fx widgets, `ScreenUtil`, validators, formatters |
 | `blueprint_network.dart` | `ApiClient`, services, Firebase client, interceptors |
 | `blueprint_auth.dart` | Auth flows, controllers, email/phone widgets |
 | `blueprint_notifications.dart` | Notifications |
 | `blueprint_profile.dart` | Profile |
-| `blueprint_all.dart` | Re-exports all of the above (prefer granular imports in large apps) |
 
 TODO: List prerequisites and provide or point to information on how to
 start using the package.
