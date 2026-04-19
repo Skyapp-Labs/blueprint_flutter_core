@@ -24,10 +24,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  blueprint_flutter_core:
-    git:
-      url: https://github.com/Skyapp-Labs/blueprint_flutter_core.git
-      ref: main
+  blueprint_flutter_core: ^0.0.2
 ```
 
 Then run:
