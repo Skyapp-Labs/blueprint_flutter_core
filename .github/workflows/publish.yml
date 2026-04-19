@@ -3,15 +3,14 @@ name: Publish to pub.dev
 on:
   push:
     tags:
-      - "v*.*.*"   # trigger on version tags
+      - "v*.*.*"
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
@@ -21,7 +20,10 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Setup pub credentials
+        run: |
+          mkdir -p ~/.config/dart
+          echo '${{ secrets.PUB_CREDENTIALS }}' > ~/.config/dart/pub-credentials.json
+
       - name: Publish package
         run: dart pub publish --force
-        env:
-          PUB_CREDENTIALS: ${{ secrets.PUB_CREDENTIALS }}
