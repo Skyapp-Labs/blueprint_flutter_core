@@ -67,7 +67,7 @@ class FxDialog<T> extends StatefulWidget {
       )),
       child: child,
     ),
-    pageBuilder: (context, _, __) => FxDialog._(
+    pageBuilder: (context, _, _) => FxDialog._(
       data: data,
       style: FxDialogStyle.fullPage,
     ),

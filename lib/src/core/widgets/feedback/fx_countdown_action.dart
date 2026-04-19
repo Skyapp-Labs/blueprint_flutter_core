@@ -135,7 +135,7 @@ class FxCountdownActionState extends State<FxCountdownAction> with FxUiToolkit {
     return FxText(
       _displayText,
       style: _resolvedTextStyle,
-      onTap: (_, __) async {
+      onTap: (_, _) async {
         if (_isDisabled) return;
         await widget.onPressed();
         _startCountdown();

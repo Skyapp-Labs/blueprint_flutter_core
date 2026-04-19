@@ -59,7 +59,7 @@ class RegisterConfig {
     this.confirmPasswordPrefix,
     this.subtitle = 'Enter your details to create an account',
     this.buttonLabel = 'Create account',
-    this.alreadyHaveAccountLabel = "Already have an account?",
+    this.alreadyHaveAccountLabel = 'Already have an account?',
     this.loginLabel = 'Login',
   });
 

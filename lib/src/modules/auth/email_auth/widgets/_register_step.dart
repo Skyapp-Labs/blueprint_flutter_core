@@ -96,7 +96,7 @@ class _RegisterStepState extends ConsumerState<RegisterStep> with FxUiToolkit {
         '${stepTheme.alreadyHaveAccountLabel} [${stepTheme.loginLabel}]',
         textAlign: TextAlign.center,
         padding: EdgeInsets.symmetric(vertical: sizes.md),
-        onTap: (_, __) => widget.onLogin(),
+        onTap: (_, _) => widget.onLogin(),
       ),
       children: [
         _buildHeader(),

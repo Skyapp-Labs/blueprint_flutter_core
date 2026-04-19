@@ -24,7 +24,7 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  blueprint_flutter_core: ^0.0.2
+  blueprint_flutter_core: ^latest  # see badge above for current version
 ```
 
 Then run:

@@ -67,7 +67,7 @@ class _LoginStepState extends ConsumerState<LoginStep> with FxUiToolkit {
         '${stepTheme.noAccountLabel} [${stepTheme.signUpLabel}]',
         textAlign: TextAlign.center,
         padding: EdgeInsets.symmetric(vertical: sizes.md),
-        onTap: (_, __) => widget.onSignUp(),
+        onTap: (_, _) => widget.onSignUp(),
       ),
       children: [
         _buildHeader(),
@@ -131,7 +131,7 @@ class _LoginStepState extends ConsumerState<LoginStep> with FxUiToolkit {
           '[${stepTheme.forgotPasswordLabel}]',
           textAlign: TextAlign.right,
           padding: EdgeInsets.symmetric(vertical: sizes.md),
-          onTap: (_, __) => widget.onForgotPassword(),
+          onTap: (_, _) => widget.onForgotPassword(),
         )
       ),
       FxButton(
