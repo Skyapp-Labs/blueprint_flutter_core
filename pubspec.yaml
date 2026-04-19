@@ -1,7 +1,8 @@
 name: blueprint_flutter_core
-description: Flutter core package with UI kit, theming, and feature modules for building scalable apps.
+description: A modular Flutter core package providing UI components, theming, and feature modules for scalable apps.
 version: 0.0.1
 publish_to: "none"
+homepage: https://github.com/Skyapp-Labs/blueprint_flutter_core
 
 environment:
   sdk: ^3.10.4

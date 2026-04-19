@@ -1,0 +1,26 @@
+name: blueprint_flutter_core_example
+description: Example app demonstrating blueprint_flutter_core features.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.4
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  blueprint_flutter_core:
+    path: ../
+
+  flutter_riverpod: ^3.1.0
+  go_router: ^17.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
