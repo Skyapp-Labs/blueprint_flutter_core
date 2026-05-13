@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.0.6
+## 1.0.0
 
-- Update on README
-- Fixed lint errors
+- Update library prefix
+- Simplify notification hook
