@@ -1,9 +1,12 @@
 import 'package:blueprint_flutter_core/src/core/controllers/fx_controller_mixin.dart';
 import 'package:blueprint_flutter_core/src/core/network/firebase/firebase_client.dart';
+import 'package:blueprint_flutter_core/src/core/network/firebase/fx_messaging.dart';
 import 'package:blueprint_flutter_core/src/core/utils/logger.dart';
 import 'package:blueprint_flutter_core/src/modules/notifications/models/app_notification.dart';
 import 'package:blueprint_flutter_core/src/modules/notifications/models/device_registration.dart';
 import 'package:blueprint_flutter_core/src/modules/notifications/services/notification_service.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notification_controller.g.dart';
@@ -78,23 +81,47 @@ class NotificationController extends _$NotificationController
     } catch (_) {}
   }
 
-  Future<void> registerDevice(DeviceRegistration device) async {
+  bool get canRegisterDevice {
     if (!config.enableNotifications) {
-      FxLogger.d(
-        '[NotificationController] Skipping device registration — enableNotifications is false.',
-      );
-      return;
+      FxLogger.d('Skipping device registration — enableNotifications is false.');
+      return false;
     }
 
     if (!FirebaseClient.isInitialized) {
-      FxLogger.w(
-        '[NotificationController] Skipping device registration — Firebase is not initialized.',
-      );
-      return;
+      FxLogger.w('Skipping device registration — Firebase is not initialized.');
+      return false;
     }
 
-    try {
-      await _service.registerDevice(device);
-    } catch (_) {}
+    return true;
+  }
+
+  Future<void> requestNotificationPermission() async {
+    if (!canRegisterDevice) return;
+    final token = await FxMessaging.requestPermissionAndGetToken();
+    if (token == null) return;
+    final device = await _getDeviceName(token);
+    await _service.registerDevice(device);
+  }
+
+  Future<void> registerDevice(String token) async {
+    if (!canRegisterDevice) return;
+    final device = await _getDeviceName(token);
+    await _service.registerDevice(device);
+  }
+
+  Future<DeviceRegistration> _getDeviceName(String token) async {
+    final deviceType = switch (defaultTargetPlatform) {
+      TargetPlatform.iOS => DeviceType.ios,
+      TargetPlatform.android => DeviceType.android,
+      _ => DeviceType.web,
+    };
+
+    final deviceName = await DeviceInfoPlugin().deviceInfo.then((info) => info.data);
+
+    return DeviceRegistration(
+      fcmToken: token,
+      deviceType: deviceType,
+      deviceName: '${deviceName['name']}: ${deviceName['model']}',
+    );
   }
 }

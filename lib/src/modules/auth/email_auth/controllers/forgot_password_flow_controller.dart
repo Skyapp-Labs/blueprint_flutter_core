@@ -40,9 +40,6 @@ class ForgotPasswordFlowController extends _$ForgotPasswordFlowController {
   Future<void> verifyPin(String pin) async {
     state = state.copyWith(isLoading: true, error: null);
     try {
-      // Exchange the PIN for a reset token via the auth service.
-      // The token is used in step 3 to authorise the password update.
-      // TODO: wire to actual API endpoint when available (e.g. POST /auth/verify-reset-pin).
       state = state.copyWith(
         isLoading: false,
         resetToken: pin, // Replace with actual token from API response.

@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:dio/dio.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
-import 'package:blueprint_flutter_core/src/core/config/app_config.dart';
+import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 import 'package:blueprint_flutter_core/src/core/network/service_context.dart';
 
 part 'network_providers.g.dart';
@@ -16,5 +16,5 @@ Dio dio(Ref ref) {
 @Riverpod(keepAlive: true)
 ServiceContext serviceContext(Ref ref) => ServiceContext(
   dio: ref.watch(dioProvider),
-  endpoints: ref.watch(appConfigProvider).endpoints,
+  endpoints: ref.watch(fxConfigProvider).endpoints,
 );

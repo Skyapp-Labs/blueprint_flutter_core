@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'theme_controller.g.dart';
+part 'fx_theme_controller.g.dart';
 
 @riverpod
-class ThemeController extends _$ThemeController {
+class FxThemeController extends _$FxThemeController {
   static const _key = 'theme_mode';
 
   late final FlutterSecureStorage _storage;

@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,11 +8,13 @@ import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_select_field.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Phone number input with country dial code prefix.
 ///
 /// Outputs a full E.164 formatted number (e.g. +2348012345678) via [onChanged].
-class FxPhoneInput extends StatefulWidget {
+/// 
+class FxPhoneInput extends ConsumerStatefulWidget {
   const FxPhoneInput({
     super.key,
     this.onChanged,
@@ -40,10 +43,11 @@ class FxPhoneInput extends StatefulWidget {
   final void Function(FxCountry country, String phone)? onChanged;
 
   @override
-  State<FxPhoneInput> createState() => _FxPhoneInputState();
+  ConsumerState<FxPhoneInput> createState() => _FxPhoneInputState();
 }
 
-class _FxPhoneInputState extends State<FxPhoneInput> with FxUiToolkit {
+class _FxPhoneInputState extends ConsumerState<FxPhoneInput> with FxUiToolkit {
+
   late FxCountry _selectedCountry;
   late final TextEditingController _controller;
 
@@ -138,11 +142,25 @@ class _FxPhoneInputState extends State<FxPhoneInput> with FxUiToolkit {
   }
 
   Future<FxCountry?> _showDialCodePickerOverlay() async {
+    final favoriteCountries = ref.read(fxConfigProvider)
+      .favoriteCountries
+      .where((code) => FxCountries.byCode(code) != null)
+      .map((code) => FxCountries.byCode(code)!)
+      .toList();
+
     final data = FxOverlayData<FxCountry>(
       title: 'Select country',
       list: FxOverlayListData(
         items: FxCountries.all,
-        onSearch: (search, items) => items.where((item) => item.name.toLowerCase().contains(search?.toLowerCase() ?? '')).toList(),
+        favoriteItems: favoriteCountries,
+        onSearch: (search, items) => items.where((item) {
+          final name = item.name.toLowerCase();
+          final dialCode = item.dialCode.toLowerCase();
+          final code = item.code.toLowerCase();
+          final searchText = search?.toLowerCase() ?? '';
+
+          return name.contains(searchText) || dialCode.contains(searchText) || code.contains(searchText);
+        }).toList(),
         selectedItem: _selectedCountry,
         titleTextBuilder: (item) => item.name,
         subtitleTextBuilder: (item) => item.dialCode,

@@ -1,6 +1,9 @@
+import 'package:blueprint_flutter_core/blueprint_network.dart';
+import 'package:blueprint_flutter_core/blueprint_notifications.dart';
+import 'package:blueprint_flutter_core/src/core/network/firebase/fx_messaging.dart';
 import 'package:dio/dio.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/email_auth/models/register_request.dart';
-import 'package:blueprint_flutter_core/src/core/config/app_config.dart';
+import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 import 'package:blueprint_flutter_core/src/core/errors/network_exception.dart';
 import 'package:blueprint_flutter_core/src/core/errors/unauthorized_exception.dart';
 import 'package:blueprint_flutter_core/src/core/network/api_client.dart';
@@ -45,7 +48,7 @@ class AuthController extends _$AuthController
     with _PhoneAuthMixin, _EmailAuthMixin, _PasswordMixin, _SessionMixin {
 
   @override
-  late final AppConfig _config;
+  late final FxConfig _config;
 
   late final TokenManager _tokenManager;
   late final AuthStorage _authStorage;
@@ -67,7 +70,7 @@ class AuthController extends _$AuthController
 
   @override
   AuthState build() {
-    _config = ref.read(appConfigProvider);
+    _config = ref.read(fxConfigProvider);
     _tokenManager = TokenManager();
     _authStorage = AuthStorage();
     _dio = ApiClient.create(
@@ -81,6 +84,7 @@ class AuthController extends _$AuthController
     _emailAuthService = EmailAuthService(serviceContext);
 
     _tryRestoreSession();
+    _listenToNotifications();
     return const AuthState();
   }
 
@@ -107,6 +111,18 @@ class AuthController extends _$AuthController
     );
   }
 
+  /// Listens to notifications and registers the device if the user is authenticated.
+  void _listenToNotifications() {
+    if (_config.enableNotifications && FirebaseClient.isInitialized) {
+      final sub = FxMessaging.onTokenRefresh.listen((newToken) {
+        if (state.status == AuthStatus.authenticated) {
+          ref.read(notificationControllerProvider.notifier).registerDevice(newToken);
+        }
+      });
+      ref.onDispose(sub.cancel);
+    }
+  }
+
   // ─── Token Refresh (called by error interceptor) ─────────────────────────
 
   Future<bool> _handleTokenRefresh() async {
@@ -128,7 +144,6 @@ class AuthController extends _$AuthController
   @override
   Future<void> _applyTokens(AuthTokens tokens) async {
     _tokenManager.setToken(tokens.accessToken);
-    await _authStorage.saveRefreshToken(tokens.refreshToken);
 
     final permissions = JwtHelper.permissions(tokens.accessToken);
     final userId = JwtHelper.userId(tokens.accessToken);

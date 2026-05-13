@@ -16,18 +16,20 @@ class FxOverlayListView<T> extends StatefulWidget {
 
 class _FxOverlayListViewState<T> extends State<FxOverlayListView<T>> with FxUiToolkit {
 
-	List<T>? _items;
+	List<T>? _streamItems;
 	List<T>? _searchResults;
 	StreamSubscription<List<T>>? _itemsSubscription;
 
-	List<T> get items => _searchResults ?? mainItems;
-	List<T> get mainItems => _items ?? widget.data.items ?? [];
+	List<T> get items => _searchResults ?? filteredItems;
+	List<T> get allItems => _streamItems ?? widget.data.items ?? [];
+  List<T> get favoriteItems => widget.data.favoriteItems ?? [];
+  List<T> get filteredItems => allItems.where((item) => !favoriteItems.contains(item)).toList();
 
 	@override
 	void initState() {
 		super.initState();
 		_itemsSubscription = widget.data.itemsAsStream?.listen((items) => setState(() {
-      _items = items;
+      _streamItems = items;
       _searchResults = null; // clear stale search results when source data updates
     }));
 	}
@@ -47,20 +49,29 @@ class _FxOverlayListViewState<T> extends State<FxOverlayListView<T>> with FxUiTo
 			children: [
 				if(widget.data.onSearch != null) searchInput(),
 				Expanded(
-          child: ListView.builder(
-            controller: widget.scrollController,
-            shrinkWrap: false,
-            padding: EdgeInsets.zero,
-            itemCount: items.length,
-            itemBuilder: (context, index) => _buildItem(
-              context,
-              items[index]
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                if(favoriteItems.isNotEmpty && _searchResults == null) ...[
+                  _buildItems(favoriteItems),
+                  FxDottedDivider(),
+                ],
+
+                _buildItems(items)
+              ]
             )
 					)
 				)
 			]
 		);
 	}
+
+	Widget _buildItems(List<T> itemList) => Column(
+    children: List.generate(
+      itemList.length, 
+      (index) => _buildItem(context, itemList[index])
+    )
+	);
 
 	Widget searchInput() => Padding(
 		padding: EdgeInsets.only(
@@ -71,7 +82,7 @@ class _FxOverlayListViewState<T> extends State<FxOverlayListView<T>> with FxUiTo
 		child: FxSearchField(
 			hint: widget.data.searchHint ?? 'Search...',
 			onChanged: (query) {
-				final results = widget.data.onSearch!(query, mainItems);
+				final results = widget.data.onSearch!(query, allItems);
 				setState(() => _searchResults = results);
 			}
 		)

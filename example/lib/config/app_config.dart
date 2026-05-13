@@ -1,17 +1,18 @@
 import 'package:blueprint_flutter_core/blueprint_flutter_core.dart';
 import 'package:blueprint_flutter_core/blueprint_auth.dart';
+import 'package:blueprint_flutter_core_example/config/api_endpoints.dart';
 
 /// Concrete app configuration for the example.
 ///
 /// In a real app, you might have multiple configs for dev/staging/prod.
-class ExampleAppConfig extends AppConfig {
-  ExampleAppConfig();
+class AppConfig extends FxConfig {
+  AppConfig();
 
   @override
   String get appName => 'Blueprint Example';
 
   @override
-  AppEnvironment get environment => AppEnvironment.development;
+  Environment get environment => Environment.development;
 
   @override
   String get apiBaseUrl => 'https://api.example.com';
@@ -33,4 +34,7 @@ class ExampleAppConfig extends AppConfig {
 
   @override
   List<String> get favoriteCountries => ['US', 'GB', 'CA', 'NG', 'IN'];
+
+  @override
+  FxApiEndpoints get endpoints => const ApiEndpoints();
 }

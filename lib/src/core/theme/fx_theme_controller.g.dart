@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'theme_controller.dart';
+part of 'fx_theme_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,28 +9,28 @@ part of 'theme_controller.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(ThemeController)
-final themeControllerProvider = ThemeControllerProvider._();
+@ProviderFor(FxThemeController)
+final fxThemeControllerProvider = FxThemeControllerProvider._();
 
-final class ThemeControllerProvider
-    extends $NotifierProvider<ThemeController, ThemeMode> {
-  ThemeControllerProvider._()
+final class FxThemeControllerProvider
+    extends $NotifierProvider<FxThemeController, ThemeMode> {
+  FxThemeControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'themeControllerProvider',
+        name: r'fxThemeControllerProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$themeControllerHash();
+  String debugGetCreateSourceHash() => _$fxThemeControllerHash();
 
   @$internal
   @override
-  ThemeController create() => ThemeController();
+  FxThemeController create() => FxThemeController();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(ThemeMode value) {
@@ -41,9 +41,9 @@ final class ThemeControllerProvider
   }
 }
 
-String _$themeControllerHash() => r'375c1b7951ae272ca0e06e610bf8c8b8d472538a';
+String _$fxThemeControllerHash() => r'3e5e660aebcd026896bb36a94e75ef903b1802f3';
 
-abstract class _$ThemeController extends $Notifier<ThemeMode> {
+abstract class _$FxThemeController extends $Notifier<ThemeMode> {
   ThemeMode build();
   @$mustCallSuper
   @override

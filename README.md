@@ -7,7 +7,7 @@ A modular Flutter core package that provides a complete foundation for scalable 
 ## Features
 
 | Module | What it gives you |
-|--------|------------------|
+| ------ | ----------------- |
 | **Core** | App configuration contract, root `BlueprintFlutterCore` widget, `ProviderScope` wiring, environment helpers, paginated models, JWT utilities, structured logging |
 | **Theme** | Abstract `FxTheme` / `FxColors` / `FxSizes` / `FxTypography` contracts, Material 3 `ThemeData` builder, persistent `ThemeController` (light / dark / system) |
 | **Widgets** | 30+ `Fx`-prefixed widgets: buttons, text fields, phone/PIN input, select & search fields, avatars, list tiles, bottom sheets, dialogs, snackbars, loaders, empty states, rich `FxText` with tappable spans |
@@ -142,7 +142,7 @@ class MyApp extends ConsumerWidget {
 Always import via the library barrels — never use deep `src/` paths:
 
 | Library | Use for |
-|---------|---------|
+| ------- | ------- |
 | `package:blueprint_flutter_core/blueprint_flutter_core.dart` | Config, environment, errors, pagination models, JWT, logger, `BlueprintFlutterCore` |
 | `package:blueprint_flutter_core/blueprint_theme.dart` | Theme tokens, `ThemeController` |
 | `package:blueprint_flutter_core/blueprint_widgets.dart` | Fx widgets, `ScreenUtil`, validators, formatters |
@@ -627,9 +627,9 @@ flutter run
 
 ## Architecture
 
-```
+```text
 lib/
-├── blueprint_flutter_core.dart   # Core: config, errors, models, JWT, logger
+├── blueprint_flutter_core.dart
 ├── blueprint_theme.dart          # Theme tokens + ThemeController
 ├── blueprint_widgets.dart        # All Fx* widgets, ScreenUtil, validators, formatters
 ├── blueprint_network.dart        # Dio client, interceptors, AppService

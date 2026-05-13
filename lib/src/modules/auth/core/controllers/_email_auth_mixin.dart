@@ -2,7 +2,7 @@ part of 'auth_controller.dart';
 
 mixin _EmailAuthMixin on _$AuthController {
   // Abstract declarations — provided by AuthController
-  AppConfig get _config;
+  FxConfig get _config;
   EmailAuthService get _emailAuthService;
   AuthService get _authService;
 

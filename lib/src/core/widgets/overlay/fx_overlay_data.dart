@@ -24,6 +24,8 @@ class FxOverlayData<T> {
 class FxOverlayListData<T> {
   /// List of items to display
   final List<T>? items;
+  /// List of favorite items to display
+  final List<T>? favoriteItems;
   /// Stream of items to display
   final Stream<List<T>>? itemsAsStream;
   /// Selected item
@@ -53,6 +55,7 @@ class FxOverlayListData<T> {
   const FxOverlayListData({
     this.searchHint = 'Search...',
     this.items,
+    this.favoriteItems,
     this.itemsAsStream,
     this.selectedItem,
     this.itemBuilder,

@@ -9,5 +9,5 @@ abstract class AppService {
       endpoints = ctx.endpoints;
 
   final Dio dio;
-  final ApiEndpoints endpoints;
+  final FxApiEndpoints endpoints;
 }

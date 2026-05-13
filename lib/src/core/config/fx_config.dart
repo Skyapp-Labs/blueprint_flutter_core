@@ -2,21 +2,21 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
 import 'package:blueprint_flutter_core/src/core/network/api_endpoints.dart';
-import 'package:blueprint_flutter_core/src/core/config/app_environment.dart';
+import 'package:blueprint_flutter_core/src/core/config/fx_environment.dart';
 
-part 'app_config.g.dart';
+part 'fx_config.g.dart';
 
 /// Blueprint contract for app-level configuration.
 ///
 /// Implement this in [app/config/app_config.dart] and never edit this file.
 /// Every field here is read by the foundation layer — changes to your
 /// implementation are picked up automatically.
-abstract class AppConfig {
+abstract class FxConfig {
   /// Human-readable app name shown in the UI.
   String get appName;
 
   /// The current deployment environment.
-  AppEnvironment get environment => AppEnvironment.current;
+  Environment get environment => Environment.current;
 
   /// Whether the app is running in the staging environment.
 	bool get isStaging => environment.isStaging;
@@ -37,7 +37,7 @@ abstract class AppConfig {
 
   /// API endpoint paths. Override in app config to add
   /// app-specific endpoints or change defaults.
-  ApiEndpoints get endpoints => const ApiEndpoints();
+  FxApiEndpoints get endpoints => const FxApiEndpoints();
 
   /// Controls which auth flow is active across the entire app.
   /// Set to [AuthMethod.phone] or [AuthMethod.email].
@@ -59,13 +59,13 @@ abstract class AppConfig {
   String get initialCountryCode => 'NG';
 
   /// Favorite countries for phone input picker
-  List<String> get favoriteCountries => ['NG', 'US', 'CA', 'GB', 'Uk', 'IN'];
+  List<String> get favoriteCountries => ['NG', 'US', 'GB', 'Uk', 'CA', 'IN'];
 }
 
-/// Override in main.dart with your [AppConfig] implementation.
+/// Override in main.dart with your [FxConfig] implementation.
 @Riverpod(keepAlive: true)
-AppConfig appConfig(Ref ref) {
+FxConfig fxConfig(Ref ref) {
   throw UnimplementedError(
-    'appConfigProvider must be overridden in main.dart.',
+    'fxConfigProvider must be overridden in main.dart.',
   );
 }

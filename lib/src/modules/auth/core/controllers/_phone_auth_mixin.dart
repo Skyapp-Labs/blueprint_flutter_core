@@ -2,7 +2,7 @@ part of 'auth_controller.dart';
 
 mixin _PhoneAuthMixin on _$AuthController {
   // Abstract declarations — provided by AuthController
-  AppConfig get _config;
+  FxConfig get _config;
   AuthService get _authService;
   PhoneAuthService get _phoneAuthService;
   Future<void> _applyTokens(AuthTokens tokens);

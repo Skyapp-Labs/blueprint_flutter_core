@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:blueprint_flutter_core/src/core/theme/base_colors.dart';
 import 'package:blueprint_flutter_core/src/core/theme/base_sizes.dart';
 import 'package:blueprint_flutter_core/src/core/theme/base_typography.dart';
-import 'package:blueprint_flutter_core/src/core/theme/theme_controller.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_theme_controller.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart';
 
 mixin FxUiToolkit {
@@ -163,10 +163,9 @@ mixin FxUiToolkit {
   /// )
   /// ```
   void toggleTheme(WidgetRef ref) =>
-    ref.read(themeControllerProvider.notifier).toggleDark();
+    ref.read(fxThemeControllerProvider.notifier).toggleDark();
 
 
   // ── Localisation ─────────────────────────────────────────────
-  // TODO: Uncomment when localisation is configured.
   // AppLocalizations get l10n => AppLocalizations.of(_ctx)!;
 }

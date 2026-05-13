@@ -1,8 +1,8 @@
 /// Foundation-provided endpoint paths.
 /// Extend this in [app/config/] to add app-specific endpoints.
 /// Override any getter to change a default path.
-class ApiEndpoints {
-  const ApiEndpoints();
+class FxApiEndpoints {
+  const FxApiEndpoints();
 
   // Auth — OTP flow
   String get sendOtp       => '/auth/send-otp';

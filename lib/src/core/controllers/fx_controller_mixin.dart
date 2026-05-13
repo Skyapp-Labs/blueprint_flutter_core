@@ -5,7 +5,7 @@ import 'package:blueprint_flutter_core/src/core/errors/network_exception.dart';
 import 'package:blueprint_flutter_core/src/core/errors/unauthorized_exception.dart';
 import 'package:blueprint_flutter_core/src/core/network/network_providers.dart';
 import 'package:blueprint_flutter_core/src/core/network/service_context.dart';
-import 'package:blueprint_flutter_core/src/core/config/app_config.dart';
+import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 
 part 'fx_state.dart';
 
@@ -16,7 +16,7 @@ mixin FxControllerMixin {
   ServiceContext get serviceContext => ref.read(serviceContextProvider);
 
   /// Shorthand for the app config.
-  AppConfig get config => ref.read(appConfigProvider);
+  FxConfig get config => ref.read(fxConfigProvider);
 
   /// Converts a caught exception into a user-facing message.
   String resolveError(Object e) {

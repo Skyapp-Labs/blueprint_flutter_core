@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:blueprint_flutter_core/src/core/widgets/display/_display.dart' show FxDottedDivider;
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';

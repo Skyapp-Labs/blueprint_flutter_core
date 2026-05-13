@@ -7,5 +7,5 @@ class ServiceContext {
   const ServiceContext({required this.dio, required this.endpoints});
 
   final Dio dio;
-  final ApiEndpoints endpoints;
+  final FxApiEndpoints endpoints;
 }
