@@ -45,29 +45,29 @@ class FxScrollableForm extends StatelessWidget with FxUiToolkit {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         header ?? const SizedBox.shrink(),
-        _buildContent(),
+        Expanded(
+          child: _buildContent()
+        ),
         footer ?? const SizedBox.shrink()
       ],
     );
   }
 
-  Widget _buildContent() => Expanded(
-    child: LayoutBuilder(
-      builder: (context, boxConstraints) => SingleChildScrollView(
-        keyboardDismissBehavior: keyboardDismissBehavior,
-        padding: padding,
-        child: ConstrainedBox(
-          constraints: (constraints ?? BoxConstraints()).copyWith(
-            minHeight: boxConstraints.maxHeight
-          ),
-          child: Column(
-            mainAxisAlignment: mainAxisAlignment,
-            crossAxisAlignment: crossAxisAlignment,
-            spacing: spacing ?? sizes.md,
-            children: children
-          )
+  Widget _buildContent() => LayoutBuilder(
+    builder: (context, boxConstraints) => SingleChildScrollView(
+      keyboardDismissBehavior: keyboardDismissBehavior,
+      padding: padding,
+      child: ConstrainedBox(
+        constraints: (constraints ?? BoxConstraints()).copyWith(
+          minHeight: boxConstraints.maxHeight
+        ),
+        child: Column(
+          mainAxisAlignment: mainAxisAlignment,
+          crossAxisAlignment: crossAxisAlignment,
+          spacing: spacing ?? sizes.md,
+          children: children
         )
-      ),
+      )
     ),
   );
 }

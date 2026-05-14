@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PhoneAuthFlowState {
 
- String? get phone; FxPhoneAuthStep get step; OtpData? get otpData; PhoneLookupResult? get lookupResult;
+ String? get phone; String? get countryCode; FxPhoneAuthStep get step; OtpData? get otpData; PhoneLookupResult? get lookupResult;
 /// Create a copy of PhoneAuthFlowState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $PhoneAuthFlowStateCopyWith<PhoneAuthFlowState> get copyWith => _$PhoneAuthFlowS
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhoneAuthFlowState&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.step, step) || other.step == step)&&(identical(other.otpData, otpData) || other.otpData == otpData)&&(identical(other.lookupResult, lookupResult) || other.lookupResult == lookupResult));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhoneAuthFlowState&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.step, step) || other.step == step)&&(identical(other.otpData, otpData) || other.otpData == otpData)&&(identical(other.lookupResult, lookupResult) || other.lookupResult == lookupResult));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,phone,step,otpData,lookupResult);
+int get hashCode => Object.hash(runtimeType,phone,countryCode,step,otpData,lookupResult);
 
 @override
 String toString() {
-  return 'PhoneAuthFlowState(phone: $phone, step: $step, otpData: $otpData, lookupResult: $lookupResult)';
+  return 'PhoneAuthFlowState(phone: $phone, countryCode: $countryCode, step: $step, otpData: $otpData, lookupResult: $lookupResult)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $PhoneAuthFlowStateCopyWith<$Res>  {
   factory $PhoneAuthFlowStateCopyWith(PhoneAuthFlowState value, $Res Function(PhoneAuthFlowState) _then) = _$PhoneAuthFlowStateCopyWithImpl;
 @useResult
 $Res call({
- String? phone, FxPhoneAuthStep step, OtpData? otpData, PhoneLookupResult? lookupResult
+ String? phone, String? countryCode, FxPhoneAuthStep step, OtpData? otpData, PhoneLookupResult? lookupResult
 });
 
 
@@ -62,9 +62,10 @@ class _$PhoneAuthFlowStateCopyWithImpl<$Res>
 
 /// Create a copy of PhoneAuthFlowState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? phone = freezed,Object? step = null,Object? otpData = freezed,Object? lookupResult = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? phone = freezed,Object? countryCode = freezed,Object? step = null,Object? otpData = freezed,Object? lookupResult = freezed,}) {
   return _then(_self.copyWith(
 phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String?,step: null == step ? _self.step : step // ignore: cast_nullable_to_non_nullable
 as FxPhoneAuthStep,otpData: freezed == otpData ? _self.otpData : otpData // ignore: cast_nullable_to_non_nullable
 as OtpData?,lookupResult: freezed == lookupResult ? _self.lookupResult : lookupResult // ignore: cast_nullable_to_non_nullable
@@ -177,10 +178,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? phone,  FxPhoneAuthStep step,  OtpData? otpData,  PhoneLookupResult? lookupResult)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? phone,  String? countryCode,  FxPhoneAuthStep step,  OtpData? otpData,  PhoneLookupResult? lookupResult)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PhoneAuthFlowState() when $default != null:
-return $default(_that.phone,_that.step,_that.otpData,_that.lookupResult);case _:
+return $default(_that.phone,_that.countryCode,_that.step,_that.otpData,_that.lookupResult);case _:
   return orElse();
 
 }
@@ -198,10 +199,10 @@ return $default(_that.phone,_that.step,_that.otpData,_that.lookupResult);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? phone,  FxPhoneAuthStep step,  OtpData? otpData,  PhoneLookupResult? lookupResult)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? phone,  String? countryCode,  FxPhoneAuthStep step,  OtpData? otpData,  PhoneLookupResult? lookupResult)  $default,) {final _that = this;
 switch (_that) {
 case _PhoneAuthFlowState():
-return $default(_that.phone,_that.step,_that.otpData,_that.lookupResult);case _:
+return $default(_that.phone,_that.countryCode,_that.step,_that.otpData,_that.lookupResult);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -218,10 +219,10 @@ return $default(_that.phone,_that.step,_that.otpData,_that.lookupResult);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? phone,  FxPhoneAuthStep step,  OtpData? otpData,  PhoneLookupResult? lookupResult)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? phone,  String? countryCode,  FxPhoneAuthStep step,  OtpData? otpData,  PhoneLookupResult? lookupResult)?  $default,) {final _that = this;
 switch (_that) {
 case _PhoneAuthFlowState() when $default != null:
-return $default(_that.phone,_that.step,_that.otpData,_that.lookupResult);case _:
+return $default(_that.phone,_that.countryCode,_that.step,_that.otpData,_that.lookupResult);case _:
   return null;
 
 }
@@ -233,10 +234,11 @@ return $default(_that.phone,_that.step,_that.otpData,_that.lookupResult);case _:
 
 
 class _PhoneAuthFlowState implements PhoneAuthFlowState {
-  const _PhoneAuthFlowState({this.phone, this.step = FxPhoneAuthStep.enterPhone, this.otpData, this.lookupResult});
+  const _PhoneAuthFlowState({this.phone, this.countryCode, this.step = FxPhoneAuthStep.enterPhone, this.otpData, this.lookupResult});
   
 
 @override final  String? phone;
+@override final  String? countryCode;
 @override@JsonKey() final  FxPhoneAuthStep step;
 @override final  OtpData? otpData;
 @override final  PhoneLookupResult? lookupResult;
@@ -251,16 +253,16 @@ _$PhoneAuthFlowStateCopyWith<_PhoneAuthFlowState> get copyWith => __$PhoneAuthFl
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhoneAuthFlowState&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.step, step) || other.step == step)&&(identical(other.otpData, otpData) || other.otpData == otpData)&&(identical(other.lookupResult, lookupResult) || other.lookupResult == lookupResult));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhoneAuthFlowState&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.step, step) || other.step == step)&&(identical(other.otpData, otpData) || other.otpData == otpData)&&(identical(other.lookupResult, lookupResult) || other.lookupResult == lookupResult));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,phone,step,otpData,lookupResult);
+int get hashCode => Object.hash(runtimeType,phone,countryCode,step,otpData,lookupResult);
 
 @override
 String toString() {
-  return 'PhoneAuthFlowState(phone: $phone, step: $step, otpData: $otpData, lookupResult: $lookupResult)';
+  return 'PhoneAuthFlowState(phone: $phone, countryCode: $countryCode, step: $step, otpData: $otpData, lookupResult: $lookupResult)';
 }
 
 
@@ -271,7 +273,7 @@ abstract mixin class _$PhoneAuthFlowStateCopyWith<$Res> implements $PhoneAuthFlo
   factory _$PhoneAuthFlowStateCopyWith(_PhoneAuthFlowState value, $Res Function(_PhoneAuthFlowState) _then) = __$PhoneAuthFlowStateCopyWithImpl;
 @override @useResult
 $Res call({
- String? phone, FxPhoneAuthStep step, OtpData? otpData, PhoneLookupResult? lookupResult
+ String? phone, String? countryCode, FxPhoneAuthStep step, OtpData? otpData, PhoneLookupResult? lookupResult
 });
 
 
@@ -288,9 +290,10 @@ class __$PhoneAuthFlowStateCopyWithImpl<$Res>
 
 /// Create a copy of PhoneAuthFlowState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? phone = freezed,Object? step = null,Object? otpData = freezed,Object? lookupResult = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? phone = freezed,Object? countryCode = freezed,Object? step = null,Object? otpData = freezed,Object? lookupResult = freezed,}) {
   return _then(_PhoneAuthFlowState(
 phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String?,step: null == step ? _self.step : step // ignore: cast_nullable_to_non_nullable
 as FxPhoneAuthStep,otpData: freezed == otpData ? _self.otpData : otpData // ignore: cast_nullable_to_non_nullable
 as OtpData?,lookupResult: freezed == lookupResult ? _self.lookupResult : lookupResult // ignore: cast_nullable_to_non_nullable

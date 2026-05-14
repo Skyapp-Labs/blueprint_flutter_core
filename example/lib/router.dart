@@ -1,6 +1,5 @@
 import 'package:blueprint_flutter_core_example/screens/splash_screen.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:blueprint_flutter_core_example/screens/auth_screen.dart';

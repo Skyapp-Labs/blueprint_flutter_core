@@ -9,17 +9,21 @@ part of 'register_request.dart';
 _PhoneRegisterRequest _$PhoneRegisterRequestFromJson(
   Map<String, dynamic> json,
 ) => _PhoneRegisterRequest(
-  phoneGrantToken: json['phoneGrantToken'] as String,
-  firstName: json['firstName'] as String,
   lastName: json['lastName'] as String,
+  firstName: json['firstName'] as String,
+  verificationToken: json['verificationToken'] as String,
   email: json['email'] as String?,
+  phone: json['phone'] as String?,
+  countryCode: json['countryCode'] as String?,
 );
 
 Map<String, dynamic> _$PhoneRegisterRequestToJson(
   _PhoneRegisterRequest instance,
 ) => <String, dynamic>{
-  'phoneGrantToken': instance.phoneGrantToken,
-  'firstName': instance.firstName,
   'lastName': instance.lastName,
+  'firstName': instance.firstName,
+  'verificationToken': instance.verificationToken,
   'email': instance.email,
+  'phone': instance.phone,
+  'countryCode': instance.countryCode,
 };

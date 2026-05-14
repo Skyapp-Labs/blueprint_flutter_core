@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OtpData {
 
- String get verificationId; int get expiresAt;
+ bool get success; String get message; OtpDataResponse get data;
 /// Create a copy of OtpData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $OtpDataCopyWith<OtpData> get copyWith => _$OtpDataCopyWithImpl<OtpData>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OtpData&&(identical(other.verificationId, verificationId) || other.verificationId == verificationId)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OtpData&&(identical(other.success, success) || other.success == success)&&(identical(other.message, message) || other.message == message)&&(identical(other.data, data) || other.data == data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,verificationId,expiresAt);
+int get hashCode => Object.hash(runtimeType,success,message,data);
 
 @override
 String toString() {
-  return 'OtpData(verificationId: $verificationId, expiresAt: $expiresAt)';
+  return 'OtpData(success: $success, message: $message, data: $data)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $OtpDataCopyWith<$Res>  {
   factory $OtpDataCopyWith(OtpData value, $Res Function(OtpData) _then) = _$OtpDataCopyWithImpl;
 @useResult
 $Res call({
- String verificationId, int expiresAt
+ bool success, String message, OtpDataResponse data
 });
 
 
@@ -65,11 +65,12 @@ class _$OtpDataCopyWithImpl<$Res>
 
 /// Create a copy of OtpData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? verificationId = null,Object? expiresAt = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? success = null,Object? message = null,Object? data = null,}) {
   return _then(_self.copyWith(
-verificationId: null == verificationId ? _self.verificationId : verificationId // ignore: cast_nullable_to_non_nullable
-as String,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
-as int,
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as OtpDataResponse,
   ));
 }
 
@@ -154,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String verificationId,  int expiresAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  String message,  OtpDataResponse data)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OtpData() when $default != null:
-return $default(_that.verificationId,_that.expiresAt);case _:
+return $default(_that.success,_that.message,_that.data);case _:
   return orElse();
 
 }
@@ -175,10 +176,10 @@ return $default(_that.verificationId,_that.expiresAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String verificationId,  int expiresAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  String message,  OtpDataResponse data)  $default,) {final _that = this;
 switch (_that) {
 case _OtpData():
-return $default(_that.verificationId,_that.expiresAt);case _:
+return $default(_that.success,_that.message,_that.data);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +196,10 @@ return $default(_that.verificationId,_that.expiresAt);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String verificationId,  int expiresAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  String message,  OtpDataResponse data)?  $default,) {final _that = this;
 switch (_that) {
 case _OtpData() when $default != null:
-return $default(_that.verificationId,_that.expiresAt);case _:
+return $default(_that.success,_that.message,_that.data);case _:
   return null;
 
 }
@@ -210,11 +211,12 @@ return $default(_that.verificationId,_that.expiresAt);case _:
 @JsonSerializable()
 
 class _OtpData implements OtpData {
-  const _OtpData({required this.verificationId, required this.expiresAt});
+  const _OtpData({required this.success, required this.message, required this.data});
   factory _OtpData.fromJson(Map<String, dynamic> json) => _$OtpDataFromJson(json);
 
-@override final  String verificationId;
-@override final  int expiresAt;
+@override final  bool success;
+@override final  String message;
+@override final  OtpDataResponse data;
 
 /// Create a copy of OtpData
 /// with the given fields replaced by the non-null parameter values.
@@ -229,16 +231,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OtpData&&(identical(other.verificationId, verificationId) || other.verificationId == verificationId)&&(identical(other.expiresAt, expiresAt) || other.expiresAt == expiresAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OtpData&&(identical(other.success, success) || other.success == success)&&(identical(other.message, message) || other.message == message)&&(identical(other.data, data) || other.data == data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,verificationId,expiresAt);
+int get hashCode => Object.hash(runtimeType,success,message,data);
 
 @override
 String toString() {
-  return 'OtpData(verificationId: $verificationId, expiresAt: $expiresAt)';
+  return 'OtpData(success: $success, message: $message, data: $data)';
 }
 
 
@@ -249,7 +251,7 @@ abstract mixin class _$OtpDataCopyWith<$Res> implements $OtpDataCopyWith<$Res> {
   factory _$OtpDataCopyWith(_OtpData value, $Res Function(_OtpData) _then) = __$OtpDataCopyWithImpl;
 @override @useResult
 $Res call({
- String verificationId, int expiresAt
+ bool success, String message, OtpDataResponse data
 });
 
 
@@ -266,11 +268,12 @@ class __$OtpDataCopyWithImpl<$Res>
 
 /// Create a copy of OtpData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? verificationId = null,Object? expiresAt = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? success = null,Object? message = null,Object? data = null,}) {
   return _then(_OtpData(
-verificationId: null == verificationId ? _self.verificationId : verificationId // ignore: cast_nullable_to_non_nullable
-as String,expiresAt: null == expiresAt ? _self.expiresAt : expiresAt // ignore: cast_nullable_to_non_nullable
-as int,
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as OtpDataResponse,
   ));
 }
 

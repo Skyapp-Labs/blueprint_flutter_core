@@ -121,8 +121,9 @@ class FxCountdownActionState extends State<FxCountdownAction> with FxUiToolkit {
 
     return base.copyWith(
       textAlign: widget.textAlign ?? TextAlign.center,
-      linkColor: widget.enabledColor,
-      color: _isDisabled ? widget.disabledColor : null,
+      linkColor: widget.enabledColor ?? colorScheme.primary,
+      linkFontWeight: FontWeight.w600,
+      color: _isDisabled ? widget.disabledColor ?? colorScheme.onSurface: null,
     );
   }
 

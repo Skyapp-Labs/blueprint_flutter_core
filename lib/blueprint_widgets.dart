@@ -10,6 +10,7 @@ export 'src/core/utils/validators.dart';
 export 'src/core/utils/formatters/date_formatter.dart';
 export 'src/core/utils/formatters/number_formatter.dart';
 export 'src/core/utils/formatters/text_formatter.dart';
+export 'src/core/utils/formatters/phone_formatter.dart';
 
 export 'src/core/widgets/fx_context.dart';
 export 'src/core/widgets/layout/_layout.dart';

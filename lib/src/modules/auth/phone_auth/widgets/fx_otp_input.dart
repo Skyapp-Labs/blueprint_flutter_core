@@ -21,27 +21,19 @@ class FxOtpInput extends StatefulWidget {
   const FxOtpInput({
     super.key,
     required this.onCompleted,
-    this.onResend,
     this.length = 6,
-    this.resendCooldownSeconds = 60,
     this.pinTheme,
     this.autoFocus = true,
     this.errorText,
-    this.resendPrefixText = "Didn't receive a code?",
-    this.resendActionText = 'Resend',
-    this.resendCountdownPrefixText = 'Resend in',
+    this.controller,
   });
 
   final Future<void> Function(String) onCompleted;
-  final Future<void> Function()? onResend;
   final int length;
-  final int resendCooldownSeconds;
   final FxPinInputTheme? pinTheme;
   final bool autoFocus;
   final String? errorText;
-  final String resendPrefixText;
-  final String resendActionText;
-  final String resendCountdownPrefixText;
+  final TextEditingController? controller;
 
   @override
   State<FxOtpInput> createState() => FxOtpInputState();
@@ -62,29 +54,21 @@ class FxOtpInputState extends State<FxOtpInput> with FxUiToolkit {
       children: [
         FxPinInput(
           key: _pinKey,
+          controller: widget.controller,
           onCompleted: widget.onCompleted,
           length: widget.length,
           theme: widget.pinTheme,
           autoFocus: widget.autoFocus,
         ),
-        if (widget.errorText != null) ...[
-          SizedBox(height: sizes.xs),
-          Text(
-            widget.errorText!,
+        AnimatedOpacity(
+          opacity: widget.errorText == null ? 0.0 : 1.0,
+          duration: const Duration(milliseconds: 300),
+          child: Text(
+            widget.errorText ?? '',
             style: typography.bodySmall.copyWith(color: colorScheme.error),
             textAlign: TextAlign.center,
-          ),
-        ],
-        if (widget.onResend != null) ...[
-          SizedBox(height: sizes.lg),
-          FxCountdownAction(
-            prefixText: widget.resendPrefixText,
-            actionText: widget.resendActionText,
-            countdownPrefixText: widget.resendCountdownPrefixText,
-            duration: Duration(seconds: widget.resendCooldownSeconds),
-            onPressed: widget.onResend!,
-          ),
-        ],
+          )
+        )
       ],
     );
   }

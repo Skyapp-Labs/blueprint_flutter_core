@@ -15,12 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PhoneLookupResult {
 
-/// Whether the OTP was verified.
- bool get verified;/// Whether the user has an account.
- bool get hasAccount;/// Present when [hasAccount] is true.
-/// Use to call POST /auth/login or POST /auth/register with the token.
- String? get phoneGrantToken;/// The phone number that was verified.
- String? get phoneNumber;
+ bool get success; String get message; PhoneLookupDataResponse get data;
 /// Create a copy of PhoneLookupResult
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -33,16 +28,16 @@ $PhoneLookupResultCopyWith<PhoneLookupResult> get copyWith => _$PhoneLookupResul
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhoneLookupResult&&(identical(other.verified, verified) || other.verified == verified)&&(identical(other.hasAccount, hasAccount) || other.hasAccount == hasAccount)&&(identical(other.phoneGrantToken, phoneGrantToken) || other.phoneGrantToken == phoneGrantToken)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhoneLookupResult&&(identical(other.success, success) || other.success == success)&&(identical(other.message, message) || other.message == message)&&(identical(other.data, data) || other.data == data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,verified,hasAccount,phoneGrantToken,phoneNumber);
+int get hashCode => Object.hash(runtimeType,success,message,data);
 
 @override
 String toString() {
-  return 'PhoneLookupResult(verified: $verified, hasAccount: $hasAccount, phoneGrantToken: $phoneGrantToken, phoneNumber: $phoneNumber)';
+  return 'PhoneLookupResult(success: $success, message: $message, data: $data)';
 }
 
 
@@ -53,7 +48,7 @@ abstract mixin class $PhoneLookupResultCopyWith<$Res>  {
   factory $PhoneLookupResultCopyWith(PhoneLookupResult value, $Res Function(PhoneLookupResult) _then) = _$PhoneLookupResultCopyWithImpl;
 @useResult
 $Res call({
- bool verified, bool hasAccount, String? phoneGrantToken, String? phoneNumber
+ bool success, String message, PhoneLookupDataResponse data
 });
 
 
@@ -70,13 +65,12 @@ class _$PhoneLookupResultCopyWithImpl<$Res>
 
 /// Create a copy of PhoneLookupResult
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? verified = null,Object? hasAccount = null,Object? phoneGrantToken = freezed,Object? phoneNumber = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? success = null,Object? message = null,Object? data = null,}) {
   return _then(_self.copyWith(
-verified: null == verified ? _self.verified : verified // ignore: cast_nullable_to_non_nullable
-as bool,hasAccount: null == hasAccount ? _self.hasAccount : hasAccount // ignore: cast_nullable_to_non_nullable
-as bool,phoneGrantToken: freezed == phoneGrantToken ? _self.phoneGrantToken : phoneGrantToken // ignore: cast_nullable_to_non_nullable
-as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as String?,
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as PhoneLookupDataResponse,
   ));
 }
 
@@ -161,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool verified,  bool hasAccount,  String? phoneGrantToken,  String? phoneNumber)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool success,  String message,  PhoneLookupDataResponse data)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PhoneLookupResult() when $default != null:
-return $default(_that.verified,_that.hasAccount,_that.phoneGrantToken,_that.phoneNumber);case _:
+return $default(_that.success,_that.message,_that.data);case _:
   return orElse();
 
 }
@@ -182,10 +176,10 @@ return $default(_that.verified,_that.hasAccount,_that.phoneGrantToken,_that.phon
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool verified,  bool hasAccount,  String? phoneGrantToken,  String? phoneNumber)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool success,  String message,  PhoneLookupDataResponse data)  $default,) {final _that = this;
 switch (_that) {
 case _PhoneLookupResult():
-return $default(_that.verified,_that.hasAccount,_that.phoneGrantToken,_that.phoneNumber);case _:
+return $default(_that.success,_that.message,_that.data);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -202,10 +196,10 @@ return $default(_that.verified,_that.hasAccount,_that.phoneGrantToken,_that.phon
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool verified,  bool hasAccount,  String? phoneGrantToken,  String? phoneNumber)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool success,  String message,  PhoneLookupDataResponse data)?  $default,) {final _that = this;
 switch (_that) {
 case _PhoneLookupResult() when $default != null:
-return $default(_that.verified,_that.hasAccount,_that.phoneGrantToken,_that.phoneNumber);case _:
+return $default(_that.success,_that.message,_that.data);case _:
   return null;
 
 }
@@ -217,18 +211,12 @@ return $default(_that.verified,_that.hasAccount,_that.phoneGrantToken,_that.phon
 @JsonSerializable()
 
 class _PhoneLookupResult implements PhoneLookupResult {
-  const _PhoneLookupResult({required this.verified, required this.hasAccount, this.phoneGrantToken, this.phoneNumber});
+  const _PhoneLookupResult({required this.success, required this.message, required this.data});
   factory _PhoneLookupResult.fromJson(Map<String, dynamic> json) => _$PhoneLookupResultFromJson(json);
 
-/// Whether the OTP was verified.
-@override final  bool verified;
-/// Whether the user has an account.
-@override final  bool hasAccount;
-/// Present when [hasAccount] is true.
-/// Use to call POST /auth/login or POST /auth/register with the token.
-@override final  String? phoneGrantToken;
-/// The phone number that was verified.
-@override final  String? phoneNumber;
+@override final  bool success;
+@override final  String message;
+@override final  PhoneLookupDataResponse data;
 
 /// Create a copy of PhoneLookupResult
 /// with the given fields replaced by the non-null parameter values.
@@ -243,16 +231,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhoneLookupResult&&(identical(other.verified, verified) || other.verified == verified)&&(identical(other.hasAccount, hasAccount) || other.hasAccount == hasAccount)&&(identical(other.phoneGrantToken, phoneGrantToken) || other.phoneGrantToken == phoneGrantToken)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhoneLookupResult&&(identical(other.success, success) || other.success == success)&&(identical(other.message, message) || other.message == message)&&(identical(other.data, data) || other.data == data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,verified,hasAccount,phoneGrantToken,phoneNumber);
+int get hashCode => Object.hash(runtimeType,success,message,data);
 
 @override
 String toString() {
-  return 'PhoneLookupResult(verified: $verified, hasAccount: $hasAccount, phoneGrantToken: $phoneGrantToken, phoneNumber: $phoneNumber)';
+  return 'PhoneLookupResult(success: $success, message: $message, data: $data)';
 }
 
 
@@ -263,7 +251,7 @@ abstract mixin class _$PhoneLookupResultCopyWith<$Res> implements $PhoneLookupRe
   factory _$PhoneLookupResultCopyWith(_PhoneLookupResult value, $Res Function(_PhoneLookupResult) _then) = __$PhoneLookupResultCopyWithImpl;
 @override @useResult
 $Res call({
- bool verified, bool hasAccount, String? phoneGrantToken, String? phoneNumber
+ bool success, String message, PhoneLookupDataResponse data
 });
 
 
@@ -280,13 +268,12 @@ class __$PhoneLookupResultCopyWithImpl<$Res>
 
 /// Create a copy of PhoneLookupResult
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? verified = null,Object? hasAccount = null,Object? phoneGrantToken = freezed,Object? phoneNumber = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? success = null,Object? message = null,Object? data = null,}) {
   return _then(_PhoneLookupResult(
-verified: null == verified ? _self.verified : verified // ignore: cast_nullable_to_non_nullable
-as bool,hasAccount: null == hasAccount ? _self.hasAccount : hasAccount // ignore: cast_nullable_to_non_nullable
-as bool,phoneGrantToken: freezed == phoneGrantToken ? _self.phoneGrantToken : phoneGrantToken // ignore: cast_nullable_to_non_nullable
-as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
-as String?,
+success: null == success ? _self.success : success // ignore: cast_nullable_to_non_nullable
+as bool,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,data: null == data ? _self.data : data // ignore: cast_nullable_to_non_nullable
+as PhoneLookupDataResponse,
   ));
 }
 

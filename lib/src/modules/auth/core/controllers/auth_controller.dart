@@ -6,10 +6,6 @@ import 'package:blueprint_flutter_core/src/modules/auth/email_auth/models/regist
 import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 import 'package:blueprint_flutter_core/src/core/errors/network_exception.dart';
 import 'package:blueprint_flutter_core/src/core/errors/unauthorized_exception.dart';
-import 'package:blueprint_flutter_core/src/core/network/api_client.dart';
-import 'package:blueprint_flutter_core/src/core/network/network_providers.dart';
-import 'package:blueprint_flutter_core/src/core/network/service_context.dart';
-import 'package:blueprint_flutter_core/src/core/network/token_manager.dart';
 import 'package:blueprint_flutter_core/src/core/utils/jwt_helper.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/email_auth/services/email_auth_service.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';

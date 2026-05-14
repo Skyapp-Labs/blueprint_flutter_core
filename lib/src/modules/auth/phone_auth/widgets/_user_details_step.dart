@@ -1,3 +1,5 @@
+import 'package:blueprint_flutter_core/src/core/widgets/display/_display.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/layout/_layout.dart';
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
@@ -14,7 +16,7 @@ class DetailsStep extends StatefulWidget {
     required this.isLoading,
   });
 
-  final FxPhoneAuthTheme theme;
+  final UserDetailsConfig theme;
   final Future<void> Function({
     required String firstName,
     required String lastName,
@@ -44,60 +46,103 @@ class _DetailsStepState extends State<DetailsStep> with FxUiToolkit {
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
+    final hasTopContent = (
+      widget.theme.title != null || 
+      widget.theme.subtitle != null
+    );
+
     return Form(
       key: _formKey,
-      child: Column(
+      child: FxScrollableForm(
         key: const ValueKey('details'),
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: sizes.lg,
+        header: widget.theme.header,
+        footer: _buildFooter(),
+        padding: widget.theme.padding,
+        spacing: widget.theme.spacing,
+        mainAxisAlignment: widget.theme.mainAxisAlignment,
+        crossAxisAlignment: widget.theme.crossAxisAlignment,
         children: [
-          Text(
-            widget.theme.userDetailsConfig.title,
-            style: typography.headlineSmall,
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: sizes.xl),
+          if(hasTopContent) ...[
+            _buildTopContent(),
+            SizedBox(height: 0),
+          ],
           FxTextField(
             controller: _firstNameController,
             label: 'First name',
-            prefixIcon: widget.theme.userDetailsConfig.firstNamePrefix,
+            prefix: widget.theme.firstNamePrefix,
             textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.next,
             validator: (v) => Validators.required(v, 'First name'),
           ),
-          SizedBox(height: sizes.md),
           FxTextField(
             controller: _lastNameController,
             label: 'Last name',
-            prefixIcon: widget.theme.userDetailsConfig.lastNamePrefix,
+            prefix: widget.theme.lastNamePrefix,
             textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.next,
             validator: (v) => Validators.required(v, 'Last name'),
           ),
-          SizedBox(height: sizes.md),
           FxTextField(
             controller: _emailController,
-            prefixIcon: widget.theme.userDetailsConfig.emailPrefix,
+            prefix: widget.theme.emailPrefix,
             label: 'Email (optional)',
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.done,
-          ),
-          SizedBox(height: sizes.lg),
-          FxButton(
-            label: widget.theme.userDetailsConfig.buttonLabel,
-            isLoading: widget.isLoading,
-            onPressed: () async {
-              if (!(_formKey.currentState?.validate() ?? false)) return;
-
-              await widget.onSubmit(
-                email: _emailController.text,
-                lastName: _lastNameController.text,
-                firstName: _firstNameController.text,
-              );
-            },
-          ),
+          )
         ],
-      ),
+      )
+    );
+  }
+
+  Widget _buildFooter() {
+    if (widget.theme.footer != null) return widget.theme.footer!(_onSubmit, widget.isLoading);
+
+    return FxButton(
+      label: widget.theme.buttonLabel,
+      isLoading: widget.isLoading,
+      onPressed: _onSubmit,
+    );
+  }
+
+  void _onSubmit() async {
+    if (!(_formKey.currentState?.validate() ?? false) || widget.isLoading) return;
+
+    await widget.onSubmit(
+      email: _emailController.text,
+      lastName: _lastNameController.text,
+      firstName: _firstNameController.text,
+    );
+  }
+
+
+  
+  Widget _buildTopContent() {
+    Widget? title;
+    Widget? subtitle;
+
+    if (widget.theme.title != null) {
+      title = FxText(
+        widget.theme.title!,
+        style: widget.theme.titleStyle ?? FxTextStyle.fromStyle(typography.headlineSmall).copyWith(textAlign: TextAlign.center),
+      );
+    }
+
+    if (widget.theme.subtitle != null) {
+      subtitle = FxText(
+        widget.theme.subtitle!,
+        style: widget.theme.subtitleStyle ?? FxTextStyle.fromStyle(typography.bodyMedium).copyWith(textAlign: TextAlign.center),
+      );
+    }
+
+    if (title == null && subtitle == null) return const SizedBox.shrink();
+
+    return Column(
+      spacing: sizes.xs,
+      crossAxisAlignment: widget.theme.crossAxisAlignment,
+      children: [
+        title!,
+        subtitle!,
+      ],
     );
   }
 }

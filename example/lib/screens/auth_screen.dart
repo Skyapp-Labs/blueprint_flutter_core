@@ -70,23 +70,21 @@ class _AuthScreenState extends State<AuthScreen> with FxUiToolkit {
 
   Widget _phoneTab() => FxPhoneAuth(
     onAuthSuccess: _onAuthSuccess,
-    theme: const FxPhoneAuthTheme(
-      phoneEntryConfig: PhoneEntryConfig(
-        title: 'Enter your number',
-        subtitle: "We'll send you a verification code",
-        buttonLabel: 'Send Code',
-      ),
-      otpVerificationConfig: OtpVerificationConfig(
-        title: 'Verify your number',
-        subtitle: 'Enter the code sent to {{phone}}',
-        buttonLabel: 'Verify',
-      ),
-      userDetailsConfig: UserDetailsConfig(
-        title: 'Complete your profile',
-        subtitle: 'Enter your name to finish setting up',
-        buttonLabel: 'Continue',
-      ),
+    phoneEntryConfig: PhoneEntryConfig(
+      title: 'Enter your number',
+      subtitle: "We'll send you a verification code",
+      buttonLabel: 'Send Code',
     ),
+    otpVerificationConfig: OtpVerificationConfig(
+      title: 'Verify your number',
+      subtitle: 'Enter the code sent to {{phone}}',
+      buttonLabel: 'Verify',
+    ),
+    userDetailsConfig: UserDetailsConfig(
+      title: 'Complete your profile',
+      subtitle: 'Enter your name to finish setting up',
+      buttonLabel: 'Continue',
+    )
   );
 }
 

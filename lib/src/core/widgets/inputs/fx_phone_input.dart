@@ -1,4 +1,5 @@
 import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
+import 'package:blueprint_flutter_core/src/core/utils/formatters/phone_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,10 +11,21 @@ import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_select_field.d
 import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+typedef FxPhoneInputChanged = void Function(
+  FxCountry country,
+  String phone, [
+  PhoneParseResult? parsed,
+]);
+
 /// Phone number input with country dial code prefix.
 ///
-/// Outputs a full E.164 formatted number (e.g. +2348012345678) via [onChanged].
-/// 
+/// [onChanged] receives the selected country, the national digits only (no
+/// spaces), and an optional third argument [parsed] when libphonenumber accepts
+/// the combined dial code + digits (otherwise null).
+///
+/// Declare the callback with an optional positional third parameter, even if
+/// you ignore it, for example `(country, phone, [_]) { ... }` or
+/// `(country, phone, [parsed]) { ... }`.
 class FxPhoneInput extends ConsumerStatefulWidget {
   const FxPhoneInput({
     super.key,
@@ -40,7 +52,7 @@ class FxPhoneInput extends ConsumerStatefulWidget {
   final TextEditingController? controller;
   final FxOverlayStyle overlayStyle;
   final FormFieldValidator<String>? validator;
-  final void Function(FxCountry country, String phone)? onChanged;
+  final FxPhoneInputChanged? onChanged;
 
   @override
   ConsumerState<FxPhoneInput> createState() => _FxPhoneInputState();
@@ -50,6 +62,7 @@ class _FxPhoneInputState extends ConsumerState<FxPhoneInput> with FxUiToolkit {
 
   late FxCountry _selectedCountry;
   late final TextEditingController _controller;
+  int _parseSeq = 0;
 
   @override
   void initState() {
@@ -59,7 +72,24 @@ class _FxPhoneInputState extends ConsumerState<FxPhoneInput> with FxUiToolkit {
     _controller.addListener(_notify);
   }
 
-  void _notify() => widget.onChanged?.call(_selectedCountry, _controller.text.replaceAll(' ', ''));
+  void _notify() {
+    final onChanged = widget.onChanged;
+    if (onChanged == null) return;
+
+    final phone = _controller.text.replaceAll(' ', '');
+    if (phone.isEmpty) {
+      onChanged(_selectedCountry, '', null);
+      return;
+    }
+
+    final seq = ++_parseSeq;
+    final composed = '${_selectedCountry.dialCode}$phone';
+    final country = _selectedCountry;
+    PhoneFormatter.tryParse(composed, country: country).then((parsed) {
+      if (!mounted || seq != _parseSeq) return;
+      onChanged(country, phone, parsed);
+    });
+  }
 
   @override
   void dispose() {

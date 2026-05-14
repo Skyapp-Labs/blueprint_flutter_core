@@ -12,6 +12,7 @@ enum FxPhoneAuthStep { enterPhone, enterOtp, enterDetails }
 abstract class PhoneAuthFlowState with _$PhoneAuthFlowState {
   const factory PhoneAuthFlowState({
     String? phone,
+    String? countryCode,
     @Default(FxPhoneAuthStep.enterPhone) FxPhoneAuthStep step,
     OtpData? otpData,
     PhoneLookupResult? lookupResult,

@@ -31,13 +31,13 @@ mixin _PhoneAuthMixin on _$AuthController {
   /// whether this is a login (existing user) or registration (new user).
   Future<PhoneLookupResult?> verifyOtp({
     required String verificationId,
-    required String code,
+    required String otp,
   }) async {
     state = state.copyWith(status: AuthStatus.authenticating, error: null);
     try {
       final result = await _phoneAuthService.verifyOtp(
         verificationId: verificationId,
-        code: code,
+        otp: otp,
       );
       state = state.copyWith(status: AuthStatus.unauthenticated);
       return result;

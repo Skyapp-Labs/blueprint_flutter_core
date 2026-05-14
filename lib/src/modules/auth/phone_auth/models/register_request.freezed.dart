@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PhoneRegisterRequest {
 
- String get phoneGrantToken; String get firstName; String get lastName; String? get email;
+ String get lastName; String get firstName; String get verificationToken; String? get email; String? get phone; String? get countryCode;
 /// Create a copy of PhoneRegisterRequest
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $PhoneRegisterRequestCopyWith<PhoneRegisterRequest> get copyWith => _$PhoneRegis
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhoneRegisterRequest&&(identical(other.phoneGrantToken, phoneGrantToken) || other.phoneGrantToken == phoneGrantToken)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhoneRegisterRequest&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.verificationToken, verificationToken) || other.verificationToken == verificationToken)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,phoneGrantToken,firstName,lastName,email);
+int get hashCode => Object.hash(runtimeType,lastName,firstName,verificationToken,email,phone,countryCode);
 
 @override
 String toString() {
-  return 'PhoneRegisterRequest(phoneGrantToken: $phoneGrantToken, firstName: $firstName, lastName: $lastName, email: $email)';
+  return 'PhoneRegisterRequest(lastName: $lastName, firstName: $firstName, verificationToken: $verificationToken, email: $email, phone: $phone, countryCode: $countryCode)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $PhoneRegisterRequestCopyWith<$Res>  {
   factory $PhoneRegisterRequestCopyWith(PhoneRegisterRequest value, $Res Function(PhoneRegisterRequest) _then) = _$PhoneRegisterRequestCopyWithImpl;
 @useResult
 $Res call({
- String phoneGrantToken, String firstName, String lastName, String? email
+ String lastName, String firstName, String verificationToken, String? email, String? phone, String? countryCode
 });
 
 
@@ -65,12 +65,14 @@ class _$PhoneRegisterRequestCopyWithImpl<$Res>
 
 /// Create a copy of PhoneRegisterRequest
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? phoneGrantToken = null,Object? firstName = null,Object? lastName = null,Object? email = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? lastName = null,Object? firstName = null,Object? verificationToken = null,Object? email = freezed,Object? phone = freezed,Object? countryCode = freezed,}) {
   return _then(_self.copyWith(
-phoneGrantToken: null == phoneGrantToken ? _self.phoneGrantToken : phoneGrantToken // ignore: cast_nullable_to_non_nullable
+lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
 as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
-as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String,verificationToken: null == verificationToken ? _self.verificationToken : verificationToken // ignore: cast_nullable_to_non_nullable
 as String,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -156,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String phoneGrantToken,  String firstName,  String lastName,  String? email)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String lastName,  String firstName,  String verificationToken,  String? email,  String? phone,  String? countryCode)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _PhoneRegisterRequest() when $default != null:
-return $default(_that.phoneGrantToken,_that.firstName,_that.lastName,_that.email);case _:
+return $default(_that.lastName,_that.firstName,_that.verificationToken,_that.email,_that.phone,_that.countryCode);case _:
   return orElse();
 
 }
@@ -177,10 +179,10 @@ return $default(_that.phoneGrantToken,_that.firstName,_that.lastName,_that.email
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String phoneGrantToken,  String firstName,  String lastName,  String? email)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String lastName,  String firstName,  String verificationToken,  String? email,  String? phone,  String? countryCode)  $default,) {final _that = this;
 switch (_that) {
 case _PhoneRegisterRequest():
-return $default(_that.phoneGrantToken,_that.firstName,_that.lastName,_that.email);case _:
+return $default(_that.lastName,_that.firstName,_that.verificationToken,_that.email,_that.phone,_that.countryCode);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +199,10 @@ return $default(_that.phoneGrantToken,_that.firstName,_that.lastName,_that.email
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String phoneGrantToken,  String firstName,  String lastName,  String? email)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String lastName,  String firstName,  String verificationToken,  String? email,  String? phone,  String? countryCode)?  $default,) {final _that = this;
 switch (_that) {
 case _PhoneRegisterRequest() when $default != null:
-return $default(_that.phoneGrantToken,_that.firstName,_that.lastName,_that.email);case _:
+return $default(_that.lastName,_that.firstName,_that.verificationToken,_that.email,_that.phone,_that.countryCode);case _:
   return null;
 
 }
@@ -212,13 +214,15 @@ return $default(_that.phoneGrantToken,_that.firstName,_that.lastName,_that.email
 @JsonSerializable()
 
 class _PhoneRegisterRequest implements PhoneRegisterRequest {
-  const _PhoneRegisterRequest({required this.phoneGrantToken, required this.firstName, required this.lastName, this.email});
+  const _PhoneRegisterRequest({required this.lastName, required this.firstName, required this.verificationToken, this.email, this.phone, this.countryCode});
   factory _PhoneRegisterRequest.fromJson(Map<String, dynamic> json) => _$PhoneRegisterRequestFromJson(json);
 
-@override final  String phoneGrantToken;
-@override final  String firstName;
 @override final  String lastName;
+@override final  String firstName;
+@override final  String verificationToken;
 @override final  String? email;
+@override final  String? phone;
+@override final  String? countryCode;
 
 /// Create a copy of PhoneRegisterRequest
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhoneRegisterRequest&&(identical(other.phoneGrantToken, phoneGrantToken) || other.phoneGrantToken == phoneGrantToken)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PhoneRegisterRequest&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.verificationToken, verificationToken) || other.verificationToken == verificationToken)&&(identical(other.email, email) || other.email == email)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,phoneGrantToken,firstName,lastName,email);
+int get hashCode => Object.hash(runtimeType,lastName,firstName,verificationToken,email,phone,countryCode);
 
 @override
 String toString() {
-  return 'PhoneRegisterRequest(phoneGrantToken: $phoneGrantToken, firstName: $firstName, lastName: $lastName, email: $email)';
+  return 'PhoneRegisterRequest(lastName: $lastName, firstName: $firstName, verificationToken: $verificationToken, email: $email, phone: $phone, countryCode: $countryCode)';
 }
 
 
@@ -253,7 +257,7 @@ abstract mixin class _$PhoneRegisterRequestCopyWith<$Res> implements $PhoneRegis
   factory _$PhoneRegisterRequestCopyWith(_PhoneRegisterRequest value, $Res Function(_PhoneRegisterRequest) _then) = __$PhoneRegisterRequestCopyWithImpl;
 @override @useResult
 $Res call({
- String phoneGrantToken, String firstName, String lastName, String? email
+ String lastName, String firstName, String verificationToken, String? email, String? phone, String? countryCode
 });
 
 
@@ -270,12 +274,14 @@ class __$PhoneRegisterRequestCopyWithImpl<$Res>
 
 /// Create a copy of PhoneRegisterRequest
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? phoneGrantToken = null,Object? firstName = null,Object? lastName = null,Object? email = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? lastName = null,Object? firstName = null,Object? verificationToken = null,Object? email = freezed,Object? phone = freezed,Object? countryCode = freezed,}) {
   return _then(_PhoneRegisterRequest(
-phoneGrantToken: null == phoneGrantToken ? _self.phoneGrantToken : phoneGrantToken // ignore: cast_nullable_to_non_nullable
+lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
 as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
-as String,lastName: null == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String,verificationToken: null == verificationToken ? _self.verificationToken : verificationToken // ignore: cast_nullable_to_non_nullable
 as String,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
+as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

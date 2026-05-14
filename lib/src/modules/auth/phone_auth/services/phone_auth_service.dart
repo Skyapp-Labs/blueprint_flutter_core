@@ -17,11 +17,11 @@ class PhoneAuthService extends AppService {
 
   Future<PhoneLookupResult> verifyOtp({
     required String verificationId,
-    required String code,
+    required String otp,
   }) async {
     final res = await dio.post<Map<String, dynamic>>(
       endpoints.verifyOtp,
-      data: {'verificationId': verificationId, 'code': code},
+      data: {'verificationId': verificationId, 'otp': otp},
     );
     return PhoneLookupResult.fromJson(res.data!);
   }
@@ -38,7 +38,7 @@ class PhoneAuthService extends AppService {
   Future<AuthTokens> loginWithToken(String phoneGrantToken) async {
     final res = await dio.post<Map<String, dynamic>>(
       endpoints.login,
-      data: {'token': phoneGrantToken},
+      data: {'verificationToken': phoneGrantToken},
     );
     return AuthTokens.fromJson(res.data!);
   }

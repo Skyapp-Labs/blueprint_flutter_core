@@ -1,29 +1,9 @@
 part of 'fx_phone_auth.dart';
 
-typedef PhoneEntryCallback = Future<void> Function(String phone);
-typedef OtpVerificationCallback = Future<void> Function(String otp);
-typedef UserDetailsCallback = Future<void> Function(UserDetailsInput input);
+// typedef PhoneEntryCallback = Future<void> Function(String phone);
+// typedef OtpVerificationCallback = Future<void> Function(String otp);
+// typedef UserDetailsCallback = Future<void> Function(UserDetailsInput input);
 
-class FxPhoneAuthTheme {
-  const FxPhoneAuthTheme({
-    this.phoneEntryBuilder,
-    this.otpVerificationBuilder,
-    this.userDetailsBuilder,
-    this.showInputLabel = false,
-    this.phoneEntryConfig = const PhoneEntryConfig(),
-    this.otpVerificationConfig = const OtpVerificationConfig(),
-    this.userDetailsConfig = const UserDetailsConfig(),
-  });
-
-  final bool showInputLabel;
-  final PhoneEntryConfig phoneEntryConfig;
-  final OtpVerificationConfig otpVerificationConfig;
-  final UserDetailsConfig userDetailsConfig;
-
-  final Widget Function(BuildContext context)? phoneEntryBuilder;
-  final Widget Function(BuildContext context)? otpVerificationBuilder;
-  final Widget Function(BuildContext context)? userDetailsBuilder;
-}
 
 /// Phone entry
 class PhoneEntryConfig {
@@ -34,18 +14,39 @@ class PhoneEntryConfig {
     this.flagSize = 28,
     this.buttonLabel = 'Send code',
     this.keyboardBuilder,
+    this.header,
+    this.footer,
+    this.padding,
+    this.spacing,
+    this.otherWidgets = const [],
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.crossAxisAlignment = CrossAxisAlignment.stretch,
   });
 
   /// The title text for the phone entry screen.
-  final String title;
+  final String? title;
   /// The subtitle text for the phone entry screen.
-  final String subtitle;
+  final String? subtitle;
   /// The flag shape for the phone entry screen.
   final FxFlagShape flagShape;
   /// The flag size for the phone entry screen.
   final double flagSize;
   /// The button label for the send code button.
   final String buttonLabel;
+  /// The header widget for the phone entry screen.
+  final Widget? header;
+  /// The footer widget for the phone entry screen.
+  final Widget? footer;
+  /// The padding for the phone entry screen.
+  final EdgeInsets? padding;
+  /// The spacing for the phone entry screen.
+  final double? spacing;
+  /// The main axis alignment for the phone entry screen.
+  final MainAxisAlignment mainAxisAlignment;
+  /// The cross axis alignment for the phone entry screen.
+  final CrossAxisAlignment crossAxisAlignment;
+  /// The other widgets for the phone entry screen.
+  final List<Widget> otherWidgets;
   /// The keyboard builder for the phone entry screen.
   final Widget Function(TextEditingController phoneController)? keyboardBuilder;
 }
@@ -65,13 +66,37 @@ class OtpVerificationConfig {
     this.invalidCodeMessage = 'Invalid code, please try again',
     this.expiredCodeMessage = 'Code expired, please request a new one',
     this.keyboardBuilder,
+    this.header,
+    this.titleStyle,
+    this.subtitleStyle,
+    this.footer,
+    this.padding,
+    this.spacing,
+    this.titleSpacing,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.crossAxisAlignment = CrossAxisAlignment.stretch,
   });
 
   /// The title text for the otp verification screen.
-  final String title;
+  final String? title;
+  final double? titleSpacing;
+  final FxTextStyle? titleStyle;
   /// The subtitle text with {{phone}} placeholder for the phone number.
   /// Example: 'Enter the code sent to {{phone}}'
-  final String subtitle;
+  final String? subtitle;
+  final FxTextStyle? subtitleStyle;
+  /// The header widget for the otp verification screen.
+  final Widget Function(String phone, VoidCallback onChangeNumber)? header;
+  /// The footer widget for the otp verification screen.
+  final Widget Function(VoidCallback onChangeNumber)? footer;
+  /// The padding for the otp verification screen.
+  final EdgeInsets? padding;
+  /// The spacing for the otp verification screen.
+  final double? spacing;
+  /// The main axis alignment for the otp verification screen.
+  final MainAxisAlignment mainAxisAlignment;
+  /// The cross axis alignment for the otp verification screen.
+  final CrossAxisAlignment crossAxisAlignment;
   /// The button label for the verify button.
   final String buttonLabel;
   /// The label for the change number button.
@@ -102,15 +127,25 @@ class UserDetailsConfig {
     this.buttonLabel = 'Create account',
     this.requireEmail = false,
     this.emailLookup = false,
+    this.titleStyle,
+    this.subtitleStyle,
     this.firstNamePrefix,
     this.lastNamePrefix,
     this.emailPrefix,
+    this.header,
+    this.footer,
+    this.padding,
+    this.spacing,
+    this.mainAxisAlignment = MainAxisAlignment.center,
+    this.crossAxisAlignment = CrossAxisAlignment.stretch,
   });
 
   /// The title text for the user details screen.
-  final String title;
+  final String? title;
+  final FxTextStyle? titleStyle;
   /// The subtitle text for the user details screen.
-  final String subtitle;
+  final String? subtitle;
+  final FxTextStyle? subtitleStyle;
   /// The button label for the create account button.
   final String buttonLabel;
   /// The prefix widget for the first name input (supports SVG, Icon, etc.).
@@ -123,4 +158,16 @@ class UserDetailsConfig {
   final bool requireEmail;
   /// If true, checks on blur whether the email belongs to an existing account.
   final bool emailLookup;
+  /// The header widget for the phone entry screen.
+  final Widget? header;
+  /// The footer widget for the phone entry screen.
+  final Widget Function(VoidCallback onSubmit, bool isLoading)? footer;
+  /// The padding for the phone entry screen.
+  final EdgeInsets? padding;
+  /// The spacing for the phone entry screen.
+  final double? spacing;
+  /// The main axis alignment for the phone entry screen.
+  final MainAxisAlignment mainAxisAlignment;
+  /// The cross axis alignment for the phone entry screen.
+  final CrossAxisAlignment crossAxisAlignment;
 }

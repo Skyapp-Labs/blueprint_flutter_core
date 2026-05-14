@@ -16,7 +16,11 @@ class FxButton extends StatelessWidget with FxUiToolkit {
     this.isLoading = false,
     this.isFullWidth = true,
     this.prefixIcon,
+    this.suffixIcon,
     this.height = 0,
+    this.foregroundColor,
+    this.backgroundColor,
+    this.borderColor,
   });
 
   final String label;
@@ -25,7 +29,11 @@ class FxButton extends StatelessWidget with FxUiToolkit {
   final bool isLoading;
   final bool isFullWidth;
   final Widget? prefixIcon;
+  final Widget? suffixIcon;
   final double height;
+  final Color? foregroundColor;
+  final Color? backgroundColor;
+  final Color? borderColor;
 
   double get _height => height > 0 ? height : sizes.buttonMd;
 
@@ -36,18 +44,27 @@ class FxButton extends StatelessWidget with FxUiToolkit {
     final effectiveCallback = isLoading ? null : onPressed;
     final child = _buildChild();
 
-    final buttonStyle = theme.elevatedButtonTheme.style ?? ButtonStyle();
+    final buttonStyle = {
+      FxButtonVariant.primary: theme.elevatedButtonTheme.style ?? ButtonStyle(),
+      FxButtonVariant.secondary: theme.textButtonTheme.style ?? ButtonStyle(),
+      FxButtonVariant.outline: theme.outlinedButtonTheme.style ?? ButtonStyle(),
+      FxButtonVariant.text: theme.textButtonTheme.style ?? ButtonStyle(),
+      FxButtonVariant.danger: theme.elevatedButtonTheme.style ?? ButtonStyle(),
+    };
 
-    final style = buttonStyle.copyWith(
+    final style = buttonStyle[variant]?.copyWith(
+      foregroundColor: foregroundColor != null ? WidgetStateProperty.all(foregroundColor) : null,
+      backgroundColor: backgroundColor != null ? WidgetStateProperty.all(backgroundColor) : null,
       minimumSize: WidgetStateProperty.all(
         Size(isFullWidth ? double.infinity : 0, _height)
       ),
+      side: borderColor != null ? WidgetStateProperty.all(BorderSide(color: borderColor!)) : null,
     );
 
     return switch (variant) {
       FxButtonVariant.primary || FxButtonVariant.danger => ElevatedButton(
         onPressed: effectiveCallback,
-        style: style.copyWith(
+        style: style?.copyWith(
           backgroundColor: variant == FxButtonVariant.danger
             ? WidgetStateProperty.all(colorScheme.error)
             : null,
@@ -81,13 +98,14 @@ class FxButton extends StatelessWidget with FxUiToolkit {
       );
     }
 
-    if (prefixIcon != null) {
+    if (prefixIcon != null || suffixIcon != null) {
       return Row(
         mainAxisSize: MainAxisSize.min,
         spacing: sizes.sm,
         children: [
-          prefixIcon!,
-          Text(label)
+          prefixIcon ?? SizedBox.shrink(),
+          Text(label),
+          suffixIcon ?? SizedBox.shrink(),
         ],
       );
     }

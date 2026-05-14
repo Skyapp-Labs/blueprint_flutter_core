@@ -10,7 +10,9 @@ class FxTextField extends StatefulWidget {
     this.label,
     this.hint,
     this.errorText,
+    this.prefix,
     this.prefixIcon,
+    this.suffix,
     this.suffixIcon,
     this.obscureText = false,
     this.keyboardType,
@@ -31,7 +33,9 @@ class FxTextField extends StatefulWidget {
   final String? label;
   final String? hint;
   final String? errorText;
+  final Widget? prefix;
   final Widget? prefixIcon;
+  final Widget? suffix;
   final Widget? suffixIcon;
   final bool obscureText;
   final TextInputType? keyboardType;
@@ -83,7 +87,9 @@ class _FxTextFieldState extends State<FxTextField> with FxUiToolkit {
         labelText: widget.label,
         hintText: widget.hint,
         errorText: widget.errorText,
+        prefix: widget.prefix,
         prefixIcon: widget.prefixIcon,
+        suffix: widget.suffix,
         suffixIcon: _buildSuffixIcon(),
       ),
     );

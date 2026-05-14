@@ -9,10 +9,12 @@ part 'register_request.g.dart';
 @freezed
 abstract class PhoneRegisterRequest with _$PhoneRegisterRequest {
   const factory PhoneRegisterRequest({
-    required String phoneGrantToken,
-    required String firstName,
     required String lastName,
+    required String firstName,
+    required String verificationToken,
     String? email,
+    String? phone,
+    String? countryCode,
   }) = _PhoneRegisterRequest;
 
   factory PhoneRegisterRequest.fromJson(Map<String, dynamic> json) =>
