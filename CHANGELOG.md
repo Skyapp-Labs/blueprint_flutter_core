@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0
+## 1.0.1
 
-- Update library prefix
-- Simplify notification hook
+- add flutter_libphonenumber dependency
+- enhance phone input handling
