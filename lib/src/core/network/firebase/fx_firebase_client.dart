@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:blueprint_flutter_core/src/core/config/firebase_config.dart';
 import 'package:blueprint_flutter_core/src/core/utils/logger.dart';
 
-/// Initialises Firebase using the platform-appropriate [FirebaseOptions].
-class FirebaseClient {
-  FirebaseClient._();
+/// Initializes Firebase using the platform-appropriate [FirebaseOptions].
+class FxFirebaseClient {
+  FxFirebaseClient._();
 
   static bool _initialized = false;
   static bool get isInitialized => _initialized;

@@ -4,7 +4,7 @@ import 'package:blueprint_flutter_core/src/core/utils/logger.dart';
 
 /// Logs all requests and responses in development/staging.
 /// Silenced automatically in production via [FxLogger].
-class LogInterceptor extends Interceptor {
+class FxLogInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     FxLogger.d(

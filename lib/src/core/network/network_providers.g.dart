@@ -10,27 +10,27 @@ part of 'network_providers.dart';
 // ignore_for_file: type=lint, type=warning
 /// The shared authenticated [Dio] instance, owned by [AuthController].
 
-@ProviderFor(dio)
-final dioProvider = DioProvider._();
+@ProviderFor(fxDio)
+final fxDioProvider = FxDioProvider._();
 
 /// The shared authenticated [Dio] instance, owned by [AuthController].
 
-final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
+final class FxDioProvider extends $FunctionalProvider<Dio, Dio, Dio>
     with $Provider<Dio> {
   /// The shared authenticated [Dio] instance, owned by [AuthController].
-  DioProvider._()
+  FxDioProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'dioProvider',
+        name: r'fxDioProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$dioHash();
+  String debugGetCreateSourceHash() => _$fxDioHash();
 
   @$internal
   @override
@@ -39,7 +39,7 @@ final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
 
   @override
   Dio create(Ref ref) {
-    return dio(ref);
+    return fxDio(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -51,50 +51,55 @@ final class DioProvider extends $FunctionalProvider<Dio, Dio, Dio>
   }
 }
 
-String _$dioHash() => r'79c6513ce23c36395d2bf23fa4a26731f84bc5b0';
+String _$fxDioHash() => r'c0b39e553624aa173d4df2b53db807aaa3e5514e';
 
 /// Bundles [Dio] + [ApiEndpoints] for use in all [AppService] subclasses.
 
-@ProviderFor(serviceContext)
-final serviceContextProvider = ServiceContextProvider._();
+@ProviderFor(fxService)
+final fxServiceProvider = FxServiceProvider._();
 
 /// Bundles [Dio] + [ApiEndpoints] for use in all [AppService] subclasses.
 
-final class ServiceContextProvider
-    extends $FunctionalProvider<ServiceContext, ServiceContext, ServiceContext>
-    with $Provider<ServiceContext> {
+final class FxServiceProvider
+    extends
+        $FunctionalProvider<
+          FxServiceContext,
+          FxServiceContext,
+          FxServiceContext
+        >
+    with $Provider<FxServiceContext> {
   /// Bundles [Dio] + [ApiEndpoints] for use in all [AppService] subclasses.
-  ServiceContextProvider._()
+  FxServiceProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'serviceContextProvider',
+        name: r'fxServiceProvider',
         isAutoDispose: false,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$serviceContextHash();
+  String debugGetCreateSourceHash() => _$fxServiceHash();
 
   @$internal
   @override
-  $ProviderElement<ServiceContext> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<FxServiceContext> $createElement($ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  ServiceContext create(Ref ref) {
-    return serviceContext(ref);
+  FxServiceContext create(Ref ref) {
+    return fxService(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(ServiceContext value) {
+  Override overrideWithValue(FxServiceContext value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<ServiceContext>(value),
+      providerOverride: $SyncValueProvider<FxServiceContext>(value),
     );
   }
 }
 
-String _$serviceContextHash() => r'b735fd63d8866c8c227f9174cba9dd6b918ff21e';
+String _$fxServiceHash() => r'75dda84beccf24f42da2f1f81b4da933d20846b4';

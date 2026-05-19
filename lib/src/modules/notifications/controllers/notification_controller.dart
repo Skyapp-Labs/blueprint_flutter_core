@@ -1,5 +1,5 @@
 import 'package:blueprint_flutter_core/src/core/controllers/fx_controller_mixin.dart';
-import 'package:blueprint_flutter_core/src/core/network/firebase/firebase_client.dart';
+import 'package:blueprint_flutter_core/src/core/network/firebase/fx_firebase_client.dart';
 import 'package:blueprint_flutter_core/src/core/network/firebase/fx_messaging.dart';
 import 'package:blueprint_flutter_core/src/core/utils/logger.dart';
 import 'package:blueprint_flutter_core/src/modules/notifications/models/app_notification.dart';
@@ -87,7 +87,7 @@ class NotificationController extends _$NotificationController
       return false;
     }
 
-    if (!FirebaseClient.isInitialized) {
+    if (!FxFirebaseClient.isInitialized) {
       FxLogger.w('Skipping device registration — Firebase is not initialized.');
       return false;
     }

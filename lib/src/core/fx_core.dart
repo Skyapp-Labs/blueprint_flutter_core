@@ -27,8 +27,8 @@ abstract final class FxCore {
     // Load the countries
     await FxCountries.load();
     // Initialize Firebase
-    if (firebaseConfig != null) await FirebaseClient.initialize(firebaseConfig);
+    if (firebaseConfig != null) await FxFirebaseClient.initialize(firebaseConfig);
     // Initialize the notification listeners (must be after Firebase.initializeApp())
-    if (FirebaseClient.isInitialized) FxMessaging.initListeners();
+    if (FxFirebaseClient.isInitialized) FxMessaging.initListeners();
   }
 }

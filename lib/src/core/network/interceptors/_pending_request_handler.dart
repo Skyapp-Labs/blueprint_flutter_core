@@ -1,8 +1,8 @@
-import 'package:dio/dio.dart';
+part of 'fx_auth_interceptor.dart';
 
 /// Stores requests that arrived while a token refresh was in progress
 /// and either retries or rejects them once the refresh settles.
-class PendingRequestHandler {
+class _PendingRequestHandler {
   final List<_PendingRequest> _queue = [];
 
   bool get hasPending => _queue.isNotEmpty;

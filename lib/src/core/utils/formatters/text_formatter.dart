@@ -33,4 +33,40 @@ abstract final class TextFormatter {
         name.length <= 1 ? name : '${name[0]}${'*' * (name.length - 1)}';
     return '$masked@${parts[1]}';
   }
+
+  /// Masks digit characters for safe display.
+  ///
+  /// Non-digits (`+`, spaces, `-`, `()`) are kept as-is.
+  /// Example: `+1 415 555 2671` with [visibleEndDigits] 4 → `+1 ••• ••• 2671`
+  static String maskPhoneNumber(
+    String phone, {
+    int visibleStartDigits = 0,
+    int visibleEndDigits = 4,
+    String maskChar = '•',
+  }) {
+    if (phone.isEmpty) return phone;
+
+    final digitPositions = <int>[
+      for (var i = 0; i < phone.length; i++)
+        if (_isDigit(phone.codeUnitAt(i))) i,
+    ];
+
+    final count = digitPositions.length;
+
+    if (count == 0) return phone;
+
+    if (count <= visibleStartDigits + visibleEndDigits) return phone;
+
+    final chars = phone.split('');
+
+    for (var d = 0; d < count; d++) {
+      final show =
+          d < visibleStartDigits || d >= count - visibleEndDigits;
+      if (!show) chars[digitPositions[d]] = maskChar;
+    }
+    
+    return chars.join();
+  }
+
+  static bool _isDigit(int codeUnit) => codeUnit >= 0x30 && codeUnit <= 0x39;
 }

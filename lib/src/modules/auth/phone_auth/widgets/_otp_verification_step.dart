@@ -42,6 +42,7 @@ class OtpStep extends StatelessWidget with FxUiToolkit {
       key: const ValueKey('otp'),
       header: otpTheme.header?.call(phone, onChangeNumber),
       footer: _buildFooter(),
+      safeArea: otpTheme.safeArea,
       padding: otpTheme.padding,
       spacing: otpTheme.spacing,
       mainAxisAlignment: otpTheme.mainAxisAlignment,

@@ -40,7 +40,7 @@ class HomeScreen extends ConsumerWidget with FxUiToolkit {
           ),
         ],
       ),
-      padding: EdgeInsets.all(sizes.md),
+      // padding: EdgeInsets.all(sizes.md),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

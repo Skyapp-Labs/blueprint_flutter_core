@@ -6,46 +6,58 @@ class FxTextDivider extends StatelessWidget {
     super.key,
     required this.text,
     this.style,
-    this.isDotted = false,
-    this.dashWidth,
-    this.dashSpace,
-    this.spacing = 16,
     this.color,
-    this.strokeWidth,
+    this.align = TextAlign.center,
+    this.spacing = 16,
+    this.dashWidth = 5,
+    this.dashSpace = 0,
+    this.strokeWidth = 1,
   });
 
-  final bool isDotted;
-  final String text;
-  final TextStyle? style;
-  final double? dashWidth;
-  final double? dashSpace;
-  final double spacing;
   final Color? color;
-  final double? strokeWidth;
+  final String text;
+  final double dashWidth;
+  final double dashSpace;
+  final double spacing;
+  final double strokeWidth;
+  final TextStyle? style;
+  final TextAlign align;
+
+  bool get isStartAlign => [TextAlign.start, TextAlign.left].contains(align);
+  bool get isEndAlign => [TextAlign.end, TextAlign.right].contains(align);
 
   @override
-  Widget build(BuildContext context) => Row(
-    spacing: spacing,
-    children: [
-      Expanded(child: _buildDivider()),
-      Text(text, style: style),
-      Expanded(child: _buildDivider()),
-    ],
-  );
+  Widget build(BuildContext context) {
+    if(text.isEmpty) return _buildDivider();
+    
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      spacing: spacing,
+      children: [
+        if(isStartAlign == false) Expanded(child: _buildDivider()),
+        Text(text, style: style),
+        if(isEndAlign == false) Expanded(child: _buildDivider()),
+      ],
+    );
+  }
 
   Widget _buildDivider() {
-    if (isDotted) {
-      return FxDottedDivider(
-        dashWidth: dashWidth,
-        dashSpace: dashSpace,
+    if(strokeWidth < 1) return const SizedBox.shrink();
+    
+    if(dashWidth < 1 || dashSpace < 1) {
+      return Divider(
         color: color,
-        strokeWidth: strokeWidth,
+        height: strokeWidth,
+        thickness: strokeWidth,
       );
     }
 
-    return Divider(
+    return FxDottedDivider(
       color: color,
-      thickness: strokeWidth,
+      dashWidth: dashWidth,
+      dashSpace: dashSpace,
+      strokeWidth: strokeWidth,
     );
   }
 }

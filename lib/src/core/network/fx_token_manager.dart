@@ -3,7 +3,7 @@ import 'package:blueprint_flutter_core/src/core/utils/jwt_helper.dart';
 /// Holds the access token in memory only — never persisted to disk.
 ///
 /// The refresh token is handled separately in [AuthStorage].
-class TokenManager {
+class FxTokenManager {
   String? _accessToken;
 
   String? get accessToken => _accessToken;

@@ -1,8 +1,4 @@
-import 'dart:async';
-import 'package:dio/dio.dart';
-import 'package:blueprint_flutter_core/src/core/network/token_manager.dart';
-import 'package:blueprint_flutter_core/src/core/network/interceptors/error_mapper.dart';
-import 'package:blueprint_flutter_core/src/core/network/interceptors/pending_request_handler.dart';
+part of 'fx_auth_interceptor.dart';
 
 /// Manages the token refresh lifecycle.
 ///
@@ -10,20 +6,20 @@ import 'package:blueprint_flutter_core/src/core/network/interceptors/pending_req
 /// callers from [onRequest] wait on a shared [Completer]. Concurrent 401s
 /// from [onError] are queued in [PendingRequestHandler] and replayed on
 /// success.
-class RefreshCoordinator {
-  RefreshCoordinator({
+class _RefreshCoordinator {
+  _RefreshCoordinator({
     required Dio dio,
-    required TokenManager tokenManager,
+    required FxTokenManager tokenManager,
     required Future<bool> Function() onRefresh,
   })  : _dio = dio,
         _tokenManager = tokenManager,
         _onRefresh = onRefresh,
-        _pending = PendingRequestHandler();
+        _pending = _PendingRequestHandler();
 
   final Dio _dio;
-  final TokenManager _tokenManager;
+  final FxTokenManager _tokenManager;
   final Future<bool> Function() _onRefresh;
-  final PendingRequestHandler _pending;
+  final _PendingRequestHandler _pending;
 
   bool _isRefreshing = false;
   Completer<bool>? _refreshCompleter;
@@ -79,7 +75,7 @@ class RefreshCoordinator {
       final token = _tokenManager.accessToken!;
       _refreshCompleter!.complete(true);
 
-      final response = await PendingRequestHandler.retry(
+      final response = await _PendingRequestHandler.retry(
         _dio, err.requestOptions, token,
       );
       _pending.flush(_dio, token);
@@ -88,14 +84,14 @@ class RefreshCoordinator {
       _refreshCompleter!.complete(false);
       _pending.drainWithError(err);
       handler.reject(
-        ErrorMapper.isNetworkError(e)
-            ? ErrorMapper.map(err)
-            : ErrorMapper.unauthorized(err.requestOptions),
+        FxErrorMapper.isNetworkError(e)
+            ? FxErrorMapper.map(err)
+            : FxErrorMapper.unauthorized(err.requestOptions),
       );
     } catch (_) {
       _refreshCompleter!.complete(false);
       _pending.drainWithError(err);
-      handler.reject(ErrorMapper.unauthorized(err.requestOptions));
+      handler.reject(FxErrorMapper.unauthorized(err.requestOptions));
     } finally {
       _isRefreshing = false;
       _refreshCompleter = null;

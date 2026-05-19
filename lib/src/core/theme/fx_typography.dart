@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:blueprint_flutter_core/src/core/theme/base_colors.dart';
-import 'package:blueprint_flutter_core/src/core/theme/base_sizes.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_colors.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_sizes.dart';
 
 /// Blueprint contract for typography.
 ///

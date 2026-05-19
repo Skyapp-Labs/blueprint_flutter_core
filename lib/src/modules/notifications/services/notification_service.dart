@@ -1,9 +1,9 @@
 import 'package:blueprint_flutter_core/src/core/models/paginated_response.dart';
-import 'package:blueprint_flutter_core/src/core/network/app_service.dart';
+import 'package:blueprint_flutter_core/src/core/network/fx_service.dart';
 import 'package:blueprint_flutter_core/src/modules/notifications/models/app_notification.dart';
 import 'package:blueprint_flutter_core/src/modules/notifications/models/device_registration.dart';
 
-class NotificationService extends AppService {
+class NotificationService extends FxService {
   NotificationService(super.ctx);
 
   Future<void> registerDevice(DeviceRegistration device) async {

@@ -1,10 +1,10 @@
-import 'package:blueprint_flutter_core/src/core/network/app_service.dart';
+import 'package:blueprint_flutter_core/src/core/network/fx_service.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/auth_tokens.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/session.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/user.dart';
 
 /// Handles all shared /auth/* and /users/* API calls.
-class AuthService extends AppService {
+class AuthService extends FxService {
   AuthService(super.ctx);
 
   // --- Register (both flows) ---

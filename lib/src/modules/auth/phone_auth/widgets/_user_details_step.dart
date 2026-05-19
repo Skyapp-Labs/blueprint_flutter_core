@@ -57,6 +57,7 @@ class _DetailsStepState extends State<DetailsStep> with FxUiToolkit {
         key: const ValueKey('details'),
         header: widget.theme.header,
         footer: _buildFooter(),
+        safeArea: widget.theme.safeArea,
         padding: widget.theme.padding,
         spacing: widget.theme.spacing,
         mainAxisAlignment: widget.theme.mainAxisAlignment,

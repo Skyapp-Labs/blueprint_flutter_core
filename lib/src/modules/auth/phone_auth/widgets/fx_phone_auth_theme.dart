@@ -16,7 +16,8 @@ class PhoneEntryConfig {
     this.keyboardBuilder,
     this.header,
     this.footer,
-    this.padding,
+    this.safeArea = const FxSafeAreaInsets(),
+    this.padding = EdgeInsets.zero,
     this.spacing,
     this.otherWidgets = const [],
     this.mainAxisAlignment = MainAxisAlignment.center,
@@ -37,8 +38,10 @@ class PhoneEntryConfig {
   final Widget? header;
   /// The footer widget for the phone entry screen.
   final Widget? footer;
+  /// The safe area for the phone entry screen.
+  final FxSafeAreaInsets safeArea;
   /// The padding for the phone entry screen.
-  final EdgeInsets? padding;
+  final EdgeInsets padding;
   /// The spacing for the phone entry screen.
   final double? spacing;
   /// The main axis alignment for the phone entry screen.
@@ -70,7 +73,8 @@ class OtpVerificationConfig {
     this.titleStyle,
     this.subtitleStyle,
     this.footer,
-    this.padding,
+    this.safeArea = const FxSafeAreaInsets(),
+    this.padding = EdgeInsets.zero,
     this.spacing,
     this.titleSpacing,
     this.mainAxisAlignment = MainAxisAlignment.center,
@@ -89,8 +93,10 @@ class OtpVerificationConfig {
   final Widget Function(String phone, VoidCallback onChangeNumber)? header;
   /// The footer widget for the otp verification screen.
   final Widget Function(VoidCallback onChangeNumber)? footer;
+  /// The safe area for the otp verification screen.
+  final FxSafeAreaInsets safeArea;
   /// The padding for the otp verification screen.
-  final EdgeInsets? padding;
+  final EdgeInsets padding;
   /// The spacing for the otp verification screen.
   final double? spacing;
   /// The main axis alignment for the otp verification screen.
@@ -127,6 +133,8 @@ class UserDetailsConfig {
     this.buttonLabel = 'Create account',
     this.requireEmail = false,
     this.emailLookup = false,
+    this.safeArea = const FxSafeAreaInsets(),
+    this.padding = EdgeInsets.zero,
     this.titleStyle,
     this.subtitleStyle,
     this.firstNamePrefix,
@@ -134,7 +142,6 @@ class UserDetailsConfig {
     this.emailPrefix,
     this.header,
     this.footer,
-    this.padding,
     this.spacing,
     this.mainAxisAlignment = MainAxisAlignment.center,
     this.crossAxisAlignment = CrossAxisAlignment.stretch,
@@ -146,6 +153,8 @@ class UserDetailsConfig {
   /// The subtitle text for the user details screen.
   final String? subtitle;
   final FxTextStyle? subtitleStyle;
+  /// The safe area for the user details screen.
+  final FxSafeAreaInsets safeArea;
   /// The button label for the create account button.
   final String buttonLabel;
   /// The prefix widget for the first name input (supports SVG, Icon, etc.).
@@ -162,10 +171,10 @@ class UserDetailsConfig {
   final Widget? header;
   /// The footer widget for the phone entry screen.
   final Widget Function(VoidCallback onSubmit, bool isLoading)? footer;
-  /// The padding for the phone entry screen.
-  final EdgeInsets? padding;
   /// The spacing for the phone entry screen.
   final double? spacing;
+  /// The padding for the user details screen.
+  final EdgeInsets padding;
   /// The main axis alignment for the phone entry screen.
   final MainAxisAlignment mainAxisAlignment;
   /// The cross axis alignment for the phone entry screen.

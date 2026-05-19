@@ -1,20 +1,20 @@
+import 'package:blueprint_flutter_core/src/core/network/interceptors/fx_headers_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
-import 'package:blueprint_flutter_core/src/core/network/interceptors/auth_interceptor.dart';
-// import 'interceptors/error_interceptor.dart';
-import 'package:blueprint_flutter_core/src/core/network/interceptors/log_interceptor.dart' as bp;
-import 'package:blueprint_flutter_core/src/core/network/token_manager.dart';
+import 'package:blueprint_flutter_core/src/core/network/interceptors/fx_auth_interceptor.dart';
+import 'package:blueprint_flutter_core/src/core/network/interceptors/fx_log_interceptor.dart';
+import 'package:blueprint_flutter_core/src/core/network/fx_token_manager.dart';
 
 /// Configured Dio HTTP client used by all foundation services.
 ///
 /// Base URL is built from [FxConfig.apiBaseUrl] + [FxConfig.apiVersion].
 /// All interceptors are registered here.
-class ApiClient {
-  ApiClient._();
+class FxApiClient {
+  FxApiClient._();
 
   static Dio create({
     required FxConfig config,
-    required TokenManager tokenManager,
+    required FxTokenManager tokenManager,
     required Future<bool> Function() onUnauthorized,
   }) {
     final dio = Dio(
@@ -30,19 +30,14 @@ class ApiClient {
     );
 
     dio.interceptors.addAll([
-      bp.LogInterceptor(),
-      AuthInterceptor(
+      FxHeadersInterceptor(config),
+      FxLogInterceptor(),
+      FxAuthInterceptor(
         dio: dio,
         tokenManager: tokenManager,
         onRefresh: onUnauthorized,
         publicEndpoints: config.endpoints.publicEndpoints,
-      ),
-      // ErrorInterceptor(
-      //   dio,
-      //   tokenManager,
-      //   onUnauthorized,
-      //   publicEndpoints: config.endpoints.publicEndpoints,
-      // ),
+      )
     ]);
 
     return dio;

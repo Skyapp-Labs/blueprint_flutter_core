@@ -15,6 +15,7 @@ abstract class AuthUser with _$AuthUser {
     String? phoneNumber,
     String? countryCode,
     @Default([]) List<String> permissions,
+    @Default([]) List<String> roles,
   }) = _AuthUser;
 
   factory AuthUser.fromJson(Map<String, dynamic> json) =>

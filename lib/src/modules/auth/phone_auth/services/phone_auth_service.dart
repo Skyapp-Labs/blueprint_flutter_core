@@ -1,10 +1,10 @@
-import 'package:blueprint_flutter_core/src/core/network/app_service.dart';
+import 'package:blueprint_flutter_core/src/core/network/fx_service.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/auth_tokens.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/models/otp_data.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/models/phone_lookup_result.dart';
 
 /// Handles all OTP-specific API calls for the phone auth flow.
-class PhoneAuthService extends AppService {
+class PhoneAuthService extends FxService {
   PhoneAuthService(super.ctx);
 
   Future<OtpData> sendOtp(String phone) async {

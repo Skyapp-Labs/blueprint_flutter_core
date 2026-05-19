@@ -1,11 +1,8 @@
-import 'package:dio/dio.dart';
-import 'package:blueprint_flutter_core/src/core/errors/api_error_response.dart';
-import 'package:blueprint_flutter_core/src/core/errors/network_exception.dart';
-import 'package:blueprint_flutter_core/src/core/errors/unauthorized_exception.dart';
+part of 'fx_auth_interceptor.dart';
 
 /// Maps raw [DioException]s into typed [NetworkException] or
 /// [UnauthorizedException] errors that the rest of the app can handle.
-abstract final class ErrorMapper {
+abstract final class FxErrorMapper {
   static bool isNetworkError(DioException e) =>
     e.type == DioExceptionType.connectionTimeout ||
     e.type == DioExceptionType.receiveTimeout ||

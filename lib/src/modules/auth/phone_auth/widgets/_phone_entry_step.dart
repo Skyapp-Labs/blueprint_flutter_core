@@ -38,8 +38,9 @@ class _PhoneStepState extends State<PhoneStep> with FxUiToolkit {
       key: const ValueKey('phone'),
       header: widget.theme.header,
       footer: widget.theme.footer,
-      padding: widget.theme.padding,
       spacing: widget.theme.spacing,
+      safeArea: widget.theme.safeArea,
+      padding: widget.theme.padding,
       mainAxisAlignment: widget.theme.mainAxisAlignment,
       crossAxisAlignment: widget.theme.crossAxisAlignment,
       children: [

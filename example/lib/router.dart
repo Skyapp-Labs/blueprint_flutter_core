@@ -25,7 +25,7 @@ GoRouter router(Ref ref) {
   final router = GoRouter(
     initialLocation: AppPaths.splash,
     refreshListenable: notifier,
-    redirect: (_, state) => AuthGuard.redirect(
+    redirect: (_, state) => FxAuthGuard.redirect(
       authState: ref.read(authControllerProvider),
       location: state.uri.toString(),
       loginPath: AppPaths.login,

@@ -27,6 +27,16 @@ abstract final class JwtHelper {
   static String? countryCode(String token) =>
       decode(token)?['countryCode'] as String?;
 
+  static List<String> roles(String token) {
+    try {
+      final raw = decode(token)?['roles'] as List<dynamic>?;
+      if (raw is List) return raw.cast<String>();
+      return [];
+    } catch (_) {
+      return [];
+    }
+  }
+
   static List<String> permissions(String token) {
     final raw = decode(token)?['permissions'];
     if (raw is List) return raw.cast<String>();

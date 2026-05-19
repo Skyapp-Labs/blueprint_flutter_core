@@ -7,15 +7,12 @@
 /// ```
 library;
 
-export 'src/core/network/api_client.dart';
-export 'src/core/network/app_service.dart';
-export 'src/core/network/firebase/firebase_client.dart';
-export 'src/core/network/interceptors/auth_interceptor.dart';
-export 'src/core/network/interceptors/error_interceptor.dart';
-export 'src/core/network/interceptors/error_mapper.dart';
-export 'src/core/network/interceptors/log_interceptor.dart';
-export 'src/core/network/interceptors/pending_request_handler.dart';
-export 'src/core/network/interceptors/refresh_coordinator.dart';
+export 'src/core/network/fx_api_client.dart';
+export 'src/core/network/fx_service.dart';
+export 'src/core/network/firebase/fx_firebase_client.dart';
+export 'src/core/network/interceptors/fx_auth_interceptor.dart';
+export 'src/core/network/interceptors/fx_log_interceptor.dart';
+export 'src/core/network/interceptors/fx_headers_interceptor.dart';
 export 'src/core/network/network_providers.dart';
-export 'src/core/network/service_context.dart';
-export 'src/core/network/token_manager.dart';
+export 'src/core/network/fx_service_context.dart';
+export 'src/core/network/fx_token_manager.dart';

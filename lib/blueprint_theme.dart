@@ -5,9 +5,9 @@
 /// ```
 library;
 
-export 'src/core/theme/base_colors.dart';
-export 'src/core/theme/base_sizes.dart';
-export 'src/core/theme/base_theme.dart';
-export 'src/core/theme/base_theme_data.dart';
-export 'src/core/theme/base_typography.dart';
+export 'src/core/theme/fx_colors.dart';
+export 'src/core/theme/fx_sizes.dart';
+export 'src/core/theme/fx_theme.dart';
+export 'src/core/theme/fx_theme_data.dart';
+export 'src/core/theme/fx_typography.dart';
 export 'src/core/theme/fx_theme_controller.dart';

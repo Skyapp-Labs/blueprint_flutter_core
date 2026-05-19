@@ -1,4 +1,5 @@
 import 'package:blueprint_flutter_core/src/core/widgets/display/_display.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/layout/fx_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

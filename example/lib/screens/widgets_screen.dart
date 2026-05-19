@@ -30,7 +30,7 @@ class _WidgetsShowcaseScreenState extends State<WidgetsShowcaseScreen>
 
     return FxScaffold(
       appBar: AppBar(title: const Text('Widget Showcase')),
-      padding: EdgeInsets.zero,
+      // padding: EdgeInsets.zero,
       body: ListView(
         padding: EdgeInsets.all(sizes.md),
         children: [

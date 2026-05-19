@@ -24,7 +24,7 @@ library;
 
 export 'src/core/config/fx_config.dart';
 export 'src/core/config/fx_environment.dart';
-export 'src/core/network/api_endpoints.dart';
+export 'src/core/network/fx_api_endpoints.dart';
 
 export 'src/core/fx_core.dart';
 export 'src/core/blueprint_flutter_core.dart';
@@ -45,4 +45,4 @@ export 'src/core/utils/logger.dart';
 
 export 'src/core/routing/fx_router_notifier.dart';
 export 'src/core/routing/fx_route_observer.dart';
-export 'src/core/routing/auth_guard.dart';
+export 'src/core/routing/fx_auth_guard.dart';

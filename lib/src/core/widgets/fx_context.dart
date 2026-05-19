@@ -1,10 +1,11 @@
+import 'package:blueprint_flutter_core/src/core/shell/widgets/fx_shell_scope.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:blueprint_flutter_core/src/core/theme/base_colors.dart';
-import 'package:blueprint_flutter_core/src/core/theme/base_sizes.dart';
-import 'package:blueprint_flutter_core/src/core/theme/base_typography.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_colors.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_sizes.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_typography.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_theme_controller.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart';
 
@@ -19,8 +20,7 @@ mixin FxUiToolkit {
 		if(_context == null) throw Exception('Context not set before using FxUiToolkit');
 		return _context!;
 	}
-
-
+  
   // ── Flutter theme (still useful for colorScheme) ──────────────────────────
 
   /// Returns the theme data for the context.
@@ -44,7 +44,6 @@ mixin FxUiToolkit {
   /// Returns the colors for the context.
   FxColors get colors => typography.colors;
 
-
   // ── Screen ─────────────────────────────────────────────
 
   /// Returns the media query data for the context.
@@ -64,25 +63,38 @@ mixin FxUiToolkit {
   /// Returns true if the screen is a desktop.
   bool           get isDesktop    => screenWidth >= 1024;
 
+  // ── Shell ─────────────────────────────────────────────
+  /// Returns the [FxShellScope] if it exists, otherwise returns null.
+  /// Example:
+  /// ```dart
+  /// FxUiContext.of(context).shellScope;
+  /// ```
+  FxShellScope? get shellScope => FxShellScope.maybeOf(_ctx);
 
   // ── Navigation ─────────────────────────────────────────────
 
   /// Pushes a named route onto the stack.
   ///
   /// Example: `push('/home')`
-  void push(String route) => GoRouter.of(_ctx).push(route);
+  void push(String route) {
+    if(_ctx.mounted) GoRouter.of(_ctx).push(route);
+  }
 
   /// Replaces the current route with a named route.
   ///
   /// Use this when you don't want the user to go back — e.g. after login.
   /// Example: `pushReplace('/home')`
-  void pushReplace(String route) => GoRouter.of(_ctx).pushReplacement(route);
+  void pushReplace(String route) {
+    if(_ctx.mounted) GoRouter.of(_ctx).pushReplacement(route);
+  }
 
   /// Clears the entire stack and pushes a named route.
   ///
   /// Use this for logout or onboarding completion.
   /// Example: `pushAndClearStack('/login')`
-  void pushAndClearStack(String route) => GoRouter.of(_ctx).go(route);
+  void pushAndClearStack(String route) {
+    if(_ctx.mounted) GoRouter.of(_ctx).go(route);
+  }
 
   /// Pops the current route off the stack.
   ///
@@ -168,4 +180,22 @@ mixin FxUiToolkit {
 
   // ── Localisation ─────────────────────────────────────────────
   // AppLocalizations get l10n => AppLocalizations.of(_ctx)!;
+}
+
+class FxUiContext with FxUiToolkit {
+
+  FxUiContext._(BuildContext context) {
+    super.setToolkitContext(context);
+  }
+
+  /// Constructor for the [FxUiContext].
+  /// Example:
+  /// ```dart
+  /// FxUiContext.of(context);
+  /// ```
+  FxUiContext.of(BuildContext context) : this._(context);
+}
+
+extension FxUiToolkitContext on BuildContext {
+  FxUiContext get fxUiToolkit => FxUiContext.of(this);
 }

@@ -1,8 +1,8 @@
-import 'package:blueprint_flutter_core/src/core/network/app_service.dart';
+import 'package:blueprint_flutter_core/src/core/network/fx_service.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/user.dart';
 import 'package:blueprint_flutter_core/src/modules/profile/models/profile_update.dart';
 
-class ProfileService extends AppService {
+class ProfileService extends FxService {
 
   ProfileService(super.serviceContext);
 

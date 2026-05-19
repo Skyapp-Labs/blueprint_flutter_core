@@ -4,16 +4,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:blueprint_flutter_core/src/core/errors/network_exception.dart';
 import 'package:blueprint_flutter_core/src/core/errors/unauthorized_exception.dart';
 import 'package:blueprint_flutter_core/src/core/network/network_providers.dart';
-import 'package:blueprint_flutter_core/src/core/network/service_context.dart';
+import 'package:blueprint_flutter_core/src/core/network/fx_service_context.dart';
 import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
-
-part 'fx_state.dart';
 
 mixin FxControllerMixin {
   Ref get ref; // satisfied automatically by all Riverpod notifiers
 
   /// Shorthand for the shared service context (dio + endpoints).
-  ServiceContext get serviceContext => ref.read(serviceContextProvider);
+  FxServiceContext get serviceContext => ref.read(fxServiceProvider);
 
   /// Shorthand for the app config.
   FxConfig get config => ref.read(fxConfigProvider);

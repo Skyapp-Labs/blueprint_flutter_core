@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthUser {
 
- String get id; String get firstName; String get lastName; String? get email; String? get phoneNumber; String? get countryCode; List<String> get permissions;
+ String get id; String get firstName; String get lastName; String? get email; String? get phoneNumber; String? get countryCode; List<String> get permissions; List<String> get roles;
 /// Create a copy of AuthUser
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $AuthUserCopyWith<AuthUser> get copyWith => _$AuthUserCopyWithImpl<AuthUser>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthUser&&(identical(other.id, id) || other.id == id)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&const DeepCollectionEquality().equals(other.permissions, permissions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthUser&&(identical(other.id, id) || other.id == id)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&const DeepCollectionEquality().equals(other.permissions, permissions)&&const DeepCollectionEquality().equals(other.roles, roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,firstName,lastName,email,phoneNumber,countryCode,const DeepCollectionEquality().hash(permissions));
+int get hashCode => Object.hash(runtimeType,id,firstName,lastName,email,phoneNumber,countryCode,const DeepCollectionEquality().hash(permissions),const DeepCollectionEquality().hash(roles));
 
 @override
 String toString() {
-  return 'AuthUser(id: $id, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, countryCode: $countryCode, permissions: $permissions)';
+  return 'AuthUser(id: $id, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, countryCode: $countryCode, permissions: $permissions, roles: $roles)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $AuthUserCopyWith<$Res>  {
   factory $AuthUserCopyWith(AuthUser value, $Res Function(AuthUser) _then) = _$AuthUserCopyWithImpl;
 @useResult
 $Res call({
- String id, String firstName, String lastName, String? email, String? phoneNumber, String? countryCode, List<String> permissions
+ String id, String firstName, String lastName, String? email, String? phoneNumber, String? countryCode, List<String> permissions, List<String> roles
 });
 
 
@@ -65,7 +65,7 @@ class _$AuthUserCopyWithImpl<$Res>
 
 /// Create a copy of AuthUser
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? firstName = null,Object? lastName = null,Object? email = freezed,Object? phoneNumber = freezed,Object? countryCode = freezed,Object? permissions = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? firstName = null,Object? lastName = null,Object? email = freezed,Object? phoneNumber = freezed,Object? countryCode = freezed,Object? permissions = null,Object? roles = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
@@ -74,6 +74,7 @@ as String,email: freezed == email ? _self.email : email // ignore: cast_nullable
 as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String?,permissions: null == permissions ? _self.permissions : permissions // ignore: cast_nullable_to_non_nullable
+as List<String>,roles: null == roles ? _self.roles : roles // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
 }
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String firstName,  String lastName,  String? email,  String? phoneNumber,  String? countryCode,  List<String> permissions)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String firstName,  String lastName,  String? email,  String? phoneNumber,  String? countryCode,  List<String> permissions,  List<String> roles)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthUser() when $default != null:
-return $default(_that.id,_that.firstName,_that.lastName,_that.email,_that.phoneNumber,_that.countryCode,_that.permissions);case _:
+return $default(_that.id,_that.firstName,_that.lastName,_that.email,_that.phoneNumber,_that.countryCode,_that.permissions,_that.roles);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.id,_that.firstName,_that.lastName,_that.email,_that.phoneN
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String firstName,  String lastName,  String? email,  String? phoneNumber,  String? countryCode,  List<String> permissions)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String firstName,  String lastName,  String? email,  String? phoneNumber,  String? countryCode,  List<String> permissions,  List<String> roles)  $default,) {final _that = this;
 switch (_that) {
 case _AuthUser():
-return $default(_that.id,_that.firstName,_that.lastName,_that.email,_that.phoneNumber,_that.countryCode,_that.permissions);case _:
+return $default(_that.id,_that.firstName,_that.lastName,_that.email,_that.phoneNumber,_that.countryCode,_that.permissions,_that.roles);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.firstName,_that.lastName,_that.email,_that.phoneN
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String firstName,  String lastName,  String? email,  String? phoneNumber,  String? countryCode,  List<String> permissions)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String firstName,  String lastName,  String? email,  String? phoneNumber,  String? countryCode,  List<String> permissions,  List<String> roles)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthUser() when $default != null:
-return $default(_that.id,_that.firstName,_that.lastName,_that.email,_that.phoneNumber,_that.countryCode,_that.permissions);case _:
+return $default(_that.id,_that.firstName,_that.lastName,_that.email,_that.phoneNumber,_that.countryCode,_that.permissions,_that.roles);case _:
   return null;
 
 }
@@ -215,7 +216,7 @@ return $default(_that.id,_that.firstName,_that.lastName,_that.email,_that.phoneN
 @JsonSerializable()
 
 class _AuthUser extends AuthUser {
-  const _AuthUser({required this.id, required this.firstName, required this.lastName, this.email, this.phoneNumber, this.countryCode, final  List<String> permissions = const []}): _permissions = permissions,super._();
+  const _AuthUser({required this.id, required this.firstName, required this.lastName, this.email, this.phoneNumber, this.countryCode, final  List<String> permissions = const [], final  List<String> roles = const []}): _permissions = permissions,_roles = roles,super._();
   factory _AuthUser.fromJson(Map<String, dynamic> json) => _$AuthUserFromJson(json);
 
 @override final  String id;
@@ -229,6 +230,13 @@ class _AuthUser extends AuthUser {
   if (_permissions is EqualUnmodifiableListView) return _permissions;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(_permissions);
+}
+
+ final  List<String> _roles;
+@override@JsonKey() List<String> get roles {
+  if (_roles is EqualUnmodifiableListView) return _roles;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_roles);
 }
 
 
@@ -245,16 +253,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthUser&&(identical(other.id, id) || other.id == id)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&const DeepCollectionEquality().equals(other._permissions, _permissions));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthUser&&(identical(other.id, id) || other.id == id)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&const DeepCollectionEquality().equals(other._permissions, _permissions)&&const DeepCollectionEquality().equals(other._roles, _roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,firstName,lastName,email,phoneNumber,countryCode,const DeepCollectionEquality().hash(_permissions));
+int get hashCode => Object.hash(runtimeType,id,firstName,lastName,email,phoneNumber,countryCode,const DeepCollectionEquality().hash(_permissions),const DeepCollectionEquality().hash(_roles));
 
 @override
 String toString() {
-  return 'AuthUser(id: $id, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, countryCode: $countryCode, permissions: $permissions)';
+  return 'AuthUser(id: $id, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, countryCode: $countryCode, permissions: $permissions, roles: $roles)';
 }
 
 
@@ -265,7 +273,7 @@ abstract mixin class _$AuthUserCopyWith<$Res> implements $AuthUserCopyWith<$Res>
   factory _$AuthUserCopyWith(_AuthUser value, $Res Function(_AuthUser) _then) = __$AuthUserCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String firstName, String lastName, String? email, String? phoneNumber, String? countryCode, List<String> permissions
+ String id, String firstName, String lastName, String? email, String? phoneNumber, String? countryCode, List<String> permissions, List<String> roles
 });
 
 
@@ -282,7 +290,7 @@ class __$AuthUserCopyWithImpl<$Res>
 
 /// Create a copy of AuthUser
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? firstName = null,Object? lastName = null,Object? email = freezed,Object? phoneNumber = freezed,Object? countryCode = freezed,Object? permissions = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? firstName = null,Object? lastName = null,Object? email = freezed,Object? phoneNumber = freezed,Object? countryCode = freezed,Object? permissions = null,Object? roles = null,}) {
   return _then(_AuthUser(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,firstName: null == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
@@ -291,6 +299,7 @@ as String,email: freezed == email ? _self.email : email // ignore: cast_nullable
 as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String?,permissions: null == permissions ? _self._permissions : permissions // ignore: cast_nullable_to_non_nullable
+as List<String>,roles: null == roles ? _self._roles : roles // ignore: cast_nullable_to_non_nullable
 as List<String>,
   ));
 }

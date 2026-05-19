@@ -5,3 +5,6 @@ export 'fx_list_tile.dart';
 export 'fx_text_divider.dart';
 export 'fx_text.dart';
 export 'fx_dotted_border.dart';
+export 'fx_reveal.dart';
+export 'fx_reveal_preferred.dart';
+export 'fx_reveal_transitions.dart';

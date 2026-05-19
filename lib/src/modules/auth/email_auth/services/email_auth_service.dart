@@ -1,8 +1,8 @@
-import 'package:blueprint_flutter_core/src/core/network/app_service.dart';
+import 'package:blueprint_flutter_core/src/core/network/fx_service.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/auth_tokens.dart';
 
 /// Handles all OTP-specific API calls for the phone auth flow.
-class EmailAuthService extends AppService {
+class EmailAuthService extends FxService {
   EmailAuthService(super.ctx);
 
   // --- Email login ---

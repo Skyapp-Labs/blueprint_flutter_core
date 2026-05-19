@@ -13,6 +13,7 @@ export 'src/core/utils/formatters/text_formatter.dart';
 export 'src/core/utils/formatters/phone_formatter.dart';
 
 export 'src/core/widgets/fx_context.dart';
+export 'src/core/shell/shell.dart';
 export 'src/core/widgets/layout/_layout.dart';
 export 'src/core/widgets/buttons/_buttons.dart';
 export 'src/core/widgets/inputs/_inputs.dart';

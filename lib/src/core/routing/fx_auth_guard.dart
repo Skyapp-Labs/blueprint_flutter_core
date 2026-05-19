@@ -13,14 +13,14 @@ import 'package:blueprint_flutter_core/src/modules/auth/core/models/auth_state.d
 ///   splashPath: '/splash',   // optional
 /// ),
 /// ```
-abstract final class AuthGuard {
+abstract final class FxAuthGuard {
   static String? redirect({
     required AuthState authState,
     required String location,
     required String loginPath,
     required String homePath,
     String splashPath = '/splash',
-    List<String> publicPaths = const ['/splash', '/login'],
+    List<String> publicPaths = const ['/', '/splash', '/login'],
   }) {
     final isSplash = location == splashPath;
     final isLogin  = location == loginPath;

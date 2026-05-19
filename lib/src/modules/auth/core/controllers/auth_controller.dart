@@ -46,7 +46,7 @@ class AuthController extends _$AuthController
   @override
   late final FxConfig _config;
 
-  late final TokenManager _tokenManager;
+  late final FxTokenManager _tokenManager;
   late final AuthStorage _authStorage;
 
   @override
@@ -67,14 +67,14 @@ class AuthController extends _$AuthController
   @override
   AuthState build() {
     _config = ref.read(fxConfigProvider);
-    _tokenManager = TokenManager();
+    _tokenManager = FxTokenManager();
     _authStorage = AuthStorage();
-    _dio = ApiClient.create(
+    _dio = FxApiClient.create(
       config: _config,
       tokenManager: _tokenManager,
       onUnauthorized: _handleTokenRefresh,
     );
-    final serviceContext = ServiceContext(dio: _dio, endpoints: _config.endpoints);
+    final serviceContext = FxServiceContext(dio: _dio, endpoints: _config.endpoints);
     _authService = AuthService(serviceContext);
     _phoneAuthService = PhoneAuthService(serviceContext);
     _emailAuthService = EmailAuthService(serviceContext);
@@ -109,7 +109,7 @@ class AuthController extends _$AuthController
 
   /// Listens to notifications and registers the device if the user is authenticated.
   void _listenToNotifications() {
-    if (_config.enableNotifications && FirebaseClient.isInitialized) {
+    if (_config.enableNotifications && FxFirebaseClient.isInitialized) {
       final sub = FxMessaging.onTokenRefresh.listen((newToken) {
         if (state.status == AuthStatus.authenticated) {
           ref.read(notificationControllerProvider.notifier).registerDevice(newToken);
@@ -147,6 +147,7 @@ class AuthController extends _$AuthController
     final email = JwtHelper.email(tokens.accessToken);
     final phone = JwtHelper.phoneNumber(tokens.accessToken);
     final countryCode = JwtHelper.countryCode(tokens.accessToken);
+    final roles = JwtHelper.roles(tokens.accessToken);
 
     final nameParts = fullName.split(' ');
     final user = AuthUser(
@@ -157,6 +158,7 @@ class AuthController extends _$AuthController
       phoneNumber: phone,
       permissions: permissions,
       countryCode: countryCode,
+      roles: roles,
     );
 
     await Future.wait([

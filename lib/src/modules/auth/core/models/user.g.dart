@@ -18,6 +18,9 @@ _AuthUser _$AuthUserFromJson(Map<String, dynamic> json) => _AuthUser(
           ?.map((e) => e as String)
           .toList() ??
       const [],
+  roles:
+      (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+      const [],
 );
 
 Map<String, dynamic> _$AuthUserToJson(_AuthUser instance) => <String, dynamic>{
@@ -28,4 +31,5 @@ Map<String, dynamic> _$AuthUserToJson(_AuthUser instance) => <String, dynamic>{
   'phoneNumber': instance.phoneNumber,
   'countryCode': instance.countryCode,
   'permissions': instance.permissions,
+  'roles': instance.roles,
 };

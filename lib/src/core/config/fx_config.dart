@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
-import 'package:blueprint_flutter_core/src/core/network/api_endpoints.dart';
+import 'package:blueprint_flutter_core/src/core/network/fx_api_endpoints.dart';
 import 'package:blueprint_flutter_core/src/core/config/fx_environment.dart';
 
 part 'fx_config.g.dart';
@@ -60,6 +60,20 @@ abstract class FxConfig {
 
   /// Favorite countries for phone input picker
   List<String> get favoriteCountries => ['NG', 'US', 'GB', 'Uk', 'CA', 'IN'];
+
+  /// Optional full `User-Agent` for API calls. When null, a default is built
+  /// from [appName], [apiVersion], and [clientVersion].
+  String? get apiUserAgent => null;
+
+  /// Optional build/version label for the default `User-Agent` (e.g. from
+  /// `package_info_plus`). Ignored when [apiUserAgent] is set.
+  String? get clientVersion => null;
+
+  /// When non-empty, sent as `X-Tenant-Id` on every API request.
+  String? get tenantId => null;
+
+  /// When non-empty, sent as `X-Org-Id` on every API request.
+  String? get orgId => null;
 }
 
 /// Override in main.dart with your [FxConfig] implementation.
