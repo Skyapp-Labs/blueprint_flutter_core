@@ -15,19 +15,25 @@ class AppConfig extends FxConfig {
   Environment get environment => Environment.development;
 
   @override
-  String get apiBaseUrl => 'https://api.example.com';
+  String get apiBaseUrl => 'https://api-blueprint-qshw.onrender.com/';
 
   @override
-  String get apiVersion => 'v1';
+  String get apiVersion => 'api/v1';
 
   @override
-  AuthMethod get authMethod => AuthMethod.email;
+  AuthMethod get authMethod => AuthMethod.phone;
 
   @override
   bool get enableFirebase => false;
 
   @override
   bool get enableNotifications => false;
+  
+  @override
+  int get connectTimeoutMs => 3000000;
+  
+  @override
+  int get receiveTimeoutMs => 3000000;
 
   @override
   String get initialCountryCode => 'US';

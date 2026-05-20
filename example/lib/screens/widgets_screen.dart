@@ -314,17 +314,11 @@ class _WidgetsShowcaseScreenState extends State<WidgetsShowcaseScreen>
             color: colors.surfaceVariant.withValues(alpha: 0.4),
             borderRadius: BorderRadius.circular(sizes.radiusLg),
           ),
-          child: FxEmptyState(
-            icon: const Icon(Icons.inbox_outlined),
-            title: 'Nothing here yet',
-            subtitle: 'Add items to see them listed here.',
-            actionLabel: 'Add Item',
-            onAction: () => FxSnackbar.show(
-              context,
-              message: 'Add item tapped',
-              type: FxSnackbarType.info,
-            ),
-          ),
+          child: FxStateView.fromData(FxStates.empty, onAction: () => FxSnackbar.show(
+            context,
+            message: 'Add item tapped',
+            type: FxSnackbarType.info,
+          )),
         ),
       ],
     );

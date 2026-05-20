@@ -5,6 +5,37 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.1.0
+
+### Added
+
+**Widgets**
+
+- `FxCounterBadge` and `FxCounterText` widgets.
+- `FxEmptyState` widget for handling empty data UI states.
+- `FxRefreshView` layout widget to implement pull-to-refresh functionality easily.
+- `FxNotificationIconButton` and `FxNotificationPageView` widgets in the notifications module.
+
+**Auth**
+
+- Added new styling models for Phone Auth: `FxPhoneEntryStyle`, `FxOtpEntryStyle`, `FxRegisterEntryStyle`.
+
+### Changed
+
+- Restructured `FxPhoneAuth` steps into internal components (`_phone_entry.dart`, `_otp_entry.dart`, `_register_entry.dart`).
+- Removed `FxPhoneAuthTheme` in favor of individual component styles.
+
+### Refactoring (Breaking)
+
+**Notifications**
+
+- Renamed notification module files and classes to use `Fx` prefix:
+  - `NotificationController` → `FxNotificationController`
+  - `NotificationState` → `FxNotificationState`
+  - `NotificationService` → `FxNotificationService`
+  - `AppNotification` → `FxNotification`
+  - `DeviceRegistration` → `FxDeviceRegistration`
+
 ## 2.0.0
 
 ### Breaking

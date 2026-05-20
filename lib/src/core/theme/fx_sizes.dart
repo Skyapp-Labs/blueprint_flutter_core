@@ -116,7 +116,7 @@ abstract class FxSizes extends ThemeExtension<FxSizes>  {
 
 	// Tooltip
 	double get tooltipRadius => 4.0.r;
-	double get tooltipPadding => 8.0.w;
+	double get tooltipPadding => 16.0.w;
 
 	// Snackbar
 	double get snackbarRadius => 8.0.r;

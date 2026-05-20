@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 /// Application-wide structured logger.
@@ -17,7 +18,7 @@ abstract final class FxLogger {
   );
 
   static Level _resolveLevel() {
-    bool isProduction = bool.fromEnvironment('dart.vm.product');
+    bool isProduction = kReleaseMode;
     return isProduction ? Level.off : Level.debug;
   }
 

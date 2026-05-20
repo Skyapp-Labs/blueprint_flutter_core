@@ -1,38 +1,29 @@
-import 'package:blueprint_flutter_core/src/core/widgets/display/_display.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/layout/fx_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:blueprint_flutter_core/src/core/widgets/feedback/_feedback.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/controllers/phone_auth_flow_controller.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/styles/_styles.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/controllers/phone_auth_flow_state.dart' show FxPhoneAuthStep;
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/controllers/phone_auth_flow_controller.dart';
 
-import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/_user_details_step.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/_otp_verification_step.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/_phone_entry_step.dart';
-
-part 'fx_otp_input.dart';
-part 'fx_phone_auth_theme.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/_otp_entry.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/fx_otp_input.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/_phone_entry.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/_register_entry.dart';
 
 class FxPhoneAuth extends ConsumerStatefulWidget {
   const FxPhoneAuth({
     super.key,
     this.onAuthSuccess,
-    this.userDetailsBuilder,
-    this.phoneEntryConfig = const PhoneEntryConfig(),
-    this.otpVerificationConfig = const OtpVerificationConfig(),
-    this.userDetailsConfig = const UserDetailsConfig(),
+    this.otpEntryStyle = const FxOtpEntryStyle(),
+    this.phoneEntryStyle = const FxPhoneEntryStyle(),
+    this.registerEntryStyle = const FxRegisterEntryStyle(),
   });
 
   final VoidCallback? onAuthSuccess;
-  final PhoneEntryConfig phoneEntryConfig;
-  final OtpVerificationConfig otpVerificationConfig;
-  final UserDetailsConfig userDetailsConfig;
-
-  final Widget Function(BuildContext context)? userDetailsBuilder;
+  final FxOtpEntryStyle otpEntryStyle;
+  final FxPhoneEntryStyle phoneEntryStyle;
+  final FxRegisterEntryStyle registerEntryStyle;
 
   @override
   ConsumerState<FxPhoneAuth> createState() => _FxPhoneAuthWidgetState();
@@ -87,23 +78,23 @@ class _FxPhoneAuthWidgetState extends ConsumerState<FxPhoneAuth> {
       duration: const Duration(milliseconds: 300),
       transitionBuilder: (child, anim) => transitionBuilder(child, anim, flow.step),
       child: switch (flow.step) {
-        FxPhoneAuthStep.enterPhone => PhoneStep(
-          theme: widget.phoneEntryConfig,
+        FxPhoneAuthStep.enterPhone => PhoneEntry(
+          style: widget.phoneEntryStyle,
           onSubmit: flowCtrl.sendOtp,
           isLoading: authState.isLoading,
         ),
-        FxPhoneAuthStep.enterOtp => OtpStep(
+        FxPhoneAuthStep.enterOtp => OtpEntry(
           error: authState.error,
           phone: flow.phone ?? '',
           otpKey: _otpKey,
           onResend: flowCtrl.resendOtp,
           isLoading: authState.isLoading,
-          otpTheme: widget.otpVerificationConfig,
+          style: widget.otpEntryStyle,
           onCompleted: flowCtrl.verifyOtp,
           onChangeNumber: flowCtrl.goBack,
         ),
-        FxPhoneAuthStep.enterDetails => DetailsStep(
-          theme: widget.userDetailsConfig,
+        FxPhoneAuthStep.enterDetails => RegisterEntry(
+          style: widget.registerEntryStyle,
           onSubmit: flowCtrl.register,
           isLoading: authState.isLoading,
         ),

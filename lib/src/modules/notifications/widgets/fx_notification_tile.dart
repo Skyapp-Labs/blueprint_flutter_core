@@ -1,8 +1,8 @@
+import 'package:blueprint_flutter_core/src/modules/notifications/models/fx_notification.dart';
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/utils/formatters/date_formatter.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/modules/notifications/models/app_notification.dart';
 
 /// A notification list item with read/unread state and swipe-to-delete.
 class FxNotificationTile extends StatelessWidget with FxUiToolkit {
@@ -13,7 +13,7 @@ class FxNotificationTile extends StatelessWidget with FxUiToolkit {
     this.onDelete,
   });
 
-  final AppNotification notification;
+  final FxNotification notification;
   final VoidCallback? onTap;
   final VoidCallback? onDelete;
 

@@ -2,26 +2,25 @@ import 'package:blueprint_flutter_core/src/core/controllers/fx_controller_mixin.
 import 'package:blueprint_flutter_core/src/core/network/firebase/fx_firebase_client.dart';
 import 'package:blueprint_flutter_core/src/core/network/firebase/fx_messaging.dart';
 import 'package:blueprint_flutter_core/src/core/utils/logger.dart';
-import 'package:blueprint_flutter_core/src/modules/notifications/models/app_notification.dart';
-import 'package:blueprint_flutter_core/src/modules/notifications/models/device_registration.dart';
-import 'package:blueprint_flutter_core/src/modules/notifications/services/notification_service.dart';
+import 'package:blueprint_flutter_core/src/modules/notifications/controllers/fx_notification_state.dart';
+import 'package:blueprint_flutter_core/src/modules/notifications/models/fx_device_registration.dart';
+import 'package:blueprint_flutter_core/src/modules/notifications/services/fx_notification_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'notification_controller.g.dart';
-part 'notification_state.dart';
+part 'fx_notification_controller.g.dart';
 
 @riverpod
-class NotificationController extends _$NotificationController
+class FxNotificationController extends _$FxNotificationController
   with FxControllerMixin {
 
-  late final NotificationService _service;
+  late final FxNotificationService _service;
 
   @override
-  NotificationsState build() {
-    _service = NotificationService(serviceContext);
-    return const NotificationsState();
+  FxNotificationsState build() {
+    _service = FxNotificationService(serviceContext);
+    return const FxNotificationsState();
   }
 
   Future<void> loadNotifications({bool refresh = false}) async {
@@ -55,10 +54,9 @@ class NotificationController extends _$NotificationController
   Future<void> markAsRead(String id) async {
     try {
       await _service.markAsRead(id);
-      final updated =
-          state.notifications.map((n) {
-            return n.id == id ? n.copyWith(read: true) : n;
-          }).toList();
+      final updated = state.notifications.map(
+        (n) => n.id == id ? n.copyWith(read: true) : n
+      ).toList();
       final newUnread = state.unreadCount > 0 ? state.unreadCount - 1 : 0;
       state = state.copyWith(notifications: updated, unreadCount: newUnread);
     } catch (_) {}
@@ -109,7 +107,7 @@ class NotificationController extends _$NotificationController
     await _service.registerDevice(device);
   }
 
-  Future<DeviceRegistration> _getDeviceName(String token) async {
+  Future<FxDeviceRegistration> _getDeviceName(String token) async {
     final deviceType = switch (defaultTargetPlatform) {
       TargetPlatform.iOS => DeviceType.ios,
       TargetPlatform.android => DeviceType.android,
@@ -118,7 +116,7 @@ class NotificationController extends _$NotificationController
 
     final deviceName = await DeviceInfoPlugin().deviceInfo.then((info) => info.data);
 
-    return DeviceRegistration(
+    return FxDeviceRegistration(
       fcmToken: token,
       deviceType: deviceType,
       deviceName: '${deviceName['name']}: ${deviceName['model']}',

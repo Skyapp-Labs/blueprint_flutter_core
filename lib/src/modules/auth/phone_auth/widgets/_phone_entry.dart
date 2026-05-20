@@ -1,27 +1,28 @@
-import 'package:blueprint_flutter_core/src/core/widgets/layout/_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_button.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/fx_phone_auth.dart';
 
-class PhoneStep extends StatefulWidget {
-  const PhoneStep({
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/layout/_layout.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_button.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/styles/fx_phone_entry_style.dart';
+
+class PhoneEntry extends StatefulWidget {
+  const PhoneEntry({
     super.key,
-    required this.theme,
+    required this.style,
     required this.onSubmit,
     required this.isLoading,
   });
 
-  final PhoneEntryConfig theme;
+  final FxPhoneEntryStyle style;
   final Future<void> Function(String phone, {String? countryCode}) onSubmit;
   final bool isLoading;
 
   @override
-  State<PhoneStep> createState() => _PhoneStepState();
+  State<PhoneEntry> createState() => _PhoneEntryState();
 }
 
-class _PhoneStepState extends State<PhoneStep> with FxUiToolkit {
+class _PhoneEntryState extends State<PhoneEntry> with FxUiToolkit {
   String _phone = '';
   String? _countryCode;
 
@@ -30,19 +31,19 @@ class _PhoneStepState extends State<PhoneStep> with FxUiToolkit {
     setToolkitContext(context);
 
     final hasTopContent = (
-      widget.theme.title != null || 
-      widget.theme.subtitle != null
+      widget.style.title != null || 
+      widget.style.subtitle != null
     );
 
     return FxScrollableForm(
       key: const ValueKey('phone'),
-      header: widget.theme.header,
-      footer: widget.theme.footer,
-      spacing: widget.theme.spacing,
-      safeArea: widget.theme.safeArea,
-      padding: widget.theme.padding,
-      mainAxisAlignment: widget.theme.mainAxisAlignment,
-      crossAxisAlignment: widget.theme.crossAxisAlignment,
+      header: widget.style.header,
+      footer: widget.style.footer,
+      spacing: widget.style.spacing,
+      safeArea: widget.style.safeArea,
+      padding: widget.style.padding,
+      mainAxisAlignment: widget.style.mainAxisAlignment,
+      crossAxisAlignment: widget.style.crossAxisAlignment,
       children: [
         if(hasTopContent) ...[
           _buildTopContent(),
@@ -60,11 +61,11 @@ class _PhoneStepState extends State<PhoneStep> with FxUiToolkit {
           })
         ),
         FxButton(
-          label: widget.theme.buttonLabel,
+          label: widget.style.buttonLabel,
           isLoading: widget.isLoading,
           onPressed: () => widget.onSubmit(_phone, countryCode: _countryCode)
         ),
-        ...widget.theme.otherWidgets,
+        ...widget.style.otherWidgets,
       ],
     );
   }
@@ -73,17 +74,17 @@ class _PhoneStepState extends State<PhoneStep> with FxUiToolkit {
     Widget? title;
     Widget? subtitle;
 
-    if (widget.theme.title != null) {
+    if (widget.style.title != null) {
       title = Text(
-        widget.theme.title!,
+        widget.style.title!,
         style: typography.headlineSmall,
         textAlign: TextAlign.center,
       );
     }
 
-    if (widget.theme.subtitle != null) {
+    if (widget.style.subtitle != null) {
       subtitle = Text(
-        widget.theme.subtitle!,
+        widget.style.subtitle!,
         style: typography.bodyMedium,
         textAlign: TextAlign.center,
       );
@@ -93,7 +94,7 @@ class _PhoneStepState extends State<PhoneStep> with FxUiToolkit {
 
     return Column(
       spacing: sizes.xs,
-      crossAxisAlignment: widget.theme.crossAxisAlignment,
+      crossAxisAlignment: widget.style.crossAxisAlignment,
       children: [
         title!,
         subtitle!,

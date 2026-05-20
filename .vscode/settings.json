@@ -8,6 +8,7 @@
         "libphonenumber",
         "localisation",
         "pubspec",
+        "refreshable",
         "riverpod",
         "Skyapp",
         "snackbars",

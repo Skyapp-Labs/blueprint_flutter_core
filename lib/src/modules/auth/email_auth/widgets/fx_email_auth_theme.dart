@@ -1,7 +1,7 @@
 part of 'fx_email_auth.dart';
 
-class FxEmailAuthTheme {
-  const FxEmailAuthTheme({
+class FxEmailEntryStyle {
+  const FxEmailEntryStyle({
     this.loginBuilder,
     this.registerBuilder,
     this.showInputLabel = false,

@@ -148,7 +148,7 @@ class FxPane extends FxTile {
         showEndDrawer = true,
         showDock = false,
         extendBody = false,
-        dividerStyle = (style ?? const FxPaneDividerStyle()).copyWith(
+        dividerStyle = style ?? FxPaneDividerStyle(
           color: color,
           textStyle: textStyle,
           margin: margin,

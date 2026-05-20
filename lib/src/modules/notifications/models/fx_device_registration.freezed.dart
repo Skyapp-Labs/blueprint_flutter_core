@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'device_registration.dart';
+part of 'fx_device_registration.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'device_registration.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$DeviceRegistration {
+mixin _$FxDeviceRegistration {
 
  String get fcmToken; DeviceType get deviceType; String get deviceName;
-/// Create a copy of DeviceRegistration
+/// Create a copy of FxDeviceRegistration
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$DeviceRegistrationCopyWith<DeviceRegistration> get copyWith => _$DeviceRegistrationCopyWithImpl<DeviceRegistration>(this as DeviceRegistration, _$identity);
+$FxDeviceRegistrationCopyWith<FxDeviceRegistration> get copyWith => _$FxDeviceRegistrationCopyWithImpl<FxDeviceRegistration>(this as FxDeviceRegistration, _$identity);
 
-  /// Serializes this DeviceRegistration to a JSON map.
+  /// Serializes this FxDeviceRegistration to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DeviceRegistration&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.deviceType, deviceType) || other.deviceType == deviceType)&&(identical(other.deviceName, deviceName) || other.deviceName == deviceName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FxDeviceRegistration&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.deviceType, deviceType) || other.deviceType == deviceType)&&(identical(other.deviceName, deviceName) || other.deviceName == deviceName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,15 +37,15 @@ int get hashCode => Object.hash(runtimeType,fcmToken,deviceType,deviceName);
 
 @override
 String toString() {
-  return 'DeviceRegistration(fcmToken: $fcmToken, deviceType: $deviceType, deviceName: $deviceName)';
+  return 'FxDeviceRegistration(fcmToken: $fcmToken, deviceType: $deviceType, deviceName: $deviceName)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $DeviceRegistrationCopyWith<$Res>  {
-  factory $DeviceRegistrationCopyWith(DeviceRegistration value, $Res Function(DeviceRegistration) _then) = _$DeviceRegistrationCopyWithImpl;
+abstract mixin class $FxDeviceRegistrationCopyWith<$Res>  {
+  factory $FxDeviceRegistrationCopyWith(FxDeviceRegistration value, $Res Function(FxDeviceRegistration) _then) = _$FxDeviceRegistrationCopyWithImpl;
 @useResult
 $Res call({
  String fcmToken, DeviceType deviceType, String deviceName
@@ -56,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$DeviceRegistrationCopyWithImpl<$Res>
-    implements $DeviceRegistrationCopyWith<$Res> {
-  _$DeviceRegistrationCopyWithImpl(this._self, this._then);
+class _$FxDeviceRegistrationCopyWithImpl<$Res>
+    implements $FxDeviceRegistrationCopyWith<$Res> {
+  _$FxDeviceRegistrationCopyWithImpl(this._self, this._then);
 
-  final DeviceRegistration _self;
-  final $Res Function(DeviceRegistration) _then;
+  final FxDeviceRegistration _self;
+  final $Res Function(FxDeviceRegistration) _then;
 
-/// Create a copy of DeviceRegistration
+/// Create a copy of FxDeviceRegistration
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? fcmToken = null,Object? deviceType = null,Object? deviceName = null,}) {
   return _then(_self.copyWith(
@@ -77,8 +77,8 @@ as String,
 }
 
 
-/// Adds pattern-matching-related methods to [DeviceRegistration].
-extension DeviceRegistrationPatterns on DeviceRegistration {
+/// Adds pattern-matching-related methods to [FxDeviceRegistration].
+extension FxDeviceRegistrationPatterns on FxDeviceRegistration {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -91,10 +91,10 @@ extension DeviceRegistrationPatterns on DeviceRegistration {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DeviceRegistration value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FxDeviceRegistration value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _DeviceRegistration() when $default != null:
+case _FxDeviceRegistration() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -113,10 +113,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DeviceRegistration value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FxDeviceRegistration value)  $default,){
 final _that = this;
 switch (_that) {
-case _DeviceRegistration():
+case _FxDeviceRegistration():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -134,10 +134,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DeviceRegistration value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FxDeviceRegistration value)?  $default,){
 final _that = this;
 switch (_that) {
-case _DeviceRegistration() when $default != null:
+case _FxDeviceRegistration() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -157,7 +157,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String fcmToken,  DeviceType deviceType,  String deviceName)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _DeviceRegistration() when $default != null:
+case _FxDeviceRegistration() when $default != null:
 return $default(_that.fcmToken,_that.deviceType,_that.deviceName);case _:
   return orElse();
 
@@ -178,7 +178,7 @@ return $default(_that.fcmToken,_that.deviceType,_that.deviceName);case _:
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String fcmToken,  DeviceType deviceType,  String deviceName)  $default,) {final _that = this;
 switch (_that) {
-case _DeviceRegistration():
+case _FxDeviceRegistration():
 return $default(_that.fcmToken,_that.deviceType,_that.deviceName);case _:
   throw StateError('Unexpected subclass');
 
@@ -198,7 +198,7 @@ return $default(_that.fcmToken,_that.deviceType,_that.deviceName);case _:
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String fcmToken,  DeviceType deviceType,  String deviceName)?  $default,) {final _that = this;
 switch (_that) {
-case _DeviceRegistration() when $default != null:
+case _FxDeviceRegistration() when $default != null:
 return $default(_that.fcmToken,_that.deviceType,_that.deviceName);case _:
   return null;
 
@@ -210,28 +210,28 @@ return $default(_that.fcmToken,_that.deviceType,_that.deviceName);case _:
 /// @nodoc
 @JsonSerializable()
 
-class _DeviceRegistration implements DeviceRegistration {
-  const _DeviceRegistration({required this.fcmToken, required this.deviceType, required this.deviceName});
-  factory _DeviceRegistration.fromJson(Map<String, dynamic> json) => _$DeviceRegistrationFromJson(json);
+class _FxDeviceRegistration implements FxDeviceRegistration {
+  const _FxDeviceRegistration({required this.fcmToken, required this.deviceType, required this.deviceName});
+  factory _FxDeviceRegistration.fromJson(Map<String, dynamic> json) => _$FxDeviceRegistrationFromJson(json);
 
 @override final  String fcmToken;
 @override final  DeviceType deviceType;
 @override final  String deviceName;
 
-/// Create a copy of DeviceRegistration
+/// Create a copy of FxDeviceRegistration
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$DeviceRegistrationCopyWith<_DeviceRegistration> get copyWith => __$DeviceRegistrationCopyWithImpl<_DeviceRegistration>(this, _$identity);
+_$FxDeviceRegistrationCopyWith<_FxDeviceRegistration> get copyWith => __$FxDeviceRegistrationCopyWithImpl<_FxDeviceRegistration>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$DeviceRegistrationToJson(this, );
+  return _$FxDeviceRegistrationToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DeviceRegistration&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.deviceType, deviceType) || other.deviceType == deviceType)&&(identical(other.deviceName, deviceName) || other.deviceName == deviceName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FxDeviceRegistration&&(identical(other.fcmToken, fcmToken) || other.fcmToken == fcmToken)&&(identical(other.deviceType, deviceType) || other.deviceType == deviceType)&&(identical(other.deviceName, deviceName) || other.deviceName == deviceName));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -240,15 +240,15 @@ int get hashCode => Object.hash(runtimeType,fcmToken,deviceType,deviceName);
 
 @override
 String toString() {
-  return 'DeviceRegistration(fcmToken: $fcmToken, deviceType: $deviceType, deviceName: $deviceName)';
+  return 'FxDeviceRegistration(fcmToken: $fcmToken, deviceType: $deviceType, deviceName: $deviceName)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$DeviceRegistrationCopyWith<$Res> implements $DeviceRegistrationCopyWith<$Res> {
-  factory _$DeviceRegistrationCopyWith(_DeviceRegistration value, $Res Function(_DeviceRegistration) _then) = __$DeviceRegistrationCopyWithImpl;
+abstract mixin class _$FxDeviceRegistrationCopyWith<$Res> implements $FxDeviceRegistrationCopyWith<$Res> {
+  factory _$FxDeviceRegistrationCopyWith(_FxDeviceRegistration value, $Res Function(_FxDeviceRegistration) _then) = __$FxDeviceRegistrationCopyWithImpl;
 @override @useResult
 $Res call({
  String fcmToken, DeviceType deviceType, String deviceName
@@ -259,17 +259,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$DeviceRegistrationCopyWithImpl<$Res>
-    implements _$DeviceRegistrationCopyWith<$Res> {
-  __$DeviceRegistrationCopyWithImpl(this._self, this._then);
+class __$FxDeviceRegistrationCopyWithImpl<$Res>
+    implements _$FxDeviceRegistrationCopyWith<$Res> {
+  __$FxDeviceRegistrationCopyWithImpl(this._self, this._then);
 
-  final _DeviceRegistration _self;
-  final $Res Function(_DeviceRegistration) _then;
+  final _FxDeviceRegistration _self;
+  final $Res Function(_FxDeviceRegistration) _then;
 
-/// Create a copy of DeviceRegistration
+/// Create a copy of FxDeviceRegistration
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? fcmToken = null,Object? deviceType = null,Object? deviceName = null,}) {
-  return _then(_DeviceRegistration(
+  return _then(_FxDeviceRegistration(
 fcmToken: null == fcmToken ? _self.fcmToken : fcmToken // ignore: cast_nullable_to_non_nullable
 as String,deviceType: null == deviceType ? _self.deviceType : deviceType // ignore: cast_nullable_to_non_nullable
 as DeviceType,deviceName: null == deviceName ? _self.deviceName : deviceName // ignore: cast_nullable_to_non_nullable

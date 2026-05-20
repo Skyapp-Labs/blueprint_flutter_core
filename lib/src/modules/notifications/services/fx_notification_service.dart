@@ -1,12 +1,12 @@
 import 'package:blueprint_flutter_core/src/core/models/paginated_response.dart';
 import 'package:blueprint_flutter_core/src/core/network/fx_service.dart';
-import 'package:blueprint_flutter_core/src/modules/notifications/models/app_notification.dart';
-import 'package:blueprint_flutter_core/src/modules/notifications/models/device_registration.dart';
+import 'package:blueprint_flutter_core/src/modules/notifications/models/fx_notification.dart';
+import 'package:blueprint_flutter_core/src/modules/notifications/models/fx_device_registration.dart';
 
-class NotificationService extends FxService {
-  NotificationService(super.ctx);
+class FxNotificationService extends FxService {
+  FxNotificationService(super.ctx);
 
-  Future<void> registerDevice(DeviceRegistration device) async {
+  Future<void> registerDevice(FxDeviceRegistration device) async {
     await dio.post<dynamic>(
       endpoints.notificationDevices,
       data: {
@@ -24,7 +24,7 @@ class NotificationService extends FxService {
     );
   }
 
-  Future<PaginatedResponse<AppNotification>> getNotifications({
+  Future<PaginatedResponse<FxNotification>> getNotifications({
     int page = 1,
     int limit = 20,
   }) async {
@@ -34,7 +34,7 @@ class NotificationService extends FxService {
     );
     return PaginatedResponse.fromJson(
       res.data!,
-      (item) => AppNotification.fromJson(item as Map<String, dynamic>),
+      (item) => FxNotification.fromJson(item as Map<String, dynamic>),
     );
   }
 

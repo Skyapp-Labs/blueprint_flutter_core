@@ -1,22 +1,22 @@
-import 'package:blueprint_flutter_core/src/core/widgets/display/_display.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/layout/_layout.dart';
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_button.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/fx_phone_auth.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/layout/_layout.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/display/_display.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_button.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/styles/fx_register_entry_style.dart';
 
-class DetailsStep extends StatefulWidget {
-  const DetailsStep({
+class RegisterEntry extends StatefulWidget {
+  const RegisterEntry({
     super.key,
-    required this.theme,
+    required this.style,
     required this.onSubmit,
     required this.isLoading,
   });
 
-  final UserDetailsConfig theme;
+  final FxRegisterEntryStyle style;
   final Future<void> Function({
     required String firstName,
     required String lastName,
@@ -25,10 +25,10 @@ class DetailsStep extends StatefulWidget {
   final bool isLoading;
 
   @override
-  State<DetailsStep> createState() => _DetailsStepState();
+  State<RegisterEntry> createState() => _RegisterEntryState();
 }
 
-class _DetailsStepState extends State<DetailsStep> with FxUiToolkit {
+class _RegisterEntryState extends State<RegisterEntry> with FxUiToolkit {
   final _formKey = GlobalKey<FormState>();
   final _firstNameController = TextEditingController();
   final _lastNameController = TextEditingController();
@@ -47,21 +47,21 @@ class _DetailsStepState extends State<DetailsStep> with FxUiToolkit {
     setToolkitContext(context);
 
     final hasTopContent = (
-      widget.theme.title != null || 
-      widget.theme.subtitle != null
+      widget.style.title != null || 
+      widget.style.subtitle != null
     );
 
     return Form(
       key: _formKey,
       child: FxScrollableForm(
         key: const ValueKey('details'),
-        header: widget.theme.header,
+        header: widget.style.header,
         footer: _buildFooter(),
-        safeArea: widget.theme.safeArea,
-        padding: widget.theme.padding,
-        spacing: widget.theme.spacing,
-        mainAxisAlignment: widget.theme.mainAxisAlignment,
-        crossAxisAlignment: widget.theme.crossAxisAlignment,
+        safeArea: widget.style.safeArea,
+        padding: widget.style.padding,
+        spacing: widget.style.spacing,
+        mainAxisAlignment: widget.style.mainAxisAlignment,
+        crossAxisAlignment: widget.style.crossAxisAlignment,
         children: [
           if(hasTopContent) ...[
             _buildTopContent(),
@@ -70,7 +70,7 @@ class _DetailsStepState extends State<DetailsStep> with FxUiToolkit {
           FxTextField(
             controller: _firstNameController,
             label: 'First name',
-            prefix: widget.theme.firstNamePrefix,
+            prefix: widget.style.firstNamePrefix,
             textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.next,
             validator: (v) => Validators.required(v, 'First name'),
@@ -78,14 +78,14 @@ class _DetailsStepState extends State<DetailsStep> with FxUiToolkit {
           FxTextField(
             controller: _lastNameController,
             label: 'Last name',
-            prefix: widget.theme.lastNamePrefix,
+            prefix: widget.style.lastNamePrefix,
             textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.next,
             validator: (v) => Validators.required(v, 'Last name'),
           ),
           FxTextField(
             controller: _emailController,
-            prefix: widget.theme.emailPrefix,
+            prefix: widget.style.emailPrefix,
             label: 'Email (optional)',
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.done,
@@ -96,10 +96,10 @@ class _DetailsStepState extends State<DetailsStep> with FxUiToolkit {
   }
 
   Widget _buildFooter() {
-    if (widget.theme.footer != null) return widget.theme.footer!(_onSubmit, widget.isLoading);
+    if (widget.style.footer != null) return widget.style.footer!(_onSubmit, widget.isLoading);
 
     return FxButton(
-      label: widget.theme.buttonLabel,
+      label: widget.style.buttonLabel,
       isLoading: widget.isLoading,
       onPressed: _onSubmit,
     );
@@ -121,17 +121,17 @@ class _DetailsStepState extends State<DetailsStep> with FxUiToolkit {
     Widget? title;
     Widget? subtitle;
 
-    if (widget.theme.title != null) {
+    if (widget.style.title != null) {
       title = FxText(
-        widget.theme.title!,
-        style: widget.theme.titleStyle ?? FxTextStyle.fromStyle(typography.headlineSmall).copyWith(textAlign: TextAlign.center),
+        widget.style.title!,
+        style: widget.style.titleStyle ?? FxTextStyle.fromStyle(typography.headlineSmall).copyWith(textAlign: TextAlign.center),
       );
     }
 
-    if (widget.theme.subtitle != null) {
+    if (widget.style.subtitle != null) {
       subtitle = FxText(
-        widget.theme.subtitle!,
-        style: widget.theme.subtitleStyle ?? FxTextStyle.fromStyle(typography.bodyMedium).copyWith(textAlign: TextAlign.center),
+        widget.style.subtitle!,
+        style: widget.style.subtitleStyle ?? FxTextStyle.fromStyle(typography.bodyMedium).copyWith(textAlign: TextAlign.center),
       );
     }
 
@@ -139,7 +139,7 @@ class _DetailsStepState extends State<DetailsStep> with FxUiToolkit {
 
     return Column(
       spacing: sizes.xs,
-      crossAxisAlignment: widget.theme.crossAxisAlignment,
+      crossAxisAlignment: widget.style.crossAxisAlignment,
       children: [
         title!,
         subtitle!,

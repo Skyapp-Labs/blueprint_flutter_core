@@ -29,6 +29,7 @@ export './email_auth/widgets/fx_email_auth.dart';
 // Phone auth
 export './phone_auth/controllers/phone_auth_flow_controller.dart';
 export './phone_auth/controllers/phone_auth_flow_state.dart';
+export './phone_auth/styles/_styles.dart';
 export './phone_auth/models/otp_data.dart';
 export './phone_auth/models/phone_lookup_result.dart';
 export './phone_auth/models/register_request.dart';

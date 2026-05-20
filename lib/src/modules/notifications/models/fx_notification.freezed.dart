@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'app_notification.dart';
+part of 'fx_notification.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,22 +13,22 @@ part of 'app_notification.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$AppNotification {
+mixin _$FxNotification {
 
  String get id; String get title; String get body; bool get read; String get createdAt; Map<String, dynamic>? get data;
-/// Create a copy of AppNotification
+/// Create a copy of FxNotification
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$AppNotificationCopyWith<AppNotification> get copyWith => _$AppNotificationCopyWithImpl<AppNotification>(this as AppNotification, _$identity);
+$FxNotificationCopyWith<FxNotification> get copyWith => _$FxNotificationCopyWithImpl<FxNotification>(this as FxNotification, _$identity);
 
-  /// Serializes this AppNotification to a JSON map.
+  /// Serializes this FxNotification to a JSON map.
   Map<String, dynamic> toJson();
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppNotification&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.body, body) || other.body == body)&&(identical(other.read, read) || other.read == read)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.data, data));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FxNotification&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.body, body) || other.body == body)&&(identical(other.read, read) || other.read == read)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other.data, data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -37,15 +37,15 @@ int get hashCode => Object.hash(runtimeType,id,title,body,read,createdAt,const D
 
 @override
 String toString() {
-  return 'AppNotification(id: $id, title: $title, body: $body, read: $read, createdAt: $createdAt, data: $data)';
+  return 'FxNotification(id: $id, title: $title, body: $body, read: $read, createdAt: $createdAt, data: $data)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $AppNotificationCopyWith<$Res>  {
-  factory $AppNotificationCopyWith(AppNotification value, $Res Function(AppNotification) _then) = _$AppNotificationCopyWithImpl;
+abstract mixin class $FxNotificationCopyWith<$Res>  {
+  factory $FxNotificationCopyWith(FxNotification value, $Res Function(FxNotification) _then) = _$FxNotificationCopyWithImpl;
 @useResult
 $Res call({
  String id, String title, String body, bool read, String createdAt, Map<String, dynamic>? data
@@ -56,14 +56,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$AppNotificationCopyWithImpl<$Res>
-    implements $AppNotificationCopyWith<$Res> {
-  _$AppNotificationCopyWithImpl(this._self, this._then);
+class _$FxNotificationCopyWithImpl<$Res>
+    implements $FxNotificationCopyWith<$Res> {
+  _$FxNotificationCopyWithImpl(this._self, this._then);
 
-  final AppNotification _self;
-  final $Res Function(AppNotification) _then;
+  final FxNotification _self;
+  final $Res Function(FxNotification) _then;
 
-/// Create a copy of AppNotification
+/// Create a copy of FxNotification
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? body = null,Object? read = null,Object? createdAt = null,Object? data = freezed,}) {
   return _then(_self.copyWith(
@@ -80,8 +80,8 @@ as Map<String, dynamic>?,
 }
 
 
-/// Adds pattern-matching-related methods to [AppNotification].
-extension AppNotificationPatterns on AppNotification {
+/// Adds pattern-matching-related methods to [FxNotification].
+extension FxNotificationPatterns on FxNotification {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -94,10 +94,10 @@ extension AppNotificationPatterns on AppNotification {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AppNotification value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _FxNotification value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _AppNotification() when $default != null:
+case _FxNotification() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -116,10 +116,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AppNotification value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _FxNotification value)  $default,){
 final _that = this;
 switch (_that) {
-case _AppNotification():
+case _FxNotification():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -137,10 +137,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AppNotification value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _FxNotification value)?  $default,){
 final _that = this;
 switch (_that) {
-case _AppNotification() when $default != null:
+case _FxNotification() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -160,7 +160,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String body,  bool read,  String createdAt,  Map<String, dynamic>? data)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _AppNotification() when $default != null:
+case _FxNotification() when $default != null:
 return $default(_that.id,_that.title,_that.body,_that.read,_that.createdAt,_that.data);case _:
   return orElse();
 
@@ -181,7 +181,7 @@ return $default(_that.id,_that.title,_that.body,_that.read,_that.createdAt,_that
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String body,  bool read,  String createdAt,  Map<String, dynamic>? data)  $default,) {final _that = this;
 switch (_that) {
-case _AppNotification():
+case _FxNotification():
 return $default(_that.id,_that.title,_that.body,_that.read,_that.createdAt,_that.data);case _:
   throw StateError('Unexpected subclass');
 
@@ -201,7 +201,7 @@ return $default(_that.id,_that.title,_that.body,_that.read,_that.createdAt,_that
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String body,  bool read,  String createdAt,  Map<String, dynamic>? data)?  $default,) {final _that = this;
 switch (_that) {
-case _AppNotification() when $default != null:
+case _FxNotification() when $default != null:
 return $default(_that.id,_that.title,_that.body,_that.read,_that.createdAt,_that.data);case _:
   return null;
 
@@ -213,9 +213,9 @@ return $default(_that.id,_that.title,_that.body,_that.read,_that.createdAt,_that
 /// @nodoc
 @JsonSerializable()
 
-class _AppNotification implements AppNotification {
-  const _AppNotification({required this.id, required this.title, required this.body, this.read = false, required this.createdAt, final  Map<String, dynamic>? data}): _data = data;
-  factory _AppNotification.fromJson(Map<String, dynamic> json) => _$AppNotificationFromJson(json);
+class _FxNotification implements FxNotification {
+  const _FxNotification({required this.id, required this.title, required this.body, this.read = false, required this.createdAt, final  Map<String, dynamic>? data}): _data = data;
+  factory _FxNotification.fromJson(Map<String, dynamic> json) => _$FxNotificationFromJson(json);
 
 @override final  String id;
 @override final  String title;
@@ -232,20 +232,20 @@ class _AppNotification implements AppNotification {
 }
 
 
-/// Create a copy of AppNotification
+/// Create a copy of FxNotification
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$AppNotificationCopyWith<_AppNotification> get copyWith => __$AppNotificationCopyWithImpl<_AppNotification>(this, _$identity);
+_$FxNotificationCopyWith<_FxNotification> get copyWith => __$FxNotificationCopyWithImpl<_FxNotification>(this, _$identity);
 
 @override
 Map<String, dynamic> toJson() {
-  return _$AppNotificationToJson(this, );
+  return _$FxNotificationToJson(this, );
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppNotification&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.body, body) || other.body == body)&&(identical(other.read, read) || other.read == read)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._data, _data));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FxNotification&&(identical(other.id, id) || other.id == id)&&(identical(other.title, title) || other.title == title)&&(identical(other.body, body) || other.body == body)&&(identical(other.read, read) || other.read == read)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&const DeepCollectionEquality().equals(other._data, _data));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -254,15 +254,15 @@ int get hashCode => Object.hash(runtimeType,id,title,body,read,createdAt,const D
 
 @override
 String toString() {
-  return 'AppNotification(id: $id, title: $title, body: $body, read: $read, createdAt: $createdAt, data: $data)';
+  return 'FxNotification(id: $id, title: $title, body: $body, read: $read, createdAt: $createdAt, data: $data)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$AppNotificationCopyWith<$Res> implements $AppNotificationCopyWith<$Res> {
-  factory _$AppNotificationCopyWith(_AppNotification value, $Res Function(_AppNotification) _then) = __$AppNotificationCopyWithImpl;
+abstract mixin class _$FxNotificationCopyWith<$Res> implements $FxNotificationCopyWith<$Res> {
+  factory _$FxNotificationCopyWith(_FxNotification value, $Res Function(_FxNotification) _then) = __$FxNotificationCopyWithImpl;
 @override @useResult
 $Res call({
  String id, String title, String body, bool read, String createdAt, Map<String, dynamic>? data
@@ -273,17 +273,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$AppNotificationCopyWithImpl<$Res>
-    implements _$AppNotificationCopyWith<$Res> {
-  __$AppNotificationCopyWithImpl(this._self, this._then);
+class __$FxNotificationCopyWithImpl<$Res>
+    implements _$FxNotificationCopyWith<$Res> {
+  __$FxNotificationCopyWithImpl(this._self, this._then);
 
-  final _AppNotification _self;
-  final $Res Function(_AppNotification) _then;
+  final _FxNotification _self;
+  final $Res Function(_FxNotification) _then;
 
-/// Create a copy of AppNotification
+/// Create a copy of FxNotification
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? body = null,Object? read = null,Object? createdAt = null,Object? data = freezed,}) {
-  return _then(_AppNotification(
+  return _then(_FxNotification(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,body: null == body ? _self.body : body // ignore: cast_nullable_to_non_nullable

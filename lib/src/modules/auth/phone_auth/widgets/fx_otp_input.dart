@@ -1,4 +1,8 @@
-part of 'fx_phone_auth.dart';
+import 'package:flutter/material.dart';
+
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/feedback/_feedback.dart';
 
 /// A 6-digit OTP input with a resend countdown.
 ///

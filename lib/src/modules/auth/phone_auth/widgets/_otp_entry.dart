@@ -1,14 +1,16 @@
-import 'package:blueprint_flutter_core/src/core/widgets/feedback/_feedback.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/layout/_layout.dart';
 import 'package:flutter/material.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/fx_phone_auth.dart';
 
-class OtpStep extends StatelessWidget with FxUiToolkit {
-  OtpStep({
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/layout/_layout.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/feedback/_feedback.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/widgets/fx_otp_input.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/phone_auth/styles/fx_otp_entry_style.dart';
+
+class OtpEntry extends StatelessWidget with FxUiToolkit {
+  OtpEntry({
     super.key,
-    required this.otpTheme,
+    required this.style,
     required this.phone,
     required this.otpKey,
     required this.onCompleted,
@@ -18,7 +20,7 @@ class OtpStep extends StatelessWidget with FxUiToolkit {
     this.error,
   });
 
-  final OtpVerificationConfig otpTheme;
+  final FxOtpEntryStyle style;
   final String phone;
   final GlobalKey<FxOtpInputState> otpKey;
   final Future<void> Function(String code) onCompleted;
@@ -34,19 +36,19 @@ class OtpStep extends StatelessWidget with FxUiToolkit {
     setToolkitContext(context);
 
     final hasTopContent = (
-      otpTheme.title != null || 
-      otpTheme.subtitle != null
+      style.title != null || 
+      style.subtitle != null
     );
 
     return FxScrollableForm(
       key: const ValueKey('otp'),
-      header: otpTheme.header?.call(phone, onChangeNumber),
+      header: style.header?.call(phone, onChangeNumber),
       footer: _buildFooter(),
-      safeArea: otpTheme.safeArea,
-      padding: otpTheme.padding,
-      spacing: otpTheme.spacing,
-      mainAxisAlignment: otpTheme.mainAxisAlignment,
-      crossAxisAlignment: otpTheme.crossAxisAlignment,
+      safeArea: style.safeArea,
+      padding: style.padding,
+      spacing: style.spacing,
+      mainAxisAlignment: style.mainAxisAlignment,
+      crossAxisAlignment: style.crossAxisAlignment,
       children: [
         if(hasTopContent) ...[
           _buildTopContent(),
@@ -60,10 +62,10 @@ class OtpStep extends StatelessWidget with FxUiToolkit {
         ),
 
         FxCountdownAction(
-          prefixText: otpTheme.resendPrefixText,
-          actionText: otpTheme.resendActionText,
-          countdownPrefixText: otpTheme.resendCountdownPrefixText,
-          duration: Duration(seconds: otpTheme.resendCooldownSeconds),
+          prefixText: style.resendPrefixText,
+          actionText: style.resendActionText,
+          countdownPrefixText: style.resendCountdownPrefixText,
+          duration: Duration(seconds: style.resendCooldownSeconds),
           onPressed: onResend,
         ),
       ],
@@ -71,8 +73,8 @@ class OtpStep extends StatelessWidget with FxUiToolkit {
   }
 
   Widget? _buildFooter() {
-    final footer = otpTheme.footer;
-    final keyboardBuilder = otpTheme.keyboardBuilder;
+    final footer = style.footer;
+    final keyboardBuilder = style.keyboardBuilder;
 
     if (footer == null && keyboardBuilder == null) return null;
 
@@ -93,10 +95,10 @@ class OtpStep extends StatelessWidget with FxUiToolkit {
     Widget? title;
     Widget? subtitle;
 
-    if (otpTheme.title != null) {
+    if (style.title != null) {
       title = FxText(
-        otpTheme.title!.replaceAll('{{phone}}', '[$phone]'),
-        style: otpTheme.titleStyle ?? FxTextStyle.fromStyle(typography.headlineSmall).copyWith(
+        style.title!.replaceAll('{{phone}}', '[$phone]'),
+        style: style.titleStyle ?? FxTextStyle.fromStyle(typography.headlineSmall).copyWith(
           textAlign: TextAlign.center,
         ),
         textAlign: TextAlign.center,
@@ -104,10 +106,10 @@ class OtpStep extends StatelessWidget with FxUiToolkit {
       );
     }
 
-    if (otpTheme.subtitle != null) {
+    if (style.subtitle != null) {
       subtitle = FxText(
-        otpTheme.subtitle!.replaceAll('{{phone}}', '[$phone]'),
-        style: otpTheme.subtitleStyle ?? FxTextStyle.fromStyle(typography.bodyMedium).copyWith(
+        style.subtitle!.replaceAll('{{phone}}', '[$phone]'),
+        style: style.subtitleStyle ?? FxTextStyle.fromStyle(typography.bodyMedium).copyWith(
           textAlign: TextAlign.center,
         ),
         textAlign: TextAlign.center,
@@ -118,8 +120,8 @@ class OtpStep extends StatelessWidget with FxUiToolkit {
     if (title == null && subtitle == null) return const SizedBox.shrink();
 
     return Column(
-      spacing: otpTheme.titleSpacing ?? sizes.sm,
-      crossAxisAlignment: otpTheme.crossAxisAlignment,
+      spacing: style.titleSpacing ?? sizes.sm,
+      crossAxisAlignment: style.crossAxisAlignment,
       children: [
         title!,
         subtitle!,

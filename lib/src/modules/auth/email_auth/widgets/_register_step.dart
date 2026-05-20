@@ -10,7 +10,7 @@ import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart' sho
 import 'package:blueprint_flutter_core/src/core/widgets/layout/fx_scrollable_form.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/email_auth/models/register_request.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/email_auth/widgets/fx_email_auth.dart' show FxEmailAuthTheme, RegisterConfig;
+import 'package:blueprint_flutter_core/src/modules/auth/email_auth/widgets/fx_email_auth.dart' show FxEmailEntryStyle, RegisterConfig;
 
 /// Standalone registration form widget.
 ///
@@ -31,7 +31,7 @@ class RegisterStep extends ConsumerStatefulWidget {
   final bool isLoading;
   final VoidCallback onLogin;
   final VoidCallback? onBack;
-  final FxEmailAuthTheme theme;
+  final FxEmailEntryStyle theme;
   final Future<void> Function(EmailRegisterRequest) onSubmit;
 
   @override

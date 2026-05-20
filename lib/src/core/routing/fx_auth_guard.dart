@@ -19,22 +19,18 @@ abstract final class FxAuthGuard {
     required String location,
     required String loginPath,
     required String homePath,
-    String splashPath = '/splash',
-    List<String> publicPaths = const ['/', '/splash', '/login'],
   }) {
-    final isSplash = location == splashPath;
     final isLogin  = location == loginPath;
-    final isPublic = publicPaths.contains(location);
 
     switch (authState.status) {
       case AuthStatus.authenticating:
-        return isPublic ? null : splashPath;
+        return null;
       case AuthStatus.authenticated:
-        return (isSplash || isLogin) ? homePath : null;
+        return isLogin ? homePath : null;
       case AuthStatus.unauthenticated:
-        return isPublic ? null : loginPath;
+        return null;
       case AuthStatus.error:
-        return isLogin ? null : loginPath;
+        return null;
     }
   }
 }

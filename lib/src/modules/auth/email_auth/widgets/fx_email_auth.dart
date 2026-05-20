@@ -15,13 +15,13 @@ part './fx_email_auth_theme.dart';
 class FxEmailAuth extends ConsumerStatefulWidget {
   const FxEmailAuth({
     super.key,
-    this.theme = const FxEmailAuthTheme(),
+    this.theme = const FxEmailEntryStyle(),
     this.header,
     this.footer,
     this.onAuthSuccess,
   });
 
-  final FxEmailAuthTheme theme;
+  final FxEmailEntryStyle theme;
   final Widget Function(BuildContext context, FxEmailAuthStep step)? header;
   final Widget Function(BuildContext context, FxEmailAuthStep step)? footer;
   final VoidCallback? onAuthSuccess;

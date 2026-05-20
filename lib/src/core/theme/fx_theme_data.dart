@@ -206,17 +206,23 @@ abstract class FxThemeData {
 
   TooltipThemeData get tooltipTheme => TooltipThemeData(
     decoration: BoxDecoration(
-        color: colors.surface,
-        borderRadius: BorderRadius.circular(sizes.tooltipRadius),
-        boxShadow: [
-          BoxShadow(
-            color: colors.shadow,
-            offset: const Offset(0, 2),
-            blurRadius: 4,
-          )
-        ]),
-    textStyle: typography.bodySmall,
-    padding: EdgeInsets.all(sizes.tooltipPadding),
+      color: colors.surface,
+      borderRadius: BorderRadius.circular(sizes.radiusFull),
+      boxShadow: [
+        BoxShadow(
+          color: colors.shadow.withValues(alpha: 0.1),
+          blurRadius: 5,
+          offset: const Offset(0, 5),
+        ),
+      ],
+    ),
+    textStyle: typography.labelSmall.copyWith(
+      color: colors.onSurface,
+    ),
+    padding: EdgeInsets.symmetric(
+      horizontal: sizes.tooltipPadding,
+      vertical: sizes.tooltipPadding * .5
+    ),
   );
 
   DialogThemeData get dialogTheme => DialogThemeData(

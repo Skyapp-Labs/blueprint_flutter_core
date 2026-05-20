@@ -112,7 +112,7 @@ class AuthController extends _$AuthController
     if (_config.enableNotifications && FxFirebaseClient.isInitialized) {
       final sub = FxMessaging.onTokenRefresh.listen((newToken) {
         if (state.status == AuthStatus.authenticated) {
-          ref.read(notificationControllerProvider.notifier).registerDevice(newToken);
+          ref.read(fxNotificationControllerProvider.notifier).registerDevice(newToken);
         }
       });
       ref.onDispose(sub.cancel);

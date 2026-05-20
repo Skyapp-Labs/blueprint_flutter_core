@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_notification.dart';
+part of 'fx_notification.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_AppNotification _$AppNotificationFromJson(Map<String, dynamic> json) =>
-    _AppNotification(
+_FxNotification _$FxNotificationFromJson(Map<String, dynamic> json) =>
+    _FxNotification(
       id: json['id'] as String,
       title: json['title'] as String,
       body: json['body'] as String,
@@ -16,7 +16,7 @@ _AppNotification _$AppNotificationFromJson(Map<String, dynamic> json) =>
       data: json['data'] as Map<String, dynamic>?,
     );
 
-Map<String, dynamic> _$AppNotificationToJson(_AppNotification instance) =>
+Map<String, dynamic> _$FxNotificationToJson(_FxNotification instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,

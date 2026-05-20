@@ -54,7 +54,7 @@ class _AuthScreenState extends State<AuthScreen> with FxUiToolkit {
 
   Widget _emailTab() => FxEmailAuth(
     onAuthSuccess: _onAuthSuccess,
-    theme: const FxEmailAuthTheme(
+    theme: const FxEmailEntryStyle(
       loginConfig: LoginConfig(
         title: 'Welcome back',
         subtitle: 'Sign in to your account',
@@ -70,17 +70,17 @@ class _AuthScreenState extends State<AuthScreen> with FxUiToolkit {
 
   Widget _phoneTab() => FxPhoneAuth(
     onAuthSuccess: _onAuthSuccess,
-    phoneEntryConfig: PhoneEntryConfig(
+    phoneEntryStyle: const FxPhoneEntryStyle(
       title: 'Enter your number',
       subtitle: "We'll send you a verification code",
       buttonLabel: 'Send Code',
     ),
-    otpVerificationConfig: OtpVerificationConfig(
+    otpEntryStyle: const FxOtpEntryStyle(
       title: 'Verify your number',
       subtitle: 'Enter the code sent to {{phone}}',
       buttonLabel: 'Verify',
     ),
-    userDetailsConfig: UserDetailsConfig(
+    registerEntryStyle: const FxRegisterEntryStyle(
       title: 'Complete your profile',
       subtitle: 'Enter your name to finish setting up',
       buttonLabel: 'Continue',
