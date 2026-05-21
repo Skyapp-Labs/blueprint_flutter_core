@@ -1,0 +1,62 @@
+part of '../fx_icon_categories.dart';
+
+final class FxSolarIconsTools {
+  const FxSolarIconsTools();
+
+  final String _path = 'tools';
+
+  FxAssetIcon get settingsBoldDuotone => FxAssetIcon(name: '$_path/settings-bold-duotone');
+  FxAssetIcon get settingsBold => FxAssetIcon(name: '$_path/settings-bold');
+  FxAssetIcon get settingsBroken => FxAssetIcon(name: '$_path/settings-broken');
+  FxAssetIcon get settingsLineDuotone => FxAssetIcon(name: '$_path/settings-line-duotone');
+  FxAssetIcon get settingsLinear => FxAssetIcon(name: '$_path/settings-linear');
+  FxAssetIcon get settingsMinimalisticBoldDuotone => FxAssetIcon(name: '$_path/settings-minimalistic-bold-duotone');
+  FxAssetIcon get settingsMinimalisticBold => FxAssetIcon(name: '$_path/settings-minimalistic-bold');
+  FxAssetIcon get settingsMinimalisticBroken => FxAssetIcon(name: '$_path/settings-minimalistic-broken');
+  FxAssetIcon get settingsMinimalisticLineDuotone => FxAssetIcon(name: '$_path/settings-minimalistic-line-duotone');
+  FxAssetIcon get settingsMinimalisticLinear => FxAssetIcon(name: '$_path/settings-minimalistic-linear');
+  FxAssetIcon get settingsMinimalisticOutline => FxAssetIcon(name: '$_path/settings-minimalistic-outline');
+  FxAssetIcon get settingsOutline => FxAssetIcon(name: '$_path/settings-outline');
+  FxAssetIcon get sledgehammerBoldDuotone => FxAssetIcon(name: '$_path/sledgehammer-bold-duotone');
+  FxAssetIcon get sledgehammerBold => FxAssetIcon(name: '$_path/sledgehammer-bold');
+  FxAssetIcon get sledgehammerBroken => FxAssetIcon(name: '$_path/sledgehammer-broken');
+  FxAssetIcon get sledgehammerLineDuotone => FxAssetIcon(name: '$_path/sledgehammer-line-duotone');
+  FxAssetIcon get sledgehammerLinear => FxAssetIcon(name: '$_path/sledgehammer-linear');
+  FxAssetIcon get sledgehammerOutline => FxAssetIcon(name: '$_path/sledgehammer-outline');
+  FxAssetIcon get tuning2BoldDuotone => FxAssetIcon(name: '$_path/tuning-2-bold-duotone');
+  FxAssetIcon get tuning2Bold => FxAssetIcon(name: '$_path/tuning-2-bold');
+  FxAssetIcon get tuning2Broken => FxAssetIcon(name: '$_path/tuning-2-broken');
+  FxAssetIcon get tuning2LineDuotone => FxAssetIcon(name: '$_path/tuning-2-line-duotone');
+  FxAssetIcon get tuning2Linear => FxAssetIcon(name: '$_path/tuning-2-linear');
+  FxAssetIcon get tuning2Outline => FxAssetIcon(name: '$_path/tuning-2-outline');
+  FxAssetIcon get tuning3BoldDuotone => FxAssetIcon(name: '$_path/tuning-3-bold-duotone');
+  FxAssetIcon get tuning3Bold => FxAssetIcon(name: '$_path/tuning-3-bold');
+  FxAssetIcon get tuning3Broken => FxAssetIcon(name: '$_path/tuning-3-broken');
+  FxAssetIcon get tuning3LineDuotone => FxAssetIcon(name: '$_path/tuning-3-line-duotone');
+  FxAssetIcon get tuning3Linear => FxAssetIcon(name: '$_path/tuning-3-linear');
+  FxAssetIcon get tuning3Outline => FxAssetIcon(name: '$_path/tuning-3-outline');
+  FxAssetIcon get tuning4BoldDuotone => FxAssetIcon(name: '$_path/tuning-4-bold-duotone');
+  FxAssetIcon get tuning4Bold => FxAssetIcon(name: '$_path/tuning-4-bold');
+  FxAssetIcon get tuning4Broken => FxAssetIcon(name: '$_path/tuning-4-broken');
+  FxAssetIcon get tuning4LineDuotone => FxAssetIcon(name: '$_path/tuning-4-line-duotone');
+  FxAssetIcon get tuning4Linear => FxAssetIcon(name: '$_path/tuning-4-linear');
+  FxAssetIcon get tuning4Outline => FxAssetIcon(name: '$_path/tuning-4-outline');
+  FxAssetIcon get tuningBoldDuotone => FxAssetIcon(name: '$_path/tuning-bold-duotone');
+  FxAssetIcon get tuningBold => FxAssetIcon(name: '$_path/tuning-bold');
+  FxAssetIcon get tuningBroken => FxAssetIcon(name: '$_path/tuning-broken');
+  FxAssetIcon get tuningLineDuotone => FxAssetIcon(name: '$_path/tuning-line-duotone');
+  FxAssetIcon get tuningLinear => FxAssetIcon(name: '$_path/tuning-linear');
+  FxAssetIcon get tuningOutline => FxAssetIcon(name: '$_path/tuning-outline');
+  FxAssetIcon get tuningSquare2BoldDuotone => FxAssetIcon(name: '$_path/tuning-square-2-bold-duotone');
+  FxAssetIcon get tuningSquare2Bold => FxAssetIcon(name: '$_path/tuning-square-2-bold');
+  FxAssetIcon get tuningSquare2Broken => FxAssetIcon(name: '$_path/tuning-square-2-broken');
+  FxAssetIcon get tuningSquare2LineDuotone => FxAssetIcon(name: '$_path/tuning-square-2-line-duotone');
+  FxAssetIcon get tuningSquare2Linear => FxAssetIcon(name: '$_path/tuning-square-2-linear');
+  FxAssetIcon get tuningSquare2Outline => FxAssetIcon(name: '$_path/tuning-square-2-outline');
+  FxAssetIcon get tuningSquareBoldDuotone => FxAssetIcon(name: '$_path/tuning-square-bold-duotone');
+  FxAssetIcon get tuningSquareBold => FxAssetIcon(name: '$_path/tuning-square-bold');
+  FxAssetIcon get tuningSquareBroken => FxAssetIcon(name: '$_path/tuning-square-broken');
+  FxAssetIcon get tuningSquareLineDuotone => FxAssetIcon(name: '$_path/tuning-square-line-duotone');
+  FxAssetIcon get tuningSquareLinear => FxAssetIcon(name: '$_path/tuning-square-linear');
+  FxAssetIcon get tuningSquareOutline => FxAssetIcon(name: '$_path/tuning-square-outline');
+}

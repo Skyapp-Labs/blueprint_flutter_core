@@ -1,0 +1,44 @@
+import 'package:blueprint_flutter_core/src/core/icons/fx_icon_categories.dart';
+
+abstract final class FxIcons {
+  static const accessibility = FxSolarIconsAccessibility();
+  static const achievements = FxSolarIconsAchievements();
+  static const appliances = FxSolarIconsAppliances();
+  static const audio = FxSolarIconsAudio();
+  static const battery = FxSolarIconsBattery();
+  static const biology = FxSolarIconsBiology();
+  static const bluetooth = FxSolarIconsBluetooth();
+  static const celebration = FxSolarIconsCelebration();
+  static const cloud = FxSolarIconsCloud();
+  static const communication = FxSolarIconsCommunication();
+  static const computers = FxSolarIconsComputers();
+  static const connectivity = FxSolarIconsConnectivity();
+  static const creative = FxSolarIconsCreative();
+  static const database = FxSolarIconsDatabase();
+  static const design = FxSolarIconsDesign();
+  static const devices = FxSolarIconsDevices();
+  static const display = FxSolarIconsDisplay();
+  static const editing = FxSolarIconsEditing();
+  static const emoji = FxSolarIconsEmoji();
+  static const entertainment = FxSolarIconsEntertainment();
+  static const health = FxSolarIconsHealth();
+  static const infrastructure = FxSolarIconsInfrastructure();
+  static const layout = FxSolarIconsLayout();
+  static const location = FxSolarIconsLocation();
+  static const medical = FxSolarIconsMedical();
+  static const mobile = FxSolarIconsMobile();
+  static const monitoring = FxSolarIconsMonitoring();
+  static const navigation = FxSolarIconsNavigation();
+  static const network = FxSolarIconsNetwork();
+  static const power = FxSolarIconsPower();
+  static const printing = FxSolarIconsPrinting();
+  static const productivity = FxSolarIconsProductivity();
+  static const scanning = FxSolarIconsScanning();
+  static const servers = FxSolarIconsServers();
+  static const smartHome = FxSolarIconsSmartHome();
+  static const stickers = FxSolarIconsStickers();
+  static const tools = FxSolarIconsTools();
+  static const utilities = FxSolarIconsUtilities();
+  static const video = FxSolarIconsVideo();
+  static const wireless = FxSolarIconsWireless();
+}
