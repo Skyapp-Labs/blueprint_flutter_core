@@ -1,5 +1,4 @@
 export 'fx_select_field.dart';
-export 'fx_select_field_data.dart';
 export 'fx_search_field.dart';
 export 'fx_text_field.dart';
 export 'fx_phone_input.dart';

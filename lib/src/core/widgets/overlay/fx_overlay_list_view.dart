@@ -66,6 +66,16 @@ class _FxOverlayListViewState<T> extends State<FxOverlayListView<T>> with FxUiTo
 		);
 	}
 
+  TextStyle get _titleTextStyle => (
+    widget.data.itemTile.titleStyle ?? 
+    typography.titleMedium
+  );
+
+  TextStyle get _subtitleTextStyle => (
+    widget.data.itemTile.subtitleStyle ?? 
+    typography.bodyMedium
+  );
+
 	Widget _buildItems(List<T> itemList) => Column(
     children: List.generate(
       itemList.length, 
@@ -89,63 +99,52 @@ class _FxOverlayListViewState<T> extends State<FxOverlayListView<T>> with FxUiTo
 	);
 
 	Widget _buildItem(BuildContext context, T item) {
-		if(widget.data.itemBuilder != null) {
-      return widget.data.itemBuilder!(context, item, item == widget.data.selectedItem);
+    final isSelected = item == widget.data.selectedItem;
+		if(widget.data.itemTile.builder != null) {
+      return widget.data.itemTile.builder!(context, item, isSelected);
     }
 
-		return ListTile(
-			visualDensity: VisualDensity.compact,
-			contentPadding: EdgeInsets.symmetric(horizontal: sizes.lg),
-			minTileHeight: sizes.inputHeight,
-      horizontalTitleGap: sizes.md,
-			onTap: () => pop(item),
-			leading: _buildTileLeading(context, item),
-			title: _buildTileTitle(context, item),
-			subtitle: _buildTileSubtitle(context, item),
-			trailing: _buildTileTrailing(context, item),
+		return Material(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(sizes.sm),
+        side: BorderSide(color: colorScheme.outline.withValues(alpha: 0.12)),
+      ),
+			child: ListTile(
+        selected: isSelected,
+        selectedColor: widget.data.itemTile.selectedBackgroundColor,
+        visualDensity: widget.data.itemTile.visualDensity,
+        contentPadding: widget.data.itemTile.contentPadding ?? EdgeInsets.symmetric(horizontal: sizes.md),
+        minTileHeight: widget.data.itemTile.minTileHeight ?? sizes.inputHeight,
+        horizontalTitleGap: widget.data.itemTile.horizontalTitleGap ?? sizes.md,
+        dense: widget.data.itemTile.dense,
+        onTap: () => pop(item),
+        leading: widget.data.itemTile.leading?.call(item),
+        title: _buildTileTitle(item, isSelected),
+        subtitle: _buildTileSubtitle(item, isSelected),
+        trailing: widget.data.itemTile.trailing?.call(item),
+			),
 		);
 	}
 
-	Widget _buildTileTitle(BuildContext context, T item) {
-		if(widget.data.titleBuilder != null) return widget.data.titleBuilder!(item);
+	Widget _buildTileTitle(T item, bool isSelected) => Text(
+    widget.data.itemTile.title?.call(item) ?? item.toString(),
+    style: _titleTextStyle.copyWith(
+      color: (isSelected 
+        ? widget.data.itemTile.selectedForegroundColor 
+        : widget.data.itemTile.foregroundColor) ?? _titleTextStyle.color,
+    )
+  );
+
+	Widget? _buildTileSubtitle(T item, bool isSelected) {
+		if(widget.data.itemTile.subtitle == null) return null;
 
 		return Text(
-			widget.data.titleTextBuilder?.call(item) ?? item.toString(),
-			style: typography.titleMedium.copyWith(
-				fontWeight: FontWeight.w600
+      widget.data.itemTile.subtitle?.call(item) ?? '',
+			style: _subtitleTextStyle.copyWith(
+				color: (isSelected 
+					? widget.data.itemTile.selectedForegroundColor
+					: widget.data.itemTile.foregroundColor) ?? _subtitleTextStyle.color,
 			)
 		);
-	}
-
-	Widget? _buildTileSubtitle(BuildContext context, T item) {
-		if(widget.data.subtitleBuilder != null) return widget.data.subtitleBuilder!(item);
-
-		if(widget.data.subtitleTextBuilder == null) return null;
-
-		return Text(
-			widget.data.subtitleTextBuilder!(item),
-			style: typography.bodyMedium.copyWith(
-				color: colorScheme.onSurfaceVariant
-			)
-		);
-	}
-
-	Widget? _buildTileTrailing(BuildContext context, T item) {
-		if(widget.data.trailingBuilder != null) return widget.data.trailingBuilder!(item, sizes.iconMd);
-
-		if(widget.data.trailingTextBuilder == null) return null;
-
-		return Text(
-			widget.data.trailingTextBuilder!(item),
-			style: typography.bodyMedium.copyWith(
-				color: colorScheme.onSurfaceVariant
-			)
-		);
-	}
-
-	Widget? _buildTileLeading(BuildContext context, T item) {
-		if(widget.data.leadingBuilder != null) return widget.data.leadingBuilder!(item, sizes.iconSm);
-
-		return null;
 	}
 }

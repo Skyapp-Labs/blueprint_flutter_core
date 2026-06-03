@@ -13,6 +13,7 @@ mixin FxUiToolkit {
   BuildContext? _context;
 
 	void setToolkitContext(BuildContext ctx) {
+    if(_context == ctx) return;
 		_context = ctx;
 	}
 

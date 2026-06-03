@@ -8,18 +8,15 @@
             "program": "example/lib/main.dart",
             "flutterMode": "debug",
             "args": [
-                "--dart-define", "FLAVOR=development"
+              "--dart-define", "FLAVOR=development"
             ]
         },
         {
-            "name": "Staging",
+            "name": "Icon Studio",
             "request": "launch",
-            "type": "dart",
-            "program": "example/lib/main.dart",
-            "flutterMode": "release",
-            "args": [
-                "--dart-define", "FLAVOR=staging"
-            ]
+            "type": "node-terminal",
+            "command": "npm start",
+            "cwd": "${workspaceFolder}/example/icon-studio"
         },
         {
             "name": "Production",

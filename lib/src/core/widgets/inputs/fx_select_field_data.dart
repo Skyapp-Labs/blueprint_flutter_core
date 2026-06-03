@@ -1,36 +1,74 @@
-import 'package:flutter/material.dart';
+part of 'fx_select_field.dart';
 
-class FxSelectFieldData<T> {
-  /// List of items to display
-  final List<T>? items;
-  /// Stream of items to display
-  final Stream<List<T>>? itemsAsStream;
+enum FxOverlayType {
+  /// Standard bottom sheet — for simple lists, forms
+  bottomSheet,
+  /// Standard dialog — for simple lists, forms
+  dialog,
+  /// Standard full page modal — for complex forms, detail views
+  modal,
+}
 
-  /// Builder for the label of each item in the list
-  final String Function(T)? labelBuilder;
-
-  /// Builder for the custom item widget (overrides labelBuilder in list)
-  final Widget Function(BuildContext, T, bool isSelected)? itemBuilder;
-
-  /// Builder for the selected value in the field trigger
-  final Widget Function(T)? selectedBuilder;
-
-  /// Search hint text
+class FxSelectFieldDecoration<T> extends InputDecoration {
   final String searchHint;
-  /// search callback that returns the filtered items
-  final List<T> Function(String query, List<T> items)? onSearch;
+  final String selectHint;
+  final String? selectLabel;
+  final String? overlayTitle;
+  final TextStyle? style;
+  final bool expands;
+  final Widget Function(T)? prefixIconBuilder;
+  final Widget Function(T)? suffixIconBuilder;
 
-  /// Allow multiple selection
-  final bool multiSelect;
-
-  FxSelectFieldData({
-    this.items,
-    this.itemsAsStream,
-    this.labelBuilder,
-    this.itemBuilder,
-    this.selectedBuilder,
+  const FxSelectFieldDecoration({
+    super.border,
+    super.errorBorder,
+    super.focusedBorder,
+    super.enabledBorder,
+    super.disabledBorder,
+    super.filled,
+    String? label,
     this.searchHint = 'Search...',
-    this.onSearch,
-    this.multiSelect = false,
-  });
+    String hint = 'Select an option',
+    this.overlayTitle,
+    super.errorText,
+    super.enabled = true,
+    this.style,
+    EdgeInsets? padding,
+    this.prefixIconBuilder,
+    this.suffixIconBuilder,
+    this.expands = false,
+  })  : selectHint = hint,
+        selectLabel = label,
+        super(
+          contentPadding: padding,
+          isCollapsed: true,
+          isDense: true,
+          prefixIconConstraints: const BoxConstraints(),
+          suffixIconConstraints: const BoxConstraints(),
+        );
+
+  FxSelectFieldDecoration<T> apply({
+    InputBorder? border,
+    InputBorder? errorBorder,
+    InputBorder? focusedBorder,
+    InputBorder? enabledBorder,
+    InputBorder? disabledBorder,
+    bool? filled,
+    bool? expands,
+  }) => FxSelectFieldDecoration(
+    border: border ?? this.border,
+    errorBorder: errorBorder ?? this.errorBorder,
+    focusedBorder: focusedBorder ?? this.focusedBorder,
+    enabledBorder: enabledBorder ?? this.enabledBorder,
+    disabledBorder: disabledBorder ?? this.disabledBorder,
+    filled: filled ?? this.filled,
+    expands: expands ?? this.expands,
+    label: selectLabel,
+    hint: selectHint,
+    overlayTitle: overlayTitle,
+    style: style,
+    searchHint: searchHint,
+    prefixIconBuilder: prefixIconBuilder,
+    suffixIconBuilder: suffixIconBuilder,
+  );
 }
