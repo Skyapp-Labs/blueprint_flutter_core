@@ -1,65 +1,71 @@
 part of 'fx_phone_input.dart';
 
-class FxPhoneInputIntegrated extends _FxPhoneInputBaseLayout {
-
+class FxPhoneInputIntegrated extends _FxPhoneInputLayoutWidget {
   FxPhoneInputIntegrated({super.key, required super.data});
-  
+
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
-    return buildPhoneInput();
-  }
 
-  @override
-  InputDecoration phoneInputDecoration(InputDecoration decoration) {
-    return super.phoneInputDecoration(decoration).copyWith(
-      prefixIcon: buildCountrySelector(),
-    );
-  } 
-
-  @override
-  FxSelectFieldDecoration<FxCountry> get countrySelectorDecoration {
-    return super.countrySelectorDecoration.apply(
-      border: InputBorder.none,
-      errorBorder: InputBorder.none,
-      focusedBorder: InputBorder.none,
-      enabledBorder: InputBorder.none,
-      disabledBorder: InputBorder.none,
-      filled: false,
-    );
-  }
-
-  @override
-  Widget buildCountrySelector() => Container(
-    width: 120.w,
-    constraints: BoxConstraints(
-      minWidth: screenWidth * 0.35
-    ),
-    child: 
-    IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: super.buildCountrySelector(),
+    return buildPhoneField(
+      decorationOverride: themedDecoration(data.decoration).copyWith(
+        labelText: data.decoration.phoneLabel,
+        prefixIcon: _IntegratedDialCodePrefix(
+          widthFactor: data.decoration.integratedDialCodeWidthFactor,
+          child: buildCountryField(
+            valueLabelBuilder: dialCodeLabel,
+            decoration: countryFieldDecoration(border: InputBorder.none),
           ),
-          Container(
-            margin: EdgeInsets.only(
-              top: sizes.sm,
-              bottom: sizes.sm,
-              right: sizes.sm,
+        ),
+      ),
+    );
+  }
+}
+
+class _IntegratedDialCodePrefix extends StatelessWidget {
+  const _IntegratedDialCodePrefix({
+    required this.widthFactor,
+    required this.child,
+  });
+
+  final double widthFactor;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxWidth = constraints.maxWidth.isFinite
+            ? constraints.maxWidth * widthFactor
+            : MediaQuery.sizeOf(context).width * widthFactor;
+
+        return SizedBox(
+          width: maxWidth,
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(child: child),
+                const _VerticalFieldDivider(),
+              ],
             ),
-            decoration: BoxDecoration(
-              border: Border(
-                right: BorderSide(
-                  color: theme.dividerColor,
-                  width: 1,
-                )
-              )
-            )
-          )
-        ]
-      )
-    )
-  );
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _VerticalFieldDivider extends StatelessWidget {
+  const _VerticalFieldDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+      width: 1,
+      color: theme.dividerColor,
+    );
+  }
 }

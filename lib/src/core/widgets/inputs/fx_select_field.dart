@@ -10,6 +10,7 @@ class FxSelectField<T> extends StatefulWidget {
     super.key,
     T? initialValue,
     required this.items,
+    this.favoriteItems,
     this.onSearch,
     this.onChanged,
     this.valueLabelBuilder,
@@ -24,6 +25,7 @@ class FxSelectField<T> extends StatefulWidget {
     super.key,
     this.initialValues,
     required this.items,
+    this.favoriteItems,
     this.onSelectionChanged,
     this.onSearch,
     this.valueLabelBuilder,
@@ -37,6 +39,9 @@ class FxSelectField<T> extends StatefulWidget {
   final List<T>? initialValues;
 
   final List<T> items;
+
+  /// Optional pinned items shown above the main list (e.g. favorite countries).
+  final List<T>? favoriteItems;
 
   final bool isMultiSelect;
 
@@ -150,7 +155,8 @@ class _FxSelectFieldState<T> extends State<FxSelectField<T>> with FxUiToolkit {
       title: widget.decoration.overlayTitle,
       list: FxOverlayListData<T>(
         items: widget.items,
-        selectedItem: _selectedValues.last,
+        favoriteItems: widget.favoriteItems,
+        selectedItem: _selectedValues.isEmpty ? null : _selectedValues.last,
         searchHint: widget.decoration.searchHint,
         onSearch: widget.onSearch,
         itemTile: widget.overlayTile,

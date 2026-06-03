@@ -1,30 +1,42 @@
-import 'package:blueprint_flutter_core/src/core/utils/formatters/phone_formatter.dart';
-import 'package:blueprint_flutter_core/src/core/utils/screen_util.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart' show FxOverlayTile;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
+import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 import 'package:blueprint_flutter_core/src/core/data/fx_countries.dart';
+import 'package:blueprint_flutter_core/src/core/utils/formatters/phone_formatter.dart';
+import 'package:blueprint_flutter_core/src/core/utils/screen_util.dart';
+import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_select_field.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart'
+    show FxOverlayTile;
 
 part 'fx_phone_input_data.dart';
-part 'fx_phone_input_stacked.dart';
-part 'fx_phone_input_split.dart';
 part 'fx_phone_input_integrated.dart';
+part 'fx_phone_input_split.dart';
+part 'fx_phone_input_stacked.dart';
 
-/// Phone number input with country dial code prefix.
+/// Phone number input with a searchable country dial-code selector.
 ///
-/// [onChanged] receives the selected country, the national digits only (no
-/// spaces), and an optional third argument [parsed] when libphonenumber accepts
-/// the combined dial code + digits (otherwise null).
+/// [onChanged] receives the selected [FxCountry], national digits only (no
+/// spaces), and an optional [PhoneParseResult] when libphonenumber accepts the
+/// full number.
 ///
-/// Declare the callback with an optional positional third parameter, even if
-/// you ignore it, for example `(country, phone, [_]) { ... }` or
-/// `(country, phone, [parsed]) { ... }`.
-class FxPhoneInput extends StatefulWidget {
+/// ```dart
+/// FxPhoneInput(
+///   onChanged: (country, phone, [parsed]) {
+///     debugPrint(parsed?.fullNumber ?? '${country.dialCode}$phone');
+///   },
+///   decoration: FxPhoneInputDecoration(
+///     layout: FxPhoneInputLayout.split,
+///     countryLabel: 'Country',
+///     label: 'Phone number',
+///   ),
+/// )
+/// ```
+class FxPhoneInput extends ConsumerStatefulWidget {
   const FxPhoneInput({
     super.key,
     this.onChanged,
@@ -43,69 +55,89 @@ class FxPhoneInput extends StatefulWidget {
   final FxPhoneInputDecoration decoration;
 
   @override
-  State<FxPhoneInput> createState() => _FxPhoneInputState();
+  ConsumerState<FxPhoneInput> createState() => _FxPhoneInputState();
 }
 
-class _FxPhoneInputState extends State<FxPhoneInput> with FxUiToolkit {
-
+class _FxPhoneInputState extends ConsumerState<FxPhoneInput> {
   late FxCountry _selectedCountry;
   late final TextEditingController _controller;
-  int _parseSeq = 0;
+  late final bool _ownsController;
+  int _parseGeneration = 0;
 
   @override
   void initState() {
     super.initState();
+    _ownsController = widget.controller == null;
     _controller = widget.controller ?? TextEditingController();
-    _selectedCountry = FxCountries.byCode(widget.initialCountryCode) ?? FxCountries.all.first;
-    _controller.addListener(_notify);
+    _selectedCountry = _countryForCode(widget.initialCountryCode);
+    _controller.addListener(_handlePhoneChanged);
   }
 
-  void _notify() {
-    final onChanged = widget.onChanged;
-    if (onChanged == null) return;
-
-    final phone = _controller.text.replaceAll(' ', '');
-    if (phone.isEmpty) {
-      onChanged(_selectedCountry, '', null);
-      return;
+  @override
+  void didUpdateWidget(covariant FxPhoneInput oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialCountryCode != widget.initialCountryCode) {
+      _selectedCountry = _countryForCode(widget.initialCountryCode);
     }
-
-    final seq = ++_parseSeq;
-    final composed = '${_selectedCountry.dialCode}$phone';
-    final country = _selectedCountry;
-    PhoneFormatter.tryParse(composed, country: country).then((parsed) {
-      if (!mounted || seq != _parseSeq) return;
-      onChanged(country, phone, parsed);
-    });
   }
 
   @override
   void dispose() {
-    if (widget.controller == null) _controller.dispose();
+    _controller.removeListener(_handlePhoneChanged);
+    if (_ownsController) _controller.dispose();
     super.dispose();
   }
 
+  void _handlePhoneChanged() {
+    final onChanged = widget.onChanged;
+    if (onChanged == null) return;
+
+    final digits = _controller.text.replaceAll(' ', '');
+    if (digits.isEmpty) {
+      onChanged(_selectedCountry, '', null);
+      return;
+    }
+
+    final generation = ++_parseGeneration;
+    final country = _selectedCountry;
+    final composed = '${country.dialCode}$digits';
+
+    PhoneFormatter.tryParse(composed, country: country).then((parsed) {
+      if (!mounted || generation != _parseGeneration) return;
+      onChanged(country, digits, parsed);
+    });
+  }
+
+  void _handleCountryChanged(FxCountry country) {
+    setState(() => _selectedCountry = country);
+    _handlePhoneChanged();
+  }
+
+  FxCountry _countryForCode(String code) =>
+      FxCountries.byCode(code) ?? FxCountries.all.first;
+
+  FxPhoneInputViewData _viewData(List<FxCountry> favorites) =>
+      FxPhoneInputViewData(
+        selectedCountry: _selectedCountry,
+        favoriteCountries: favorites,
+        onCountryChanged: _handleCountryChanged,
+        controller: _controller,
+        focusNode: widget.focusNode,
+        validator: widget.validator,
+        decoration: widget.decoration,
+      );
+
   @override
   Widget build(BuildContext context) {
-    setToolkitContext(context);
-
-    final data = _FxPhoneInputBaseData(
-      selectedCountry: _selectedCountry,
-      onCountryChanged: (country) => setState(() => _selectedCountry = country),
-      focusNode: widget.focusNode,
-      controller: _controller,
-      validator: widget.validator,
-      onChanged: widget.onChanged,
-      decoration: widget.decoration,
+    final favorites = resolveFavoriteCountries(
+      ref.read(fxConfigProvider).favoriteCountries,
     );
+    final data = _viewData(favorites);
 
-    switch(data.decoration.layout) {
-      case FxPhoneInputLayout.integrated:
-        return FxPhoneInputIntegrated(data: data);
-      case FxPhoneInputLayout.split:
-        return FxPhoneInputSplit(data: data);
-      case FxPhoneInputLayout.stacked:
-        return FxPhoneInputStacked(data: data);
-    }
+    return switch (widget.decoration.layout) {
+      FxPhoneInputLayout.integrated => FxPhoneInputIntegrated(data: data),
+      FxPhoneInputLayout.split => FxPhoneInputSplit(data: data),
+      FxPhoneInputLayout.stacked => FxPhoneInputStacked(data: data),
+    };
   }
 }
