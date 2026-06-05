@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.20.2
   flutter_libphonenumber: ^2.7.0
 
+# flutter pub run build_runner watch  
 dev_dependencies:
   flutter_test:
     sdk: flutter

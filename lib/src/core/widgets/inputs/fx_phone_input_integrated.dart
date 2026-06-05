@@ -46,7 +46,7 @@ class _IntegratedDialCodePrefix extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(child: child),
-                const _VerticalFieldDivider(),
+                _VerticalFieldDivider(),
               ],
             ),
           ),
@@ -56,14 +56,19 @@ class _IntegratedDialCodePrefix extends StatelessWidget {
   }
 }
 
-class _VerticalFieldDivider extends StatelessWidget {
-  const _VerticalFieldDivider();
+class _VerticalFieldDivider extends StatelessWidget with FxUiToolkit {
+  _VerticalFieldDivider();
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    setToolkitContext(context);
+    
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+      margin: EdgeInsets.only(
+        right: sizes.md,
+        top: sizes.sm,
+        bottom: sizes.sm,
+      ),
       width: 1,
       color: theme.dividerColor,
     );

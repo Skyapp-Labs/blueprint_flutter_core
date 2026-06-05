@@ -1,13 +1,16 @@
-import 'package:blueprint_flutter_core/src/core/shell/widgets/fx_shell_scope.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:blueprint_flutter_core/src/core/theme/fx_colors.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_sizes.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_typography.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_theme_data.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_component_theme.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_theme_controller.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart';
+
+import 'package:blueprint_flutter_core/src/core/shell/widgets/fx_shell_scope.dart';
 
 mixin FxUiToolkit {
   BuildContext? _context;
@@ -44,6 +47,12 @@ mixin FxUiToolkit {
 
   /// Returns the colors for the context.
   FxColors get colors => typography.colors;
+
+  /// Returns the theme data for the context.
+  FxThemeData get themeData => theme.extension<FxThemeData>()!;
+
+  /// Returns the component theme for the context.
+  FxComponentTheme get componentTheme => theme.extension<FxComponentTheme>()!;
 
   // ── Screen ─────────────────────────────────────────────
 
@@ -111,7 +120,13 @@ mixin FxUiToolkit {
   /// Shows the blueprint bottom sheet.
   ///
   /// Use [FxOverlayData] to configure title, content, list, heading, and footer.
-  Future<T?> showFxBottomSheet<T>({
+  ///
+  /// Single-select lists return `T`; multi-select lists return `List<T>`:
+  /// ```dart
+  /// final country = await showFxBottomSheet<Country>(data: singleData);
+  /// final tags = await showFxBottomSheet<List<Tag>>(data: multiData);
+  /// ```
+  Future<R?> showFxBottomSheet<R, I>({
     /// Whether the bottom sheet can be dismissed by tapping outside.
     bool cancelable = true,
     /// Allows the sheet to expand to full screen height.
@@ -123,34 +138,36 @@ mixin FxUiToolkit {
     /// The initial fraction of screen height the sheet occupies when opened.
     double initialChildSize = 0.5,
     /// The data for the bottom sheet.
-    required FxOverlayData<T> data,
-  }) => FxBottomSheet.show<T>(
-    _ctx,
-    data: data,
-    cancelable: cancelable,
-    allowFullHeight: allowFullHeight,
-    maxChildSize: maxChildSize,
-    minChildSize: minChildSize,
-    initialChildSize: initialChildSize,
-  );
+    required FxOverlayData<I> data,
+  }) =>
+      FxBottomSheet.show<R, I>(
+        _ctx,
+        data: data,
+        cancelable: cancelable,
+        allowFullHeight: allowFullHeight,
+        maxChildSize: maxChildSize,
+        minChildSize: minChildSize,
+        initialChildSize: initialChildSize,
+      );
 
   /// Shows the blueprint dialog.
   ///
   /// Use [FxDialogStyle.center] for confirmations and alerts.
   /// Use [FxDialogStyle.fullPage] for complex forms or detail views.
-  Future<T?> showFxDialog<T>({
+  Future<R?> showFxDialog<R, I>({
     /// Whether the dialog can be dismissed by tapping outside.
     bool cancelable = true,
     /// The style of the dialog: centered or full page. Default is centered.
     FxDialogStyle style = FxDialogStyle.center,
     /// The data for the dialog.
-    required FxOverlayData<T> data,
-  }) => FxDialog.show<T>(
-    _ctx,
-    data: data,
-    cancelable: cancelable,
-    style: style,
-  );
+    required FxOverlayData<I> data,
+  }) =>
+      FxDialog.show<R, I>(
+        _ctx,
+        data: data,
+        cancelable: cancelable,
+        style: style,
+      );
 
   /// Unfocuses the current focus node.
   void unfocus() => FocusScope.of(_ctx).unfocus();

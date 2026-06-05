@@ -10,8 +10,8 @@ import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_select_field.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart'
-    show FxOverlayTile;
+import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart'
+    show FxOverlayTile, FxOverlayType;
 
 part 'fx_phone_input_data.dart';
 part 'fx_phone_input_integrated.dart';

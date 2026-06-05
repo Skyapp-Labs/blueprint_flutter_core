@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/entities/user.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 /// Decodes a JWT access token to expose user claims.
@@ -16,16 +17,12 @@ abstract final class JwtHelper {
 
   static String? userId(String token) => decode(token)?['sub'] as String?;
 
-  static String? email(String token) => decode(token)?['email'] as String?;
-
-  static String? fullName(String token) =>
-      decode(token)?['fullName'] as String?;
-
-  static String? phoneNumber(String token) =>
-      decode(token)?['phoneNumber'] as String?;
-
-  static String? countryCode(String token) =>
-      decode(token)?['countryCode'] as String?;
+  static User getUserFromToken(String token) {
+    final user = decode(token)?['user'] as Map<String, dynamic>?;
+    if (user == null) throw Exception('User not found in token');
+    user['roles'] = roles(token);
+    return User.fromJson(user);
+  }
 
   static List<String> roles(String token) {
     try {
@@ -36,16 +33,7 @@ abstract final class JwtHelper {
       return [];
     }
   }
-
-  static List<String> permissions(String token) {
-    final raw = decode(token)?['permissions'];
-    if (raw is List) return raw.cast<String>();
-    return [];
-  }
-
-  static bool hasPermission(String token, String permission) =>
-      permissions(token).contains(permission);
-
+  
   static bool isExpired(String token) {
     try {
       return JwtDecoder.isExpired(token);

@@ -1,6 +1,6 @@
+import 'package:blueprint_flutter_core/src/modules/auth/auth_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:dio/dio.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/core/controllers/auth_controller.dart';
 import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 import 'package:blueprint_flutter_core/src/core/network/fx_service_context.dart';
 

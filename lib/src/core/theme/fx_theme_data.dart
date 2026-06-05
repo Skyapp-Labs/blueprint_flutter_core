@@ -4,13 +4,14 @@ import 'package:blueprint_flutter_core/src/core/utils/screen_util.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_colors.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_sizes.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_typography.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart';
 
 /// Blueprint contract for Material sub-theme builders.
 ///
 /// Extend this in [app/theme/app_theme_data.dart] to override any sub-theme.
 /// All getters receive brightness-resolved [colors], [sizes], and [typography]
 /// from [FxTheme.build] — never construct raw colors here.
-abstract class FxThemeData {
+abstract class FxThemeData extends ThemeExtension<FxThemeData> {
   final FxColors colors;
   final FxSizes sizes;
   final FxTypography typography;
@@ -23,11 +24,15 @@ abstract class FxThemeData {
 
   /// Returns a copy with updated fields.
   /// Called by [FxTheme.build] with brightness-resolved instances.
+  @override
   FxThemeData copyWith({
     FxColors? colors,
     FxSizes? sizes,
     FxTypography? typography,
   });
+
+  @override
+  FxThemeData lerp(FxThemeData? other, double t) => t < 0.5 ? this : (other ?? this);
 
   AppBarTheme get appBarTheme => AppBarTheme(
     backgroundColor: colors.surface,
@@ -253,5 +258,22 @@ abstract class FxThemeData {
     color: colors.primary,
     linearTrackColor: colors.surface,
     circularTrackColor: colors.surface,
+  );
+
+  FxOverlayTileThemeData get overlayTileTheme => FxOverlayTileThemeData(
+    margin: EdgeInsets.symmetric(horizontal: sizes.sm, vertical: sizes.xs),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(sizes.sm),
+      side: BorderSide(color: colors.outline.withValues(alpha: 0.12)),
+    ),
+    visualDensity: VisualDensity.compact,
+    dense: false,
+    contentPadding: EdgeInsets.symmetric(horizontal: sizes.md),
+    minTileHeight: sizes.inputHeight,
+    horizontalTitleGap: sizes.md,
+    foregroundColor: (isSelected) => colors.onSurface,
+    titleStyle: typography.titleMedium,
+    subtitleStyle: typography.bodyMedium,
+    backgroundColor: (isSelected) => colors.surface,
   );
 }

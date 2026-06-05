@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/core/models/user.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/entities/user.dart';
 
 /// Persists the refresh token and user profile to secure storage.
 ///
@@ -24,14 +24,14 @@ class AuthStorage {
 
   // ── User profile ───────────────────────────────────────────────────────────
 
-  Future<void> saveUser(AuthUser user) =>
+  Future<void> saveUser(User user) =>
       _storage.write(key: _userKey, value: jsonEncode(user.toJson()));
 
-  Future<AuthUser?> getUser() async {
+  Future<User?> getUser() async {
     final raw = await _storage.read(key: _userKey);
     if (raw == null) return null;
     try {
-      return AuthUser.fromJson(jsonDecode(raw) as Map<String, dynamic>);
+      return User.fromJson(jsonDecode(raw) as Map<String, dynamic>);
     } catch (_) {
       return null;
     }

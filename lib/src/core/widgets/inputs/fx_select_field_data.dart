@@ -1,24 +1,7 @@
 part of 'fx_select_field.dart';
 
-enum FxOverlayType {
-  /// Standard bottom sheet — for simple lists, forms
-  bottomSheet,
-  /// Standard dialog — for simple lists, forms
-  dialog,
-  /// Standard full page modal — for complex forms, detail views
-  modal,
-}
-
+/// Visual and behavioral options for [FxSelectField].
 class FxSelectFieldDecoration<T> extends InputDecoration {
-  final String searchHint;
-  final String selectHint;
-  final String? selectLabel;
-  final String? overlayTitle;
-  final TextStyle? style;
-  final bool expands;
-  final Widget Function(T)? prefixIconBuilder;
-  final Widget Function(T)? suffixIconBuilder;
-
   const FxSelectFieldDecoration({
     super.border,
     super.errorBorder,
@@ -27,8 +10,8 @@ class FxSelectFieldDecoration<T> extends InputDecoration {
     super.disabledBorder,
     super.filled,
     String? label,
-    this.searchHint = 'Search...',
-    String hint = 'Select an option',
+    this.searchHint = _FxSelectFieldDefaults.searchHint,
+    String hint = _FxSelectFieldDefaults.hint,
     this.overlayTitle,
     super.errorText,
     super.enabled = true,
@@ -37,6 +20,10 @@ class FxSelectFieldDecoration<T> extends InputDecoration {
     this.prefixIconBuilder,
     this.suffixIconBuilder,
     this.expands = false,
+    this.confirmLabel = 'Done',
+    this.clearLabel = 'Clear',
+    this.minSelection = 0,
+    this.maxSelection,
   })  : selectHint = hint,
         selectLabel = label,
         super(
@@ -47,6 +34,22 @@ class FxSelectFieldDecoration<T> extends InputDecoration {
           suffixIconConstraints: const BoxConstraints(),
         );
 
+  final String searchHint;
+  final String selectHint;
+  final String? selectLabel;
+  final String? overlayTitle;
+  final TextStyle? style;
+  final bool expands;
+  final Widget Function(T value)? prefixIconBuilder;
+  final Widget Function(T value)? suffixIconBuilder;
+
+  /// Multi-select overlay footer labels and limits.
+  final String confirmLabel;
+  final String? clearLabel;
+  final int minSelection;
+  final int? maxSelection;
+
+  /// Returns a copy with selective input-border and layout overrides.
   FxSelectFieldDecoration<T> apply({
     InputBorder? border,
     InputBorder? errorBorder,
@@ -55,20 +58,38 @@ class FxSelectFieldDecoration<T> extends InputDecoration {
     InputBorder? disabledBorder,
     bool? filled,
     bool? expands,
-  }) => FxSelectFieldDecoration(
-    border: border ?? this.border,
-    errorBorder: errorBorder ?? this.errorBorder,
-    focusedBorder: focusedBorder ?? this.focusedBorder,
-    enabledBorder: enabledBorder ?? this.enabledBorder,
-    disabledBorder: disabledBorder ?? this.disabledBorder,
-    filled: filled ?? this.filled,
-    expands: expands ?? this.expands,
-    label: selectLabel,
-    hint: selectHint,
-    overlayTitle: overlayTitle,
-    style: style,
-    searchHint: searchHint,
-    prefixIconBuilder: prefixIconBuilder,
-    suffixIconBuilder: suffixIconBuilder,
-  );
+  }) {
+    return FxSelectFieldDecoration<T>(
+      border: border ?? this.border,
+      errorBorder: errorBorder ?? this.errorBorder,
+      focusedBorder: focusedBorder ?? this.focusedBorder,
+      enabledBorder: enabledBorder ?? this.enabledBorder,
+      disabledBorder: disabledBorder ?? this.disabledBorder,
+      filled: filled ?? this.filled,
+      label: selectLabel,
+      hint: selectHint,
+      searchHint: searchHint,
+      overlayTitle: overlayTitle,
+      errorText: errorText,
+      enabled: enabled,
+      style: style,
+      padding: contentPadding is EdgeInsets ? contentPadding as EdgeInsets : null,
+      prefixIconBuilder: prefixIconBuilder,
+      suffixIconBuilder: suffixIconBuilder,
+      expands: expands ?? this.expands,
+    );
+  }
+}
+
+abstract final class _FxSelectFieldDefaults {
+  static const hint = 'Select an option';
+  static const searchHint = 'Search...';
+}
+
+/// Resolves the label shown for [value], falling back to [Object.toString].
+String fxSelectFieldLabel<T>(
+  T value, {
+  String Function(T value)? valueLabelBuilder,
+}) {
+  return valueLabelBuilder?.call(value) ?? value.toString();
 }

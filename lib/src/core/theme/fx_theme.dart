@@ -4,6 +4,7 @@ import 'package:blueprint_flutter_core/src/core/theme/fx_colors.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_sizes.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_theme_data.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_typography.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_component_theme.dart';
 
 /// Blueprint theme builder.
 ///
@@ -15,12 +16,14 @@ abstract class FxTheme {
   FxSizes get appSizes;
   FxTypography get appTypography;
   FxThemeData get appThemeData;
+  FxComponentTheme get appComponentTheme;
 
   ThemeData build(Brightness brightness) {
     final colors      = appColors.copyWith(brightness: brightness);
     final sizes       = appSizes;
     final typography  = appTypography.copyWith(colors: colors, sizes: sizes);
     final themeData   = appThemeData.copyWith(colors: colors, sizes: sizes, typography: typography);
+    final componentTheme = appComponentTheme.copyWith(colors: colors, sizes: sizes, typography: typography);
 
     final colorScheme = ColorScheme(
       brightness: brightness,
@@ -94,6 +97,8 @@ abstract class FxTheme {
       extensions: {
         sizes,       // retrieve with: Theme.of(context).extension<FxSizes>()!
         typography,  // retrieve with: Theme.of(context).extension<FxTypography>()!
+        themeData,   // retrieve with: Theme.of(context).extension<FxThemeData>()!
+        componentTheme, // retrieve with: Theme.of(context).extension<FxComponentTheme>()!
       },
     );
   }

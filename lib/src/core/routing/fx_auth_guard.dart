@@ -1,5 +1,4 @@
-import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_status.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/core/models/auth_state.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/states/auth_state.dart';
 
 /// Handles auth-based route redirection.
 ///

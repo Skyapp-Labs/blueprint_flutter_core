@@ -25,13 +25,13 @@ enum FxPhoneInputLayout {
 /// Visual and behavioral options for [FxPhoneInput].
 class FxPhoneInputDecoration extends InputDecoration {
   const FxPhoneInputDecoration({
-    this.overlayType = FxOverlayType.bottomSheet,
     String? label,
     this.countryLabel,
     String hint = 'Enter your phone number',
+    this.textInputAction = TextInputAction.next,
+    this.overlayType = FxOverlayType.modal,
     this.flagShape = FxFlagShape.circle,
     this.flagSize = 28,
-    this.textInputAction = TextInputAction.next,
     this.layout = FxPhoneInputLayout.integrated,
     this.spacing,
     this.integratedDialCodeWidthFactor = _FxPhoneInputDefaults.dialCodeWidthFactor,
@@ -95,8 +95,8 @@ class FxPhoneInputViewData {
 }
 
 abstract final class _FxPhoneInputDefaults {
-  static const dialCodeWidthFactor = 0.33;
-  static const splitCountryMinWidthFactor = 0.33;
+  static const dialCodeWidthFactor = 0.4;
+  static const splitCountryMinWidthFactor = 0.4;
   static const splitCountryWidth = 120.0;
   static const countryOverlayTitle = 'Select country';
 }
@@ -194,8 +194,6 @@ abstract class _FxPhoneInputLayoutWidget extends StatelessWidget with FxUiToolki
           style: typography.labelSmall,
         ),
         leading: _countryFlag,
-        visualDensity: VisualDensity.compact,
-        dense: true,
       );
 
   Widget _countryFlag(FxCountry country) => FxCountryFlag(
