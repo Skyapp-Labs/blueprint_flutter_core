@@ -14,13 +14,18 @@ part './_pending_request_handler.dart';
 ///
 /// Delegates refresh coordination to [RefreshCoordinator] and error mapping
 /// to [ErrorMapper]. Public endpoints bypass both paths entirely.
+/// [skipRefreshEndpoints] never trigger proactive or reactive token refresh
+/// (e.g. logout must not re-authenticate before signing out).
 class FxAuthInterceptor extends Interceptor {
   FxAuthInterceptor({
     required Dio dio,
     required FxTokenManager tokenManager,
     required Future<bool> Function() onRefresh,
-    this.publicEndpoints = const [],
+    List<String> publicEndpoints = const []
   })  : _tokenManager = tokenManager,
+        _normalizedPublicPaths = publicEndpoints
+            .map(FxAuthInterceptor.normalizePath)
+            .toSet(),
         _coordinator = _RefreshCoordinator(
           dio: dio,
           tokenManager: tokenManager,
@@ -29,14 +34,34 @@ class FxAuthInterceptor extends Interceptor {
 
   final FxTokenManager _tokenManager;
   final _RefreshCoordinator _coordinator;
-  final List<String> publicEndpoints;
+  final Set<String> _normalizedPublicPaths;
+
+  /// Normalizes an API path for reliable endpoint matching.
+  static String normalizePath(String path) {
+    var normalized = path.trim();
+    if (normalized.isEmpty) return '/';
+
+    if (normalized.contains('://')) {
+      normalized = Uri.parse(normalized).path;
+    }
+
+    if (!normalized.startsWith('/')) {
+      normalized = '/$normalized';
+    }
+
+    while (normalized.length > 1 && normalized.endsWith('/')) {
+      normalized = normalized.substring(0, normalized.length - 1);
+    }
+
+    return normalized;
+  }
 
   @override
   void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    if (_isPublic(options.path)) return handler.next(options);
+    if (_isPublic(options)) return handler.next(options);
 
     if (_tokenManager.isExpired) {
       final ok = await _coordinator.ensureRefreshed();
@@ -48,7 +73,11 @@ class FxAuthInterceptor extends Interceptor {
       }
     }
 
-    options.headers['Authorization'] = 'Bearer ${_tokenManager.accessToken}';
+    if (_tokenManager.hasToken) {
+      options.headers['Authorization'] =
+          'Bearer ${_tokenManager.accessToken}';
+    }
+
     handler.next(options);
   }
 
@@ -56,13 +85,15 @@ class FxAuthInterceptor extends Interceptor {
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     final is401 = err.response?.statusCode == 401;
 
-    if (!is401 || _isPublic(err.requestOptions.path)) {
+    if (!is401 || _isPublic(err.requestOptions)) {
       return handler.reject(FxErrorMapper.map(err));
     }
 
     await _coordinator.handleUnauthorized(err, handler);
   }
 
-  bool _isPublic(String path) =>
-      publicEndpoints.any((p) => path.endsWith(p));
+  bool _isPublic(RequestOptions options) {
+    final rawPath = options.path;
+    return _normalizedPublicPaths.contains(normalizePath(rawPath));
+  }
 }
