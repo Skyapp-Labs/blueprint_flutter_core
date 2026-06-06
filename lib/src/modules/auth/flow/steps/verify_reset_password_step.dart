@@ -1,17 +1,20 @@
 part of '_steps.dart';
 
-abstract class VerifyResetPasswordStep extends BaseStep {
-  @override
-  String get key => 'verify_reset_password_step';
+abstract class VerifyResetPasswordStepTemplate extends AuthStepTemplate {
+  const VerifyResetPasswordStepTemplate();
 
   @override
-  String? get title => 'Verify your reset password';
+  String get stepId => 'verify_reset_password';
 
   @override
-  String? get subtitle => 'Enter the code sent to your email';
-
-  @override
-  String get actionLabel => 'Verify';
+  AuthStepLayout get layout => const AuthStepLayout(
+    title: 'Verify your reset password',
+    subtitle: 'Enter the code sent to your email',
+    actionLabel: 'Verify',
+  );
 }
 
-class DefaultVerifyResetPasswordStep extends VerifyResetPasswordStep { }
+class DefaultVerifyResetPasswordStepTemplate
+    extends VerifyResetPasswordStepTemplate {
+  const DefaultVerifyResetPasswordStepTemplate();
+}

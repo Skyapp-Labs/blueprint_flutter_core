@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -42,6 +42,8 @@ class FxPhoneInputDecoration extends InputDecoration {
     super.enabledBorder,
     super.disabledBorder,
     super.filled,
+    super.floatingLabelBehavior,
+    super.floatingLabelAlignment,
     EdgeInsets? padding,
   })  : phoneLabel = label,
         super(
@@ -153,17 +155,17 @@ abstract class _FxPhoneInputLayoutWidget extends StatelessWidget with FxUiToolki
   }
 
   Widget buildPhoneField({InputDecoration? decorationOverride}) {
-    return TextFormField(
-      controller: data.controller,
+    return FxTextField(
+      hint: data.decoration.hintText,
+      label: data.decoration.phoneLabel,
+      // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      validator: _validatePhone,
       focusNode: data.focusNode,
+      controller: data.controller,
       keyboardType: TextInputType.phone,
       textInputAction: data.decoration.textInputAction,
-      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-      validator: _validatePhone,
       decoration: decorationOverride ??
-          themedDecoration(data.decoration).copyWith(
-            labelText: data.decoration.phoneLabel,
-          ),
+          themedDecoration(data.decoration),
     );
   }
 

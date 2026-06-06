@@ -13,13 +13,13 @@ class AuthFlowScreen extends ConsumerWidget {
     this.onAuthError,
     this.onStepChange,
     this.onAuthSuccess,
-    this.stepConfig = const StepConfig(),
+    this.templates = const AuthStepTemplates(),
   });
 
   final VoidCallback? onAuthError;
   final VoidCallback? onAuthSuccess;
   final void Function(AuthStep? previousStep, AuthStep? currentStep)? onStepChange;
-  final StepConfig stepConfig;
+  final AuthStepTemplates templates;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -50,19 +50,19 @@ class AuthFlowScreen extends ConsumerWidget {
       ),
       child: switch (flow.step) {
         AuthStep.phone => PhoneStepScreen(
-          view: stepConfig.phoneStep
+          template: templates.phone,
         ),
         AuthStep.emailAndPassword => EmailStepScreen(
-          view: stepConfig.emailStep
+          template: templates.email,
         ),
         AuthStep.otp => OtpStepScreen(
-          view: stepConfig.otpStep
+          template: templates.otp,
         ),
         AuthStep.signup => SignupStepScreen(
-          view: stepConfig.signupStep
+          template: templates.signup,
         ),
         AuthStep.forgotPassword => ForgotPasswordStepScreen(
-          view: stepConfig.forgotPasswordStep
+          template: templates.forgotPassword,
         ),
         AuthStep.verifyResetPassword => Text('Verify Reset Password'),
         AuthStep.resetPassword => Text('Reset Password'),

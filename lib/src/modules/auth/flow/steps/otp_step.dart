@@ -1,17 +1,19 @@
 part of '_steps.dart';
 
-abstract class OtpStep extends BaseStep {
-  @override
-  String get key => 'otp_step';
+abstract class OtpStepTemplate extends AuthStepTemplate {
+  const OtpStepTemplate();
 
   @override
-  String? get title => 'Verify your number';
+  String get stepId => 'otp';
 
   @override
-  String? get subtitle => 'Enter the code sent to {{phone}}';
-
-  @override
-  String get actionLabel => 'Verify';
+  AuthStepLayout get layout => const AuthStepLayout(
+    title: 'Verify your number',
+    subtitle: 'Enter the code sent to {{phone}}',
+    actionLabel: 'Verify',
+  );
 }
 
-class DefaultOtpStep extends OtpStep { }
+class DefaultOtpStepTemplate extends OtpStepTemplate {
+  const DefaultOtpStepTemplate();
+}

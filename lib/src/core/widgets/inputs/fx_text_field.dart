@@ -22,6 +22,7 @@ class FxTextField extends StatefulWidget {
     this.validator,
     this.enabled = true,
     this.autofocus = false,
+    this.onSaved,
     this.maxLines = 1,
     this.maxLength,
     this.focusNode,
@@ -43,6 +44,7 @@ class FxTextField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
+  final ValueChanged<String?>? onSaved;
   final FormFieldValidator<String>? validator;
   final bool enabled;
   final bool autofocus;
@@ -121,6 +123,7 @@ class _FxTextFieldState extends State<FxTextField> with FxUiToolkit {
     maxLines: widget.obscureText ? 1 : widget.maxLines,
     maxLength: widget.maxLength,
     focusNode: widget.focusNode,
+    onSaved: widget.onSaved,
     textCapitalization: widget.textCapitalization,
     decoration: widget.decoration.applyDefaults(theme.inputDecorationTheme)
       .copyWith(

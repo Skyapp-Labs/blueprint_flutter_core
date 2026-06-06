@@ -216,4 +216,19 @@ class FxUiContext with FxUiToolkit {
 
 extension FxUiToolkitContext on BuildContext {
   FxUiContext get fxUiToolkit => FxUiContext.of(this);
+
+  /// Returns the sizes for the context.
+  FxSizes get sizes => fxUiToolkit.sizes;
+
+  /// Returns the typography for the context.
+  FxTypography get typography => fxUiToolkit.typography;
+
+  /// Returns the colors for the context.
+  FxColors get colors => fxUiToolkit.colors;
+
+  /// Returns the theme data for the context.
+  FxThemeData get themeData => fxUiToolkit.themeData;
+
+  /// Returns the component theme for the context.
+  FxComponentTheme get componentTheme => fxUiToolkit.componentTheme;
 }

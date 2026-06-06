@@ -6,7 +6,8 @@ import 'package:blueprint_flutter_core/src/modules/auth/flow/auth_flow_controlle
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-part 'base_step.dart';
+part 'auth_step_layout.dart';
+part 'auth_step_template.dart';
 part 'email_step.dart';
 part 'otp_step.dart';
 part 'phone_step.dart';
@@ -15,43 +16,23 @@ part 'forgot_password_step.dart';
 part 'reset_password_step.dart';
 part 'verify_reset_password_step.dart';
 
-class StepConfig {
-
-  const StepConfig({
-    this.email,
-    this.phone,
-    this.otp,
-    this.signup,
-    this.forgotPassword,
-    this.resetPassword,
-    this.verifyResetPassword,
+/// Registry of customizable auth step presentation templates.
+class AuthStepTemplates {
+  const AuthStepTemplates({
+    this.email = const DefaultEmailStepTemplate(),
+    this.phone = const DefaultPhoneStepTemplate(),
+    this.otp = const DefaultOtpStepTemplate(),
+    this.signup = const DefaultSignupStepTemplate(),
+    this.forgotPassword = const DefaultForgotPasswordStepTemplate(),
+    this.resetPassword = const DefaultResetPasswordStepTemplate(),
+    this.verifyResetPassword = const DefaultVerifyResetPasswordStepTemplate(),
   });
 
-  final EmailStep? email;
-  final PhoneStep? phone;
-  final OtpStep? otp;
-  final SignupStep? signup;
-  final ForgotPasswordStep? forgotPassword;
-  final ResetPasswordStep? resetPassword;
-  final VerifyResetPasswordStep? verifyResetPassword;
-
-  EmailStep get emailStep => email ?? DefaultEmailStep();
-  
-  PhoneStep get phoneStep => phone ?? DefaultPhoneStep();
-  
-  OtpStep get otpStep => otp ?? DefaultOtpStep();
-
-  SignupStep get signupStep => signup ?? DefaultSignupStep();
-
-  ForgotPasswordStep get forgotPasswordStep {
-    return forgotPassword ?? DefaultForgotPasswordStep();
-  }
-
-  VerifyResetPasswordStep get verifyResetPasswordStep {
-    return verifyResetPassword ?? DefaultVerifyResetPasswordStep();
-  }
-
-  ResetPasswordStep get resetPasswordStep {
-    return resetPassword ?? DefaultResetPasswordStep();
-  }
+  final EmailStepTemplate email;
+  final PhoneStepTemplate phone;
+  final OtpStepTemplate otp;
+  final SignupStepTemplate signup;
+  final ForgotPasswordStepTemplate forgotPassword;
+  final ResetPasswordStepTemplate resetPassword;
+  final VerifyResetPasswordStepTemplate verifyResetPassword;
 }

@@ -1,17 +1,19 @@
 part of '_steps.dart';
 
-abstract class ForgotPasswordStep extends BaseStep {
-  @override
-  String get key => 'forgot_password_step';
+abstract class ForgotPasswordStepTemplate extends AuthStepTemplate {
+  const ForgotPasswordStepTemplate();
 
   @override
-  String? get title => 'Forgot your password?';
+  String get stepId => 'forgot_password';
 
   @override
-  String? get subtitle => 'Enter your email to reset your password';
-
-  @override
-  String get actionLabel => 'Reset password';
+  AuthStepLayout get layout => const AuthStepLayout(
+    title: 'Forgot your password?',
+    subtitle: 'Enter your email to reset your password',
+    actionLabel: 'Reset password',
+  );
 }
 
-class DefaultForgotPasswordStep extends ForgotPasswordStep { }
+class DefaultForgotPasswordStepTemplate extends ForgotPasswordStepTemplate {
+  const DefaultForgotPasswordStepTemplate();
+}

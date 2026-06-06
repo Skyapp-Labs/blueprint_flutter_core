@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SignupStepState {
 
- String? get email; String? get password; bool get isLoading; String? get error;
+ String? get email; String? get password; String? get firstName; String? get lastName; String? get fullNumber; String? get gender; String? get phone; String? get countryCode; bool get isLoading; String? get error;
 /// Create a copy of SignupStepState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SignupStepStateCopyWith<SignupStepState> get copyWith => _$SignupStepStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignupStepState&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignupStepState&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.fullNumber, fullNumber) || other.fullNumber == fullNumber)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,password,isLoading,error);
+int get hashCode => Object.hash(runtimeType,email,password,firstName,lastName,fullNumber,gender,phone,countryCode,isLoading,error);
 
 @override
 String toString() {
-  return 'SignupStepState(email: $email, password: $password, isLoading: $isLoading, error: $error)';
+  return 'SignupStepState(email: $email, password: $password, firstName: $firstName, lastName: $lastName, fullNumber: $fullNumber, gender: $gender, phone: $phone, countryCode: $countryCode, isLoading: $isLoading, error: $error)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SignupStepStateCopyWith<$Res>  {
   factory $SignupStepStateCopyWith(SignupStepState value, $Res Function(SignupStepState) _then) = _$SignupStepStateCopyWithImpl;
 @useResult
 $Res call({
- String? email, String? password, bool isLoading, String? error
+ String? email, String? password, String? firstName, String? lastName, String? fullNumber, String? gender, String? phone, String? countryCode, bool isLoading, String? error
 });
 
 
@@ -62,10 +62,16 @@ class _$SignupStepStateCopyWithImpl<$Res>
 
 /// Create a copy of SignupStepState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? email = freezed,Object? password = freezed,Object? isLoading = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? email = freezed,Object? password = freezed,Object? firstName = freezed,Object? lastName = freezed,Object? fullNumber = freezed,Object? gender = freezed,Object? phone = freezed,Object? countryCode = freezed,Object? isLoading = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String?,firstName: freezed == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String?,lastName: freezed == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String?,fullNumber: freezed == fullNumber ? _self.fullNumber : fullNumber // ignore: cast_nullable_to_non_nullable
+as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,
@@ -153,10 +159,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? email,  String? password,  bool isLoading,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? email,  String? password,  String? firstName,  String? lastName,  String? fullNumber,  String? gender,  String? phone,  String? countryCode,  bool isLoading,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignupStepState() when $default != null:
-return $default(_that.email,_that.password,_that.isLoading,_that.error);case _:
+return $default(_that.email,_that.password,_that.firstName,_that.lastName,_that.fullNumber,_that.gender,_that.phone,_that.countryCode,_that.isLoading,_that.error);case _:
   return orElse();
 
 }
@@ -174,10 +180,10 @@ return $default(_that.email,_that.password,_that.isLoading,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? email,  String? password,  bool isLoading,  String? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? email,  String? password,  String? firstName,  String? lastName,  String? fullNumber,  String? gender,  String? phone,  String? countryCode,  bool isLoading,  String? error)  $default,) {final _that = this;
 switch (_that) {
 case _SignupStepState():
-return $default(_that.email,_that.password,_that.isLoading,_that.error);case _:
+return $default(_that.email,_that.password,_that.firstName,_that.lastName,_that.fullNumber,_that.gender,_that.phone,_that.countryCode,_that.isLoading,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -194,10 +200,10 @@ return $default(_that.email,_that.password,_that.isLoading,_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? email,  String? password,  bool isLoading,  String? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? email,  String? password,  String? firstName,  String? lastName,  String? fullNumber,  String? gender,  String? phone,  String? countryCode,  bool isLoading,  String? error)?  $default,) {final _that = this;
 switch (_that) {
 case _SignupStepState() when $default != null:
-return $default(_that.email,_that.password,_that.isLoading,_that.error);case _:
+return $default(_that.email,_that.password,_that.firstName,_that.lastName,_that.fullNumber,_that.gender,_that.phone,_that.countryCode,_that.isLoading,_that.error);case _:
   return null;
 
 }
@@ -209,11 +215,17 @@ return $default(_that.email,_that.password,_that.isLoading,_that.error);case _:
 
 
 class _SignupStepState implements SignupStepState {
-  const _SignupStepState({this.email, this.password, this.isLoading = false, this.error});
+  const _SignupStepState({this.email, this.password, this.firstName, this.lastName, this.fullNumber, this.gender, this.phone, this.countryCode, this.isLoading = false, this.error});
   
 
 @override final  String? email;
 @override final  String? password;
+@override final  String? firstName;
+@override final  String? lastName;
+@override final  String? fullNumber;
+@override final  String? gender;
+@override final  String? phone;
+@override final  String? countryCode;
 @override@JsonKey() final  bool isLoading;
 @override final  String? error;
 
@@ -227,16 +239,16 @@ _$SignupStepStateCopyWith<_SignupStepState> get copyWith => __$SignupStepStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignupStepState&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignupStepState&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.fullNumber, fullNumber) || other.fullNumber == fullNumber)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,email,password,isLoading,error);
+int get hashCode => Object.hash(runtimeType,email,password,firstName,lastName,fullNumber,gender,phone,countryCode,isLoading,error);
 
 @override
 String toString() {
-  return 'SignupStepState(email: $email, password: $password, isLoading: $isLoading, error: $error)';
+  return 'SignupStepState(email: $email, password: $password, firstName: $firstName, lastName: $lastName, fullNumber: $fullNumber, gender: $gender, phone: $phone, countryCode: $countryCode, isLoading: $isLoading, error: $error)';
 }
 
 
@@ -247,7 +259,7 @@ abstract mixin class _$SignupStepStateCopyWith<$Res> implements $SignupStepState
   factory _$SignupStepStateCopyWith(_SignupStepState value, $Res Function(_SignupStepState) _then) = __$SignupStepStateCopyWithImpl;
 @override @useResult
 $Res call({
- String? email, String? password, bool isLoading, String? error
+ String? email, String? password, String? firstName, String? lastName, String? fullNumber, String? gender, String? phone, String? countryCode, bool isLoading, String? error
 });
 
 
@@ -264,10 +276,16 @@ class __$SignupStepStateCopyWithImpl<$Res>
 
 /// Create a copy of SignupStepState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? email = freezed,Object? password = freezed,Object? isLoading = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? email = freezed,Object? password = freezed,Object? firstName = freezed,Object? lastName = freezed,Object? fullNumber = freezed,Object? gender = freezed,Object? phone = freezed,Object? countryCode = freezed,Object? isLoading = null,Object? error = freezed,}) {
   return _then(_SignupStepState(
 email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
+as String?,firstName: freezed == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String?,lastName: freezed == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String?,fullNumber: freezed == fullNumber ? _self.fullNumber : fullNumber // ignore: cast_nullable_to_non_nullable
+as String?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
+as String?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
+as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
 as String?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
 as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,

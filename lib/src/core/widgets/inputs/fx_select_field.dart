@@ -34,6 +34,8 @@ class FxSelectField<T> extends StatefulWidget {
     required this.items,
     this.favoriteItems,
     this.onSearch,
+    this.label,
+    this.hint,
     this.onChanged,
     this.valueLabelBuilder,
     this.decoration = const FxSelectFieldDecoration(),
@@ -48,6 +50,8 @@ class FxSelectField<T> extends StatefulWidget {
     this.initialValues,
     required this.items,
     this.favoriteItems,
+    this.label,
+    this.hint,
     this.onSearch,
     this.onSelectionChanged,
     this.valueLabelBuilder,
@@ -62,6 +66,8 @@ class FxSelectField<T> extends StatefulWidget {
 
   final T? initialValue;
   final List<T>? initialValues;
+  final String? label;
+  final String? hint;
 
   final List<T> items;
   final List<T>? favoriteItems;
@@ -109,21 +115,49 @@ class _FxSelectFieldState<T> extends State<FxSelectField<T>> with FxUiToolkit {
   bool get _hasValue =>
       widget.isMultiSelect ? _values.isNotEmpty : _value != null;
 
+  String? get _labelText => widget.label ?? widget.decoration.labelText;
+
+  double get _spacing {
+    final padding = _themedDecoration.contentPadding?.vertical ?? 0;
+    return padding > 0 ? ((padding / 2) * .5) : sizes.xs;
+  }
+    
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    return GestureDetector(
-      onTap: widget.decoration.enabled ? _openOverlay : null,
-      behavior: HitTestBehavior.opaque,
-      child: InputDecorator(
-        expands: widget.decoration.expands,
-        decoration: _fieldDecoration,
-        isEmpty: !_hasValue,
-        child: _hasValue ? _selectedLabel : null,
-      ),
+    if (_labelText == null) return _buildTextField();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: _spacing,
+      children: [
+        _buildLabel(),
+        _buildTextField(),
+      ]
     );
   }
+
+  Widget _buildLabel() => Text(
+    widget.label ?? '',
+    textAlign: switch (_themedDecoration.floatingLabelAlignment) {
+      FloatingLabelAlignment.start => TextAlign.start,
+      FloatingLabelAlignment.center => TextAlign.center,
+      _ => TextAlign.end,
+    },
+    style: _themedDecoration.labelStyle,
+  );
+
+  Widget _buildTextField() => GestureDetector(
+    onTap: widget.decoration.enabled ? _openOverlay : null,
+    behavior: HitTestBehavior.opaque,
+    child: InputDecorator(
+      expands: widget.decoration.expands,
+      decoration: _fieldDecoration,
+      isEmpty: !_hasValue,
+      child: _hasValue ? _selectedLabel : null,
+    ),
+  );
 
   InputDecoration get _themedDecoration =>
       widget.decoration.applyDefaults(theme.inputDecorationTheme);

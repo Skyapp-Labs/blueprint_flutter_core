@@ -1,25 +1,33 @@
 part of '_steps.dart';
 
-abstract class EmailStep extends BaseStep {
-  @override
-  String get key => 'email_step';
+abstract class EmailStepTemplate extends AuthStepTemplate {
+  const EmailStepTemplate();
 
   @override
-  String? get title => 'Enter your email';
+  String get stepId => 'email';
 
   @override
-  String? get subtitle => 'We will send you a code to verify your email';
-
-  @override
-  String get actionLabel => 'Login';
-
-  @override
-  Widget footer(BuildContext context) => FxText(
-    'Don\'t have an account? [Sign up]',
-    textAlign: TextAlign.center,
-    padding: EdgeInsets.symmetric(vertical: sizes.md),
-    onTap: (_, _) => _onSignUp(),
+  AuthStepLayout get layout => const AuthStepLayout(
+    title: 'Enter your email',
+    subtitle: 'We will send you a code to verify your email',
+    actionLabel: 'Log in',
   );
+
+  void onSignUpRequested(WidgetRef ref) {
+    ref.goToAuthStep(AuthStep.signup);
+  }
+
+  @override
+  Widget? buildFooter(BuildContext context, WidgetRef ref) {
+    return FxText(
+      'Don\'t have an account? [Sign up]',
+      textAlign: TextAlign.center,
+      padding: EdgeInsets.symmetric(vertical: context.sizes.md),
+      onTap: (_, _) => onSignUpRequested(ref),
+    );
+  }
 }
 
-class DefaultEmailStep extends EmailStep { }
+class DefaultEmailStepTemplate extends EmailStepTemplate {
+  const DefaultEmailStepTemplate();
+}

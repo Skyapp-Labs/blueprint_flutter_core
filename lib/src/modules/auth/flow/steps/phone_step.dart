@@ -1,17 +1,19 @@
 part of '_steps.dart';
 
-abstract class PhoneStep extends BaseStep {
-  @override
-  String get key => 'phone_step';
+abstract class PhoneStepTemplate extends AuthStepTemplate {
+  const PhoneStepTemplate();
 
   @override
-  String? get title => 'Enter your phone number';
+  String get stepId => 'phone';
 
   @override
-  String? get subtitle => 'We will send you a code to verify your phone number';
-
-  @override
-  String get actionLabel => 'Send code';
+  AuthStepLayout get layout => const AuthStepLayout(
+    title: 'Enter your phone number',
+    subtitle: 'We will send you a code to verify your phone number',
+    actionLabel: 'Send code',
+  );
 }
 
-class DefaultPhoneStep extends PhoneStep {}
+class DefaultPhoneStepTemplate extends PhoneStepTemplate {
+  const DefaultPhoneStepTemplate();
+}
