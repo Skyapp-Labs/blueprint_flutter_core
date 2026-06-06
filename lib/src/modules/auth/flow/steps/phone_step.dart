@@ -14,4 +14,4 @@ abstract class PhoneStep extends BaseStep {
   String get actionLabel => 'Send code';
 }
 
-class DefaultPhoneStep extends PhoneStep { }
+class DefaultPhoneStep extends PhoneStep {}

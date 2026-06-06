@@ -1,4 +1,4 @@
-export 'core/old/storage/auth_storage.dart';
+export 'core/storage/auth_storage.dart';
 
 export './auth_controller.dart';
 export './core/models/states/auth_state.dart';

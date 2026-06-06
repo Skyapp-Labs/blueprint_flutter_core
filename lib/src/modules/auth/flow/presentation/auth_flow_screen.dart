@@ -1,7 +1,6 @@
 import 'package:blueprint_flutter_core/src/modules/auth/auth_controller.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/flow/steps/_steps.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/steps/otp/presentation/otp_step_screen.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/steps/phone/presentation/phone_step_screen.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/steps/steps.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,13 +13,13 @@ class AuthFlowScreen extends ConsumerWidget {
     this.onAuthError,
     this.onStepChange,
     this.onAuthSuccess,
-    this.stepViews = const {},
+    this.stepConfig = const StepConfig(),
   });
 
   final VoidCallback? onAuthError;
   final VoidCallback? onAuthSuccess;
   final void Function(AuthStep? previousStep, AuthStep? currentStep)? onStepChange;
-  final Map<AuthStep, BaseStep> stepViews;
+  final StepConfig stepConfig;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -51,14 +50,20 @@ class AuthFlowScreen extends ConsumerWidget {
       ),
       child: switch (flow.step) {
         AuthStep.phone => PhoneStepScreen(
-          view: stepViews[flow.step] ?? DefaultPhoneStep()
+          view: stepConfig.phoneStep
         ),
-        AuthStep.emailAndPassword => Text('Email and Password'),
+        AuthStep.emailAndPassword => EmailStepScreen(
+          view: stepConfig.emailStep
+        ),
         AuthStep.otp => OtpStepScreen(
-          view: stepViews[flow.step] ?? DefaultOtpStep()
+          view: stepConfig.otpStep
         ),
-        AuthStep.signup => Text('Signup'),
-        AuthStep.forgotPassword => Text('Forgot Password'),
+        AuthStep.signup => SignupStepScreen(
+          view: stepConfig.signupStep
+        ),
+        AuthStep.forgotPassword => ForgotPasswordStepScreen(
+          view: stepConfig.forgotPasswordStep
+        ),
         AuthStep.verifyResetPassword => Text('Verify Reset Password'),
         AuthStep.resetPassword => Text('Reset Password'),
       }

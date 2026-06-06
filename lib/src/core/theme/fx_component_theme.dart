@@ -35,4 +35,26 @@ abstract class FxComponentTheme extends ThemeExtension<FxComponentTheme> {
   Widget get closeIcon => const Icon(Icons.close);
 
   Widget get navigateBackIcon => const Icon(Icons.arrow_back);
+
+  Widget get visibleSuffixIcon => const Icon(Icons.visibility);
+  Widget get obscuredSuffixIcon => const Icon(Icons.visibility_off);
+
+  Widget passwordTransition(Widget child, Animation<double> animation) {
+    // Incoming icon spins in from 180° → 0°
+    final turnIn = Tween<double>(begin: 0.5, end: 0.0).animate(animation);
+    // Outgoing icon spins out 0° → -90°
+    final turnOut = Tween<double>(begin: 0.0, end: -0.25).animate(
+      ReverseAnimation(animation),
+    );
+    return RotationTransition(
+      turns: animation.status == AnimationStatus.reverse ? turnOut : turnIn,
+      child: FadeTransition(
+        opacity: animation,
+        child: ScaleTransition(
+          scale: Tween<double>(begin: 0.85, end: 1.0).animate(animation),
+          child: child,
+        ),
+      ),
+    );
+  }
 }

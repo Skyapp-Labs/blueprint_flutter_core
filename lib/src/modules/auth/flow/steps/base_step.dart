@@ -1,8 +1,27 @@
 part of '_steps.dart';
 
 abstract class BaseStep with FxUiToolkit {
+  late WidgetRef _ref;
+  late BuildContext _context;
 
-  void initView(BuildContext context) => setToolkitContext(context);
+  bool _isInitialized = false;
+
+  void initView(BuildContext context, WidgetRef ref) {
+    _context = context;
+    _ref = ref;
+    _isInitialized = true;
+    setToolkitContext(context);
+  }
+
+  BuildContext get context {
+    if (!_isInitialized) throw Exception('Context not initialized');
+    return _context;
+  }
+
+  WidgetRef get ref {
+    if (!_isInitialized) throw Exception('Ref not initialized');
+    return _ref;
+  }
 
   TextEditingController? _textController;
 
@@ -18,6 +37,11 @@ abstract class BaseStep with FxUiToolkit {
     _textController = controller;
   }
 
+  void goTo(AuthStep step) {
+    final flowController = ref.read(authFlowControllerProvider.notifier);
+    flowController.goToStep(step);
+  }
+
   String get key;
 
   String? get title => null;
@@ -28,7 +52,9 @@ abstract class BaseStep with FxUiToolkit {
 
   bool get hasTopContent => title != null || subtitle != null;
 
-  double get spacing => sizes.xs;
+  double get spacing => sizes.md;
+
+  double get topContentSpacing => sizes.md;
 
   TextAlign get textAlign => TextAlign.center;
 
@@ -42,25 +68,25 @@ abstract class BaseStep with FxUiToolkit {
 
   TextStyle? get subtitleStyle => null;
 
-  Widget titleWidget(BuildContext context) => Text(
+  Widget titleWidget() => Text(
     title!, 
     style: titleStyle ?? typography.headlineSmall,
     textAlign: TextAlign.center,
   );
 
-  Widget subtitleWidget(BuildContext context) => Text(
+  Widget subtitleWidget() => Text(
     subtitle!, 
     style: subtitleStyle ?? typography.bodyMedium,
     textAlign: TextAlign.center,
   );
 
-  Widget footer(BuildContext context) => const SizedBox.shrink();
+  Widget footer() => const SizedBox.shrink();
 
-  PreferredSizeWidget? header(BuildContext context) => null;
+  PreferredSizeWidget? header() => null;
 
-  Widget bottomContent(BuildContext context) => const SizedBox.shrink();
+  Widget bottomContent() => const SizedBox.shrink();
 
-  Widget topContent(BuildContext context) {
+  Widget topContent() {
     if (title == null && subtitle == null) return const SizedBox.shrink();
 
     final crossAxisAlignment = switch (textAlign) {
@@ -72,35 +98,34 @@ abstract class BaseStep with FxUiToolkit {
       _ => CrossAxisAlignment.center,
     };
 
-    return Column(
-      spacing: spacing,
-      crossAxisAlignment: crossAxisAlignment,
-      children: [
-        if (title != null) titleWidget(context),
-        if (subtitle != null) subtitleWidget(context),
-      ]
+    return Padding(
+      padding: EdgeInsets.only(bottom: topContentSpacing),
+      child: Column(
+        crossAxisAlignment: crossAxisAlignment,
+        children: [
+          if (title != null) titleWidget(),
+          if (subtitle != null) subtitleWidget(),
+        ]
+      )
     );
   }
 
-  Widget build(BuildContext context, {required List<Widget> children}) {
-    initView(context);
+  Widget build(BuildContext ctx, WidgetRef reference, {required List<Widget> children}) {
+    initView(ctx, reference);
 
     return FxScrollableForm(
       key: ValueKey(key),
-      header: header(context),
-      footer: footer(context),
+      header: header(),
+      footer: footer(),
       // safeArea: safeArea,
       padding: padding,
-      // spacing: style.spacing,
+      spacing: spacing,
       mainAxisAlignment: mainAxisAlignment,
       crossAxisAlignment: crossAxisAlignment,
       children: [
-        if(hasTopContent) ...[
-          topContent(context),
-          SizedBox(height: sizes.xs),
-        ],
+        if(hasTopContent) topContent(),
         ...children,
-        bottomContent(context),
+        bottomContent(),
       ]
     );
   }

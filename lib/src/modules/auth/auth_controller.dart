@@ -126,7 +126,7 @@ class AuthController extends _$AuthController {
 
     await Future.wait([
       _authStorage.saveRefreshToken(tokens.refreshToken),
-      _authStorage.saveUser(user),           // ← new
+      _authStorage.saveUser(user),
     ]);
 
     state = state.copyWith(

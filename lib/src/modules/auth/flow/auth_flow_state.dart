@@ -16,7 +16,7 @@ enum AuthFlowType {
 abstract class AuthFlowState with _$AuthFlowState {
   const factory AuthFlowState({
     @Default(AuthFlowType.login) AuthFlowType type,
-    @Default(AuthStep.phone) AuthStep step,
+    @Default(AuthStep.emailAndPassword) AuthStep step,
     @Default(null) AuthStep? previousStep,
     String? phone,
     String? email,

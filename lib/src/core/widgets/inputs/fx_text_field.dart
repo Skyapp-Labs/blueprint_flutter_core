@@ -27,6 +27,7 @@ class FxTextField extends StatefulWidget {
     this.focusNode,
     this.initialValue,
     this.textCapitalization = TextCapitalization.none,
+    this.decoration = const InputDecoration(),
   });
 
   final TextEditingController? controller;
@@ -50,6 +51,7 @@ class FxTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final String? initialValue;
   final TextCapitalization textCapitalization;
+  final InputDecoration decoration;
 
   @override
   State<FxTextField> createState() => _FxTextFieldState();
@@ -68,22 +70,60 @@ class _FxTextFieldState extends State<FxTextField> with FxUiToolkit {
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    return TextFormField(
-      controller: widget.controller,
-      initialValue: widget.initialValue,
-      obscureText: _obscured,
-      keyboardType: widget.keyboardType,
-      textInputAction: widget.textInputAction,
-      onChanged: widget.onChanged,
-      onFieldSubmitted: widget.onSubmitted,
-      validator: widget.validator,
-      enabled: widget.enabled,
-      autofocus: widget.autofocus,
-      maxLines: widget.obscureText ? 1 : widget.maxLines,
-      maxLength: widget.maxLength,
-      focusNode: widget.focusNode,
-      textCapitalization: widget.textCapitalization,
-      decoration: InputDecoration(
+    if(!_shouldNotFloatLabel) return _buildTextField();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: _spacing,
+      children: [
+        _buildLabel(),
+        _buildTextField(),
+      ]
+    );
+  }
+
+  String? get _labelText => widget.label ?? widget.decoration.labelText;
+
+  double get _spacing {
+    final padding = _themedDecoration.contentPadding?.vertical ?? 0;
+    return padding > 0 ? ((padding / 2) * .5) : sizes.xs;
+  }
+
+  bool get _shouldNotFloatLabel => (
+    _labelText != null &&
+    widget.decoration.floatingLabelBehavior == null
+  );
+
+  InputDecoration get _themedDecoration => widget.decoration
+    .applyDefaults(theme.inputDecorationTheme);
+
+  Widget _buildLabel() => Text(
+    _labelText ?? '',
+    textAlign: switch (_themedDecoration.floatingLabelAlignment) {
+      FloatingLabelAlignment.start => TextAlign.start,
+      FloatingLabelAlignment.center => TextAlign.center,
+      _ => TextAlign.end,
+    },
+    style: _themedDecoration.labelStyle,
+  );
+
+  Widget _buildTextField() => TextFormField(
+    controller: widget.controller,
+    initialValue: widget.initialValue,
+    obscureText: _obscured,
+    keyboardType: widget.keyboardType,
+    textInputAction: widget.textInputAction,
+    onChanged: widget.onChanged,
+    onFieldSubmitted: widget.onSubmitted,
+    validator: widget.validator,
+    enabled: widget.enabled,
+    autofocus: widget.autofocus,
+    maxLines: widget.obscureText ? 1 : widget.maxLines,
+    maxLength: widget.maxLength,
+    focusNode: widget.focusNode,
+    textCapitalization: widget.textCapitalization,
+    decoration: widget.decoration.applyDefaults(theme.inputDecorationTheme)
+      .copyWith(
         labelText: widget.label,
         hintText: widget.hint,
         errorText: widget.errorText,
@@ -91,19 +131,28 @@ class _FxTextFieldState extends State<FxTextField> with FxUiToolkit {
         prefixIcon: widget.prefixIcon,
         suffix: widget.suffix,
         suffixIcon: _buildSuffixIcon(),
+        floatingLabelBehavior: _shouldNotFloatLabel 
+          ? FloatingLabelBehavior.never
+          : null,
       ),
-    );
-  }
+  );
 
   Widget? _buildSuffixIcon() {
     if(!widget.obscureText) return widget.suffixIcon;
-
-    return IconButton(
-      onPressed: () => setState(() => _obscured = !_obscured),
-      icon: Icon(
-        _obscured ? Icons.visibility_off : Icons.visibility,
-        size: sizes.iconSm,
-      ),
+    
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 350),
+      switchInCurve: Curves.easeOutBack,
+      switchOutCurve: Curves.easeInBack,
+      transitionBuilder: componentTheme.passwordTransition,
+      child: IconButton(
+        key: ValueKey('${_obscured ? 'obscured' : 'visible'}_suffix_icon'), 
+        onPressed: () => setState(() => _obscured = !_obscured),
+        tooltip: _obscured ? 'Show password' : 'Hide password',
+        icon: _obscured 
+          ? componentTheme.obscuredSuffixIcon 
+          : componentTheme.visibleSuffixIcon
+      )
     );
   }
 }

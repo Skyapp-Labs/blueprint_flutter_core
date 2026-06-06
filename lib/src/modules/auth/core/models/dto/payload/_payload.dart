@@ -5,3 +5,4 @@ export 'signup_payload.dart';
 export 'send_otp_payload.dart';
 export 'verify_otp_payload.dart';
 export 'change_password_payload.dart';
+export 'forgot_password_payload.dart';
