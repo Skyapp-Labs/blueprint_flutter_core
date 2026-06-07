@@ -2,6 +2,7 @@ import 'package:blueprint_flutter_core/src/core/widgets/buttons/_buttons.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/flow/steps/_steps.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/steps/forgot_password/forgot_password_step_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -33,19 +34,13 @@ class _ForgotPasswordStepScreenState extends ConsumerState<ForgotPasswordStepScr
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
+    final state = ref.watch(forgotPasswordStepControllerProvider);
+    final controller = ref.read(forgotPasswordStepControllerProvider.notifier);
+
     return widget.template.buildShell(
       context: context,
       ref: ref,
-      body: [
-        _buildEmailForm(),
-      ],
-    );
-  }
-
-  Widget _buildEmailForm() {
-    final 
-  }
-  Form(
+      body: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,19 +48,19 @@ class _ForgotPasswordStepScreenState extends ConsumerState<ForgotPasswordStepScr
           children: [
             FxTextField(
               controller: _emailController,
-              hint: 'Enter your email',
-              onSaved: (value) {
-
-              },
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.done,
+              initialValue: null,
+              decoration: InputDecoration(
+                hintText: 'Enter your email',
+              )
             ),
             FxButton(
               label: widget.template.actionLabel,
-              isLoading: ref.watch(forgotPasswordStepControllerProvider).isLoading,
-              onPressed: ref.read(forgotPasswordStepControllerProvider.notifier).sendResetPasswordEmail,
+              isLoading: state.isLoading,
+              onPressed: controller.sendResetPasswordEmail,
             ),
           ],
         ),
-      );
+      )
+    );
+  }
 }

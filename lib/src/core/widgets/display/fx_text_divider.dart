@@ -57,7 +57,7 @@ class FxTextDivider extends StatelessWidget {
       color: color,
       dashWidth: dashWidth,
       dashSpace: dashSpace,
-      strokeWidth: strokeWidth,
+      thickness: strokeWidth,
     );
   }
 }

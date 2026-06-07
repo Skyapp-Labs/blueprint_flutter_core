@@ -39,6 +39,20 @@ abstract class FxComponentTheme extends ThemeExtension<FxComponentTheme> {
   Widget get visibleSuffixIcon => const Icon(Icons.visibility);
   Widget get obscuredSuffixIcon => const Icon(Icons.visibility_off);
 
+  Widget get arrowUpIcon => const Icon(Icons.keyboard_arrow_up_rounded);
+
+  Widget get arrowDownIcon => const Icon(Icons.keyboard_arrow_down_rounded);
+
+  Widget checkedCheckboxIcon(Color color, {double? size}) {
+    return Icon(Icons.check, color: color, size: size);
+  }
+
+  Widget uncheckedCheckboxIcon(Color color, {double? size}) {
+    return Icon(Icons.check_box_outline_blank, color: color, size: size);
+  }
+
+  Widget get searchIcon => const Icon(Icons.search);
+
   Widget passwordTransition(Widget child, Animation<double> animation) {
     // Incoming icon spins in from 180° → 0°
     final turnIn = Tween<double>(begin: 0.5, end: 0.0).animate(animation);

@@ -40,7 +40,8 @@ abstract class AuthStepTemplate {
   Widget buildShell({
     required BuildContext context,
     required WidgetRef ref,
-    required List<Widget> body,
+    Widget? body,
+    List<Widget>? children
   }) {
     return _AuthStepShell(
       stepId: stepId,
@@ -49,6 +50,7 @@ abstract class AuthStepTemplate {
       footer: buildFooter(context, ref),
       trailingContent: buildTrailingContent(context, ref),
       body: body,
+      children: children,
     );
   }
 }
@@ -57,15 +59,17 @@ class _AuthStepShell extends ConsumerWidget with FxUiToolkit {
   _AuthStepShell({
     required this.stepId,
     required this.layout,
-    required this.body,
+    this.body,
     this.appBar,
     this.footer,
     this.trailingContent,
+    this.children,
   });
 
   final String stepId;
   final AuthStepLayout layout;
-  final List<Widget> body;
+  final Widget? body;
+  final List<Widget>? children;
   final PreferredSizeWidget? appBar;
   final Widget? footer;
   final Widget? trailingContent;
@@ -84,7 +88,8 @@ class _AuthStepShell extends ConsumerWidget with FxUiToolkit {
       crossAxisAlignment: layout.crossAxisAlignment,
       children: [
         if (layout.hasHeaderContent) _StepHeader(layout: layout),
-        ...body,
+        ?body,
+        ...?children,
         ?trailingContent,
       ],
     );

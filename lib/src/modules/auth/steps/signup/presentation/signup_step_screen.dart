@@ -19,75 +19,75 @@ class SignupStepScreen extends ConsumerWidget {
     return template.buildShell(
       ref: ref,
       context: context,
-      body: [
-        FxTextField(
-          label: 'First Name',
-          hint: 'Enter your first name',
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.next,
-          validator: Validators.required,
-        ),
-        FxTextField(
-          label: 'Last Name',
-          hint: 'Enter your last name',
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.next,
-          validator: Validators.required,
-        ),
-        // FxPhoneInput(
-        //   decoration: FxPhoneInputDecoration(
-        //     label: 'Phonesss',
-        //     hint: 'Enter your phone number',
-        //   ),
-        //   onChanged: (country, phone, [parsed]) {},
+      children: [
+        // FxTextField(
+        //   label: 'First Name',
+        //   hint: 'Enter your first name',
+        //   keyboardType: TextInputType.text,
+        //   textInputAction: TextInputAction.next,
+        //   validator: Validators.required,
         // ),
-        FxTextField(
-          label: 'Email',
-          hint: 'Enter your email',
-          keyboardType: TextInputType.emailAddress,
-          textInputAction: TextInputAction.next,
-          // validator: Validators.email,
-        ),
-        FxTextField(
-          // prefixIcon: const Icon(Icons.email),
-          label: 'Password',
-          hint: 'Enter your password',
-          keyboardType: TextInputType.visiblePassword,
-          textInputAction: TextInputAction.next,
-          obscureText: true,
-          validator: Validators.password,
-        ),
-        FxSelectField(
-          // prefixIcon: const Icon(Icons.email),
-          label: 'Email',
-          hint: 'Enter your email',
-          items: [
-            'Male',
-            'Female'
-          ],
-          decoration: FxSelectFieldDecoration(
-            label: 'Gender',
-            hint: 'Select your gender',
+        // FxTextField(
+        //   label: 'Last Name',
+        //   hint: 'Enter your last name',
+        //   keyboardType: TextInputType.text,
+        //   textInputAction: TextInputAction.next,
+        //   validator: Validators.required,
+        // ),
+        // // FxPhoneInput(
+        // //   decoration: FxPhoneInputDecoration(
+        // //     label: 'Phonesss',
+        // //     hint: 'Enter your phone number',
+        // //   ),
+        // //   onChanged: (country, phone, [parsed]) {},
+        // // ),
+        // FxTextField(
+        //   label: 'Email',
+        //   hint: 'Enter your email',
+        //   keyboardType: TextInputType.emailAddress,
+        //   textInputAction: TextInputAction.next,
+        //   // validator: Validators.email,
+        // ),
+        // FxTextField(
+        //   // prefixIcon: const Icon(Icons.email),
+        //   label: 'Password',
+        //   hint: 'Enter your password',
+        //   keyboardType: TextInputType.visiblePassword,
+        //   textInputAction: TextInputAction.next,
+        //   obscureText: true,
+        //   validator: Validators.password,
+        // ),
+        // FxSelectField(
+        //   // prefixIcon: const Icon(Icons.email),
+        //   label: 'Email',
+        //   hint: 'Enter your email',
+        //   items: [
+        //     'Male',
+        //     'Female'
+        //   ],
+        //   decoration: FxSelectFieldDecoration(
+        //     label: 'Gender',
+        //     hint: 'Select your gender',
             
-          ),
-          // validator: Validators.email,
-        ),
-        FxTextField(
-          // prefixIcon: const Icon(Icons.email),
-          label: 'Email',
-          hint: 'Enter your email',
-          keyboardType: TextInputType.emailAddress,
-          textInputAction: TextInputAction.next,
-          // validator: Validators.email,
-        ),
-        FxTextField(
-          // prefixIcon: const Icon(Icons.email),
-          label: 'Email',
-          hint: 'Enter your email',
-          keyboardType: TextInputType.emailAddress,
-          textInputAction: TextInputAction.next,
-          // validator: Validators.email,
-        ),
+        //   ),
+        //   // validator: Validators.email,
+        // ),
+        // FxTextField(
+        //   // prefixIcon: const Icon(Icons.email),
+        //   label: 'Email',
+        //   hint: 'Enter your email',
+        //   keyboardType: TextInputType.emailAddress,
+        //   textInputAction: TextInputAction.next,
+        //   // validator: Validators.email,
+        // ),
+        // FxTextField(
+        //   // prefixIcon: const Icon(Icons.email),
+        //   label: 'Email',
+        //   hint: 'Enter your email',
+        //   keyboardType: TextInputType.emailAddress,
+        //   textInputAction: TextInputAction.next,
+        //   // validator: Validators.email,
+        // ),
       ],
     );
   }

@@ -4,18 +4,18 @@ part of 'fx_overlay.dart';
 class FxBottomSheetShell<T> extends StatelessWidget with FxUiToolkit {
   FxBottomSheetShell({
     super.key,
-    required this.data,
+    required this.options,
     required this.scrollController,
     required this.sheetController,
     required this.minChildSize,
     required this.maxChildSize,
   });
 
-  final FxOverlayData<T> data;
-  final ScrollController scrollController;
-  final DraggableScrollableController sheetController;
   final double minChildSize;
   final double maxChildSize;
+  final ScrollController scrollController;
+  final FxOverlayOptions<T> options;
+  final DraggableScrollableController sheetController;
 
   double get _radius => sizes.overlayRadius;
   double get _borderWidth => sizes.overlayBorderWidth;
@@ -69,15 +69,15 @@ class FxBottomSheetShell<T> extends StatelessWidget with FxUiToolkit {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         SizedBox(height: handleArea),
-        if (data.title != null) _buildTitle(data.title!),
+        if (options.title != null) _buildTitle(options.title!),
         Expanded(
           child: FxOverlayView<T>(
-            data: data,
+            options: options,
             scrollController: scrollController,
             showTitle: false,
-          ),
-        ),
-      ],
+          )
+        )
+      ]
     );
   }
 

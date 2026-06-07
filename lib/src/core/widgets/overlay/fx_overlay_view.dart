@@ -4,31 +4,34 @@ part of 'fx_overlay.dart';
 class FxOverlayView<T> extends StatelessWidget with FxUiToolkit {
   FxOverlayView({
     super.key,
-    this.isScrollable = true,
+    this.itemTile,
     this.showTitle = true,
-    required this.data,
+    this.isScrollable = true,
+    required this.options,
     required this.scrollController,
   });
 
-  final bool isScrollable;
-  final ScrollController scrollController;
-  final FxOverlayData<T> data;
   final bool showTitle;
+  final bool isScrollable;
+  final FxOverlayTile<T>? itemTile;
+  final ScrollController scrollController;
+  final FxOverlayOptions<T> options;
 
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
     final body = _buildBodyContent(context);
-    if (!showTitle || data.title == null) return body;
+    
+    if (!showTitle || options.title == null) return body;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       spacing: sizes.sm,
       children: [
-        _buildTitle(data.title!),
+        _buildTitle(options.title!),
         Expanded(child: body),
-      ],
+      ]
     );
   }
 
@@ -61,27 +64,16 @@ class FxOverlayView<T> extends StatelessWidget with FxUiToolkit {
   }
 
   Widget _buildBodyContent(BuildContext context) {
-    if (data.list != null) {
-      final list = FxOverlayList<T>(
-        data: data.list!,
+    if (options.mode != FxOverlayMode.builder) {
+      return FxOverlayList<T>(
+        options: options,
+        itemTile: itemTile ?? FxOverlayTile<T>(),
         scrollController: scrollController,
-        showMultiSelectFooter: data.footer == null,
-      );
-
-      final footer = data.footer?.call(context);
-      if (footer == null) return list;
-
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(child: list),
-          footer,
-        ],
       );
     }
 
     return FxOverlayBody<T>(
-      data: data,
+      options: options,
       isScrollable: isScrollable,
       scrollController: scrollController,
     );

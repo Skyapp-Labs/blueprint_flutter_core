@@ -22,19 +22,19 @@ class PhoneStepScreen extends ConsumerWidget {
     return template.buildShell(
       context: context,
       ref: ref,
-      body: [
-        FxPhoneInput(
-          onChanged: (country, phone, [parsed]) => controller.setPhone(
-            parsed?.fullNumber ?? '${country.dialCode}$phone',
-            countryCode: country.dialCode,
-            formattedPhone: parsed?.formattedNumber ?? phone,
-          ),
-        ),
-        FxButton(
-          label: template.actionLabel,
-          isLoading: state.isLoading,
-          onPressed: state.phone == null ? null : controller.sendOtp,
-        ),
+      children: [
+        // FxPhoneInput(
+        //   onChanged: (country, phone, [parsed]) => controller.setPhone(
+        //     parsed?.fullNumber ?? '${country.dialCode}$phone',
+        //     countryCode: country.dialCode,
+        //     formattedPhone: parsed?.formattedNumber ?? phone,
+        //   ),
+        // ),
+        // FxButton(
+        //   label: template.actionLabel,
+        //   isLoading: state.isLoading,
+        //   onPressed: state.phone == null ? null : controller.sendOtp,
+        // ),
       ],
     );
   }

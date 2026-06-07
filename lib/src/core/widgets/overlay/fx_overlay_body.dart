@@ -5,24 +5,24 @@ class FxOverlayBody<T> extends StatelessWidget with FxUiToolkit {
   FxOverlayBody({
     super.key,
     this.isScrollable = true,
-    required this.data,
+    required this.options,
     required this.scrollController,
-  }) : assert(
-          data.builder != null,
-          'FxOverlayData.builder must be provided when list is null.',
+  })  : assert(
+          options.builder != null,
+          '\n\nFxOverlayOptions.builder must be provided when list is null.\n',
         );
 
   final bool isScrollable;
   final ScrollController scrollController;
-  final FxOverlayData<T> data;
+  final FxOverlayOptions<T> options;
 
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    final heading = data.heading?.call(context);
-    final footer = data.footer?.call(context);
-    final builder = data.builder!;
+    final heading = options.heading?.call(context);
+    final footer = options.footer?.call(context);
+    final builder = options.builder!;
 
     if (heading == null && footer == null) {
       if (!isScrollable) return builder(context);

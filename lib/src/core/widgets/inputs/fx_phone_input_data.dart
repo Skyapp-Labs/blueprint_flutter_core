@@ -23,77 +23,85 @@ enum FxPhoneInputLayout {
 }
 
 /// Visual and behavioral options for [FxPhoneInput].
-class FxPhoneInputDecoration extends InputDecoration {
-  const FxPhoneInputDecoration({
-    String? label,
-    this.countryLabel,
-    String hint = 'Enter your phone number',
-    this.textInputAction = TextInputAction.next,
-    this.overlayType = FxOverlayType.modal,
-    this.flagShape = FxFlagShape.circle,
-    this.flagSize = 28,
-    this.layout = FxPhoneInputLayout.integrated,
-    this.spacing,
-    this.integratedDialCodeWidthFactor = _FxPhoneInputDefaults.dialCodeWidthFactor,
-    this.splitCountryMinWidthFactor = _FxPhoneInputDefaults.splitCountryMinWidthFactor,
-    super.border,
-    super.errorBorder,
-    super.focusedBorder,
-    super.enabledBorder,
-    super.disabledBorder,
-    super.filled,
-    super.floatingLabelBehavior,
-    super.floatingLabelAlignment,
-    EdgeInsets? padding,
-  })  : phoneLabel = label,
-        super(
-          contentPadding: padding,
-          isCollapsed: true,
-          isDense: true,
-          hintText: hint,
-          prefixIconConstraints: const BoxConstraints(),
-          suffixIconConstraints: const BoxConstraints(),
-        );
+// class FxPhoneInputDecoration extends InputDecoration {
+//   const FxPhoneInputDecoration({
+//     String? label,
+//     this.countryLabel,
+//     String hint = 'Enter your phone number',
+//     this.textInputAction = TextInputAction.next,
+//     this.overlayType = FxOverlayType.modal,
+//     this.flagShape = FxFlagShape.circle,
+//     this.flagSize = 28,
+//     this.layout = FxPhoneInputLayout.integrated,
+//     this.spacing,
+//     this.integratedDialCodeWidthFactor = _FxPhoneInputDefaults.dialCodeWidthFactor,
+//     this.splitCountryMinWidthFactor = _FxPhoneInputDefaults.splitCountryMinWidthFactor,
+//     super.border,
+//     super.errorBorder,
+//     super.focusedBorder,
+//     super.enabledBorder,
+//     super.disabledBorder,
+//     super.filled,
+//     super.floatingLabelBehavior,
+//     super.floatingLabelAlignment,
+//     EdgeInsets? padding,
+//   })  : phoneLabel = label,
+//         super(
+//           contentPadding: padding,
+//           isCollapsed: true,
+//           isDense: true,
+//           hintText: hint,
+//           prefixIconConstraints: const BoxConstraints(),
+//           suffixIconConstraints: const BoxConstraints(),
+//         );
 
-  final String? phoneLabel;
-  final String? countryLabel;
-  final double flagSize;
-  final FxFlagShape flagShape;
-  final TextInputAction textInputAction;
-  final FxOverlayType overlayType;
-  final FxPhoneInputLayout layout;
+//   final String? phoneLabel;
+//   final String? countryLabel;
+//   final double flagSize;
+//   final FxFlagShape flagShape;
+//   final TextInputAction textInputAction;
+//   final FxOverlayType overlayType;
+//   final FxPhoneInputLayout layout;
 
-  /// Gap between country selector and phone field in [FxPhoneInputLayout.split]
-  /// and [FxPhoneInputLayout.stacked].
-  final double? spacing;
+//   /// Gap between country selector and phone field in [FxPhoneInputLayout.split]
+//   /// and [FxPhoneInputLayout.stacked].
+//   final double? spacing;
 
-  /// Width fraction for the integrated dial-code prefix (0–1).
-  final double integratedDialCodeWidthFactor;
+//   /// Width fraction for the integrated dial-code prefix (0–1).
+//   final double integratedDialCodeWidthFactor;
 
-  /// Minimum width fraction for the split-layout country selector (0–1).
-  final double splitCountryMinWidthFactor;
-}
+//   /// Minimum width fraction for the split-layout country selector (0–1).
+//   final double splitCountryMinWidthFactor;
+// }
 
 /// Immutable state shared by all phone-input layout widgets.
 @immutable
 class FxPhoneInputViewData {
   const FxPhoneInputViewData({
     required this.selectedCountry,
-    required this.favoriteCountries,
-    required this.onCountryChanged,
-    required this.controller,
-    required this.decoration,
-    this.focusNode,
+    this.favoriteCountries,
+    this.options = const FxFieldOptions(),
+    this.countryOptions = const FxFieldOptions(),
+    this.decoration = const InputDecoration(),
     this.validator,
+    this.controller,
+    this.onSaved,
+    this.onChanged,
+    this.onSubmitted,
   });
-
+  
   final FxCountry selectedCountry;
-  final List<FxCountry> favoriteCountries;
-  final ValueChanged<FxCountry> onCountryChanged;
-  final TextEditingController controller;
-  final FocusNode? focusNode;
+  final List<FxCountry>? favoriteCountries;
+  final FxFieldOptions options;
+  final InputDecoration decoration;
+  final FxFieldOptions countryOptions;
+
   final FormFieldValidator<String>? validator;
-  final FxPhoneInputDecoration decoration;
+
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final ValueChanged<String?>? onSaved;
+  final TextEditingController? controller;
 }
 
 abstract final class _FxPhoneInputDefaults {

@@ -3,20 +3,20 @@ part of 'fx_overlay.dart';
 class FxBottomSheet<T> extends StatelessWidget {
   const FxBottomSheet._({
     super.key,
-    required this.data,
+    required this.options,
     required this.maxChildSize,
     required this.minChildSize,
     required this.scrollController,
     required this.sheetController,
   });
 
-  final FxOverlayData<T> data;
   final double maxChildSize;
   final double minChildSize;
   final ScrollController scrollController;
+  final FxOverlayOptions<T> options;
   final DraggableScrollableController sheetController;
 
-  static Future<R?> show<R, I>(
+  static Future<R?> show<R, T>(
     BuildContext context, {
     bool cancelable = true,
     bool allowFullHeight = true,
@@ -24,7 +24,7 @@ class FxBottomSheet<T> extends StatelessWidget {
     double maxChildSize = 0.9,
     double minChildSize = 0.25,
     double initialChildSize = 0.5,
-    required FxOverlayData<I> data,
+    required FxOverlayOptions<T> options,
   }) {
     final sheetController = DraggableScrollableController();
 
@@ -40,24 +40,22 @@ class FxBottomSheet<T> extends StatelessWidget {
         controller: sheetController,
         initialChildSize: initialChildSize,
         builder: (context, scrollController) => FxBottomSheet._(
-          data: data,
+          options: options,
           maxChildSize: maxChildSize,
           minChildSize: minChildSize,
           sheetController: sheetController,
           scrollController: scrollController,
-        ),
-      ),
+        )
+      )
     );
   }
 
   @override
-  Widget build(BuildContext context) {
-    return FxBottomSheetShell<T>(
-      data: data,
-      scrollController: scrollController,
-      sheetController: sheetController,
-      minChildSize: minChildSize,
-      maxChildSize: maxChildSize,
-    );
-  }
+  Widget build(BuildContext context) => FxBottomSheetShell<T>(
+    options: options,
+    scrollController: scrollController,
+    sheetController: sheetController,
+    minChildSize: minChildSize,
+    maxChildSize: maxChildSize,
+  );
 }

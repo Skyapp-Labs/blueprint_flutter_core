@@ -10,10 +10,15 @@ import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart'
     show FxSearchField;
 
 part 'fx_overlay_models.dart';
-part 'fx_overlay_selection.dart';
+part 'fx_overlay_selection_state.dart';
 part 'fx_overlay_list.dart';
 part 'fx_overlay_body.dart';
 part 'fx_overlay_view.dart';
 part 'fx_bottom_sheet_shell.dart';
 part 'fx_bottom_sheet.dart';
 part 'fx_dialog.dart';
+
+part 'fx_overlay_tile.dart';
+part 'fx_overlay_theme_data.dart';
+part 'fx_overlay_options.dart';
+part 'fx_overlay_tile_view.dart';

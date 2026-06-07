@@ -8,7 +8,6 @@ import 'package:blueprint_flutter_core/src/core/theme/fx_typography.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_theme_data.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_component_theme.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_theme_controller.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart';
 
 import 'package:blueprint_flutter_core/src/core/shell/widgets/fx_shell_scope.dart';
 
@@ -113,61 +112,6 @@ mixin FxUiToolkit {
 
   /// Returns true if there is a route to pop.
   bool get canPop => GoRouter.of(_ctx).canPop();
-
-
-  // ── Overlay / Focus ─────────────────────────────────────────────
-
-  /// Shows the blueprint bottom sheet.
-  ///
-  /// Use [FxOverlayData] to configure title, content, list, heading, and footer.
-  ///
-  /// Single-select lists return `T`; multi-select lists return `List<T>`:
-  /// ```dart
-  /// final country = await showFxBottomSheet<Country>(data: singleData);
-  /// final tags = await showFxBottomSheet<List<Tag>>(data: multiData);
-  /// ```
-  Future<R?> showFxBottomSheet<R, I>({
-    /// Whether the bottom sheet can be dismissed by tapping outside.
-    bool cancelable = true,
-    /// Allows the sheet to expand to full screen height.
-    bool allowFullHeight = true,
-    /// The maximum fraction of screen height the sheet can occupy.
-    double maxChildSize = 0.9,
-    /// The minimum fraction of screen height the sheet can occupy.
-    double minChildSize = 0.25,
-    /// The initial fraction of screen height the sheet occupies when opened.
-    double initialChildSize = 0.5,
-    /// The data for the bottom sheet.
-    required FxOverlayData<I> data,
-  }) =>
-      FxBottomSheet.show<R, I>(
-        _ctx,
-        data: data,
-        cancelable: cancelable,
-        allowFullHeight: allowFullHeight,
-        maxChildSize: maxChildSize,
-        minChildSize: minChildSize,
-        initialChildSize: initialChildSize,
-      );
-
-  /// Shows the blueprint dialog.
-  ///
-  /// Use [FxDialogStyle.center] for confirmations and alerts.
-  /// Use [FxDialogStyle.fullPage] for complex forms or detail views.
-  Future<R?> showFxDialog<R, I>({
-    /// Whether the dialog can be dismissed by tapping outside.
-    bool cancelable = true,
-    /// The style of the dialog: centered or full page. Default is centered.
-    FxDialogStyle style = FxDialogStyle.center,
-    /// The data for the dialog.
-    required FxOverlayData<I> data,
-  }) =>
-      FxDialog.show<R, I>(
-        _ctx,
-        data: data,
-        cancelable: cancelable,
-        style: style,
-      );
 
   /// Unfocuses the current focus node.
   void unfocus() => FocusScope.of(_ctx).unfocus();

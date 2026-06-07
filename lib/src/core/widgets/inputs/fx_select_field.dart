@@ -1,296 +1,145 @@
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_field_options.dart';
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart';
 
-part 'fx_select_field_data.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_field.dart';
 
-/// A read-only field that opens an overlay to pick one or more items.
-///
-/// Uses [InputDecorator] for consistent input styling (fill, borders, errors).
-///
-/// Single select:
-/// ```dart
-/// FxSelectField<Country>(
-///   initialValue: _country,
-///   items: countries,
-///   valueLabelBuilder: (c) => c.name,
-///   onChanged: (country) => setState(() => _country = country),
-/// )
-/// ```
-///
-/// Multi select:
-/// ```dart
-/// FxSelectField<Tag>.multi(
-///   initialValues: _tags,
-///   items: allTags,
-///   onSelectionChanged: (tags) => setState(() => _tags = tags),
-/// )
-/// ```
-class FxSelectField<T> extends StatefulWidget {
-  const FxSelectField({
-    super.key,
-    this.initialValue,
-    required this.items,
-    this.favoriteItems,
-    this.onSearch,
-    this.label,
-    this.hint,
-    this.onChanged,
-    this.valueLabelBuilder,
-    this.decoration = const FxSelectFieldDecoration(),
-    this.overlayType = FxOverlayType.bottomSheet,
-    this.overlayTile = const FxOverlayTile(),
-  })  : isMultiSelect = false,
-        initialValues = null,
-        onSelectionChanged = null;
-
-  const FxSelectField.multi({
-    super.key,
-    this.initialValues,
-    required this.items,
-    this.favoriteItems,
-    this.label,
-    this.hint,
-    this.onSearch,
-    this.onSelectionChanged,
-    this.valueLabelBuilder,
-    this.decoration = const FxSelectFieldDecoration(),
-    this.overlayType = FxOverlayType.bottomSheet,
-    this.overlayTile = const FxOverlayTile(),
-  })  : isMultiSelect = true,
-        initialValue = null,
-        onChanged = null;
-
-  final bool isMultiSelect;
-
-  final T? initialValue;
-  final List<T>? initialValues;
-  final String? label;
-  final String? hint;
-
-  final List<T> items;
-  final List<T>? favoriteItems;
-  final List<T>? Function(String? search, List<T> items)? onSearch;
-
-  final ValueChanged<T>? onChanged;
-  final ValueChanged<List<T>>? onSelectionChanged;
-
-  final String Function(T value)? valueLabelBuilder;
-  final FxSelectFieldDecoration<T> decoration;
-  final FxOverlayType overlayType;
-  final FxOverlayTile<T> overlayTile;
-
-  @override
-  State<FxSelectField<T>> createState() => _FxSelectFieldState<T>();
+enum FxOverlayType {
+  bottomSheet,
+  dialog,
+  modal,
 }
 
-class _FxSelectFieldState<T> extends State<FxSelectField<T>> with FxUiToolkit {
-  T? _value;
-  List<T> _values = [];
+class FxSelectField<Result, T> extends StatefulWidget {
+  FxSelectField({
+    super.key,
+    this.expands = false,
+    this.options = const FxFieldOptions(),
+    this.decoration = const InputDecoration(),
+    this.overlayType = FxOverlayType.bottomSheet,
+    required this.overlayOptions,
+    required this.overlayTile,
+    required this.onChanged,
+  })  : assert(
+        overlayOptions.isListOverlay, 
+        '\n\nFxSelectField: overlayOptions must be a list overlay options\n'
+      );
+
+  final bool expands;
+  final FxOverlayType overlayType;
+  final FxFieldOptions options;
+  final InputDecoration decoration;
+  final FxOverlayTile<T> overlayTile;
+  final FxOverlayOptions<T> overlayOptions;
+  final ValueChanged<Result>? onChanged;
+
+  @override
+  State<FxSelectField<Result, T>> createState() => _FxSelectFieldState<Result, T>();
+}
+
+class _FxSelectFieldState<Result, T> extends State<FxSelectField<Result, T>> with FxUiToolkit {
+  List<T> _result = [];
 
   @override
   void initState() {
     super.initState();
-    _syncFromWidget();
+    _result = List.from(widget.overlayOptions.selectedItems ?? []);
   }
 
   @override
-  void didUpdateWidget(covariant FxSelectField<T> oldWidget) {
+  void didUpdateWidget(covariant FxSelectField<Result, T> oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.initialValue != widget.initialValue ||
-        oldWidget.initialValues != widget.initialValues) {
-      _syncFromWidget();
+    if (oldWidget.overlayOptions.selectedItems != widget.overlayOptions.selectedItems) {
+      _result = List.from(widget.overlayOptions.selectedItems ?? []);
     }
-  }
-
-  void _syncFromWidget() {
-    if (widget.isMultiSelect) {
-      _values = [...?widget.initialValues];
-    } else {
-      _value = widget.initialValue;
-    }
-  }
-
-  bool get _hasValue =>
-      widget.isMultiSelect ? _values.isNotEmpty : _value != null;
-
-  String? get _labelText => widget.label ?? widget.decoration.labelText;
-
-  double get _spacing {
-    final padding = _themedDecoration.contentPadding?.vertical ?? 0;
-    return padding > 0 ? ((padding / 2) * .5) : sizes.xs;
   }
     
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    if (_labelText == null) return _buildTextField();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      spacing: _spacing,
-      children: [
-        _buildLabel(),
-        _buildTextField(),
-      ]
+    return FxField(
+      options: widget.options,
+      decoration: _themedDecoration,
+      child: GestureDetector(
+        onTap: widget.options.enabled ? _openOverlay : null,
+        behavior: HitTestBehavior.opaque,
+        child: InputDecorator(
+          isEmpty: !_hasValue,
+          expands: widget.expands,
+          decoration: _themedDecoration.copyWith(
+            prefixIcon: _prefixIcon,
+            suffixIcon: _suffixIcon,
+          ),
+          child: _hasValue ? _selectedLabel : null,
+        ),
+      )
     );
   }
 
-  Widget _buildLabel() => Text(
-    widget.label ?? '',
-    textAlign: switch (_themedDecoration.floatingLabelAlignment) {
-      FloatingLabelAlignment.start => TextAlign.start,
-      FloatingLabelAlignment.center => TextAlign.center,
-      _ => TextAlign.end,
-    },
-    style: _themedDecoration.labelStyle,
-  );
+  bool get _hasValue => _result.isNotEmpty;
 
-  Widget _buildTextField() => GestureDetector(
-    onTap: widget.decoration.enabled ? _openOverlay : null,
-    behavior: HitTestBehavior.opaque,
-    child: InputDecorator(
-      expands: widget.decoration.expands,
-      decoration: _fieldDecoration,
-      isEmpty: !_hasValue,
-      child: _hasValue ? _selectedLabel : null,
-    ),
+  InputDecoration get _themedDecoration => FxField.resolveDecoration(
+    context: context,
+    options: widget.options,
+    decoration: widget.decoration,
   );
-
-  InputDecoration get _themedDecoration =>
-      widget.decoration.applyDefaults(theme.inputDecorationTheme);
 
   double get _horizontalInset {
     final padding = _themedDecoration.contentPadding?.horizontal ?? 0;
     return padding > 0 ? padding / 2 : 0;
   }
 
-  InputDecoration get _fieldDecoration {
-    return _themedDecoration.copyWith(
-      labelText: widget.decoration.selectLabel,
-      hintText: _hasValue ? null : widget.decoration.selectHint,
-      prefixIcon: _prefixIcon,
-      suffixIcon: _suffixIcon,
-    );
-  }
-
   Widget get _selectedLabel {
-    final text = widget.isMultiSelect
-        ? _values
-            .map(
-              (value) =>
-                  fxSelectFieldLabel(value, valueLabelBuilder: widget.valueLabelBuilder),
-            )
-            .join(', ')
-        : fxSelectFieldLabel(_value as T, valueLabelBuilder: widget.valueLabelBuilder);
-
+    final text = _result.map((value) {
+      final label = widget.overlayTile.title?.call(value);
+      return label ?? value.toString();
+    }).join(', ');
+    
     return Text(
-      ' $text',
-      style: widget.decoration.style ?? typography.bodyMedium,
+      text,
       overflow: TextOverflow.ellipsis,
-      maxLines: 1,
     );
   }
 
   Widget? get _prefixIcon {
-    final builder = widget.decoration.prefixIconBuilder;
-    if (builder == null || !_hasValue) return null;
-
-    final sample = widget.isMultiSelect ? _values.first : _value as T;
+    if (widget.options.prefixIcon == null) return null;
+    
     return Padding(
       padding: EdgeInsets.only(left: _horizontalInset),
-      child: builder(sample),
+      child: widget.options.prefixIcon,
     );
   }
 
-  Widget get _suffixIcon {
-    final builder = widget.decoration.suffixIconBuilder;
-    final sample = _hasValue
-        ? (widget.isMultiSelect ? _values.first : _value as T)
-        : null;
-
-    final icon = builder != null && sample != null
-        ? builder(sample)
-        : Icon(Icons.keyboard_arrow_down_rounded, size: sizes.iconSm);
-
-    return Padding(
-      padding: EdgeInsets.only(right: _horizontalInset / 2),
-      child: icon,
-    );
-  }
+  Widget get _suffixIcon => Padding(
+    padding: EdgeInsets.only(right: _horizontalInset / 2),
+    child: widget.decoration.suffix ?? componentTheme.arrowDownIcon,
+  );
 
   Future<void> _openOverlay() async {
-    if (widget.isMultiSelect) {
-      final selected = await _presentMultiOverlay();
-      if (!mounted || selected == null) return;
-      setState(() => _values = selected);
-      widget.onSelectionChanged?.call(selected);
-      return;
+    final result = await _presentOverlay();
+    if (!mounted || result == null) return;
+
+    if(result is List<T>) {
+      setState(() => _result = result);
+    } else {
+      setState(() => _result = [result as T]);
     }
 
-    final selected = await _presentSingleOverlay();
-    if (!mounted || selected == null) return;
-    setState(() => _value = selected);
-    widget.onChanged?.call(selected);
+    widget.onChanged?.call(result as Result);
   }
 
-  Future<T?> _presentSingleOverlay() {
-    return switch (widget.overlayType) {
-      FxOverlayType.bottomSheet =>
-        showFxBottomSheet<T, T>(data: _singleOverlayData),
-      FxOverlayType.dialog => showFxDialog<T, T>(
-          data: _singleOverlayData,
-          style: FxDialogStyle.center,
-        ),
-      FxOverlayType.modal => showFxDialog<T, T>(
-          data: _singleOverlayData,
-          style: FxDialogStyle.fullPage,
-        ),
-    };
-  }
-
-  Future<List<T>?> _presentMultiOverlay() {
-    return switch (widget.overlayType) {
-      FxOverlayType.bottomSheet =>
-        showFxBottomSheet<List<T>, T>(data: _multiOverlayData),
-      FxOverlayType.dialog => showFxDialog<List<T>, T>(
-          data: _multiOverlayData,
-          style: FxDialogStyle.center,
-        ),
-      FxOverlayType.modal => showFxDialog<List<T>, T>(
-          data: _multiOverlayData,
-          style: FxDialogStyle.fullPage,
-        ),
-    };
-  }
-
-  FxOverlayData<T> get _singleOverlayData => FxOverlayData<T>(
-        title: widget.decoration.overlayTitle,
-        list: FxOverlayListData<T>(
-          items: widget.items,
-          favoriteItems: widget.favoriteItems,
-          selectedItem: _value,
-          searchHint: widget.decoration.searchHint,
-          onSearch: widget.onSearch,
-          itemTile: widget.overlayTile,
-        ),
-      );
-
-  FxOverlayData<T> get _multiOverlayData => FxOverlayData<T>(
-        title: widget.decoration.overlayTitle,
-        list: FxOverlayListData<T>.multiSelect(
-          items: widget.items,
-          favoriteItems: widget.favoriteItems,
-          selectedItems: _values,
-          searchHint: widget.decoration.searchHint,
-          onSearch: widget.onSearch,
-          itemTile: widget.overlayTile,
-          confirmLabel: widget.decoration.confirmLabel,
-          clearLabel: widget.decoration.clearLabel,
-          minSelection: widget.decoration.minSelection,
-          maxSelection: widget.decoration.maxSelection,
-        ),
-      );
+  Future<Result?> _presentOverlay() => switch (widget.overlayType) {
+    FxOverlayType.bottomSheet => FxBottomSheet.show<Result, T>(
+      context,
+      options: widget.overlayOptions
+    ),
+    _ => FxDialog.show<Result, T>(
+      context,
+      type: FxDialogType.center,
+      options: widget.overlayOptions,
+    )
+  };
 }

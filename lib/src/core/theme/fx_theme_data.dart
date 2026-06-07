@@ -276,4 +276,16 @@ abstract class FxThemeData extends ThemeExtension<FxThemeData> {
     subtitleStyle: typography.bodyMedium,
     backgroundColor: (isSelected) => colors.surface,
   );
+
+  FxOverlayThemeData get overlayTheme => FxOverlayThemeData(
+    searchPadding: EdgeInsets.symmetric(horizontal: sizes.md, vertical: sizes.xs),
+    margin: EdgeInsets.symmetric(horizontal: sizes.sm, vertical: sizes.xs),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(sizes.sm),
+      side: BorderSide(color: colors.outline.withValues(alpha: 0.12)),
+    ),
+    contentPadding: EdgeInsets.symmetric(horizontal: sizes.md),
+    horizontalTitleGap: sizes.md,
+    titleStyle: typography.titleMedium
+  );
 }

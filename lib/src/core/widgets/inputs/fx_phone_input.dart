@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_field_options.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,20 +41,32 @@ part 'fx_phone_input_stacked.dart';
 class FxPhoneInput extends ConsumerStatefulWidget {
   const FxPhoneInput({
     super.key,
-    this.onChanged,
-    this.validator,
-    this.initialCountryCode = 'NG',
-    this.controller,
-    this.focusNode,
+    this.options = const FxFieldOptions(),
+    this.countryOptions = const FxFieldOptions(),
     this.decoration = const FxPhoneInputDecoration(),
+    this.validator,
+    this.controller,
+    this.layout = FxPhoneInputLayout.integrated,
+    this.overlayType = FxOverlayType.modal,
+    this.initialValue,
+    this.onSaved,
+    this.onChanged,
+    this.onSubmitted,
   });
 
-  final String initialCountryCode;
-  final FocusNode? focusNode;
-  final TextEditingController? controller;
+  final String? initialValue;
+  final FxOverlayType overlayType;
+  final FxFieldOptions options;
+  final InputDecoration decoration;
+  final FxFieldOptions countryOptions;
+  final FxPhoneInputLayout layout;
+
   final FormFieldValidator<String>? validator;
-  final FxPhoneInputChanged? onChanged;
-  final FxPhoneInputDecoration decoration;
+
+  final ValueChanged<String>? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final ValueChanged<String?>? onSaved;
+  final TextEditingController? controller;
 
   @override
   ConsumerState<FxPhoneInput> createState() => _FxPhoneInputState();
@@ -70,16 +83,7 @@ class _FxPhoneInputState extends ConsumerState<FxPhoneInput> {
     super.initState();
     _ownsController = widget.controller == null;
     _controller = widget.controller ?? TextEditingController();
-    _selectedCountry = _countryForCode(widget.initialCountryCode);
     _controller.addListener(_handlePhoneChanged);
-  }
-
-  @override
-  void didUpdateWidget(covariant FxPhoneInput oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.initialCountryCode != widget.initialCountryCode) {
-      _selectedCountry = _countryForCode(widget.initialCountryCode);
-    }
   }
 
   @override
@@ -95,7 +99,7 @@ class _FxPhoneInputState extends ConsumerState<FxPhoneInput> {
 
     final digits = _controller.text.replaceAll(' ', '');
     if (digits.isEmpty) {
-      onChanged(_selectedCountry, '', null);
+      // onChanged(_selectedCountry, '', null);
       return;
     }
 
@@ -105,7 +109,7 @@ class _FxPhoneInputState extends ConsumerState<FxPhoneInput> {
 
     PhoneFormatter.tryParse(composed, country: country).then((parsed) {
       if (!mounted || generation != _parseGeneration) return;
-      onChanged(country, digits, parsed);
+      // onChanged(country, digits, parsed);
     });
   }
 
@@ -114,28 +118,28 @@ class _FxPhoneInputState extends ConsumerState<FxPhoneInput> {
     _handlePhoneChanged();
   }
 
-  FxCountry _countryForCode(String code) =>
-      FxCountries.byCode(code) ?? FxCountries.all.first;
+  // FxCountry _countryForCode(String code) =>
+  //     FxCountries.byCode(code) ?? FxCountries.all.first;
 
-  FxPhoneInputViewData _viewData(List<FxCountry> favorites) =>
-      FxPhoneInputViewData(
-        selectedCountry: _selectedCountry,
-        favoriteCountries: favorites,
-        onCountryChanged: _handleCountryChanged,
-        controller: _controller,
-        focusNode: widget.focusNode,
-        validator: widget.validator,
-        decoration: widget.decoration,
-      );
+  FxPhoneInputViewData _viewData(List<FxCountry> favorites) => 
 
   @override
   Widget build(BuildContext context) {
     final favorites = resolveFavoriteCountries(
       ref.read(fxConfigProvider).favoriteCountries,
     );
-    final data = _viewData(favorites);
 
-    return switch (widget.decoration.layout) {
+    final data 
+    = FxPhoneInputViewData(
+      selectedCountry: _selectedCountry,
+      favoriteCountries: favorites,
+      onCountryChanged: _handleCountryChanged,
+      controller: _controller,
+      validator: widget.validator,
+      decoration: widget.decoration,
+    );
+
+    return switch (widget.layout) {
       FxPhoneInputLayout.integrated => FxPhoneInputIntegrated(data: data),
       FxPhoneInputLayout.split => FxPhoneInputSplit(data: data),
       FxPhoneInputLayout.stacked => FxPhoneInputStacked(data: data),

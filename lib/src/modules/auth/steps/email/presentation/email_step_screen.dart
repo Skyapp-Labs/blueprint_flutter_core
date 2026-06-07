@@ -1,4 +1,3 @@
-import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/buttons/_buttons.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
@@ -41,7 +40,7 @@ class _EmailStepScreenState extends ConsumerState<EmailStepScreen>
     return widget.template.buildShell(
       context: context,
       ref: ref,
-      body: [
+      children: [
         _buildEmailForm(),
         _buildActions(),
       ],
@@ -56,22 +55,17 @@ class _EmailStepScreenState extends ConsumerState<EmailStepScreen>
           children: [
             FxTextField(
               controller: _emailController,
-              prefixIcon: const Icon(Icons.email),
-              label: 'Email',
-              hint: 'Enter your email',
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              validator: Validators.email,
+              initialValue: null,
+              decoration: InputDecoration(
+                hintText: 'Enter your email',
+              )
             ),
             FxTextField(
               controller: _passwordController,
-              prefixIcon: const Icon(Icons.lock),
-              label: 'Password',
-              hint: 'Enter your password',
-              obscureText: true,
-              textInputAction: TextInputAction.done,
-              onSubmitted: (_) => _onSubmit(),
-              validator: (v) => Validators.required(v, 'Password'),
+              initialValue: null,
+              decoration: InputDecoration(
+                hintText: 'Enter your password',
+              )
             ),
           ],
         ),
@@ -98,7 +92,6 @@ class _EmailStepScreenState extends ConsumerState<EmailStepScreen>
 
   void _onSubmit() {
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: wire EmailStepController login
     }
   }
 }

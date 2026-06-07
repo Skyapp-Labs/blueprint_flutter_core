@@ -7,14 +7,14 @@ import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 class FxSearchField extends StatefulWidget {
   const FxSearchField({
     super.key,
-    this.hint = 'Search...',
+    this.hint,
     this.onChanged,
     this.debounceMs = 400,
     this.controller,
     this.autofocus = false,
   });
 
-  final String hint;
+  final String? hint;
   final ValueChanged<String>? onChanged;
   final int debounceMs;
   final TextEditingController? controller;
@@ -58,7 +58,7 @@ class _FxSearchFieldState extends State<FxSearchField> with FxUiToolkit {
       controller: _controller,
       autofocus: widget.autofocus,
       decoration: InputDecoration(
-        hintText: widget.hint,
+        hintText: widget.hint ?? 'Search...',
         prefixIcon: Icon(Icons.search, size: sizes.iconMd),
         suffixIcon:
             _controller.text.isNotEmpty
