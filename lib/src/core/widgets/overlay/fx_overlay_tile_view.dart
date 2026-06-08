@@ -34,21 +34,28 @@ class FxOverlayTileView<T> extends StatelessWidget with FxUiToolkit {
           horizontalTitleGap: themeData.overlayTileTheme.horizontalTitleGap,
           dense: themeData.overlayTileTheme.dense,
           onTap: onTap,
-          leading: _buildTileLeading(context, item, isSelected),
+          leading: _hasLeading ? _buildTileLeading(context, item, isSelected) : null,
           title: _buildTileTitle(context, item, isSelected),
           subtitle: _buildTileSubtitle(context, item, isSelected),
-          trailing: _buildTileTrailing(context, item, isSelected),
+          trailing: _hasTrailing ? _buildTileTrailing(context, item, isSelected) : null,
         )
       )
     );
   }
 
+  bool get _hasLeading => (
+    itemTile.leadingBuilder != null ||
+    isMultiSelect
+  );
+
+  bool get _hasTrailing => itemTile.trailingBuilder != null;
+
   Widget _buildCheckbox(bool isSelected) {
     final tileTheme = themeData.overlayTileTheme;
 
     final color = tileTheme.foregroundColor?.call(isSelected) ?? colors.textPrimary;
-    final checkedCheckboxIcon = componentTheme.checkedCheckboxIcon(color);
-    final uncheckedCheckboxIcon = componentTheme.uncheckedCheckboxIcon(color);
+    final checkedCheckboxIcon = componentTheme.checkedCheckboxIcon(color: color);
+    final uncheckedCheckboxIcon = componentTheme.uncheckedCheckboxIcon(color: color);
 
     return AnimatedSwitcher(
       duration: Duration(milliseconds: 300),
@@ -60,7 +67,7 @@ class FxOverlayTileView<T> extends StatelessWidget with FxUiToolkit {
   }
 
   Widget? _buildTileLeading(BuildContext context, T item, bool isSelected) {
-    final checkbox = AnimatedSwitcher(
+    Widget? checkbox = AnimatedSwitcher(
       duration: const Duration(milliseconds: 300),
       child: isMultiSelect
         ? _buildCheckbox(isSelected)
@@ -68,6 +75,7 @@ class FxOverlayTileView<T> extends StatelessWidget with FxUiToolkit {
     );
     
     if (itemTile.leadingBuilder == null) return checkbox;
+    if (!isMultiSelect) return itemTile.leadingBuilder!(context, item, isSelected);
 
     return Row(
       mainAxisSize: MainAxisSize.min,

@@ -43,15 +43,29 @@ abstract class FxComponentTheme extends ThemeExtension<FxComponentTheme> {
 
   Widget get arrowDownIcon => const Icon(Icons.keyboard_arrow_down_rounded);
 
-  Widget checkedCheckboxIcon(Color color, {double? size}) {
-    return Icon(Icons.check, color: color, size: size);
-  }
+  Widget checkedCheckboxIcon({double? size, Color? color}) => Icon(
+    Icons.check, 
+    size: size, 
+    color: color
+  );
 
-  Widget uncheckedCheckboxIcon(Color color, {double? size}) {
-    return Icon(Icons.check_box_outline_blank, color: color, size: size);
-  }
+  Widget uncheckedCheckboxIcon({double? size, Color? color}) => Icon(
+    Icons.check_box_outline_blank, 
+    size: size, 
+    color: color
+  );
 
-  Widget get searchIcon => const Icon(Icons.search);
+  Widget searchIcon({double? size, Color? color}) => Icon(
+    Icons.cancel, 
+    size: size, 
+    color: color
+  );
+  
+  Widget clearIcon({double? size, Color? color}) => Icon(
+    Icons.cancel, 
+    size: size, 
+    color: color
+  );
 
   Widget passwordTransition(Widget child, Animation<double> animation) {
     // Incoming icon spins in from 180° → 0°

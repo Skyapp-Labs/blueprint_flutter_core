@@ -238,7 +238,7 @@ return $default(_that.type,_that.step,_that.previousStep,_that.phone,_that.email
 
 
 class _AuthFlowState implements AuthFlowState {
-  const _AuthFlowState({this.type = AuthFlowType.login, this.step = AuthStep.emailAndPassword, this.previousStep = null, this.phone, this.email, this.countryCode, this.formattedPhone, this.sendOtpResponse, this.verifyOtpResponse});
+  const _AuthFlowState({this.type = AuthFlowType.login, this.step = AuthStep.phone, this.previousStep = null, this.phone, this.email, this.countryCode, this.formattedPhone, this.sendOtpResponse, this.verifyOtpResponse});
   
 
 @override@JsonKey() final  AuthFlowType type;

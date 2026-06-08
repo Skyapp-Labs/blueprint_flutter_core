@@ -4,32 +4,25 @@ class FxPhoneInputSplit extends _FxPhoneInputLayoutWidget {
   FxPhoneInputSplit({super.key, required super.data});
 
   @override
-  Widget build(BuildContext context) {
-    setToolkitContext(context);
-
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: data.decoration.spacing ?? sizes.md,
-        children: [
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              minWidth: screenWidth * data.decoration.splitCountryMinWidthFactor,
-            ),
-            child: SizedBox(
-              width: _FxPhoneInputDefaults.splitCountryWidth.w,
-              child: buildCountryField(
-                valueLabelBuilder: dialCodeLabel,
-                decoration: countryFieldDecoration(expands: true),
-              ),
-            ),
+  Widget buildPhoneField() => IntrinsicHeight(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: sizes.md,
+      children: [
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: screenWidth * _FxPhoneInputDefaults.dialCodeWidthFactor,
           ),
-          Expanded(
-            flex: 3,
-            child: buildPhoneField(),
+          child: SizedBox(
+            width: screenWidth * .33,
+            child: buildCountryField(expands: true),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+        Expanded(
+          flex: 3,
+          child: super.buildPhoneField()
+        ),
+      ],
+    ),
+  );
 }

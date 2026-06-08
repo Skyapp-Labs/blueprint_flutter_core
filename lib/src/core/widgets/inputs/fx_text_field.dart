@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_field.dart';
@@ -17,6 +18,7 @@ class FxTextField extends StatelessWidget with FxUiToolkit {
     this.controller,
     this.onSubmitted,
     this.initialValue,
+    this.inputFormatters,
   });
 
   final String? initialValue;
@@ -29,6 +31,7 @@ class FxTextField extends StatelessWidget with FxUiToolkit {
   final ValueChanged<String>? onSubmitted;
   final ValueChanged<String?>? onSaved;
   final TextEditingController? controller;
+  final List<TextInputFormatter>? inputFormatters;
 
   InputDecoration _themedDecoration(BuildContext context) => FxField.resolveDecoration(
     context: context,
@@ -59,6 +62,7 @@ class FxTextField extends StatelessWidget with FxUiToolkit {
         focusNode: options.focusNode,
         onSaved: onSaved,
         textCapitalization: options.textCapitalization,
+        inputFormatters: inputFormatters,
         decoration: _themedDecoration(context)
       )
     );

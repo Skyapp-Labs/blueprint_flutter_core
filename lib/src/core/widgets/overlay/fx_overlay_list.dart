@@ -5,11 +5,9 @@ class FxOverlayList<T> extends StatefulWidget {
   const FxOverlayList({
     super.key,
     required this.options,
-    required this.itemTile,
     required this.scrollController
   });
 
-  final FxOverlayTile<T> itemTile;
   final FxOverlayOptions<T> options;
   final ScrollController scrollController;
 
@@ -60,12 +58,6 @@ class _FxOverlayListState<T> extends State<FxOverlayList<T>> with FxUiToolkit {
 
   List<T> get _visibleItems => _searchResults ?? _allItems;
 
-  // TextStyle get _titleTextStyle =>
-  //     _itemTile.themeData?.titleStyle ?? typography.titleMedium;
-
-  // TextStyle get _subtitleTextStyle =>
-  //     _itemTile.themeData?.subtitleStyle ?? typography.bodyMedium;
-
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
@@ -88,8 +80,9 @@ class _FxOverlayListState<T> extends State<FxOverlayList<T>> with FxUiToolkit {
       right: sizes.md,
     ),
     child: FxSearchField(
-      hint: widget.options.searchHint,
+      options: FxFieldOptions(hint: widget.options.searchHint),
       onChanged: (query) {
+        if(query.isEmpty) return setState(() => _searchResults = null);
         final results = widget.options.onSearch?.call(query, _allItems);
         setState(() => _searchResults = results);
       }
@@ -103,28 +96,13 @@ class _FxOverlayListState<T> extends State<FxOverlayList<T>> with FxUiToolkit {
     return CustomScrollView(
       controller: widget.scrollController,
       slivers: [
-        if (_favoriteItems.isNotEmpty) _buildFavorites(),
+        if (showFavorites) ...[
+          _itemsSliver(_favoriteItems),
+          if (themeData.overlayTheme.dividerTheme == null) 
+            FxDottedDivider.fromThemeData(themeData.overlayTheme.dividerTheme!)
+        ],
         _itemsSliver(items),
       ],
-    );
-  }
-
-  Widget _buildFavorites() {
-    final favoriteListView = Container(
-      child: _itemsSliver(_favoriteItems)
-    );
-
-    if (themeData.overlayTheme.dividerTheme == null) {
-      return favoriteListView;
-    }
-
-    return Column(
-      children: [
-        favoriteListView,
-        FxDottedDivider.fromThemeData(
-          themeData.overlayTheme.dividerTheme!
-        )
-      ]
     );
   }
 
@@ -164,8 +142,8 @@ class _FxOverlayListState<T> extends State<FxOverlayList<T>> with FxUiToolkit {
       ? () => _handleItemTap(item) 
       : null;
 
-    if (widget.itemTile.builder != null) {
-      return widget.itemTile.builder!(
+    if (widget.options.itemTile.builder != null) {
+      return widget.options.itemTile.builder!(
         context, 
         item, 
         isSelected, 
@@ -177,7 +155,7 @@ class _FxOverlayListState<T> extends State<FxOverlayList<T>> with FxUiToolkit {
       item: item,
       isSelected: isSelected,
       isMultiSelect: _selection.isMultiSelect,
-      itemTile: widget.itemTile,
+      itemTile: widget.options.itemTile,
       onTap: callback,
     );
   }

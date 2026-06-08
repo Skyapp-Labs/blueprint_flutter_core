@@ -1,13 +1,12 @@
 // Bottom sheets, dialogs, and searchable selectable overlay lists.
 import 'dart:async';
 
-import 'package:blueprint_flutter_core/src/core/widgets/buttons/fx_icon_button.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/display/fx_dotted_border.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/buttons/_buttons.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/display/_display.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:flutter/material.dart';
 
-import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart'
-    show FxSearchField;
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
 
 part 'fx_overlay_models.dart';
 part 'fx_overlay_selection_state.dart';

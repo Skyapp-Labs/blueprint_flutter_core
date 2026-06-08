@@ -7,7 +7,7 @@ enum FxOverlayMode {
 }
 
 typedef FxOverlaySearchCallback<T> = List<T>? Function(
-  String? search,
+  String search,
   List<T> items,
 );
 
@@ -20,6 +20,7 @@ class FxOverlayOptions<T> {
     this.title,
     this.heading,
     this.footer,
+    this.itemTile = const FxOverlayTile(),
     this.builder,
     this.items,
     this.favoriteItems,
@@ -57,6 +58,7 @@ class FxOverlayOptions<T> {
     List<T>? favoriteItems,
     Stream<List<T>>? itemsAsStream,
     T? selectedItem,
+    FxOverlayTile<T> itemTile = const FxOverlayTile(),
     String searchHint = 'Search...',
     FxOverlaySearchCallback<T>? onSearch,
     FxOverlayItemComparer<T>? itemComparer,
@@ -67,6 +69,7 @@ class FxOverlayOptions<T> {
         title: title,
         heading: heading,
         footer: footer,
+        itemTile: itemTile,
         items: items,
         favoriteItems: favoriteItems,
         itemsAsStream: itemsAsStream,
@@ -83,6 +86,7 @@ class FxOverlayOptions<T> {
     Widget Function(BuildContext context)? footer,
     required List<T>? items,
     List<T>? favoriteItems,
+    FxOverlayTile<T> itemTile = const FxOverlayTile(),
     Stream<List<T>>? itemsAsStream,
     List<T>? selectedItems,
     String searchHint = 'Search...',
@@ -100,6 +104,7 @@ class FxOverlayOptions<T> {
         heading: heading,
         footer: footer,
         items: items,
+        itemTile: itemTile,
         favoriteItems: favoriteItems,
         itemsAsStream: itemsAsStream,
         selectedItems: selectedItems,
@@ -128,6 +133,7 @@ class FxOverlayOptions<T> {
     bool closeOnSelect = true,
     String confirmLabel = 'Done',
     String? clearLabel = 'Clear',
+    required FxOverlayTile<T> itemTile,
     int minSelection = 0,
     int? maxSelection,
   }) {
@@ -145,6 +151,7 @@ class FxOverlayOptions<T> {
       favoriteItems: favoriteItems,
       itemsAsStream: itemsAsStream,
       selectedItems: selectedItems,
+      itemTile: itemTile,
       searchHint: searchHint,
       onSearch: onSearch,
       itemComparer: itemComparer,
@@ -166,6 +173,7 @@ class FxOverlayOptions<T> {
   final Stream<List<T>>? itemsAsStream;
   final List<T>? selectedItems;
   final String? searchHint;
+  final FxOverlayTile<T> itemTile;
   final FxOverlaySearchCallback<T>? onSearch;
   final FxOverlayItemComparer<T>? itemComparer;
   final bool closeOnSelect;

@@ -4,7 +4,6 @@ part of 'fx_overlay.dart';
 class FxOverlayView<T> extends StatelessWidget with FxUiToolkit {
   FxOverlayView({
     super.key,
-    this.itemTile,
     this.showTitle = true,
     this.isScrollable = true,
     required this.options,
@@ -13,7 +12,6 @@ class FxOverlayView<T> extends StatelessWidget with FxUiToolkit {
 
   final bool showTitle;
   final bool isScrollable;
-  final FxOverlayTile<T>? itemTile;
   final ScrollController scrollController;
   final FxOverlayOptions<T> options;
 
@@ -67,7 +65,6 @@ class FxOverlayView<T> extends StatelessWidget with FxUiToolkit {
     if (options.mode != FxOverlayMode.builder) {
       return FxOverlayList<T>(
         options: options,
-        itemTile: itemTile ?? FxOverlayTile<T>(),
         scrollController: scrollController,
       );
     }

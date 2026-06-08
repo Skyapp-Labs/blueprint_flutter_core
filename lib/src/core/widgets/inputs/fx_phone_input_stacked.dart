@@ -4,16 +4,14 @@ class FxPhoneInputStacked extends _FxPhoneInputLayoutWidget {
   FxPhoneInputStacked({super.key, required super.data});
 
   @override
-  Widget build(BuildContext context) {
-    setToolkitContext(context);
+  String countryValueBuilder(FxCountry country) => '${country.name} (${country.dialCode})';
 
-    return Column(
-      spacing: data.decoration.spacing ?? sizes.md,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        buildCountryField(valueLabelBuilder: stackedCountryLabel),
-        buildPhoneField(),
-      ],
-    );
-  }
+  @override
+  Widget buildPhoneField() => Column(
+    spacing: sizes.md,
+    children: [
+      buildCountryField(),
+      super.buildPhoneField(),
+    ],
+  );
 }

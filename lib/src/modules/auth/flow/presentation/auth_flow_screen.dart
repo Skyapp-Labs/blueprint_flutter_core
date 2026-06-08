@@ -10,13 +10,11 @@ import 'package:blueprint_flutter_core/src/modules/auth/flow/auth_flow_controlle
 class AuthFlowScreen extends ConsumerWidget {
   const AuthFlowScreen({
     super.key,
-    this.onAuthError,
     this.onStepChange,
     this.onAuthSuccess,
     this.templates = const AuthStepTemplates(),
   });
 
-  final VoidCallback? onAuthError;
   final VoidCallback? onAuthSuccess;
   final void Function(AuthStep? previousStep, AuthStep? currentStep)? onStepChange;
   final AuthStepTemplates templates;
@@ -32,12 +30,6 @@ class AuthFlowScreen extends ConsumerWidget {
 
     ref.listen(authControllerProvider, (_, next) {
       if (next.isAuthenticated) onAuthSuccess?.call();
-    });
-
-    ref.listen(authControllerProvider, (prev, next) {
-      if (next.hasError && prev?.hasError != true) {
-        // _otpKey.currentState?.triggerError();
-      }
     });
 
     return AnimatedSwitcher(

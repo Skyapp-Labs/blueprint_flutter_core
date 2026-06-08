@@ -4,40 +4,12 @@ class FxPhoneInputIntegrated extends _FxPhoneInputLayoutWidget {
   FxPhoneInputIntegrated({super.key, required super.data});
 
   @override
-  Widget build(BuildContext context) {
-    setToolkitContext(context);
-
-    return buildPhoneField(
-      decorationOverride: themedDecoration(data.decoration).copyWith(
-        labelText: data.decoration.phoneLabel,
-        prefixIcon: _IntegratedDialCodePrefix(
-          widthFactor: data.decoration.integratedDialCodeWidthFactor,
-          child: buildCountryField(
-            valueLabelBuilder: dialCodeLabel,
-            decoration: countryFieldDecoration(border: InputBorder.none),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _IntegratedDialCodePrefix extends StatelessWidget {
-  const _IntegratedDialCodePrefix({
-    required this.widthFactor,
-    required this.child,
-  });
-
-  final double widthFactor;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
+  FxFieldOptions get phoneOptions => super.phoneOptions.copyWith(
+    prefixIcon: LayoutBuilder(
       builder: (context, constraints) {
         final maxWidth = constraints.maxWidth.isFinite
-            ? constraints.maxWidth * widthFactor
-            : MediaQuery.sizeOf(context).width * widthFactor;
+            ? constraints.maxWidth * _FxPhoneInputDefaults.dialCodeWidthFactor
+            : MediaQuery.sizeOf(context).width * _FxPhoneInputDefaults.dialCodeWidthFactor;
 
         return SizedBox(
           width: maxWidth,
@@ -45,15 +17,31 @@ class _IntegratedDialCodePrefix extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(child: child),
+                Expanded(child: buildCountryField()),
                 _VerticalFieldDivider(),
               ],
             ),
-          ),
+          )
         );
       },
-    );
-  }
+    )
+  );
+
+  @override
+  FxFieldOptions get countryOptions => super.countryOptions.copyWith(
+    label: '',
+  );
+
+  @override
+  InputDecoration get countryDecoration => super.countryDecoration.copyWith(
+    border: InputBorder.none,
+    enabledBorder: InputBorder.none,
+    focusedBorder: InputBorder.none,
+    errorBorder: InputBorder.none,
+    disabledBorder: InputBorder.none,
+    filled: false,
+    floatingLabelBehavior: FloatingLabelBehavior.never
+  );
 }
 
 class _VerticalFieldDivider extends StatelessWidget with FxUiToolkit {
@@ -62,7 +50,7 @@ class _VerticalFieldDivider extends StatelessWidget with FxUiToolkit {
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
-    
+
     return Container(
       margin: EdgeInsets.only(
         right: sizes.md,

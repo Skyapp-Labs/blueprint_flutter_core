@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_field_options.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
@@ -7,18 +9,22 @@ import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 class FxSearchField extends StatefulWidget {
   const FxSearchField({
     super.key,
-    this.hint,
-    this.onChanged,
     this.debounceMs = 400,
+    this.options = const FxFieldOptions(),
+    this.decoration = const InputDecoration(),
+    this.onChanged,
     this.controller,
-    this.autofocus = false,
+    this.initialValue,
   });
 
-  final String? hint;
-  final ValueChanged<String>? onChanged;
   final int debounceMs;
+
+  final String? initialValue;
+  final FxFieldOptions options;
+  final InputDecoration decoration;
+
+  final ValueChanged<String>? onChanged;
   final TextEditingController? controller;
-  final bool autofocus;
 
   @override
   State<FxSearchField> createState() => _FxSearchFieldState();
@@ -27,6 +33,7 @@ class FxSearchField extends StatefulWidget {
 class _FxSearchFieldState extends State<FxSearchField> with FxUiToolkit {
   late final TextEditingController _controller;
   Timer? _debounce;
+  bool _showClear = false;
 
   @override
   void initState() {
@@ -39,6 +46,7 @@ class _FxSearchFieldState extends State<FxSearchField> with FxUiToolkit {
     _debounce?.cancel();
     _debounce = Timer(Duration(milliseconds: widget.debounceMs), () {
       widget.onChanged?.call(_controller.text);
+      _showClear = _controller.text.isNotEmpty;
     });
     setState(() {});
   }
@@ -54,23 +62,28 @@ class _FxSearchFieldState extends State<FxSearchField> with FxUiToolkit {
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    return TextField(
+    return FxTextField(
       controller: _controller,
-      autofocus: widget.autofocus,
-      decoration: InputDecoration(
-        hintText: widget.hint ?? 'Search...',
-        prefixIcon: Icon(Icons.search, size: sizes.iconMd),
-        suffixIcon:
-            _controller.text.isNotEmpty
-                ? IconButton(
-                  icon: Icon(Icons.clear, size: sizes.iconMd),
-                  onPressed: () {
-                    _controller.clear();
-                    widget.onChanged?.call('');
-                  },
-                )
-                : null,
+      options: widget.options.copyWith(
+        prefixIcon: _buildPrefix(),
+        suffixIcon: _buildSuffix()
       ),
+      decoration: widget.decoration
+    );
+  }
+
+  Widget _buildPrefix() => componentTheme.searchIcon(size: sizes.iconMd);
+
+  Widget? _buildSuffix() {
+    if(!_showClear) return null;
+
+    return GestureDetector(
+      onTap: () {
+        _controller.clear();
+        widget.onChanged?.call('');
+        setState(() => _showClear = false);
+      },
+      child: componentTheme.clearIcon()
     );
   }
 }

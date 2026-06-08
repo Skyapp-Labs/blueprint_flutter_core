@@ -19,8 +19,8 @@ class FxSelectField<Result, T> extends StatefulWidget {
     this.options = const FxFieldOptions(),
     this.decoration = const InputDecoration(),
     this.overlayType = FxOverlayType.bottomSheet,
+    this.valueBuilder,
     required this.overlayOptions,
-    required this.overlayTile,
     required this.onChanged,
   })  : assert(
         overlayOptions.isListOverlay, 
@@ -31,9 +31,9 @@ class FxSelectField<Result, T> extends StatefulWidget {
   final FxOverlayType overlayType;
   final FxFieldOptions options;
   final InputDecoration decoration;
-  final FxOverlayTile<T> overlayTile;
   final FxOverlayOptions<T> overlayOptions;
   final ValueChanged<Result>? onChanged;
+  final String Function(T)? valueBuilder;
 
   @override
   State<FxSelectField<Result, T>> createState() => _FxSelectFieldState<Result, T>();
@@ -69,9 +69,10 @@ class _FxSelectFieldState<Result, T> extends State<FxSelectField<Result, T>> wit
         child: InputDecorator(
           isEmpty: !_hasValue,
           expands: widget.expands,
-          decoration: _themedDecoration.copyWith(
+          decoration: widget.decoration.copyWith(
             prefixIcon: _prefixIcon,
             suffixIcon: _suffixIcon,
+            prefixIconConstraints: BoxConstraints()
           ),
           child: _hasValue ? _selectedLabel : null,
         ),
@@ -94,12 +95,12 @@ class _FxSelectFieldState<Result, T> extends State<FxSelectField<Result, T>> wit
 
   Widget get _selectedLabel {
     final text = _result.map((value) {
-      final label = widget.overlayTile.title?.call(value);
+      final label = (widget.valueBuilder ?? widget.overlayOptions.itemTile.title)?.call(value);
       return label ?? value.toString();
     }).join(', ');
     
     return Text(
-      text,
+      ' $text',
       overflow: TextOverflow.ellipsis,
     );
   }

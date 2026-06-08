@@ -39,7 +39,7 @@ class FxField extends StatelessWidget with FxUiToolkit {
   }
 
   bool _showExternalLabel(InputDecoration decoration) {
-    if (options.label == null) return false;
+    if (options.label == null || options.label?.isEmpty == true) return false;
 
     return switch (options.labelBehavior) {
       FxLabelBehavior.external => true,

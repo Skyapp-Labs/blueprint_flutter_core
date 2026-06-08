@@ -60,6 +60,57 @@ class FxFieldOptions {
   final bool enabled;
 
   final FxLabelBehavior labelBehavior;
+
+  FxFieldOptions copyWith({
+    String? label,
+    String? hint,
+    String? helperText,
+    String? errorText,
+    Widget? prefix,
+    Widget? prefixIcon,
+    Widget? suffix,
+    Widget? suffixIcon,
+    TextCapitalization? textCapitalization,
+    int? maxLines,
+    int? maxLength,
+    FocusNode? focusNode,
+    bool? autofocus,
+    bool? autocorrect,
+    bool? enableSuggestions,
+    bool? readOnly,
+    bool? showCursor,
+    bool? showErrorText,
+    TextInputType? keyboardType,
+    TextInputAction? textInputAction,
+    bool? obscureText,
+    bool? enabled,
+    FxLabelBehavior? labelBehavior,
+  }) =>
+      FxFieldOptions(
+        label: label ?? this.label,
+        hint: hint ?? this.hint,
+        helperText: helperText ?? this.helperText,
+        errorText: errorText ?? this.errorText,
+        prefix: prefix ?? this.prefix,
+        prefixIcon: prefixIcon ?? this.prefixIcon,
+        suffix: suffix ?? this.suffix,
+        suffixIcon: suffixIcon ?? this.suffixIcon,
+        textCapitalization: textCapitalization ?? this.textCapitalization,
+        maxLines: maxLines ?? this.maxLines,
+        maxLength: maxLength ?? this.maxLength,
+        focusNode: focusNode ?? this.focusNode,
+        autofocus: autofocus ?? this.autofocus,
+        autocorrect: autocorrect ?? this.autocorrect,
+        enableSuggestions: enableSuggestions ?? this.enableSuggestions,
+        readOnly: readOnly ?? this.readOnly,
+        showCursor: showCursor ?? this.showCursor,
+        showErrorText: showErrorText ?? this.showErrorText,
+        keyboardType: keyboardType ?? this.keyboardType,
+        textInputAction: textInputAction ?? this.textInputAction,
+        obscureText: obscureText ?? this.obscureText,
+        enabled: enabled ?? this.enabled,
+        labelBehavior: labelBehavior ?? this.labelBehavior,
+      );
 }
 
 enum FxLabelBehavior {
