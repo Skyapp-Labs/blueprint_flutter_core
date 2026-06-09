@@ -15,9 +15,9 @@ import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart'
     show FxOverlayOptions, FxOverlayTile;
 
 part 'fx_phone_input_data.dart';
-part 'fx_phone_input_integrated.dart';
 part 'fx_phone_input_split.dart';
 part 'fx_phone_input_stacked.dart';
+part 'fx_phone_input_integrated.dart';
 
 /// Phone number input with a searchable country dial-code selector.
 ///
@@ -40,15 +40,11 @@ part 'fx_phone_input_stacked.dart';
 class FxPhoneInput extends ConsumerStatefulWidget {
   const FxPhoneInput({
     super.key,
-    this.options = const FxFieldOptions(keyboardType: TextInputType.phone),
-    this.countryOptions = const FxFieldOptions(),
-    this.decoration = const InputDecoration(),
     this.validator,
     this.controller,
-    this.layout = FxPhoneInputLayout.stacked,
-    this.overlayType = FxOverlayType.bottomSheet,
     this.initialValue,
     this.initialCountryCode,
+    this.config = const FxPhoneInputConfig(),
     this.onSaved,
     this.onChanged,
     this.onSubmitted,
@@ -56,11 +52,7 @@ class FxPhoneInput extends ConsumerStatefulWidget {
 
   final String? initialValue;
   final String? initialCountryCode;
-  final FxOverlayType overlayType;
-  final FxFieldOptions options;
-  final InputDecoration decoration;
-  final FxFieldOptions countryOptions;
-  final FxPhoneInputLayout layout;
+  final FxPhoneInputConfig config;
 
   final FormFieldValidator<String>? validator;
 
@@ -147,16 +139,16 @@ class _FxPhoneInputState extends ConsumerState<FxPhoneInput> {
         onCountryChanged: _handleCountryChanged,
         controller: _controller,
         validator: widget.validator,
-        decoration: widget.decoration,
-        options: widget.options.copyWith(
-          hint: widget.options.hint ?? 'Enter your phone number',
+        decoration: widget.config.decoration,
+        options: widget.config.options.copyWith(
+          hint: widget.config.options.hint ?? 'Enter your phone number',
           labelBehavior: FxLabelBehavior.external,
         ),
-        countryOptions: widget.countryOptions.copyWith(
-          hint: widget.countryOptions.hint ?? 'Select your country',
+        countryOptions: widget.config.countryOptions.copyWith(
+          hint: widget.config.countryOptions.hint ?? 'Select your country',
           labelBehavior: FxLabelBehavior.external,
         ),
-        overlayType: widget.overlayType,
+        overlayType: widget.config.overlayType,
         onSaved: widget.onSaved,
         onSubmitted: widget.onSubmitted,
       );
@@ -167,7 +159,7 @@ class _FxPhoneInputState extends ConsumerState<FxPhoneInput> {
       ref.read(fxConfigProvider).favoriteCountries,
     );
 
-    return switch (widget.layout) {
+    return switch (widget.config.layout) {
       FxPhoneInputLayout.integrated =>
         FxPhoneInputIntegrated(data: _viewData(favorites)),
       FxPhoneInputLayout.split => FxPhoneInputSplit(data: _viewData(favorites)),

@@ -22,6 +22,22 @@ enum FxPhoneInputLayout {
   stacked,
 }
 
+class FxPhoneInputConfig {
+  const FxPhoneInputConfig({
+    this.layout = FxPhoneInputLayout.stacked,
+    this.options = const FxFieldOptions(keyboardType: TextInputType.phone),
+    this.decoration = const InputDecoration(),
+    this.overlayType = FxOverlayType.bottomSheet,
+    this.countryOptions = const FxFieldOptions(),
+  });
+
+  final FxOverlayType overlayType;
+  final FxFieldOptions options;
+  final InputDecoration decoration;
+  final FxFieldOptions countryOptions;
+  final FxPhoneInputLayout layout;
+}
+
 /// Immutable state shared by all phone-input layout widgets.
 @immutable
 class FxPhoneInputViewData {

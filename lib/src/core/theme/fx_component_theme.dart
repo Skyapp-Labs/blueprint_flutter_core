@@ -56,7 +56,7 @@ abstract class FxComponentTheme extends ThemeExtension<FxComponentTheme> {
   );
 
   Widget searchIcon({double? size, Color? color}) => Icon(
-    Icons.cancel, 
+    Icons.search, 
     size: size, 
     color: color
   );
