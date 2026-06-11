@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SignupPayload {
 
- String? get verificationToken; String? get email; String? get password;
+ String? get verificationToken; String? get email; String? get password; String? get phoneNumber;// String? countryCode,
+ SignupProfilePayload get profile;
 /// Create a copy of SignupPayload
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +29,16 @@ $SignupPayloadCopyWith<SignupPayload> get copyWith => _$SignupPayloadCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignupPayload&&(identical(other.verificationToken, verificationToken) || other.verificationToken == verificationToken)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignupPayload&&(identical(other.verificationToken, verificationToken) || other.verificationToken == verificationToken)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.profile, profile) || other.profile == profile));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,verificationToken,email,password);
+int get hashCode => Object.hash(runtimeType,verificationToken,email,password,phoneNumber,profile);
 
 @override
 String toString() {
-  return 'SignupPayload(verificationToken: $verificationToken, email: $email, password: $password)';
+  return 'SignupPayload(verificationToken: $verificationToken, email: $email, password: $password, phoneNumber: $phoneNumber, profile: $profile)';
 }
 
 
@@ -48,7 +49,7 @@ abstract mixin class $SignupPayloadCopyWith<$Res>  {
   factory $SignupPayloadCopyWith(SignupPayload value, $Res Function(SignupPayload) _then) = _$SignupPayloadCopyWithImpl;
 @useResult
 $Res call({
- String? verificationToken, String? email, String? password
+ String? verificationToken, String? email, String? password, String? phoneNumber, SignupProfilePayload profile
 });
 
 
@@ -65,12 +66,14 @@ class _$SignupPayloadCopyWithImpl<$Res>
 
 /// Create a copy of SignupPayload
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? verificationToken = freezed,Object? email = freezed,Object? password = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? verificationToken = freezed,Object? email = freezed,Object? password = freezed,Object? phoneNumber = freezed,Object? profile = null,}) {
   return _then(_self.copyWith(
 verificationToken: freezed == verificationToken ? _self.verificationToken : verificationToken // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
+as String?,profile: null == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
+as SignupProfilePayload,
   ));
 }
 
@@ -155,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? verificationToken,  String? email,  String? password)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? verificationToken,  String? email,  String? password,  String? phoneNumber,  SignupProfilePayload profile)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SignupPayload() when $default != null:
-return $default(_that.verificationToken,_that.email,_that.password);case _:
+return $default(_that.verificationToken,_that.email,_that.password,_that.phoneNumber,_that.profile);case _:
   return orElse();
 
 }
@@ -176,10 +179,10 @@ return $default(_that.verificationToken,_that.email,_that.password);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? verificationToken,  String? email,  String? password)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? verificationToken,  String? email,  String? password,  String? phoneNumber,  SignupProfilePayload profile)  $default,) {final _that = this;
 switch (_that) {
 case _SignupPayload():
-return $default(_that.verificationToken,_that.email,_that.password);case _:
+return $default(_that.verificationToken,_that.email,_that.password,_that.phoneNumber,_that.profile);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +199,10 @@ return $default(_that.verificationToken,_that.email,_that.password);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? verificationToken,  String? email,  String? password)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? verificationToken,  String? email,  String? password,  String? phoneNumber,  SignupProfilePayload profile)?  $default,) {final _that = this;
 switch (_that) {
 case _SignupPayload() when $default != null:
-return $default(_that.verificationToken,_that.email,_that.password);case _:
+return $default(_that.verificationToken,_that.email,_that.password,_that.phoneNumber,_that.profile);case _:
   return null;
 
 }
@@ -211,12 +214,15 @@ return $default(_that.verificationToken,_that.email,_that.password);case _:
 @JsonSerializable()
 
 class _SignupPayload implements SignupPayload {
-  const _SignupPayload({this.verificationToken, this.email, this.password});
+  const _SignupPayload({this.verificationToken, this.email, this.password, this.phoneNumber, this.profile = const SignupProfilePayload()});
   factory _SignupPayload.fromJson(Map<String, dynamic> json) => _$SignupPayloadFromJson(json);
 
 @override final  String? verificationToken;
 @override final  String? email;
 @override final  String? password;
+@override final  String? phoneNumber;
+// String? countryCode,
+@override@JsonKey() final  SignupProfilePayload profile;
 
 /// Create a copy of SignupPayload
 /// with the given fields replaced by the non-null parameter values.
@@ -231,16 +237,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignupPayload&&(identical(other.verificationToken, verificationToken) || other.verificationToken == verificationToken)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SignupPayload&&(identical(other.verificationToken, verificationToken) || other.verificationToken == verificationToken)&&(identical(other.email, email) || other.email == email)&&(identical(other.password, password) || other.password == password)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.profile, profile) || other.profile == profile));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,verificationToken,email,password);
+int get hashCode => Object.hash(runtimeType,verificationToken,email,password,phoneNumber,profile);
 
 @override
 String toString() {
-  return 'SignupPayload(verificationToken: $verificationToken, email: $email, password: $password)';
+  return 'SignupPayload(verificationToken: $verificationToken, email: $email, password: $password, phoneNumber: $phoneNumber, profile: $profile)';
 }
 
 
@@ -251,7 +257,7 @@ abstract mixin class _$SignupPayloadCopyWith<$Res> implements $SignupPayloadCopy
   factory _$SignupPayloadCopyWith(_SignupPayload value, $Res Function(_SignupPayload) _then) = __$SignupPayloadCopyWithImpl;
 @override @useResult
 $Res call({
- String? verificationToken, String? email, String? password
+ String? verificationToken, String? email, String? password, String? phoneNumber, SignupProfilePayload profile
 });
 
 
@@ -268,12 +274,14 @@ class __$SignupPayloadCopyWithImpl<$Res>
 
 /// Create a copy of SignupPayload
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? verificationToken = freezed,Object? email = freezed,Object? password = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? verificationToken = freezed,Object? email = freezed,Object? password = freezed,Object? phoneNumber = freezed,Object? profile = null,}) {
   return _then(_SignupPayload(
 verificationToken: freezed == verificationToken ? _self.verificationToken : verificationToken // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,password: freezed == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
+as String?,profile: null == profile ? _self.profile : profile // ignore: cast_nullable_to_non_nullable
+as SignupProfilePayload,
   ));
 }
 

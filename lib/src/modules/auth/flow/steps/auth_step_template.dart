@@ -41,13 +41,14 @@ abstract class AuthStepTemplate {
     required BuildContext context,
     required WidgetRef ref,
     Widget? body,
-    List<Widget>? children
+    List<Widget>? children,
+    Widget Function(BuildContext, WidgetRef)? customFooter,
   }) {
     return _AuthStepShell(
       stepId: stepId,
       layout: layout,
       appBar: buildAppBar(context, ref),
-      footer: buildFooter(context, ref),
+      footer: (customFooter ?? buildFooter).call(context, ref),
       trailingContent: buildTrailingContent(context, ref),
       body: body,
       children: children,
@@ -87,7 +88,7 @@ class _AuthStepShell extends ConsumerWidget with FxUiToolkit {
       mainAxisAlignment: layout.mainAxisAlignment,
       crossAxisAlignment: layout.crossAxisAlignment,
       children: [
-        if (layout.hasHeaderContent) _StepHeader(layout: layout),
+        if (layout.hasHeaderContent) _StepHeader(layout: layout, ref: ref),
         ?body,
         ...?children,
         ?trailingContent,
@@ -97,9 +98,10 @@ class _AuthStepShell extends ConsumerWidget with FxUiToolkit {
 }
 
 class _StepHeader extends StatelessWidget with FxUiToolkit {
-  _StepHeader({required this.layout});
+  _StepHeader({required this.layout, required this.ref});
 
   final AuthStepLayout layout;
+  final WidgetRef ref;
 
   @override
   Widget build(BuildContext context) {
@@ -115,18 +117,21 @@ class _StepHeader extends StatelessWidget with FxUiToolkit {
       padding: EdgeInsets.only(bottom: layout.headerSpacing ?? sizes.md),
       child: Column(
         crossAxisAlignment: crossAxisAlignment,
+        spacing: layout.headerSpacing ?? sizes.xs,
         children: [
           if (layout.title != null)
-            Text(
+            FxText(
               layout.title!,
-              style: layout.titleStyle ?? typography.headlineSmall,
+              style: FxTextStyle.fromStyle(layout.titleStyle ?? typography.headlineSmall),
               textAlign: layout.textAlign,
+              onTap: (index, text) => layout.titleOnTap?.call(index, text, ref),
             ),
           if (layout.subtitle != null)
-            Text(
+            FxText(
               layout.subtitle!,
-              style: layout.subtitleStyle ?? typography.bodyMedium,
+              style: FxTextStyle.fromStyle(layout.subtitleStyle ?? typography.bodyMedium),
               textAlign: layout.textAlign,
+              onTap: (index, text) => layout.subtitleOnTap?.call(index, text, ref),
             ),
         ],
       ),

@@ -42,7 +42,7 @@ final class EmailStepControllerProvider
 }
 
 String _$emailStepControllerHash() =>
-    r'bf3084bb8f1eaf030f3e9b8fe889d7476f4a2c29';
+    r'20259e089acc86464dc2d344ba30841f7fe000e5';
 
 abstract class _$EmailStepController extends $Notifier<EmailStepState> {
   EmailStepState build();

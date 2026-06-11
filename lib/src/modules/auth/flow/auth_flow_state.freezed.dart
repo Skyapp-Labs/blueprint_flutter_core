@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthFlowState {
 
- AuthFlowType get type; AuthStep get step; AuthStep? get previousStep; String? get phone; String? get email; String? get countryCode; String? get formattedPhone; SendOtpResponse? get sendOtpResponse; VerifyOtpResponse? get verifyOtpResponse;
+ AuthMethod? get authMethod; AuthStep? get step; AuthStep? get previousStep; String? get phone; String? get email; String? get countryCode; String? get formattedPhone; SendOtpResponse? get sendOtpResponse; VerifyOtpResponse? get verifyOtpResponse;
 /// Create a copy of AuthFlowState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $AuthFlowStateCopyWith<AuthFlowState> get copyWith => _$AuthFlowStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthFlowState&&(identical(other.type, type) || other.type == type)&&(identical(other.step, step) || other.step == step)&&(identical(other.previousStep, previousStep) || other.previousStep == previousStep)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.email, email) || other.email == email)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.formattedPhone, formattedPhone) || other.formattedPhone == formattedPhone)&&(identical(other.sendOtpResponse, sendOtpResponse) || other.sendOtpResponse == sendOtpResponse)&&(identical(other.verifyOtpResponse, verifyOtpResponse) || other.verifyOtpResponse == verifyOtpResponse));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthFlowState&&(identical(other.authMethod, authMethod) || other.authMethod == authMethod)&&(identical(other.step, step) || other.step == step)&&(identical(other.previousStep, previousStep) || other.previousStep == previousStep)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.email, email) || other.email == email)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.formattedPhone, formattedPhone) || other.formattedPhone == formattedPhone)&&(identical(other.sendOtpResponse, sendOtpResponse) || other.sendOtpResponse == sendOtpResponse)&&(identical(other.verifyOtpResponse, verifyOtpResponse) || other.verifyOtpResponse == verifyOtpResponse));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,step,previousStep,phone,email,countryCode,formattedPhone,sendOtpResponse,verifyOtpResponse);
+int get hashCode => Object.hash(runtimeType,authMethod,step,previousStep,phone,email,countryCode,formattedPhone,sendOtpResponse,verifyOtpResponse);
 
 @override
 String toString() {
-  return 'AuthFlowState(type: $type, step: $step, previousStep: $previousStep, phone: $phone, email: $email, countryCode: $countryCode, formattedPhone: $formattedPhone, sendOtpResponse: $sendOtpResponse, verifyOtpResponse: $verifyOtpResponse)';
+  return 'AuthFlowState(authMethod: $authMethod, step: $step, previousStep: $previousStep, phone: $phone, email: $email, countryCode: $countryCode, formattedPhone: $formattedPhone, sendOtpResponse: $sendOtpResponse, verifyOtpResponse: $verifyOtpResponse)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $AuthFlowStateCopyWith<$Res>  {
   factory $AuthFlowStateCopyWith(AuthFlowState value, $Res Function(AuthFlowState) _then) = _$AuthFlowStateCopyWithImpl;
 @useResult
 $Res call({
- AuthFlowType type, AuthStep step, AuthStep? previousStep, String? phone, String? email, String? countryCode, String? formattedPhone, SendOtpResponse? sendOtpResponse, VerifyOtpResponse? verifyOtpResponse
+ AuthMethod? authMethod, AuthStep? step, AuthStep? previousStep, String? phone, String? email, String? countryCode, String? formattedPhone, SendOtpResponse? sendOtpResponse, VerifyOtpResponse? verifyOtpResponse
 });
 
 
@@ -62,11 +62,11 @@ class _$AuthFlowStateCopyWithImpl<$Res>
 
 /// Create a copy of AuthFlowState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? step = null,Object? previousStep = freezed,Object? phone = freezed,Object? email = freezed,Object? countryCode = freezed,Object? formattedPhone = freezed,Object? sendOtpResponse = freezed,Object? verifyOtpResponse = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? authMethod = freezed,Object? step = freezed,Object? previousStep = freezed,Object? phone = freezed,Object? email = freezed,Object? countryCode = freezed,Object? formattedPhone = freezed,Object? sendOtpResponse = freezed,Object? verifyOtpResponse = freezed,}) {
   return _then(_self.copyWith(
-type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as AuthFlowType,step: null == step ? _self.step : step // ignore: cast_nullable_to_non_nullable
-as AuthStep,previousStep: freezed == previousStep ? _self.previousStep : previousStep // ignore: cast_nullable_to_non_nullable
+authMethod: freezed == authMethod ? _self.authMethod : authMethod // ignore: cast_nullable_to_non_nullable
+as AuthMethod?,step: freezed == step ? _self.step : step // ignore: cast_nullable_to_non_nullable
+as AuthStep?,previousStep: freezed == previousStep ? _self.previousStep : previousStep // ignore: cast_nullable_to_non_nullable
 as AuthStep?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
@@ -182,10 +182,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AuthFlowType type,  AuthStep step,  AuthStep? previousStep,  String? phone,  String? email,  String? countryCode,  String? formattedPhone,  SendOtpResponse? sendOtpResponse,  VerifyOtpResponse? verifyOtpResponse)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( AuthMethod? authMethod,  AuthStep? step,  AuthStep? previousStep,  String? phone,  String? email,  String? countryCode,  String? formattedPhone,  SendOtpResponse? sendOtpResponse,  VerifyOtpResponse? verifyOtpResponse)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthFlowState() when $default != null:
-return $default(_that.type,_that.step,_that.previousStep,_that.phone,_that.email,_that.countryCode,_that.formattedPhone,_that.sendOtpResponse,_that.verifyOtpResponse);case _:
+return $default(_that.authMethod,_that.step,_that.previousStep,_that.phone,_that.email,_that.countryCode,_that.formattedPhone,_that.sendOtpResponse,_that.verifyOtpResponse);case _:
   return orElse();
 
 }
@@ -203,10 +203,10 @@ return $default(_that.type,_that.step,_that.previousStep,_that.phone,_that.email
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AuthFlowType type,  AuthStep step,  AuthStep? previousStep,  String? phone,  String? email,  String? countryCode,  String? formattedPhone,  SendOtpResponse? sendOtpResponse,  VerifyOtpResponse? verifyOtpResponse)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( AuthMethod? authMethod,  AuthStep? step,  AuthStep? previousStep,  String? phone,  String? email,  String? countryCode,  String? formattedPhone,  SendOtpResponse? sendOtpResponse,  VerifyOtpResponse? verifyOtpResponse)  $default,) {final _that = this;
 switch (_that) {
 case _AuthFlowState():
-return $default(_that.type,_that.step,_that.previousStep,_that.phone,_that.email,_that.countryCode,_that.formattedPhone,_that.sendOtpResponse,_that.verifyOtpResponse);case _:
+return $default(_that.authMethod,_that.step,_that.previousStep,_that.phone,_that.email,_that.countryCode,_that.formattedPhone,_that.sendOtpResponse,_that.verifyOtpResponse);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -223,10 +223,10 @@ return $default(_that.type,_that.step,_that.previousStep,_that.phone,_that.email
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AuthFlowType type,  AuthStep step,  AuthStep? previousStep,  String? phone,  String? email,  String? countryCode,  String? formattedPhone,  SendOtpResponse? sendOtpResponse,  VerifyOtpResponse? verifyOtpResponse)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( AuthMethod? authMethod,  AuthStep? step,  AuthStep? previousStep,  String? phone,  String? email,  String? countryCode,  String? formattedPhone,  SendOtpResponse? sendOtpResponse,  VerifyOtpResponse? verifyOtpResponse)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthFlowState() when $default != null:
-return $default(_that.type,_that.step,_that.previousStep,_that.phone,_that.email,_that.countryCode,_that.formattedPhone,_that.sendOtpResponse,_that.verifyOtpResponse);case _:
+return $default(_that.authMethod,_that.step,_that.previousStep,_that.phone,_that.email,_that.countryCode,_that.formattedPhone,_that.sendOtpResponse,_that.verifyOtpResponse);case _:
   return null;
 
 }
@@ -238,11 +238,11 @@ return $default(_that.type,_that.step,_that.previousStep,_that.phone,_that.email
 
 
 class _AuthFlowState implements AuthFlowState {
-  const _AuthFlowState({this.type = AuthFlowType.login, this.step = AuthStep.phone, this.previousStep = null, this.phone, this.email, this.countryCode, this.formattedPhone, this.sendOtpResponse, this.verifyOtpResponse});
+  const _AuthFlowState({this.authMethod = null, this.step = null, this.previousStep = null, this.phone, this.email, this.countryCode, this.formattedPhone, this.sendOtpResponse, this.verifyOtpResponse});
   
 
-@override@JsonKey() final  AuthFlowType type;
-@override@JsonKey() final  AuthStep step;
+@override@JsonKey() final  AuthMethod? authMethod;
+@override@JsonKey() final  AuthStep? step;
 @override@JsonKey() final  AuthStep? previousStep;
 @override final  String? phone;
 @override final  String? email;
@@ -261,16 +261,16 @@ _$AuthFlowStateCopyWith<_AuthFlowState> get copyWith => __$AuthFlowStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthFlowState&&(identical(other.type, type) || other.type == type)&&(identical(other.step, step) || other.step == step)&&(identical(other.previousStep, previousStep) || other.previousStep == previousStep)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.email, email) || other.email == email)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.formattedPhone, formattedPhone) || other.formattedPhone == formattedPhone)&&(identical(other.sendOtpResponse, sendOtpResponse) || other.sendOtpResponse == sendOtpResponse)&&(identical(other.verifyOtpResponse, verifyOtpResponse) || other.verifyOtpResponse == verifyOtpResponse));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthFlowState&&(identical(other.authMethod, authMethod) || other.authMethod == authMethod)&&(identical(other.step, step) || other.step == step)&&(identical(other.previousStep, previousStep) || other.previousStep == previousStep)&&(identical(other.phone, phone) || other.phone == phone)&&(identical(other.email, email) || other.email == email)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&(identical(other.formattedPhone, formattedPhone) || other.formattedPhone == formattedPhone)&&(identical(other.sendOtpResponse, sendOtpResponse) || other.sendOtpResponse == sendOtpResponse)&&(identical(other.verifyOtpResponse, verifyOtpResponse) || other.verifyOtpResponse == verifyOtpResponse));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,type,step,previousStep,phone,email,countryCode,formattedPhone,sendOtpResponse,verifyOtpResponse);
+int get hashCode => Object.hash(runtimeType,authMethod,step,previousStep,phone,email,countryCode,formattedPhone,sendOtpResponse,verifyOtpResponse);
 
 @override
 String toString() {
-  return 'AuthFlowState(type: $type, step: $step, previousStep: $previousStep, phone: $phone, email: $email, countryCode: $countryCode, formattedPhone: $formattedPhone, sendOtpResponse: $sendOtpResponse, verifyOtpResponse: $verifyOtpResponse)';
+  return 'AuthFlowState(authMethod: $authMethod, step: $step, previousStep: $previousStep, phone: $phone, email: $email, countryCode: $countryCode, formattedPhone: $formattedPhone, sendOtpResponse: $sendOtpResponse, verifyOtpResponse: $verifyOtpResponse)';
 }
 
 
@@ -281,7 +281,7 @@ abstract mixin class _$AuthFlowStateCopyWith<$Res> implements $AuthFlowStateCopy
   factory _$AuthFlowStateCopyWith(_AuthFlowState value, $Res Function(_AuthFlowState) _then) = __$AuthFlowStateCopyWithImpl;
 @override @useResult
 $Res call({
- AuthFlowType type, AuthStep step, AuthStep? previousStep, String? phone, String? email, String? countryCode, String? formattedPhone, SendOtpResponse? sendOtpResponse, VerifyOtpResponse? verifyOtpResponse
+ AuthMethod? authMethod, AuthStep? step, AuthStep? previousStep, String? phone, String? email, String? countryCode, String? formattedPhone, SendOtpResponse? sendOtpResponse, VerifyOtpResponse? verifyOtpResponse
 });
 
 
@@ -298,11 +298,11 @@ class __$AuthFlowStateCopyWithImpl<$Res>
 
 /// Create a copy of AuthFlowState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? step = null,Object? previousStep = freezed,Object? phone = freezed,Object? email = freezed,Object? countryCode = freezed,Object? formattedPhone = freezed,Object? sendOtpResponse = freezed,Object? verifyOtpResponse = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? authMethod = freezed,Object? step = freezed,Object? previousStep = freezed,Object? phone = freezed,Object? email = freezed,Object? countryCode = freezed,Object? formattedPhone = freezed,Object? sendOtpResponse = freezed,Object? verifyOtpResponse = freezed,}) {
   return _then(_AuthFlowState(
-type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
-as AuthFlowType,step: null == step ? _self.step : step // ignore: cast_nullable_to_non_nullable
-as AuthStep,previousStep: freezed == previousStep ? _self.previousStep : previousStep // ignore: cast_nullable_to_non_nullable
+authMethod: freezed == authMethod ? _self.authMethod : authMethod // ignore: cast_nullable_to_non_nullable
+as AuthMethod?,step: freezed == step ? _self.step : step // ignore: cast_nullable_to_non_nullable
+as AuthStep?,previousStep: freezed == previousStep ? _self.previousStep : previousStep // ignore: cast_nullable_to_non_nullable
 as AuthStep?,phone: freezed == phone ? _self.phone : phone // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable

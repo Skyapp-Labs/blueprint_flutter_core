@@ -9,3 +9,4 @@ export 'fx_pin_input.dart';
 export 'fx_pin_input_theme.dart';
 export 'fx_pin_input_controller.dart';
 export 'fx_pin_input_field.dart';
+export 'fx_form_control.dart';

@@ -34,8 +34,8 @@ class _ForgotPasswordStepScreenState extends ConsumerState<ForgotPasswordStepScr
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    final state = ref.watch(forgotPasswordStepControllerProvider);
-    final controller = ref.read(forgotPasswordStepControllerProvider.notifier);
+    final isLoading = ref.watch(forgotPasswordStepControllerProvider
+      .select((s) => s.isLoading));
 
     return widget.template.buildShell(
       context: context,
@@ -55,12 +55,21 @@ class _ForgotPasswordStepScreenState extends ConsumerState<ForgotPasswordStepScr
             ),
             FxButton(
               label: widget.template.actionLabel,
-              isLoading: state.isLoading,
-              onPressed: controller.sendResetPasswordEmail,
+              isLoading: isLoading,
+              onPressed: _onSubmit,
             ),
           ],
         ),
       )
     );
+  }
+
+  void _onSubmit() {
+    final form = _formKey.currentState;
+    if (form == null || !form.validate()) return;
+    form.save();
+    final controller = ref.read(forgotPasswordStepControllerProvider.notifier);
+    controller.setEmail(_emailController.text);
+    controller.sendResetPasswordEmail();
   }
 }

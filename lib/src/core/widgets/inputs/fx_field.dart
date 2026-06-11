@@ -24,7 +24,9 @@ class FxField extends StatelessWidget with FxUiToolkit {
     final themed = decoration.applyDefaults(theme.inputDecorationTheme);
 
     return themed.copyWith(
-      labelText: options.label,
+      labelText: options.labelBehavior == FxLabelBehavior.external 
+        ? null 
+        : options.label,
       hintText: options.hint,
       helperText: options.helperText,
       errorText: options.errorText,

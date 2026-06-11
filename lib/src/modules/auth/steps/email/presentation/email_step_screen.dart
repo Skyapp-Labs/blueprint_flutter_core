@@ -60,7 +60,7 @@ class _EmailStepScreenState extends ConsumerState<EmailStepScreen>
                 hintText: 'Enter your email',
               )
             ),
-            FxTextField(
+            FxPasswordField(
               controller: _passwordController,
               initialValue: null,
               decoration: InputDecoration(
@@ -79,7 +79,7 @@ class _EmailStepScreenState extends ConsumerState<EmailStepScreen>
               '[Forgot password]',
               textAlign: TextAlign.right,
               padding: EdgeInsets.symmetric(vertical: sizes.md),
-              onTap: (_, __) => ref.goToAuthStep(AuthStep.forgotPassword),
+              onTap: (_, _) => ref.goToAuthStep(AuthStep.forgotPassword),
             ),
           ),
           FxButton(
@@ -91,7 +91,12 @@ class _EmailStepScreenState extends ConsumerState<EmailStepScreen>
       );
 
   void _onSubmit() {
-    if (_formKey.currentState?.validate() ?? false) {
-    }
+    final form = _formKey.currentState;
+    if (form == null || !form.validate()) return;
+    form.save();
+    final controller = ref.read(emailStepControllerProvider.notifier);
+    controller.setEmail(_emailController.text);
+    controller.setPassword(_passwordController.text);
+    controller.login();
   }
 }

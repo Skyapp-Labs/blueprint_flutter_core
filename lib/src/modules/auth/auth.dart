@@ -3,6 +3,7 @@ export 'core/storage/auth_storage.dart';
 export './auth_controller.dart';
 export './core/models/states/auth_state.dart';
 export './core/models/entities/user.dart';
+export './core/enums/auth_method.dart';
 
 // Auth flow
 export './flow/auth_flow_controller.dart';

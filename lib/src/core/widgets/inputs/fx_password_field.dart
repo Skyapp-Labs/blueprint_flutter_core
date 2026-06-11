@@ -42,7 +42,7 @@ class _FxPasswordFieldState extends State<FxPasswordField> with FxUiToolkit {
     setToolkitContext(context);
 
     return FxTextField(
-      options: widget.options,
+      options: widget.options.copyWith(obscureText: _obscured),
       decoration: _themedDecoration,
       onChanged: widget.onChanged,
       onSubmitted: widget.onSubmitted,

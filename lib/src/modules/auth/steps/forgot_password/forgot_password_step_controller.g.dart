@@ -47,7 +47,7 @@ final class ForgotPasswordStepControllerProvider
 }
 
 String _$forgotPasswordStepControllerHash() =>
-    r'b114849a751ec567ba68d8362ed09a07b1448dd4';
+    r'7da957064251bb87e47591c9dce4a6986d727521';
 
 abstract class _$ForgotPasswordStepController
     extends $Notifier<ForgotPasswordStepState> {

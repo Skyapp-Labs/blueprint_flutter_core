@@ -1,3 +1,5 @@
+import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_phone_input_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/utils/screen_util.dart';
@@ -287,5 +289,16 @@ abstract class FxThemeData extends ThemeExtension<FxThemeData> {
     contentPadding: EdgeInsets.symmetric(horizontal: sizes.md),
     horizontalTitleGap: sizes.md,
     titleStyle: typography.titleMedium
+  );
+
+  FxPhoneInputTheme get phoneInputTheme => FxPhoneInputTheme(
+    spacing: sizes.md,
+    flagSize: sizes.iconMd,
+    flagShape: FxFlagShape.circle,
+    integratedDialFactor: 0.4,
+    splitCountryFlex: 2,
+    phoneFlex: 3,
+    splitMinCountryWidth: 100.0.w,
+    splitMaxCountryWidth: 150.0.w,
   );
 }

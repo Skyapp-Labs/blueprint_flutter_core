@@ -1,5 +1,6 @@
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/payload/_payload.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/services/password_service.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/flow/auth_flow_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:blueprint_flutter_core/src/modules/auth/steps/forgot_password/forgot_password_step_state.dart';
@@ -42,9 +43,15 @@ class ForgotPasswordStepController extends _$ForgotPasswordStepController {
 
     result.when(
       success: (_) async {
+        final notifier = ref.read(authFlowControllerProvider.notifier);
+        // notifier.state = notifier.state.copyWith(
+        // );
+        notifier.goToNextStep();
+        if (!ref.mounted) return;
         state = state.copyWith(isLoading: false);
       },
       failure: (error) {
+        if (!ref.mounted) return;
         state = state.copyWith(error: error.message, isLoading: false);
       }
     );

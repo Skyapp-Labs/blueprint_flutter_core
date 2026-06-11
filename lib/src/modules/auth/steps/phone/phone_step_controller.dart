@@ -1,4 +1,3 @@
-import 'package:blueprint_flutter_core/src/core/network/fx_result.dart';
 import 'package:blueprint_flutter_core/src/core/network/network_providers.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/payload/send_otp_payload.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/flow/auth_flow_controller.dart';
@@ -55,9 +54,11 @@ class PhoneStepController extends _$PhoneStepController {
           sendOtpResponse: response,
         );
         state = state.copyWith(isLoading: false);
+        if (!ref.mounted) return;
         notifier.goToNextStep();
       },
       failure: (error) {
+        if (!ref.mounted) return;
         state = state.copyWith(error: error.message, isLoading: false);
       }
     );

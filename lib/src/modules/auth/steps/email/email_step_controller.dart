@@ -1,4 +1,3 @@
-import 'package:blueprint_flutter_core/src/core/network/fx_result.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/payload/login_with_email_payload.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/services/auth_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -55,9 +54,11 @@ class EmailStepController extends _$EmailStepController {
       success: (tokens) async {
         final authController = ref.read(authControllerProvider.notifier);
         await authController.applyTokens(tokens);
+        if (!ref.mounted) return;
         state = state.copyWith(isLoading: false);
       },
       failure: (error) {
+        if (!ref.mounted) return;
         state = state.copyWith(error: error.message, isLoading: false);
       }
     );

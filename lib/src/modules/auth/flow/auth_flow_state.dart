@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_step.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/responses/send_otp_response.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/responses/verify_otp_response.dart';
@@ -15,8 +16,8 @@ enum AuthFlowType {
 @freezed
 abstract class AuthFlowState with _$AuthFlowState {
   const factory AuthFlowState({
-    @Default(AuthFlowType.login) AuthFlowType type,
-    @Default(AuthStep.phone) AuthStep step,
+    @Default(null) AuthMethod? authMethod,
+    @Default(null) AuthStep? step,
     @Default(null) AuthStep? previousStep,
     String? phone,
     String? email,

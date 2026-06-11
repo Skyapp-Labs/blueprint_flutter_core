@@ -1,4 +1,3 @@
-import 'package:blueprint_flutter_core/src/core/network/fx_result.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/payload/_payload.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/services/auth_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -66,12 +65,15 @@ class OtpStepController extends _$OtpStepController {
     result.when(
       success: (response) {
         if (response.data.hasAccount) {
-          return _loginWithToken(response.data.verificationToken);
+          _loginWithToken(response.data.verificationToken);
+          return;
         }
         _authFlow.goToStep(AuthStep.signup);
+        if (!ref.mounted) return;
         state = state.copyWith(isLoading: false);
       },
       failure: (error) {
+        if (!ref.mounted) return;
         state = state.copyWith(error: error.message, isLoading: false);
       }
     );
