@@ -137,7 +137,7 @@ class _SignupStepScreenState extends ConsumerState<SignupStepScreen> with FxUiTo
     validator: formGroup.phone.validator,
     onChanged: (country, phone, [parsed]) {
       if(formGroup.phone.controller == null) return;
-      formGroup.phone.controller!.text = parsed?.fullNumber ?? '${country.dialCode}$phone';
+      formGroup.phone.controller!.text = parsed?.fullNumber ?? '';
       if(formGroup.countryCode.controller == null) return;
       formGroup.countryCode.controller!.text = country.code;
     },
