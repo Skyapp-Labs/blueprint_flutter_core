@@ -1,77 +1,78 @@
-part of '_overlay.dart';
+part of 'fx_overlay.dart';
 
-enum FxDialogStyle {
-  /// Standard centered modal — for confirmations, alerts, short forms
+enum FxDialogType {
   center,
-  /// Covers the full screen — for complex forms, detail views
-  fullPage
+  fullPage,
 }
 
 class FxDialog<T> extends StatefulWidget {
-
-  final FxOverlayData<T> data;
-  final FxDialogStyle style;
-
   const FxDialog._({
     super.key,
-    required this.data,
-    required this.style
+    required this.type,
+    required this.options,
   });
 
-  static Future<T?> show<T>(
-    BuildContext context,
-    {
-      /// Whether the dialog can be dismissed by tapping outside the dialog.
-      bool cancelable = true,
-      /// The style of the dialog: centered or full page. Default is centered.
-      FxDialogStyle style = FxDialogStyle.center,
-      /// The data for the dialog.
-      required FxOverlayData<T> data,
-    }
-  ) => switch(style) {
-    FxDialogStyle.center   => _showCenter(context, cancelable: cancelable, data: data),
-    FxDialogStyle.fullPage => _showFullPage(context, cancelable: cancelable, data: data),
+  final FxDialogType type;
+  final FxOverlayOptions<T> options;
+
+  static Future<Result?> show<Result, T>(
+    BuildContext context, {
+    bool cancelable = true,
+    FxDialogType type = FxDialogType.center,
+    required FxOverlayOptions<T> options,
+  }) => switch (type) {
+    FxDialogType.center => _showCenter<Result, T>(
+      context, 
+      cancelable: cancelable, 
+      options: options
+    ),
+    FxDialogType.fullPage => _showFullPage<Result, T>(
+      context, 
+      cancelable: cancelable, 
+      options: options
+    )
   };
 
-  static Future<T?> _showCenter<T>(
+  static Future<Result?> _showCenter<Result, T>(
     BuildContext context, {
     required bool cancelable,
-    required FxOverlayData<T> data,
-  }) => showDialog<T>(
-    context: context,
-    barrierDismissible: cancelable,
-    useSafeArea: false,
-    builder: (context) => FxDialog._(
-      data: data,
-      style: FxDialogStyle.center
-    )
-  );
+    required FxOverlayOptions<T> options,
+  })  => showDialog<Result>(
+        context: context,
+        useSafeArea: false,
+        barrierDismissible: cancelable,
+        builder: (context) => FxDialog._(
+          type: FxDialogType.center,
+          options: options,
+        )
+      );
 
-  static Future<T?> _showFullPage<T>(
+  static Future<Result?> _showFullPage<Result, T>(
     BuildContext context, {
     required bool cancelable,
-    required FxOverlayData<T> data,
-  }) => showGeneralDialog<T>(
-    context: context,
-    barrierDismissible: cancelable,
-    barrierLabel: 'Dismiss',
-    barrierColor: Colors.black54,
-    transitionDuration: const Duration(milliseconds: 280),
-    transitionBuilder: (context, animation, _, child) => SlideTransition(
-      position: Tween<Offset>(
-        begin: const Offset(1, 0),   // slides in from right — page-level navigation feel
-        end: Offset.zero,
-      ).animate(CurvedAnimation(
-        parent: animation,
-        curve: Curves.easeOutCubic,
-      )),
-      child: child,
-    ),
-    pageBuilder: (context, _, _) => FxDialog._(
-      data: data,
-      style: FxDialogStyle.fullPage,
-    ),
-  );
+    required FxOverlayOptions<T> options,
+  })  => showGeneralDialog<Result>(
+          context: context,
+          barrierColor: Colors.black54,
+          barrierDismissible: cancelable,
+          transitionDuration: const Duration(milliseconds: 280),
+          transitionBuilder: (context, animation, _, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeOutCubic,
+              )),
+              child: child,
+            );
+          },
+          pageBuilder: (context, _, _) => FxDialog._(
+            type: FxDialogType.fullPage,
+            options: options,
+          )
+        );
 
   @override
   State<FxDialog<T>> createState() => _FxDialogState<T>();
@@ -90,9 +91,9 @@ class _FxDialogState<T> extends State<FxDialog<T>> with FxUiToolkit {
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    return switch (widget.style) {
-      FxDialogStyle.center   => _buildCenterContent(),
-      FxDialogStyle.fullPage => _buildFullPageContent(),
+    return switch (widget.type) {
+      FxDialogType.center => _buildCenterContent(),
+      FxDialogType.fullPage => _buildFullPageContent(),
     };
   }
 
@@ -108,11 +109,9 @@ class _FxDialogState<T> extends State<FxDialog<T>> with FxUiToolkit {
         color: colorScheme.surface,
         borderRadius: BorderRadius.circular(sizes.radiusLg),
         clipBehavior: Clip.antiAlias,
-        child: IntrinsicHeight(
-          child: FxOverlayView<T>(
-            data: widget.data,
-            scrollController: _scrollController,
-          ),
+        child: FxOverlayView<T>(
+          options: widget.options,
+          scrollController: _scrollController,
         ),
       ),
     ),
@@ -122,9 +121,9 @@ class _FxDialogState<T> extends State<FxDialog<T>> with FxUiToolkit {
     color: colorScheme.surface,
     child: SafeArea(
       child: FxOverlayView<T>(
-        data: widget.data,
-        scrollController: _scrollController,
-      ),
-    ),
+        options: widget.options,
+        scrollController: _scrollController
+      )
+    )
   );
 }

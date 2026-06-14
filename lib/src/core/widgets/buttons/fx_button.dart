@@ -21,6 +21,7 @@ class FxButton extends StatelessWidget with FxUiToolkit {
     this.foregroundColor,
     this.backgroundColor,
     this.borderColor,
+    this.margin,
   });
 
   final String label;
@@ -34,6 +35,7 @@ class FxButton extends StatelessWidget with FxUiToolkit {
   final Color? foregroundColor;
   final Color? backgroundColor;
   final Color? borderColor;
+  final EdgeInsetsGeometry? margin;
 
   double get _height => height > 0 ? height : sizes.buttonMd;
 
@@ -61,27 +63,30 @@ class FxButton extends StatelessWidget with FxUiToolkit {
       side: borderColor != null ? WidgetStateProperty.all(BorderSide(color: borderColor!)) : null,
     );
 
-    return switch (variant) {
-      FxButtonVariant.primary || FxButtonVariant.danger => ElevatedButton(
-        onPressed: effectiveCallback,
-        style: style?.copyWith(
-          backgroundColor: variant == FxButtonVariant.danger
-            ? WidgetStateProperty.all(colorScheme.error)
-            : null,
+    return Padding(
+      padding: margin ?? EdgeInsets.zero,
+      child: switch (variant) {
+        FxButtonVariant.primary || FxButtonVariant.danger => ElevatedButton(
+          onPressed: effectiveCallback,
+          style: style?.copyWith(
+            backgroundColor: variant == FxButtonVariant.danger
+              ? WidgetStateProperty.all(colorScheme.error)
+              : null,
+          ),
+          child: child,
         ),
-        child: child,
-      ),
-      FxButtonVariant.outline => OutlinedButton(
-        onPressed: effectiveCallback,
-        style: style,
-        child: child,
-      ),
-      FxButtonVariant.secondary || FxButtonVariant.text => TextButton(
-        onPressed: effectiveCallback,
-        style: style,
-        child: child,
-      )
-    };
+        FxButtonVariant.outline => OutlinedButton(
+          onPressed: effectiveCallback,
+          style: style,
+          child: child,
+        ),
+        FxButtonVariant.secondary || FxButtonVariant.text => TextButton(
+          onPressed: effectiveCallback,
+          style: style,
+          child: child,
+        )
+      }
+    );
   }
 
   Widget _buildChild() {

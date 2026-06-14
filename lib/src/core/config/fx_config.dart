@@ -1,6 +1,5 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
 import 'package:blueprint_flutter_core/src/core/network/fx_api_endpoints.dart';
 import 'package:blueprint_flutter_core/src/core/config/fx_environment.dart';
 
@@ -38,10 +37,6 @@ abstract class FxConfig {
   /// API endpoint paths. Override in app config to add
   /// app-specific endpoints or change defaults.
   FxApiEndpoints get endpoints => const FxApiEndpoints();
-
-  /// Controls which auth flow is active across the entire app.
-  /// Set to [AuthMethod.phone] or [AuthMethod.email].
-  AuthMethod get authMethod;
 
   /// Whether to initialise Firebase. Set false to skip Firebase entirely.
   bool get enableFirebase;

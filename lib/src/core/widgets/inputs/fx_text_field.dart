@@ -1,109 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_field.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_field_options.dart';
 
 /// A styled text input field with label, hint, error, prefix, suffix,
 /// and password visibility toggle support.
-class FxTextField extends StatefulWidget {
-  const FxTextField({
+class FxTextField extends StatelessWidget with FxUiToolkit {
+  FxTextField({
     super.key,
-    this.controller,
-    this.label,
-    this.hint,
-    this.errorText,
-    this.prefix,
-    this.prefixIcon,
-    this.suffix,
-    this.suffixIcon,
-    this.obscureText = false,
-    this.keyboardType,
-    this.textInputAction,
+    this.options = const FxFieldOptions(),
+    this.decoration = const InputDecoration(),
+    this.onSaved,
     this.onChanged,
-    this.onSubmitted,
     this.validator,
-    this.enabled = true,
-    this.autofocus = false,
-    this.maxLines = 1,
-    this.maxLength,
-    this.focusNode,
+    this.controller,
+    this.onSubmitted,
     this.initialValue,
-    this.textCapitalization = TextCapitalization.none,
+    this.inputFormatters,
   });
 
-  final TextEditingController? controller;
-  final String? label;
-  final String? hint;
-  final String? errorText;
-  final Widget? prefix;
-  final Widget? prefixIcon;
-  final Widget? suffix;
-  final Widget? suffixIcon;
-  final bool obscureText;
-  final TextInputType? keyboardType;
-  final TextInputAction? textInputAction;
+  final String? initialValue;
+  final FxFieldOptions options;
+  final InputDecoration decoration;
+
+  final FormFieldValidator<String>? validator;
+
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
-  final FormFieldValidator<String>? validator;
-  final bool enabled;
-  final bool autofocus;
-  final int maxLines;
-  final int? maxLength;
-  final FocusNode? focusNode;
-  final String? initialValue;
-  final TextCapitalization textCapitalization;
+  final ValueChanged<String?>? onSaved;
+  final TextEditingController? controller;
+  final List<TextInputFormatter>? inputFormatters;
 
-  @override
-  State<FxTextField> createState() => _FxTextFieldState();
-}
-
-class _FxTextFieldState extends State<FxTextField> with FxUiToolkit {
-  late bool _obscured;
-
-  @override
-  void initState() {
-    super.initState();
-    _obscured = widget.obscureText;
-  }
+  InputDecoration _themedDecoration(BuildContext context) => FxField.resolveDecoration(
+    context: context,
+    options: options,
+    decoration: decoration,
+  );
 
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    return TextFormField(
-      controller: widget.controller,
-      initialValue: widget.initialValue,
-      obscureText: _obscured,
-      keyboardType: widget.keyboardType,
-      textInputAction: widget.textInputAction,
-      onChanged: widget.onChanged,
-      onFieldSubmitted: widget.onSubmitted,
-      validator: widget.validator,
-      enabled: widget.enabled,
-      autofocus: widget.autofocus,
-      maxLines: widget.obscureText ? 1 : widget.maxLines,
-      maxLength: widget.maxLength,
-      focusNode: widget.focusNode,
-      textCapitalization: widget.textCapitalization,
-      decoration: InputDecoration(
-        labelText: widget.label,
-        hintText: widget.hint,
-        errorText: widget.errorText,
-        prefix: widget.prefix,
-        prefixIcon: widget.prefixIcon,
-        suffix: widget.suffix,
-        suffixIcon: _buildSuffixIcon(),
-      ),
-    );
-  }
-
-  Widget? _buildSuffixIcon() {
-    if(!widget.obscureText) return widget.suffixIcon;
-
-    return IconButton(
-      onPressed: () => setState(() => _obscured = !_obscured),
-      icon: Icon(
-        _obscured ? Icons.visibility_off : Icons.visibility,
-        size: sizes.iconSm,
-      ),
+    return FxField(
+      options: options,
+      decoration: decoration,
+      child: TextFormField(
+        controller: controller,
+        initialValue: initialValue,
+        obscureText: options.obscureText,
+        keyboardType: options.keyboardType,
+        textInputAction: options.textInputAction,
+        onChanged: onChanged,
+        onFieldSubmitted: onSubmitted,
+        validator: validator,
+        enabled: options.enabled,
+        autofocus: options.autofocus,
+        maxLines: options.obscureText ? 1 : options.maxLines,
+        maxLength: options.maxLength,
+        focusNode: options.focusNode,
+        onSaved: onSaved,
+        textCapitalization: options.textCapitalization,
+        inputFormatters: inputFormatters,
+        decoration: _themedDecoration(context)
+      )
     );
   }
 }

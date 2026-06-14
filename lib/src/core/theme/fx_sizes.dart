@@ -25,8 +25,8 @@ abstract class FxSizes extends ThemeExtension<FxSizes>  {
 
   // overlay
   double get overlayRadius => 48.0.r;
-  double get overlayBorderWidth => 5.0.w;
-  double get overlayHandleHeight => 8.0.h;
+  double get overlayBorderWidth => 5.0.sp;
+  double get overlayHandleHeight => 5.0.h;
   double get overlayHandleMargin => 12.0.h;
   double get overlayHandleWidth => 64.0.w;
 

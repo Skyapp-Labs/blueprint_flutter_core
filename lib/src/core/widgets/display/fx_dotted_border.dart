@@ -2,30 +2,61 @@ import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 
+class FxDottedDividerThemeData {
+  const FxDottedDividerThemeData({
+    this.color,
+    this.strokeWidth = 1,
+    this.dashWidth = 5,
+    this.dashSpace = 3,
+  });
+
+  final Color? color;
+  final double? strokeWidth;
+  final double? dashWidth;
+  final double? dashSpace;
+}
+
 class FxDottedDivider extends StatelessWidget with FxUiToolkit {
 
 	final Color? color;
-	final double? strokeWidth;
+	final double? thickness;
 	final double? dashWidth;
 	final double? dashSpace;
 
 	FxDottedDivider({
 		super.key,
 		this.color,
-		this.strokeWidth,
+		this.thickness,
 		this.dashWidth,
 		this.dashSpace,
 	});
+
+  factory FxDottedDivider.fromThemeData(FxDottedDividerThemeData themeData) {
+    return FxDottedDivider(
+      color: themeData.color,
+      thickness: themeData.strokeWidth,
+      dashWidth: themeData.dashWidth,
+      dashSpace: themeData.dashSpace,
+    );
+  }
 
 	@override
 	Widget build(BuildContext context) {
     setToolkitContext(context);
 
+    if(dashWidth == null || dashSpace == null || dashWidth == 0 || dashSpace == 0) {
+      return Divider(
+        color: color ?? colorScheme.outline,
+        height: thickness ?? sizes.inputBorderWidth,
+        thickness: thickness ?? sizes.inputBorderWidth,
+      );
+    }
+
     return CustomPaint(
       size: const Size.fromHeight(1),
       painter: _DottedLinePainter(
         color: color ?? colorScheme.outline,
-        strokeWidth: strokeWidth ?? sizes.inputBorderWidth,
+        strokeWidth: thickness ?? sizes.inputBorderWidth,
         dashWidth: dashWidth ?? sizes.sm,
         dashSpace: dashSpace ?? sizes.xs,
       )

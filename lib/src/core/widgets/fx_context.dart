@@ -1,13 +1,15 @@
-import 'package:blueprint_flutter_core/src/core/shell/widgets/fx_shell_scope.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:blueprint_flutter_core/src/core/theme/fx_colors.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_sizes.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_typography.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_theme_data.dart';
+import 'package:blueprint_flutter_core/src/core/theme/fx_component_theme.dart';
 import 'package:blueprint_flutter_core/src/core/theme/fx_theme_controller.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/overlay/_overlay.dart';
+
+import 'package:blueprint_flutter_core/src/core/shell/widgets/fx_shell_scope.dart';
 
 mixin FxUiToolkit {
   BuildContext? _context;
@@ -44,6 +46,12 @@ mixin FxUiToolkit {
 
   /// Returns the colors for the context.
   FxColors get colors => typography.colors;
+
+  /// Returns the theme data for the context.
+  FxThemeData get themeData => theme.extension<FxThemeData>()!;
+
+  /// Returns the component theme for the context.
+  FxComponentTheme get componentTheme => theme.extension<FxComponentTheme>()!;
 
   // ── Screen ─────────────────────────────────────────────
 
@@ -105,53 +113,6 @@ mixin FxUiToolkit {
   /// Returns true if there is a route to pop.
   bool get canPop => GoRouter.of(_ctx).canPop();
 
-
-  // ── Overlay / Focus ─────────────────────────────────────────────
-
-  /// Shows the blueprint bottom sheet.
-  ///
-  /// Use [FxOverlayData] to configure title, content, list, heading, and footer.
-  Future<T?> showFxBottomSheet<T>({
-    /// Whether the bottom sheet can be dismissed by tapping outside.
-    bool cancelable = true,
-    /// Allows the sheet to expand to full screen height.
-    bool allowFullHeight = true,
-    /// The maximum fraction of screen height the sheet can occupy.
-    double maxChildSize = 0.9,
-    /// The minimum fraction of screen height the sheet can occupy.
-    double minChildSize = 0.25,
-    /// The initial fraction of screen height the sheet occupies when opened.
-    double initialChildSize = 0.5,
-    /// The data for the bottom sheet.
-    required FxOverlayData<T> data,
-  }) => FxBottomSheet.show<T>(
-    _ctx,
-    data: data,
-    cancelable: cancelable,
-    allowFullHeight: allowFullHeight,
-    maxChildSize: maxChildSize,
-    minChildSize: minChildSize,
-    initialChildSize: initialChildSize,
-  );
-
-  /// Shows the blueprint dialog.
-  ///
-  /// Use [FxDialogStyle.center] for confirmations and alerts.
-  /// Use [FxDialogStyle.fullPage] for complex forms or detail views.
-  Future<T?> showFxDialog<T>({
-    /// Whether the dialog can be dismissed by tapping outside.
-    bool cancelable = true,
-    /// The style of the dialog: centered or full page. Default is centered.
-    FxDialogStyle style = FxDialogStyle.center,
-    /// The data for the dialog.
-    required FxOverlayData<T> data,
-  }) => FxDialog.show<T>(
-    _ctx,
-    data: data,
-    cancelable: cancelable,
-    style: style,
-  );
-
   /// Unfocuses the current focus node.
   void unfocus() => FocusScope.of(_ctx).unfocus();
   /// Shows a snack bar.
@@ -199,4 +160,19 @@ class FxUiContext with FxUiToolkit {
 
 extension FxUiToolkitContext on BuildContext {
   FxUiContext get fxUiToolkit => FxUiContext.of(this);
+
+  /// Returns the sizes for the context.
+  FxSizes get sizes => fxUiToolkit.sizes;
+
+  /// Returns the typography for the context.
+  FxTypography get typography => fxUiToolkit.typography;
+
+  /// Returns the colors for the context.
+  FxColors get colors => fxUiToolkit.colors;
+
+  /// Returns the theme data for the context.
+  FxThemeData get themeData => fxUiToolkit.themeData;
+
+  /// Returns the component theme for the context.
+  FxComponentTheme get componentTheme => fxUiToolkit.componentTheme;
 }

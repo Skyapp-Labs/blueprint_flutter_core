@@ -17,6 +17,6 @@ export 'src/core/shell/shell.dart';
 export 'src/core/widgets/layout/_layout.dart';
 export 'src/core/widgets/buttons/_buttons.dart';
 export 'src/core/widgets/inputs/_inputs.dart';
-export 'src/core/widgets/overlay/_overlay.dart';
+export 'src/core/widgets/overlay/fx_overlay.dart';
 export 'src/core/widgets/feedback/_feedback.dart';
 export 'src/core/widgets/display/_display.dart';

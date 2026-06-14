@@ -1,67 +1,78 @@
-part of '_overlay.dart';
+part of 'fx_overlay.dart';
 
+/// Routes [FxOverlayData] to a list picker or custom body.
 class FxOverlayView<T> extends StatelessWidget with FxUiToolkit {
+  FxOverlayView({
+    super.key,
+    this.showTitle = true,
+    this.isScrollable = true,
+    required this.options,
+    required this.scrollController,
+  });
 
-	final bool isScrollable;
-	final ScrollController scrollController;
-	final FxOverlayData<T> data;
-	/// When false, suppresses the title rendering — used by [FxBottomSheetContainer]
-	/// which owns the title area above the handle separately.
-	final bool showTitle;
+  final bool showTitle;
+  final bool isScrollable;
+  final ScrollController scrollController;
+  final FxOverlayOptions<T> options;
 
-	FxOverlayView({
-		super.key,
-		this.isScrollable = true,
-		this.showTitle = true,
-		required this.data,
-		required this.scrollController,
-	});
+  @override
+  Widget build(BuildContext context) {
+    setToolkitContext(context);
 
-	@override
-	Widget build(BuildContext context) {
-		setToolkitContext(context);
+    final body = _buildBodyContent(context);
+    
+    if (!showTitle || options.title == null) return body;
 
-		final hasTitle = showTitle && data.title != null;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: sizes.sm,
+      children: [
+        _buildTitle(options.title!),
+        Expanded(child: body),
+      ]
+    );
+  }
 
-		if(!hasTitle) return _buildBodyContent(context);
+  Widget _buildTitle(String text) {
+    final closeButton = FxIconButton(
+      icon: componentTheme.navigateBackIcon,
+      onPressed: () => pop(),
+      size: sizes.iconSm,
+    );
 
-		return Column(
-			spacing: sizes.sm,
-			crossAxisAlignment: CrossAxisAlignment.stretch,
-			children: [
-				_buildTitle(data.title!),
-				Expanded(child: _buildBodyContent(context)),
-			]
-		);
-	}
-
-  Widget _buildTitle(String text) => Padding(
-		padding: EdgeInsets.only(
-			top: sizes.sm,
-		),
-		child: Text(
-			text,
-			textAlign: TextAlign.center,
-			style: typography.titleMedium.copyWith(
-				color: colors.onSurface,
-				fontWeight: FontWeight.w600,
-			)
-		)
-	);
-
+    return Padding(
+      padding: EdgeInsets.only(right: sizes.md),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            closeButton,
+            Expanded(
+              child: Text(
+                text,
+                textAlign: TextAlign.left,
+                style: theme.appBarTheme.titleTextStyle?.copyWith(
+                  height: 1
+                ),
+              )
+            ),
+          ]
+        )
+    );
+  }
 
   Widget _buildBodyContent(BuildContext context) {
-		if(data.list != null) {
-			return FxOverlayListView(
-				data: data.list!,
-				scrollController: scrollController,
-			);
-		}
+    if (options.mode != FxOverlayMode.builder) {
+      return FxOverlayList<T>(
+        options: options,
+        scrollController: scrollController,
+      );
+    }
 
-		return FxOverlayContainer(
-			data: data,
-			isScrollable: isScrollable,
-			scrollController: scrollController
-		);
-	}
+    return FxOverlayBody<T>(
+      options: options,
+      isScrollable: isScrollable,
+      scrollController: scrollController,
+    );
+  }
 }

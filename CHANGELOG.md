@@ -5,6 +5,35 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.2.0
+
+### Added
+
+**Auth**
+- Implemented forgot password functionality with new state management and UI templates.
+- Enhanced authentication flow with new step templates.
+
+**Widgets & Forms**
+- Introduced `FxPhoneInputTheme` and `FxFormControl` classes.
+- Added new input field components and enhanced existing widgets with new options and themes.
+
+**Networking & Core**
+- Introduced `FxError` and `FxResult` classes for improved error handling and response management.
+
+### Changed
+
+**Auth**
+- Refactored authentication flow existing steps for improved structure.
+- Updated `EmailStepScreen` layout to use `body` parameter.
+- Updated phone input formatting logic and consolidated auth module exports.
+
+**Widgets & UI**
+- Refactored input field components for improved usability and theme management.
+- Updated icon path handling across multiple categories for consistency and maintainability.
+
+**Networking**
+- Enhanced `FxAuthInterceptor` to normalize public endpoint paths and improve token handling.
+
 ## 2.1.0
 
 ### Added
