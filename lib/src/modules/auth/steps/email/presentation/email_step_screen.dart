@@ -9,10 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class EmailStepScreen extends ConsumerStatefulWidget {
-  const EmailStepScreen({
-    super.key,
-    required this.template,
-  });
+  const EmailStepScreen({super.key, required this.template});
 
   final EmailStepTemplate template;
 
@@ -40,55 +37,48 @@ class _EmailStepScreenState extends ConsumerState<EmailStepScreen>
     return widget.template.buildShell(
       context: context,
       ref: ref,
-      children: [
-        _buildEmailForm(),
-        _buildActions(),
-      ],
+      body: Column(children: [_buildEmailForm(), _buildActions()]),
     );
   }
 
   Widget _buildEmailForm() => Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          spacing: sizes.md,
-          children: [
-            FxTextField(
-              controller: _emailController,
-              initialValue: null,
-              decoration: InputDecoration(
-                hintText: 'Enter your email',
-              )
-            ),
-            FxPasswordField(
-              controller: _passwordController,
-              initialValue: null,
-              decoration: InputDecoration(
-                hintText: 'Enter your password',
-              )
-            ),
-          ],
+    key: _formKey,
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      spacing: sizes.md,
+      children: [
+        FxTextField(
+          controller: _emailController,
+          initialValue: null,
+          decoration: InputDecoration(hintText: 'Enter your email'),
         ),
-      );
+        FxPasswordField(
+          controller: _passwordController,
+          initialValue: null,
+          decoration: InputDecoration(hintText: 'Enter your password'),
+        ),
+      ],
+    ),
+  );
 
   Widget _buildActions() => Column(
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: FxText(
-              '[Forgot password]',
-              textAlign: TextAlign.right,
-              padding: EdgeInsets.symmetric(vertical: sizes.md),
-              onTap: (_, _) => ref.goToAuthStep(AuthStep.forgotPassword),
-            ),
-          ),
-          FxButton(
-            label: widget.template.actionLabel,
-            isLoading: ref.watch(emailStepControllerProvider).isLoading,
-            onPressed: _onSubmit,
-          ),
-        ],
-      );
+    children: [
+      Align(
+        alignment: Alignment.centerRight,
+        child: FxText(
+          '[Forgot password]',
+          textAlign: TextAlign.right,
+          padding: EdgeInsets.symmetric(vertical: sizes.md),
+          onTap: (_, _) => ref.goToAuthStep(AuthStep.forgotPassword),
+        ),
+      ),
+      FxButton(
+        label: widget.template.actionLabel,
+        isLoading: ref.watch(emailStepControllerProvider).isLoading,
+        onPressed: _onSubmit,
+      ),
+    ],
+  );
 
   void _onSubmit() {
     final form = _formKey.currentState;
