@@ -1,36 +1,138 @@
 import 'package:flutter/material.dart';
-import 'package:blueprint_flutter_core/blueprint_theme.dart';
+import 'package:blueprint_flutter_core/blueprint_theme.dart' show FxColors, FxColorMode;
 
 class AppColors extends FxColors {
-  const AppColors({super.brightness});
+
+  AppColors({super.brightness = Brightness.light});
 
   @override
-  AppColors copyWith({Brightness? brightness}) =>
-      AppColors(brightness: brightness ?? this.brightness);
+  FxColors copyWith({ Brightness? brightness }) =>
+    AppColors(brightness: brightness ?? super.brightness);
 
+  // ── Primary ──────────────────────────────────────────────────────────────
   @override
-  FxColorMode get primaryMode => const FxColorMode(
-    light: Color(0xFF4F46E5),
-    dark:  Color(0xFF818CF8),
+  FxColorMode get primaryMode => FxColorMode(
+    light: const Color(0xFF132B50),   // Google Blue — replace with your brand
+    dark:  const Color(0xFF4DA3FF),
   );
 
-  @override FxColorMode get onPrimaryMode     => const FxColorMode(light: Colors.white,          dark: Color(0xFF1E1B4B));
-  @override FxColorMode get secondaryMode     => const FxColorMode(light: Color(0xFF7C3AED),    dark: Color(0xFFA78BFA));
-  @override FxColorMode get onSecondaryMode   => const FxColorMode(light: Colors.white,          dark: Color(0xFF2E1065));
-  @override FxColorMode get errorMode         => const FxColorMode(light: Color(0xFFDC2626),    dark: Color(0xFFF87171));
-  @override FxColorMode get onErrorMode       => const FxColorMode(light: Colors.white,          dark: Color(0xFF7F1D1D));
-  @override FxColorMode get backgroundMode    => const FxColorMode(light: Color(0xFFF9FAFB),   dark: Color(0xFF0F172A));
-  @override FxColorMode get onBackgroundMode  => const FxColorMode(light: Color(0xFF111827),   dark: Color(0xFFF1F5F9));
-  @override FxColorMode get surfaceMode       => const FxColorMode(light: Colors.white,         dark: Color(0xFF1E293B));
-  @override FxColorMode get onSurfaceMode     => const FxColorMode(light: Color(0xFF111827),   dark: Color(0xFFF1F5F9));
-  @override FxColorMode get surfaceVariantMode=> const FxColorMode(light: Color(0xFFE0E7FF),   dark: Color(0xFF334155));
-  @override FxColorMode get outlineMode       => const FxColorMode(light: Color(0xFFE2E8F0),   dark: Color(0xFF334155));
-  @override FxColorMode get shadowMode        => const FxColorMode(light: Color(0x1A000000),   dark: Color(0x33000000));
-  @override FxColorMode get successMode       => const FxColorMode(light: Color(0xFF16A34A),   dark: Color(0xFF4ADE80));
-  @override FxColorMode get warningMode       => const FxColorMode(light: Color(0xFFD97706),   dark: Color(0xFFFBBF24));
-  @override FxColorMode get infoMode          => const FxColorMode(light: Color(0xFF0284C7),   dark: Color(0xFF38BDF8));
-  @override FxColorMode get textPrimaryMode   => const FxColorMode(light: Color(0xFF111827),   dark: Color(0xFFF1F5F9));
-  @override FxColorMode get textSecondaryMode => const FxColorMode(light: Color(0xFF6B7280),   dark: Color(0xFF94A3B8));
-  @override FxColorMode get textDisabledMode  => const FxColorMode(light: Color(0xFFD1D5DB),   dark: Color(0xFF475569));
-  @override FxColorMode get textInverseMode   => const FxColorMode(light: Colors.white,         dark: Color(0xFF0F172A));
+  @override
+  FxColorMode get onPrimaryMode => FxColorMode(
+    light: const Color(0xFFFFFFFF),
+    dark:  const Color(0xFF003060),
+  );
+
+  // ── Secondary ────────────────────────────────────────────────────────────
+  @override
+  FxColorMode get secondaryMode => FxColorMode(
+    light: const Color(0xFFF8B94D),
+    dark:  const Color(0xFF03DAC6),
+  );
+
+  @override
+  FxColorMode get onSecondaryMode => FxColorMode(
+    light: const Color(0xFF000000),
+    dark:  const Color(0xFF000000),
+  );
+
+  // ── Error ─────────────────────────────────────────────────────────────────
+  @override
+  FxColorMode get errorMode => FxColorMode(
+    light: const Color(0xFFDD2B2B),
+    dark:  const Color(0xFFCF6679),
+  );
+
+  @override
+  FxColorMode get onErrorMode => FxColorMode(
+    light: const Color(0xFFFFFFFF),
+    dark:  const Color(0xFF000000),
+  );
+
+  // ── Background / Surface ─────────────────────────────────────────────────
+  @override
+  FxColorMode get backgroundMode => FxColorMode(
+    light: const Color(0xFFF5F5F5),
+    dark:  const Color(0xFF121212),
+  );
+
+  @override
+  FxColorMode get onBackgroundMode => FxColorMode(
+    light: const Color(0xFF1C1C1C),
+    dark:  const Color(0xFFEEEEEE),
+  );
+
+  @override
+  FxColorMode get surfaceMode => FxColorMode(
+    light: const Color(0xFFFFFFFF),
+    dark:  const Color(0xFF1E1E1E),
+  );
+
+  @override
+  FxColorMode get onSurfaceMode => FxColorMode(
+    light: const Color(0xFF1C1C1C),
+    dark:  const Color(0xFFEEEEEE),
+  );
+
+  // ── Supplemental ─────────────────────────────────────────────────────────
+  @override
+  FxColorMode get surfaceVariantMode => FxColorMode(
+    light: const Color(0xFFE8E8E8),
+    dark:  const Color(0xFF2C2C2C),
+  );
+
+  @override
+  FxColorMode get outlineMode => FxColorMode(
+    light: const Color(0xFFBDBDBD),
+    dark:  const Color(0xFF424242),
+  );
+
+  @override
+  FxColorMode get shadowMode => FxColorMode(
+    light: const Color(0xFF000000),
+    dark:  const Color(0xFF000000),
+  );
+
+  // ── Semantic ──────────────────────────────────────────────────────────────
+  @override
+  FxColorMode get successMode => FxColorMode(
+    light: const Color(0xFF388E3C),
+    dark:  const Color(0xFF66BB6A),
+  );
+
+  @override
+  FxColorMode get warningMode => FxColorMode(
+    light: const Color(0xFFF59F0A),
+    dark:  const Color(0xFFFFB74D),
+  );
+
+  @override
+  FxColorMode get infoMode => FxColorMode(
+    light: const Color(0xFF0A84FF),
+    dark:  const Color(0xFF4FC3F7),
+  );
+
+  // ── Text ──────────────────────────────────────────────────────────────────
+  @override
+  FxColorMode get textPrimaryMode => FxColorMode(
+    light: const Color(0xFF141D2E),
+    dark:  const Color(0xFFEEEEEE),
+  );
+
+  @override
+  FxColorMode get textSecondaryMode => FxColorMode(
+    light: const Color(0xFF757575),
+    dark:  const Color(0xFFAAAAAA),
+  );
+
+  @override
+  FxColorMode get textDisabledMode => FxColorMode(
+    light: const Color(0xFFBDBDBD),
+    dark:  const Color(0xFF616161),
+  );
+
+  @override
+  FxColorMode get textInverseMode => FxColorMode(
+    light: const Color(0xFFFFFFFF),
+    dark:  const Color(0xFF1C1C1C),
+  );
 }

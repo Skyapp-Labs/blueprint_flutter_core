@@ -1,6 +1,6 @@
 import 'package:blueprint_flutter_core/blueprint_flutter_core.dart';
 
-class MyAppConfig extends FxConfig {
+class AppConfig extends FxConfig {
   @override
   String get appName => 'Blueprint Example';
 
