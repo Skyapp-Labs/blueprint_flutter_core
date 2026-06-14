@@ -20,7 +20,7 @@ GoRouter router(Ref ref) {
     redirect: (_, state) => FxAuthGuard.redirect(
       initialPath: AppPaths.splash,
       dashboardPath: AppPaths.home,
-      authPaths: [AppPaths.login, AppPaths.onboarding],
+      authPaths: [AppPaths.login],
       authState: ref.read(authControllerProvider),
       location: state.uri.toString(),
     ),

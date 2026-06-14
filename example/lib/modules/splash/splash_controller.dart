@@ -5,8 +5,7 @@ part 'splash_controller.g.dart';
 
 enum NavigationTarget {
   home,
-  login,
-  onboarding,
+  login
 }
 
 // ─────────────────────────────────────────────
@@ -33,7 +32,7 @@ class SplashController extends _$SplashController {
 
     return switch (authStatus) {
       AuthStatus.authenticated => NavigationTarget.home,
-      _ => NavigationTarget.onboarding,
+      _ => NavigationTarget.login,
     };
   }
 
