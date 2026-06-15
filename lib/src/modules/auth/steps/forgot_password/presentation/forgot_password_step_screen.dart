@@ -38,8 +38,6 @@ class _ForgotPasswordStepScreenState extends ConsumerState<ForgotPasswordStepScr
       .select((s) => s.isLoading));
 
     return widget.template.buildShell(
-      context: context,
-      ref: ref,
       body: Form(
         key: _formKey,
         child: Column(

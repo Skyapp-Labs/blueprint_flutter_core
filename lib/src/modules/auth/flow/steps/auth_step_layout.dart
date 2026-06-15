@@ -23,8 +23,8 @@ class AuthStepLayout {
   final String? subtitle;
   final TextStyle? titleStyle;
   final TextStyle? subtitleStyle;
-  final Function(int position, String text, WidgetRef ref)? titleOnTap;
-  final Function(int position, String text, WidgetRef ref)? subtitleOnTap;
+  final void Function(int position, String text)? titleOnTap;
+  final void Function(int position, String text)? subtitleOnTap;
   final String actionLabel;
   final EdgeInsets? contentPadding;
   final double? contentSpacing;
@@ -34,4 +34,23 @@ class AuthStepLayout {
   final CrossAxisAlignment crossAxisAlignment;
 
   bool get hasHeaderContent => title != null || subtitle != null;
+
+  AuthStepLayout copyWith({
+    String? title,
+    String? subtitle,
+  }) => AuthStepLayout(
+    title: title ?? this.title,
+    subtitle: subtitle ?? this.subtitle,
+    titleStyle: titleStyle,
+    subtitleStyle: subtitleStyle,
+    titleOnTap: titleOnTap,
+    subtitleOnTap: subtitleOnTap,
+    actionLabel: actionLabel,
+    contentPadding: contentPadding,
+    contentSpacing: contentSpacing,
+    headerSpacing: headerSpacing,
+    textAlign: textAlign,
+    mainAxisAlignment: mainAxisAlignment,
+    crossAxisAlignment: crossAxisAlignment,
+  );
 }

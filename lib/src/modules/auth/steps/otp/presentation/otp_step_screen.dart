@@ -33,8 +33,6 @@ class _OtpStepScreenState extends ConsumerState<OtpStepScreen> {
     final state = ref.watch(otpStepControllerProvider);
 
     return widget.template.buildShell(
-      context: context,
-      ref: ref,
       children: [
         FxOtpInput(
           key: _otpKey,

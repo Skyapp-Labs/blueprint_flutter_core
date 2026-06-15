@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/core/theme/models/models.dart';
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/theme/fx_colors.dart';
@@ -43,6 +44,30 @@ abstract class FxComponentTheme extends ThemeExtension<FxComponentTheme> {
 
   Widget get arrowDownIcon => const Icon(Icons.keyboard_arrow_down_rounded);
 
+  FxViewTransitionTheme get iconToggleTransition => FxViewTransitionTheme(
+    duration: const Duration(milliseconds: 350),
+    switchInCurve: Curves.easeOutBack,
+    switchOutCurve: Curves.easeInBack,
+    transitionBuilder: (child, anim) {
+      // Incoming icon spins in from 180° → 0°
+      final turnIn = Tween<double>(begin: 0.5, end: 0.0).animate(anim);
+      // Outgoing icon spins out 0° → -90°
+      final turnOut = Tween<double>(begin: 0.0, end: -0.25).animate(
+        ReverseAnimation(anim),
+      );
+      return RotationTransition(
+        turns: anim.status == AnimationStatus.reverse ? turnOut : turnIn,
+        child: FadeTransition(
+          opacity: anim,
+          child: ScaleTransition(
+            scale: Tween<double>(begin: 0.85, end: 1.0).animate(anim),
+            child: child,
+          )
+        ),
+      );
+    },
+  );
+
   Widget checkedCheckboxIcon({double? size, Color? color}) => Icon(
     Icons.check, 
     size: size, 
@@ -67,22 +92,25 @@ abstract class FxComponentTheme extends ThemeExtension<FxComponentTheme> {
     color: color
   );
 
-  Widget passwordTransition(Widget child, Animation<double> animation) {
-    // Incoming icon spins in from 180° → 0°
-    final turnIn = Tween<double>(begin: 0.5, end: 0.0).animate(animation);
-    // Outgoing icon spins out 0° → -90°
-    final turnOut = Tween<double>(begin: 0.0, end: -0.25).animate(
-      ReverseAnimation(animation),
-    );
-    return RotationTransition(
-      turns: animation.status == AnimationStatus.reverse ? turnOut : turnIn,
-      child: FadeTransition(
-        opacity: animation,
-        child: ScaleTransition(
-          scale: Tween<double>(begin: 0.85, end: 1.0).animate(animation),
-          child: child,
+  FxViewTransitionTheme switchingViewTransition({bool isForward = true}) => FxViewTransitionTheme(
+    duration: const Duration(milliseconds: 300),
+    switchInCurve: Curves.easeOutBack,
+    switchOutCurve: Curves.easeInBack,
+    transitionBuilder: (child, anim) => SlideTransition(
+      position: Tween<Offset>(
+        begin: isForward
+            ? const Offset(1, 0)
+            : const Offset(-1, 0),
+        end: Offset.zero,
+      ).animate(
+        CurvedAnimation(
+          parent: ClampedAnimation(anim),
+          curve: Curves.easeInOut,
         ),
       ),
-    );
-  }
+      child: child,
+    )
+  );
+
+
 }

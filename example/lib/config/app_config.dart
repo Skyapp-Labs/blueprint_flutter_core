@@ -5,10 +5,10 @@ class AppConfig extends FxConfig {
   String get appName => 'Blueprint Example';
 
   @override
-  String get apiBaseUrl => 'https://jsonplaceholder.typicode.com'; // Dummy URL
+  String get apiBaseUrl => 'https://goatskin-balance-eliminate.ngrok-free.dev'; // Dummy URL
 
   @override
-  String get apiVersion => 'v1';
+  String get apiVersion => 'api/v1';
 
   @override
   bool get enableFirebase => false;

@@ -89,7 +89,10 @@ class FxSignupFormGroup extends FxFormGroup {
 
 
 abstract class SignupStepTemplate extends AuthStepTemplate {
-  const SignupStepTemplate();
+  const SignupStepTemplate({
+    super.context,
+    super.ref,
+  });
 
   FxNameLayout get nameLayout => FxNameLayout.split;
 
@@ -103,14 +106,14 @@ abstract class SignupStepTemplate extends AuthStepTemplate {
     title: 'Create your account',
     subtitle: 'Do you already have an account? [Log in]',
     actionLabel: 'Create account',
-    subtitleOnTap: (_, _, context) => context.goToAuthStep(AuthStep.emailAndPassword),
+    subtitleOnTap: (_, _) => ref.goToAuthStep(AuthStep.emailAndPassword),
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.start,
     textAlign: TextAlign.start,
   );
 
   @override
-  PreferredSizeWidget? buildAppBar(BuildContext context, WidgetRef ref) => PreferredSize(
+  PreferredSizeWidget? get buildAppBar => PreferredSize(
     preferredSize: Size.fromHeight(context.sizes.appBarHeight),
     child: Align(
       alignment: Alignment.centerLeft,
@@ -123,5 +126,14 @@ abstract class SignupStepTemplate extends AuthStepTemplate {
 }
 
 class DefaultSignupStepTemplate extends SignupStepTemplate {
-  const DefaultSignupStepTemplate();
+  const DefaultSignupStepTemplate({
+    super.context,
+    super.ref,
+  });
+
+  @override
+  SignupStepTemplate copyWith({
+    required BuildContext context,
+    required WidgetRef ref,
+  }) => DefaultSignupStepTemplate(context: context, ref: ref);
 }

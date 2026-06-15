@@ -98,8 +98,8 @@ class _FxPhoneInputLayout extends StatelessWidget with FxUiToolkit {
 
   final FxPhoneInputViewData data;
 
-  Widget get countryFlag => FxCountryFlag(
-    countryCode: data.selectedCountry.code,
+  Widget countryFlag(FxCountry country) => FxCountryFlag(
+    countryCode: country.code,
     size: themeData.phoneInputTheme.flagSizeOf(sizes),
     shape: themeData.phoneInputTheme.flagShape,
   );
@@ -107,7 +107,7 @@ class _FxPhoneInputLayout extends StatelessWidget with FxUiToolkit {
   FxOverlayTile<FxCountry> get _overlayTile => FxOverlayTile<FxCountry>(
     title: (c) => c.name,
     subtitle: (c) => c.dialCode,
-    leadingBuilder: (_, c, _) => countryFlag,
+    leadingBuilder: (_, c, _) => countryFlag(c),
     trailingBuilder: (_, c, _) => Text(c.code, style: typography.labelSmall),
   );
 
@@ -157,7 +157,7 @@ class _FxPhoneInputLayout extends StatelessWidget with FxUiToolkit {
   Widget countryField() => FxSelectField<FxCountry, FxCountry>(
     key: ValueKey(data.selectedCountry.code),
     expands: data.isSplit,
-    options: data.countryOptions(countryFlag),
+    options: data.countryOptions(countryFlag(data.selectedCountry)),
     decoration: data.countryDecoration(),
     overlayType: data.config.overlayType,
     valueBuilder: (_) => data.countryLabel(),

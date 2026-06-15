@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/auth_controller.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/flow/steps/_steps.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/steps/steps.dart';
@@ -26,7 +27,7 @@ class AuthFlowScreen extends ConsumerStatefulWidget {
   ConsumerState<AuthFlowScreen> createState() => _AuthFlowScreenState();
 }
 
-class _AuthFlowScreenState extends ConsumerState<AuthFlowScreen> {
+class _AuthFlowScreenState extends ConsumerState<AuthFlowScreen> with FxUiToolkit {
 
   @override
   void initState() {
@@ -50,6 +51,7 @@ class _AuthFlowScreenState extends ConsumerState<AuthFlowScreen> {
 
   @override
   Widget build(BuildContext context) {
+    setToolkitContext(context);
     final flow      = ref.watch(authFlowControllerProvider);
 
     ref.listen(
@@ -63,52 +65,42 @@ class _AuthFlowScreenState extends ConsumerState<AuthFlowScreen> {
 
     if (flow.step == null) return const SizedBox.shrink();
 
+    final transitionTheme = componentTheme.switchingViewTransition();
+
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 300),
-      transitionBuilder: (child, anim) => transitionBuilder(
-        child: child, 
-        animation: anim, 
-        currentStep: flow.step!, 
-        previousStep: flow.previousStep,
-      ),
-      child: _buildStep(flow.step!),
+      duration: transitionTheme.duration,
+      switchInCurve: transitionTheme.switchInCurve,
+      switchOutCurve: transitionTheme.switchOutCurve,
+      transitionBuilder: (child, animation) {
+        // final isForward = (flow.previousStep?.stepIndex ?? 0) < flow.step!.stepIndex;
+
+        return componentTheme
+          .switchingViewTransition(isForward: false)
+          .transitionBuilder(child, animation);
+      },
+      layoutBuilder: transitionTheme.layoutBuilder,
+      reverseDuration: transitionTheme.reverseDuration,
+      child: _buildStep(flow.step!, widget.templates.copyWith(context: context, ref: ref)),
     );
   }
 
-  Widget _buildStep(AuthStep step) => switch (step) {
+  Widget _buildStep(AuthStep step, AuthStepTemplates templates) => switch (step) {
     AuthStep.phone => PhoneStepScreen(
-      template: widget.templates.phone,
+      template: templates.phone,
     ),
     AuthStep.emailAndPassword => EmailStepScreen(
-      template: widget.templates.email,
+      template: templates.email,
     ),
     AuthStep.otp => OtpStepScreen(
-      template: widget.templates.otp,
+      template: templates.otp,
     ),
     AuthStep.signup => SignupStepScreen(
-      template: widget.templates.signup,
+      template: templates.signup,
     ),
     AuthStep.forgotPassword => ForgotPasswordStepScreen(
-      template: widget.templates.forgotPassword,
+      template: templates.forgotPassword,
     ),
     AuthStep.verifyResetPassword => Text('Verify Reset Password'),
     AuthStep.resetPassword => Text('Reset Password'),
   };
-
-  Widget transitionBuilder({
-    required Widget child, 
-    required Animation<double> animation, 
-    required AuthStep currentStep, 
-    AuthStep? previousStep,
-  }) {
-    final isForward = (previousStep?.stepIndex ?? 0) < currentStep.stepIndex;
-
-    return SlideTransition(
-      position: Tween<Offset>(
-        begin: isForward ? const Offset(1, 0) : const Offset(-1, 0),
-        end: Offset.zero,
-      ).animate(CurvedAnimation(parent: animation, curve: Curves.easeInOut)),
-      child: child,
-    );
-  }
 }

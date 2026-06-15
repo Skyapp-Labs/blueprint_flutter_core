@@ -1,7 +1,11 @@
 part of '_steps.dart';
 
 abstract class ForgotPasswordStepTemplate extends AuthStepTemplate {
-  const ForgotPasswordStepTemplate();
+
+  const ForgotPasswordStepTemplate({
+    super.context,
+    super.ref,
+  });
 
   @override
   String get stepId => 'forgot_password';
@@ -15,5 +19,14 @@ abstract class ForgotPasswordStepTemplate extends AuthStepTemplate {
 }
 
 class DefaultForgotPasswordStepTemplate extends ForgotPasswordStepTemplate {
-  const DefaultForgotPasswordStepTemplate();
+  const DefaultForgotPasswordStepTemplate({
+    super.context,
+    super.ref,
+  });
+
+  @override
+  ForgotPasswordStepTemplate copyWith({
+    required BuildContext context,
+    required WidgetRef ref,
+  }) => DefaultForgotPasswordStepTemplate(context: context, ref: ref);
 }

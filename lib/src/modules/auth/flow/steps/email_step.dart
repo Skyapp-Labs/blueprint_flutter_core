@@ -1,7 +1,11 @@
 part of '_steps.dart';
 
 abstract class EmailStepTemplate extends AuthStepTemplate {
-  const EmailStepTemplate();
+
+  const EmailStepTemplate({
+    super.context,
+    super.ref,
+  });
 
   @override
   String get stepId => 'email';
@@ -18,16 +22,23 @@ abstract class EmailStepTemplate extends AuthStepTemplate {
   }
 
   @override
-  Widget? buildFooter(BuildContext context, WidgetRef ref) {
-    return FxText(
-      'Don\'t have an account? [Sign up]',
-      textAlign: TextAlign.center,
-      padding: EdgeInsets.symmetric(vertical: context.sizes.md),
-      onTap: (_, _) => onSignUpRequested(ref),
-    );
-  }
+  Widget? get buildFooter => FxText(
+    'Don\'t have an account? [Sign up]',
+    textAlign: TextAlign.center,
+    padding: EdgeInsets.symmetric(vertical: context.sizes.md),
+    onTap: (_, _) => onSignUpRequested(ref),
+  );
 }
 
 class DefaultEmailStepTemplate extends EmailStepTemplate {
-  const DefaultEmailStepTemplate();
+  const DefaultEmailStepTemplate({
+    super.context,
+    super.ref,
+  });
+
+  @override
+  EmailStepTemplate copyWith({
+    required BuildContext context,
+    required WidgetRef ref,
+  }) => DefaultEmailStepTemplate(context: context, ref: ref);
 }

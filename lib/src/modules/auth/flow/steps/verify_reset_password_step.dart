@@ -1,7 +1,10 @@
 part of '_steps.dart';
 
 abstract class VerifyResetPasswordStepTemplate extends AuthStepTemplate {
-  const VerifyResetPasswordStepTemplate();
+  const VerifyResetPasswordStepTemplate({
+    super.context,
+    super.ref,
+  });
 
   @override
   String get stepId => 'verify_reset_password';
@@ -16,5 +19,14 @@ abstract class VerifyResetPasswordStepTemplate extends AuthStepTemplate {
 
 class DefaultVerifyResetPasswordStepTemplate
     extends VerifyResetPasswordStepTemplate {
-  const DefaultVerifyResetPasswordStepTemplate();
+  const DefaultVerifyResetPasswordStepTemplate({
+    super.context,
+    super.ref,
+  });
+
+  @override
+  VerifyResetPasswordStepTemplate copyWith({
+    required BuildContext context,
+    required WidgetRef ref,
+  }) => DefaultVerifyResetPasswordStepTemplate(context: context, ref: ref);
 }

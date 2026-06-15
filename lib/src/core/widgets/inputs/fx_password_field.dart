@@ -61,10 +61,11 @@ class _FxPasswordFieldState extends State<FxPasswordField> with FxUiToolkit {
     if(widget.decoration.suffixIcon != null) return widget.decoration.suffixIcon!;
     
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 350),
-      switchInCurve: Curves.easeOutBack,
-      switchOutCurve: Curves.easeInBack,
-      transitionBuilder: componentTheme.passwordTransition,
+      duration: componentTheme.iconToggleTransition.duration,
+      switchInCurve: componentTheme.iconToggleTransition.switchInCurve,
+      switchOutCurve: componentTheme.iconToggleTransition.switchOutCurve,
+      transitionBuilder: componentTheme.iconToggleTransition.transitionBuilder,
+      layoutBuilder: componentTheme.iconToggleTransition.layoutBuilder,
       child: IconButton(
         key: ValueKey('${_obscured ? 'obscured' : 'visible'}_suffix_icon'), 
         onPressed: () => setState(() => _obscured = !_obscured),
