@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/modules/security/security.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,9 +32,13 @@ class PhoneStepScreen extends ConsumerWidget {
         FxButton(
           label: template.actionLabel,
           isLoading: state.isLoading,
-          onPressed: state.phone == null ? null : controller.sendOtp,
+          onPressed: state.phone == null ? null : () => _loginWithPin(context),
         ),
       ],
     );
+  }
+  
+  void _loginWithPin(BuildContext context) {
+    final result = LockScreen.asDialog(context);
   }
 }

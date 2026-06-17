@@ -22,6 +22,7 @@ class FxPinInput extends StatefulWidget {
   const FxPinInput({
     super.key,
     required this.onCompleted,
+    this.errorText,
     this.length = 6,
     this.theme,
     this.autoFocus = true,
@@ -31,6 +32,7 @@ class FxPinInput extends StatefulWidget {
 
   final Future<void> Function(String)? onCompleted;
   final int length;
+  final String? errorText;
   final FxPinInputTheme? theme;
   final bool autoFocus;
   final TextEditingController? controller;
@@ -94,11 +96,20 @@ class FxPinInputState extends State<FxPinInput>
     super.dispose();
   }
 
+  @override
+  void didUpdateWidget(covariant FxPinInput oldWidget) {
+    if (oldWidget.errorText != widget.errorText) {
+      triggerError();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
   /// Clears all cells and triggers the shake animation.
   ///
   /// Call via [GlobalKey<FxPinInputState>] to signal a wrong entry to the user.
   void triggerError() {
     _pinController.clear();
+    _pinController.hasError = (widget.errorText != null);
     _shakeController.forward(from: 0);
   }
 

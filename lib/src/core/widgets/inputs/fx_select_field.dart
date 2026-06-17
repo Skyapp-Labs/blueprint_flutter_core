@@ -6,12 +6,6 @@ import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart'
 
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_field.dart';
 
-enum FxOverlayType {
-  bottomSheet,
-  dialog,
-  modal,
-}
-
 class FxSelectField<Result, T> extends StatefulWidget {
   FxSelectField({
     super.key,
@@ -132,15 +126,9 @@ class _FxSelectFieldState<Result, T> extends State<FxSelectField<Result, T>> wit
     widget.onChanged?.call(result as Result);
   }
 
-  Future<Result?> _presentOverlay() => switch (widget.overlayType) {
-    FxOverlayType.bottomSheet => FxBottomSheet.show<Result, T>(
-      context,
-      options: widget.overlayOptions
-    ),
-    _ => FxDialog.show<Result, T>(
-      context,
-      type: FxDialogType.center,
-      options: widget.overlayOptions,
-    )
-  };
+  Future<Result?> _presentOverlay() => showFxOverlay<Result, T>(
+    context,
+    type: widget.overlayType,
+    options: widget.overlayOptions
+  );
 }

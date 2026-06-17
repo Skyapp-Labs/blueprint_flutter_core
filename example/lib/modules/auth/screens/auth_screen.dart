@@ -15,7 +15,7 @@ class AuthScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) => Scaffold(
     body: AuthFlowScreen(
       authMethod: AuthMethod.phone,
-      onAuthSuccess: () => context.push(AppPaths.home),
+      onAuthSuccess: (user) => context.push(AppPaths.home),
       templates: AuthStepTemplates(
         phone: PhoneTemplate(),
       ),

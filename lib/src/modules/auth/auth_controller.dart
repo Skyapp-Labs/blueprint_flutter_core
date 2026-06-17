@@ -119,7 +119,7 @@ class AuthController extends _$AuthController {
   }
 
   // ─── Token Application ────────────────────────────────────────────────────
-  Future<void> applyTokens(AuthTokens tokens) async {
+  Future<void> applyTokens(AuthTokens tokens, {bool isRegistered = false}) async {
     _tokenManager.setToken(tokens.accessToken);
 
     final user = JwtHelper.getUserFromToken(tokens.accessToken);

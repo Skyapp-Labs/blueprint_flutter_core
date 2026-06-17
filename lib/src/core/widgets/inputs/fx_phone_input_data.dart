@@ -15,7 +15,7 @@ class FxPhoneInputConfig {
     this.options = const FxFieldOptions(keyboardType: TextInputType.phone),
     this.countryOptions = const FxFieldOptions(),
     this.decoration = const InputDecoration(),
-    this.overlayType = FxOverlayType.bottomSheet,
+    this.overlayType = FxOverlayType.dialog,
   });
 
   final FxPhoneInputLayout layout;

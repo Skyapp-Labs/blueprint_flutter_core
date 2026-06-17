@@ -1,5 +1,6 @@
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/auth_controller.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/entities/user.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/flow/steps/_steps.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/steps/steps.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class AuthFlowScreen extends ConsumerStatefulWidget {
     this.templates = const AuthStepTemplates(),
   });
 
-  final VoidCallback? onAuthSuccess;
+  final void Function(User user)? onAuthSuccess;
   final AuthMethod authMethod;
   final void Function(AuthStep? previousStep, AuthStep? currentStep)? onStepChange;
   final AuthStepTemplates templates;
@@ -60,7 +61,7 @@ class _AuthFlowScreenState extends ConsumerState<AuthFlowScreen> with FxUiToolki
     );
 
     ref.listen(authControllerProvider, (_, next) {
-      if (next.isAuthenticated) widget.onAuthSuccess?.call();
+      if (next.isAuthenticated) widget.onAuthSuccess?.call(next.user!);
     });
 
     if (flow.step == null) return const SizedBox.shrink();

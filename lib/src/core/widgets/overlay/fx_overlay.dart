@@ -14,7 +14,6 @@ part 'fx_overlay_list.dart';
 part 'fx_overlay_body.dart';
 part 'fx_overlay_view.dart';
 part 'fx_bottom_sheet_shell.dart';
-part 'fx_bottom_sheet.dart';
 part 'fx_dialog.dart';
 
 part 'fx_overlay_tile.dart';

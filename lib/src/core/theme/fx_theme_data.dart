@@ -288,7 +288,43 @@ abstract class FxThemeData extends ThemeExtension<FxThemeData> {
     ),
     contentPadding: EdgeInsets.symmetric(horizontal: sizes.md),
     horizontalTitleGap: sizes.md,
-    titleStyle: typography.titleMedium
+    titleStyle: typography.titleMedium,
+    modalDecoration: BoxDecoration(
+      color: colors.surface,
+      borderRadius: BorderRadius.circular(sizes.radiusXl),
+      boxShadow: [
+        BoxShadow(
+          color: colors.shadow.withValues(alpha: 0.1),
+          blurRadius: 5,
+          offset: const Offset(0, 5),
+        ),
+      ],
+    ),
+    dialogDecoration: BoxDecoration(
+      color: colors.surface,
+      borderRadius: BorderRadius.circular(sizes.radiusXl),
+      boxShadow: [
+        BoxShadow(
+          color: colors.shadow.withValues(alpha: 0.1),
+          blurRadius: 5,
+          offset: const Offset(0, 5),
+        ),
+      ],
+    ),
+    bottomSheetDecoration: BoxDecoration(
+      color: colors.surface,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(sizes.radiusXl * 2),
+        topRight: Radius.circular(sizes.radiusXl * 2)
+      ),
+    ),
+    handleDecoration: BoxDecoration(
+      color: colors.surfaceVariant,
+      borderRadius: BorderRadius.circular(sizes.radiusLg),
+    ),
+    barrierColor: Colors.black.withValues(alpha: 0.6),
+    handleSize: Size(sizes.xxl * 1.7, sizes.sm * .8),
+    handleMargin: sizes.md,
   );
 
   FxPhoneInputTheme get phoneInputTheme => FxPhoneInputTheme(

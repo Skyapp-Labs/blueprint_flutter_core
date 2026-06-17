@@ -46,6 +46,14 @@ class FxOtpInput extends StatefulWidget {
 class FxOtpInputState extends State<FxOtpInput> with FxUiToolkit {
   final _pinKey = GlobalKey<FxPinInputState>();
 
+  @override
+  void didUpdateWidget(covariant FxOtpInput oldWidget) {
+    if (oldWidget.errorText != widget.errorText) {
+      _pinKey.currentState?.triggerError();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
   /// Clears all cells and triggers the shake animation.
   void triggerError() => _pinKey.currentState?.triggerError();
 
