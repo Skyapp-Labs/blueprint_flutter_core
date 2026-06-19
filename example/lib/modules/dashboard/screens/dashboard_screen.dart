@@ -19,43 +19,39 @@ import 'package:go_router/go_router.dart';
 // ─────────────────────────────────────────────
 // DEV ZONE — Replace this screen with your own UI.
 // ─────────────────────────────────────────────
-class DashboardScreen extends ConsumerWidget with FxUiToolkit {
+class DashboardScreen extends ConsumerWidget {
 
-  DashboardScreen({super.key});
+  const DashboardScreen({super.key});
 
   /// The initial pane key to display.
   String get initialPaneKey => dockItems.first.key;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    setToolkitContext(context);
+  Widget build(BuildContext context, WidgetRef ref) => FxShell(
+    dockPanes: dockItems,
+    drawerPanes: drawerItems(context, () => _onLogout(context, ref)),
+    initialPaneKey: initialPaneKey,
+    style: FxShellStyle(
+      appBarStyle: FxAppBarStyle(
+        actions: [
+          FxNotificationIcon(
+            onPressed: () => context.push(AppPaths.notifications),
+          )
 
-    return FxShell(
-      dockPanes: dockItems,
-      drawerPanes: drawerItems(context, () => _onLogout(context, ref)),
-      initialPaneKey: initialPaneKey,
-      style: FxShellStyle(
-        appBarStyle: FxAppBarStyle(
-          actions: [
-            FxNotificationIcon(
-              onPressed: () => context.push(AppPaths.notifications),
-            )
-
-          ]
-        ),
-        dockStyle: AppDockStyle.build(context),
-        drawerStyle: AppDrawerStyle.build(context),
-        endDrawerStyle: AppEndDrawerStyle.build(context),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        ]
       ),
-      floatingActionButton: FloatingActionButton(
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      )
-    );
-  }
+      dockStyle: AppDockStyle.build(context),
+      drawerStyle: AppDrawerStyle.build(context),
+      endDrawerStyle: AppEndDrawerStyle.build(context),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    ),
+    floatingActionButton: FloatingActionButton(
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+      onPressed: () {},
+      child: const Icon(Icons.add),
+    )
+  );
 
   Future<void> _onLogout(BuildContext context, WidgetRef ref) async {
     final controller = ref.read(homeControllerProvider.notifier);
