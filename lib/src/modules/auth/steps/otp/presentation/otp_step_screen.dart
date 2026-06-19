@@ -37,11 +37,12 @@ class _OtpStepScreenState extends ConsumerState<OtpStepScreen> {
           controller: _otpController,
           isLoading: state.isLoading,
           errorText: state.error,
+          onChanged: controller.onOtpChanged,
           onCompleted: (otp) async {
             controller.setOtp(otp);
             await controller.verifyOtp();
           },
-          length: 6,
+          length: widget.template.otpLength,
         ),
         FxCountdownAction(
           prefixText: 'Resend code',

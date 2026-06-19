@@ -103,6 +103,7 @@ class _PinStepTemplateState extends State<PinStepTemplate> with FxUiToolkit {
               length: widget.length,
               controller: pinController,
               errorText: widget.error,
+              obscureText: true,
               isLoading: widget.isLoading,
               onCompleted: widget.onCompleted,
             )

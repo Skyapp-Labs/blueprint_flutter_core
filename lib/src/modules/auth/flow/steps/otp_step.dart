@@ -9,6 +9,8 @@ abstract class OtpStepTemplate extends AuthStepTemplate {
   @override
   String get stepId => 'otp';
 
+  int get otpLength => 6;
+
   @override
   AuthStepLayout get layout => AuthStepLayout(
     title: 'Verify your number',

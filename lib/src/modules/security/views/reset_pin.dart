@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ResetPinView extends ConsumerWidget with FxUiToolkit {
-  ResetPinView({super.key});
+  ResetPinView({super.key, this.length = 4});
+
+  final int length;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,6 +20,7 @@ class ResetPinView extends ConsumerWidget with FxUiToolkit {
     return PinStepTemplate(
       title: 'Forgot your PIN?',
       subtitle: 'Enter your new PIN to access your account',
+      length: length,
       isLoading: state.isLoading,
       onBackPressed: () => controller.goTo(PinStepView.verifyPin),
       error: state.error,

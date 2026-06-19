@@ -7,14 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LockScreen extends ConsumerStatefulWidget {
-  const LockScreen({super.key});
+  const LockScreen({super.key, this.length = 4});
 
-  static Future<bool?> asDialog(BuildContext context) => showFxOverlay<bool, dynamic>(
+  final int length;
+
+  static Future<bool?> asDialog(BuildContext context, {int length = 4}) => showFxOverlay<bool, dynamic>(
     context, 
     type: FxOverlayType.modal,
     useSafeArea: false,
     options: FxOverlayOptions.builder(
-      builder: (context) => LockScreen(),
+      builder: (context) => LockScreen(length: length),
     ),
   );
 
@@ -62,10 +64,10 @@ class _LockScreenState extends ConsumerState<LockScreen> with FxUiToolkit {
       layoutBuilder: transitionTheme.layoutBuilder,
       reverseDuration: transitionTheme.reverseDuration,
       child: switch (state.stepView) {
-        PinStepView.verifyPin => VerifyPinView(),
-        PinStepView.createPin => CreatePinView(),
-        PinStepView.confirmPin => ChangePinView(),
-        PinStepView.resetPin => ResetPinView(),
+        PinStepView.verifyPin => VerifyPinView(length: widget.length),
+        PinStepView.createPin => CreatePinView(length: widget.length),
+        PinStepView.confirmPin => ChangePinView(length: widget.length),
+        PinStepView.resetPin => ResetPinView(length: widget.length),
         null => const SizedBox.shrink(),
       },
     );

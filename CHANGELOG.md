@@ -5,6 +5,26 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.3.1
+
+### Fixed
+
+**Auth**
+- OTP step now displays verification errors under the PIN input when `verifyOtp` fails.
+- `OtpStepController` guards async flows with `ref.mounted`, awaits `result.when`, and prevents duplicate submissions while loading.
+- OTP input clears errors when the user re-enters digits via `onOtpChanged`.
+
+**Widgets & Inputs**
+- `FxPinInput` sets `forceErrorState` when `errorText` is provided so `pinput` shows external/async validation errors correctly.
+
+**Security**
+- `LockScreen` and PIN views accept a configurable `length` (default 4).
+- Security PIN entry uses `obscureText` for masked input.
+
+### Changed
+
+- `OtpStepTemplate` exposes `otpLength` (default 6); `OtpStepScreen` uses it for `FxPinInput.length`.
+
 ## 2.3.0
 
 ### Added

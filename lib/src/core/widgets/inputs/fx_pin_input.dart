@@ -94,16 +94,11 @@ class FxPinInputState extends State<FxPinInput>
     return Pinput(
       length: widget.length,
       enabled: widget.isLoading ? false : widget.enabled,
-      // disabledPinTheme: defaultPinTheme.copyWith(
-      //   decoration: defaultPinTheme.decoration!.copyWith(
-      //     color: Colors.transparent,
-      //     border: null
-      //   ),
-      // ),
       focusNode: focusNode,
-      errorText: widget.errorText,
       controller: pinController,
       obscureText: widget.obscureText,
+      errorText: widget.errorText,
+      forceErrorState: widget.errorText?.isNotEmpty ?? false,
       errorTextStyle: pinTheme.errorTextStyle,
       defaultPinTheme: defaultPinTheme,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,11 +106,6 @@ class FxPinInputState extends State<FxPinInput>
       hapticFeedbackType: HapticFeedbackType.heavyImpact,
       onCompleted: widget.onCompleted,
       onChanged: widget.onChanged,
-      validator: (_) {
-        if (widget.errorText == null || widget.errorText!.isEmpty) return null;
-        pinController.clear();
-        return widget.errorText!;
-      },
       focusedPinTheme: defaultPinTheme.copyWith(
         decoration: defaultPinTheme.decoration!.copyWith(
           border: pinTheme.focusBorder
