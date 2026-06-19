@@ -5,6 +5,61 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.3.0
+
+### Added
+
+**Security**
+- New `blueprint_security` entry point with `SecurityController`, `LockScreen`, and PIN views (`create_pin`, `verify_pin`, `change_pin`, `reset_pin`).
+- `LockScreen.asDialog()` for modal app-lock flows.
+
+**Widgets & Inputs**
+- `FxKeyboard` and `FxKeyboardTheme` for custom numeric keypad input.
+- `FxPinInput` rebuilt on top of the `pinput` package with theme support via `FxThemeData.pinInputTheme`.
+- `FxViewTransitionTheme` and `FxComponentTheme.switchingViewTransition()` for auth step animations.
+- `FxOverlayThemeData` and expanded `FxOverlayTileThemeData` for overlay styling.
+
+**Auth**
+- `AuthFlowScreen.onAuthSuccess` now receives the authenticated `User`.
+- `FxPhoneInputConfig` groups phone-input options (layout, field options, overlay type).
+- `FxSignupFormGroup` and signup step form controls for structured registration fields.
+
+**Example app**
+- Full example restructure: splash, auth, dashboard shell, home, and notification screens.
+- GoRouter-based routing with `app_router`, `app_paths`, and `app_routes`.
+- Dashboard dock/drawer navigation samples with custom styles.
+
+### Changed
+
+**Auth**
+- Refactored `AuthStepTemplate` and step screens to use `buildShell(context:, ref:, …)` — templates no longer hold `BuildContext` or `WidgetRef`.
+- Auth step transitions use `AnimatedSwitcher` with configurable slide transitions.
+- Consolidated signup step behind `FxSignupFormGroup` and `SignupStepController`.
+
+**Widgets & Overlays**
+- Refactored `FxBottomSheetShell` and `FxDialog` around `FxOverlayOptions`.
+- `FxSelectField` adds `valueBuilder` for custom selected-value labels.
+- `FxPinInputTheme` simplified and wired into `FxThemeData`.
+
+**Theme**
+- Extended `FxComponentTheme` with checkbox, search, and clear icons.
+- `FxThemeData` exposes `pinInputTheme`, `overlayTheme`, and `overlayTileTheme`.
+
+**Example & tooling**
+- Example iOS deployment target raised to 15.0; Firebase wired via direct Swift Package Manager dependencies.
+- Example theme files expanded (`app_colors`, `app_typography`, `app_theme_data`).
+- Removed obsolete `scripts/release.sh`.
+
+### Removed
+
+- `FxOtpInput` widget (use `FxPinInput` instead).
+- `FxPinInputController` and `FxPinInputField` (replaced by `pinput`-backed `FxPinInput`).
+- Legacy `example/lib/ui/home_screen.dart`.
+
+### Dependencies
+
+- Added `pinput: ^6.0.2`.
+
 ## 2.2.0
 
 ### Added
