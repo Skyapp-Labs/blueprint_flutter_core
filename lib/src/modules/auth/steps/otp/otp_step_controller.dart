@@ -34,14 +34,19 @@ class OtpStepController extends _$OtpStepController {
   AuthFlowController get _authFlow => ref.read(authFlowControllerProvider.notifier);
 
   void setOtp(String otp) {
+    state = state.copyWith(otp: otp, error: null);
+  }
+
+  void onOtpChanged(String value) {
     state = state.copyWith(
-      otp: otp, 
-      error: null, 
-      isLoading: false,
+      otp: value.isEmpty ? null : value,
+      error: null,
     );
   }
 
   Future<void> verifyOtp() async {
+    if (state.isLoading) return;
+
     if (state.verificationId == null) {
       state = state.copyWith(error: 'Verification ID is required');
       _authFlow.goToPreviousStep();
@@ -61,11 +66,12 @@ class OtpStepController extends _$OtpStepController {
     );
 
     final result = await _service.verifyOtp(payload);
+    if (!ref.mounted) return;
 
-    result.when(
-      success: (response) {
+    await result.when(
+      success: (response) async {
         if (response.data.hasAccount) {
-          _loginWithToken(response.data.verificationToken);
+          await _loginWithToken(response.data.verificationToken);
           return;
         }
         _authFlow.goToStep(AuthStep.signup);
@@ -75,7 +81,7 @@ class OtpStepController extends _$OtpStepController {
       failure: (error) {
         if (!ref.mounted) return;
         state = state.copyWith(error: error.message, isLoading: false);
-      }
+      },
     );
   }
 
@@ -114,15 +120,19 @@ class OtpStepController extends _$OtpStepController {
       verificationToken: verificationToken,
     );
     final result = await _authService.loginWithToken(payload);
-    result.when(
+    if (!ref.mounted) return;
+
+    await result.when(
       success: (tokens) async {
         await ref.read(authControllerProvider.notifier).applyTokens(tokens);
+        if (!ref.mounted) return;
         state = state.copyWith(isLoading: false);
       },
       failure: (error) {
+        if (!ref.mounted) return;
         state = state.copyWith(error: error.message, isLoading: false);
         _authFlow.goToPreviousStep();
-      }
+      },
     );
   }
 }
