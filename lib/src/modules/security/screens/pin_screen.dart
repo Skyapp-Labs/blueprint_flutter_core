@@ -1,31 +1,73 @@
+import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart';
+import 'package:blueprint_flutter_core/src/modules/security/security_controller.dart';
+import 'package:blueprint_flutter_core/src/modules/security/security_state.dart';
+import 'package:blueprint_flutter_core/src/modules/security/views/views.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LockScreen extends StatefulWidget {
+class LockScreen extends ConsumerStatefulWidget {
   const LockScreen({super.key});
 
   static Future<bool?> asDialog(BuildContext context) => showFxOverlay<bool, dynamic>(
     context, 
-    type: FxOverlayType.dialog,
+    type: FxOverlayType.modal,
+    useSafeArea: false,
     options: FxOverlayOptions.builder(
-      // title: 'Lock Screen',
       builder: (context) => LockScreen(),
     ),
   );
 
   @override
-  State<LockScreen> createState() => _LockScreenState();
+  ConsumerState<LockScreen> createState() => _LockScreenState();
 }
 
-class _LockScreenState extends State<LockScreen> {
+class _LockScreenState extends ConsumerState<LockScreen> with FxUiToolkit {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (!mounted) return;
+      ref.read(securityControllerProvider.notifier).initializePinScreen();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    setToolkitContext(context);
+    
     return Scaffold(
-      body: Column(
-        children: [
-          Text('Lock Screen'),
-        ],
-      ),
+      body: SafeArea(
+        child: _buildBody()
+      )
+    );
+  }
+
+  Widget _buildBody() {
+    final state = ref.watch(securityControllerProvider);
+    final transitionTheme = componentTheme.switchingViewTransition();
+
+    return AnimatedSwitcher(
+      duration: transitionTheme.duration,
+      switchInCurve: transitionTheme.switchInCurve,
+      switchOutCurve: transitionTheme.switchOutCurve,
+      transitionBuilder: (child, animation) {
+        // final isForward = (flow.previousStep?.stepIndex ?? 0) < flow.step!.stepIndex;
+
+        return componentTheme
+          .switchingViewTransition(isForward: false)
+          .transitionBuilder(child, animation);
+      },
+      layoutBuilder: transitionTheme.layoutBuilder,
+      reverseDuration: transitionTheme.reverseDuration,
+      child: switch (state.stepView) {
+        PinStepView.verifyPin => VerifyPinView(),
+        PinStepView.createPin => CreatePinView(),
+        PinStepView.confirmPin => ChangePinView(),
+        PinStepView.resetPin => ResetPinView(),
+        null => const SizedBox.shrink(),
+      },
     );
   }
 }

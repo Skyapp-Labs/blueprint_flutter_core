@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auth_controller.dart';
+part of 'security_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -20,8 +20,8 @@ part of 'auth_controller.dart';
 /// Inject via: `ref.watch(authControllerProvider)`
 /// State: [AuthState]
 
-@ProviderFor(AuthController)
-final authControllerProvider = AuthControllerProvider._();
+@ProviderFor(SecurityController)
+final securityControllerProvider = SecurityControllerProvider._();
 
 /// Central auth controller. Handles both [AuthMethod.phone] and [AuthMethod.email].
 ///
@@ -34,8 +34,8 @@ final authControllerProvider = AuthControllerProvider._();
 ///
 /// Inject via: `ref.watch(authControllerProvider)`
 /// State: [AuthState]
-final class AuthControllerProvider
-    extends $NotifierProvider<AuthController, AuthState> {
+final class SecurityControllerProvider
+    extends $NotifierProvider<SecurityController, SecurityState> {
   /// Central auth controller. Handles both [AuthMethod.phone] and [AuthMethod.email].
   ///
   /// Delegates each domain to a focused mixin:
@@ -47,34 +47,35 @@ final class AuthControllerProvider
   ///
   /// Inject via: `ref.watch(authControllerProvider)`
   /// State: [AuthState]
-  AuthControllerProvider._()
+  SecurityControllerProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'authControllerProvider',
-        isAutoDispose: false,
+        name: r'securityControllerProvider',
+        isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$authControllerHash();
+  String debugGetCreateSourceHash() => _$securityControllerHash();
 
   @$internal
   @override
-  AuthController create() => AuthController();
+  SecurityController create() => SecurityController();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(AuthState value) {
+  Override overrideWithValue(SecurityState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<AuthState>(value),
+      providerOverride: $SyncValueProvider<SecurityState>(value),
     );
   }
 }
 
-String _$authControllerHash() => r'2def2fadbc036cc19f10d868f94e37bc203ecf0c';
+String _$securityControllerHash() =>
+    r'a78d902011a616117c477211f515f7fade9036e8';
 
 /// Central auth controller. Handles both [AuthMethod.phone] and [AuthMethod.email].
 ///
@@ -88,17 +89,17 @@ String _$authControllerHash() => r'2def2fadbc036cc19f10d868f94e37bc203ecf0c';
 /// Inject via: `ref.watch(authControllerProvider)`
 /// State: [AuthState]
 
-abstract class _$AuthController extends $Notifier<AuthState> {
-  AuthState build();
+abstract class _$SecurityController extends $Notifier<SecurityState> {
+  SecurityState build();
   @$mustCallSuper
   @override
   void runBuild() {
-    final ref = this.ref as $Ref<AuthState, AuthState>;
+    final ref = this.ref as $Ref<SecurityState, SecurityState>;
     final element =
         ref.element
             as $ClassProviderElement<
-              AnyNotifier<AuthState, AuthState>,
-              AuthState,
+              AnyNotifier<SecurityState, SecurityState>,
+              SecurityState,
               Object?,
               Object?
             >;

@@ -122,6 +122,9 @@ abstract class FxSizes extends ThemeExtension<FxSizes>  {
 	double get snackbarRadius => 8.0.r;
 	double get snackbarPadding => 16.0.w;
 
+  double get screenWidth => ScreenUtil.screenWidth;
+  double get screenHeight => ScreenUtil.screenHeight;
+
   // Required by ThemeExtension — copyWith already exists ✓
   // lerp controls animation between two themes (e.g. theme switching animation)
   @override

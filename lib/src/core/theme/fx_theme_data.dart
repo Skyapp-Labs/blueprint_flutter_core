@@ -1,5 +1,7 @@
 import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_keyboard_theme.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_phone_input_theme.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_pin_input_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/utils/screen_util.dart';
@@ -336,5 +338,38 @@ abstract class FxThemeData extends ThemeExtension<FxThemeData> {
     phoneFlex: 3,
     splitMinCountryWidth: 100.0.w,
     splitMaxCountryWidth: 150.0.w,
+  );
+
+  FxPinInputTheme get pinInputTheme => FxPinInputTheme(
+    spacing: sizes.md,
+    height: sizes.inputHeight + sizes.sm,
+    width: sizes.inputHeight,
+    padding: EdgeInsets.symmetric(horizontal: sizes.md),
+    borderRadius: BorderRadius.circular(sizes.radiusMd),
+    textStyle: typography.titleLarge,
+    errorTextStyle: typography.bodySmall.copyWith(color: colors.error),
+    backgroundColor: colors.surfaceVariant,
+    errorBorderColor: colors.error,
+    focusBorderColor: colors.primary,
+    borderWidth: 2.0.w,
+    border: InputBorder.none,
+  );
+
+  FxKeyboardTheme get keyboardTheme => FxKeyboardTheme(
+    padding: EdgeInsets.symmetric(horizontal: sizes.md, vertical: sizes.md),
+    keyPadding: EdgeInsets.symmetric(horizontal: sizes.md),
+    background: colors.surfaceVariant,
+    foreground: colors.textPrimary,
+    spacing: sizes.md,
+    keyAspectRatio: 1.2,
+    keySize: Size(sizes.icon64, sizes.icon64),
+    textStyle: typography.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(sizes.radiusFull),
+    ),
+    constraints: BoxConstraints(
+      minWidth: 300.sp,
+      maxWidth: sizes.screenWidth * 0.8,
+    ),
   );
 }
