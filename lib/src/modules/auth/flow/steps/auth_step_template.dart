@@ -5,7 +5,29 @@ part of '_steps.dart';
 /// Subclasses customize copy and optional chrome (app bar/footer).
 /// Step screens own form state, controllers, and Riverpod logic.
 abstract class AuthStepTemplate {
-  const AuthStepTemplate();
+
+  final BuildContext? _context;
+  final WidgetRef? _ref;
+
+  const AuthStepTemplate({
+    BuildContext? context,
+    WidgetRef? ref
+  }): _context = context, _ref = ref;
+
+  AuthStepTemplate copyWith({
+    required BuildContext context,
+    required WidgetRef ref
+  });
+
+  BuildContext get context {
+    if (_context == null) assert(_context != null, '\n\nAuthStepTemplate: Context not set');
+    return _context!;
+  }
+
+  WidgetRef get ref {
+    if (_ref == null) assert(_ref != null, '\n\nAuthStepTemplate: Ref not set');
+    return _ref!;
+  }
 
   /// Stable step identity — not a Flutter [Key].
   String get stepId;
@@ -19,37 +41,29 @@ abstract class AuthStepTemplate {
   String? get subtitle => layout.subtitle;
 
   /// Optional app bar for this step.
-  PreferredSizeWidget? buildAppBar(
-    BuildContext context,
-    WidgetRef ref,
-  ) => null;
+  PreferredSizeWidget? get buildAppBar => null;
 
   /// Optional sticky footer below scroll content.
-  Widget? buildFooter(
-    BuildContext context,
-    WidgetRef ref,
-  ) => null;
+  Widget? get buildFooter => null;
 
   /// Optional content appended after the main body.
-  Widget? buildTrailingContent(
-    BuildContext context,
-    WidgetRef ref,
-  ) => null;
+  Widget? get buildTrailingContent => null;
 
   /// Wraps [body] in the shared auth step shell.
   Widget buildShell({
-    required BuildContext context,
-    required WidgetRef ref,
     Widget? body,
     List<Widget>? children,
     Widget Function(BuildContext, WidgetRef)? customFooter,
   }) {
     return _AuthStepShell(
       stepId: stepId,
-      layout: layout,
-      appBar: buildAppBar(context, ref),
-      footer: (customFooter ?? buildFooter).call(context, ref),
-      trailingContent: buildTrailingContent(context, ref),
+      layout: layout.copyWith(
+        title: title,
+        subtitle: subtitle,
+      ),
+      appBar: buildAppBar,
+      footer: customFooter?.call(context, ref) ?? buildFooter,
+      trailingContent: buildTrailingContent,
       body: body,
       children: children,
     );
@@ -124,14 +138,14 @@ class _StepHeader extends StatelessWidget with FxUiToolkit {
               layout.title!,
               style: FxTextStyle.fromStyle(layout.titleStyle ?? typography.headlineSmall),
               textAlign: layout.textAlign,
-              onTap: (index, text) => layout.titleOnTap?.call(index, text, ref),
+              onTap: (index, text) => layout.titleOnTap?.call(index, text),
             ),
           if (layout.subtitle != null)
             FxText(
               layout.subtitle!,
               style: FxTextStyle.fromStyle(layout.subtitleStyle ?? typography.bodyMedium),
               textAlign: layout.textAlign,
-              onTap: (index, text) => layout.subtitleOnTap?.call(index, text, ref),
+              onTap: (index, text) => layout.subtitleOnTap?.call(index, text),
             ),
         ],
       ),
@@ -143,7 +157,7 @@ class _StepHeader extends StatelessWidget with FxUiToolkit {
 extension AuthStepNavigation on WidgetRef {
   void goToAuthStep(AuthStep step) {
     read(authFlowControllerProvider.notifier).goToStep(step);
-  }
+  } 
 
   void goToNextAuthStep() {
     read(authFlowControllerProvider.notifier).goToNextStep();

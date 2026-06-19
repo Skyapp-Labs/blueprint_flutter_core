@@ -1,14 +1,14 @@
 import 'package:blueprint_flutter_core/blueprint_flutter_core.dart';
 
-class MyAppConfig extends FxConfig {
+class AppConfig extends FxConfig {
   @override
   String get appName => 'Blueprint Example';
 
   @override
-  String get apiBaseUrl => 'https://jsonplaceholder.typicode.com'; // Dummy URL
+  String get apiBaseUrl => 'https://goatskin-balance-eliminate.ngrok-free.dev'; // Dummy URL
 
   @override
-  String get apiVersion => 'v1';
+  String get apiVersion => 'api/v1';
 
   @override
   bool get enableFirebase => false;

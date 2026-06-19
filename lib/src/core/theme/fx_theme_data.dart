@@ -1,5 +1,7 @@
 import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_keyboard_theme.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_phone_input_theme.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_pin_input_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:blueprint_flutter_core/src/core/utils/screen_util.dart';
@@ -288,7 +290,43 @@ abstract class FxThemeData extends ThemeExtension<FxThemeData> {
     ),
     contentPadding: EdgeInsets.symmetric(horizontal: sizes.md),
     horizontalTitleGap: sizes.md,
-    titleStyle: typography.titleMedium
+    titleStyle: typography.titleMedium,
+    modalDecoration: BoxDecoration(
+      color: colors.surface,
+      borderRadius: BorderRadius.circular(sizes.radiusXl),
+      boxShadow: [
+        BoxShadow(
+          color: colors.shadow.withValues(alpha: 0.1),
+          blurRadius: 5,
+          offset: const Offset(0, 5),
+        ),
+      ],
+    ),
+    dialogDecoration: BoxDecoration(
+      color: colors.surface,
+      borderRadius: BorderRadius.circular(sizes.radiusXl),
+      boxShadow: [
+        BoxShadow(
+          color: colors.shadow.withValues(alpha: 0.1),
+          blurRadius: 5,
+          offset: const Offset(0, 5),
+        ),
+      ],
+    ),
+    bottomSheetDecoration: BoxDecoration(
+      color: colors.surface,
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(sizes.radiusXl * 2),
+        topRight: Radius.circular(sizes.radiusXl * 2)
+      ),
+    ),
+    handleDecoration: BoxDecoration(
+      color: colors.surfaceVariant,
+      borderRadius: BorderRadius.circular(sizes.radiusLg),
+    ),
+    barrierColor: Colors.black.withValues(alpha: 0.6),
+    handleSize: Size(sizes.xxl * 1.7, sizes.sm * .8),
+    handleMargin: sizes.md,
   );
 
   FxPhoneInputTheme get phoneInputTheme => FxPhoneInputTheme(
@@ -300,5 +338,38 @@ abstract class FxThemeData extends ThemeExtension<FxThemeData> {
     phoneFlex: 3,
     splitMinCountryWidth: 100.0.w,
     splitMaxCountryWidth: 150.0.w,
+  );
+
+  FxPinInputTheme get pinInputTheme => FxPinInputTheme(
+    spacing: sizes.md,
+    height: sizes.inputHeight + sizes.sm,
+    width: sizes.inputHeight,
+    padding: EdgeInsets.symmetric(horizontal: sizes.md),
+    borderRadius: BorderRadius.circular(sizes.radiusMd),
+    textStyle: typography.titleLarge,
+    errorTextStyle: typography.bodySmall.copyWith(color: colors.error),
+    backgroundColor: colors.surfaceVariant,
+    errorBorderColor: colors.error,
+    focusBorderColor: colors.primary,
+    borderWidth: 2.0.w,
+    border: InputBorder.none,
+  );
+
+  FxKeyboardTheme get keyboardTheme => FxKeyboardTheme(
+    padding: EdgeInsets.symmetric(horizontal: sizes.md, vertical: sizes.md),
+    keyPadding: EdgeInsets.symmetric(horizontal: sizes.md),
+    background: colors.surfaceVariant,
+    foreground: colors.textPrimary,
+    spacing: sizes.md,
+    keyAspectRatio: 1.2,
+    keySize: Size(sizes.icon64, sizes.icon64),
+    textStyle: typography.bodyMedium.copyWith(fontWeight: FontWeight.w600),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(sizes.radiusFull),
+    ),
+    constraints: BoxConstraints(
+      minWidth: 300.sp,
+      maxWidth: sizes.screenWidth * 0.8,
+    ),
   );
 }

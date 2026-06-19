@@ -35,8 +35,6 @@ class _EmailStepScreenState extends ConsumerState<EmailStepScreen>
     setToolkitContext(context);
 
     return widget.template.buildShell(
-      context: context,
-      ref: ref,
       body: Column(children: [_buildEmailForm(), _buildActions()]),
     );
   }

@@ -37,4 +37,17 @@ class AuthStepTemplates {
   final ForgotPasswordStepTemplate forgotPassword;
   final ResetPasswordStepTemplate resetPassword;
   final VerifyResetPasswordStepTemplate verifyResetPassword;
+
+  AuthStepTemplates copyWith({
+    required BuildContext context,
+    required WidgetRef ref
+  }) => AuthStepTemplates(
+    email: email.copyWith(context: context, ref: ref) as EmailStepTemplate,
+    phone: phone.copyWith(context: context, ref: ref) as PhoneStepTemplate,
+    otp: otp.copyWith(context: context, ref: ref) as OtpStepTemplate,
+    signup: signup.copyWith(context: context, ref: ref) as SignupStepTemplate,
+    forgotPassword: forgotPassword.copyWith(context: context, ref: ref) as ForgotPasswordStepTemplate,
+    resetPassword: resetPassword.copyWith(context: context, ref: ref) as ResetPasswordStepTemplate,
+    verifyResetPassword: verifyResetPassword.copyWith(context: context, ref: ref) as VerifyResetPasswordStepTemplate,
+  );
 }

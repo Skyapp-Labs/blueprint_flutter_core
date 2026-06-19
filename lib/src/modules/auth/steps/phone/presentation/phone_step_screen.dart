@@ -20,20 +20,18 @@ class PhoneStepScreen extends ConsumerWidget {
     final state = ref.watch(phoneStepControllerProvider);
 
     return template.buildShell(
-      context: context,
-      ref: ref,
       children: [
         FxPhoneInput(
           onChanged: (country, phone, [parsed]) => controller.setPhone(
-            parsed?.fullNumber ?? '${country.dialCode}$phone',
+            phone: parsed?.fullNumber,
             countryCode: country.dialCode,
-            formattedPhone: parsed?.formattedNumber ?? phone,
+            formattedPhone: parsed?.formattedNumber,
           ),
         ),
         FxButton(
           label: template.actionLabel,
           isLoading: state.isLoading,
-          onPressed: state.phone == null ? null : controller.sendOtp,
+          onPressed: state.phone == null ? null : () => controller.sendOtp(),
         ),
       ],
     );

@@ -59,8 +59,6 @@ class _SignupStepScreenState extends ConsumerState<SignupStepScreen> with FxUiTo
         onPressed: () => ref.read(signupStepControllerProvider.notifier)
           .onSignUpRequested(formGroup),
       ),
-      ref: ref,
-      context: context,
       children: [
         _buildFullNameField(),
         _buildInputField(formGroup.email),

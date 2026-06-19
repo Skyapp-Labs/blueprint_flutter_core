@@ -1,123 +1,154 @@
 part of 'fx_overlay.dart';
 
 /// Bottom sheet chrome: handle, title, and [FxOverlayView] body.
-class FxBottomSheetShell<T> extends StatelessWidget with FxUiToolkit {
+class FxBottomSheetShell<T> extends StatefulWidget with FxUiToolkit {
   FxBottomSheetShell({
     super.key,
+    required this.type,
     required this.options,
-    required this.scrollController,
-    required this.sheetController,
-    required this.minChildSize,
-    required this.maxChildSize,
+    this.useSafeArea = true,
+    this.scrollController,
+    this.sheetController,
+    this.bottomSheetOptions,
   });
 
-  final double minChildSize;
-  final double maxChildSize;
-  final ScrollController scrollController;
+  final FxOverlayType type;
+  final bool useSafeArea;
+  final ScrollController? scrollController;
   final FxOverlayOptions<T> options;
-  final DraggableScrollableController sheetController;
+  final FxBottomSheetOptions? bottomSheetOptions;
+  final DraggableScrollableController? sheetController;
 
-  double get _radius => sizes.overlayRadius;
-  double get _borderWidth => sizes.overlayBorderWidth;
+  @override
+  State<FxBottomSheetShell<T>> createState() => _FxBottomSheetShellState<T>();
+}
 
-  BorderRadius get _borderRadius => BorderRadius.only(
-        topLeft: Radius.circular(_radius),
-        topRight: Radius.circular(_radius),
-      );
+class _FxBottomSheetShellState<T> extends State<FxBottomSheetShell<T>> with FxUiToolkit {
+  late ScrollController _scrollController;
 
-  BoxBorder get _border {
-    final borderSide = BorderSide(color: colors.outline, width: _borderWidth);
-    return Border(top: borderSide, left: borderSide, right: borderSide);
+  bool get showHandle => (
+    widget.type == FxOverlayType.bottomSheet &&
+    widget.sheetController != null &&
+    widget.sheetController!.isAttached &&
+    widget.bottomSheetOptions != null
+  );
+
+  FxOverlayThemeData get overlayTheme => themeData.overlayTheme;
+
+  BoxConstraints? get constraints {
+    if (widget.type != FxOverlayType.dialog) return null;
+    return BoxConstraints(
+      minWidth: isTablet ? 300 : screenWidth * .5,
+      maxWidth: isTablet ? 520 : screenWidth * .85,
+      minHeight: screenHeight * 0.2,
+      maxHeight: screenHeight * 0.7,
+    );
+  }
+
+  BoxDecoration get decoration => switch (widget.type) {
+    FxOverlayType.dialog => overlayTheme.dialogDecoration,
+    FxOverlayType.modal => overlayTheme.modalDecoration,
+    FxOverlayType.bottomSheet => overlayTheme.bottomSheetDecoration,
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = widget.scrollController ?? ScrollController();
+  }
+
+  @override
+  void dispose() {
+    if(widget.type != FxOverlayType.bottomSheet) {
+      _scrollController.dispose();
+    }
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    return Container(
-      width: double.infinity,
-      padding: EdgeInsets.only(bottom: safePadding.bottom),
-      decoration: BoxDecoration(
-        color: colors.surface,
-        border: _border,
-        borderRadius: _borderRadius,
-      ),
-      child: ClipRRect(
-        borderRadius: _borderRadius.copyWith(
-          topLeft: Radius.circular(_radius - _borderWidth),
-          topRight: Radius.circular(_radius - _borderWidth),
-        ),
-        child: Stack(
-          children: [
-            _buildBody(context),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              child: _buildHandle(context),
-            ),
-          ],
-        ),
-      ),
+    if (!showHandle) {
+      return _buildContainer(
+        context, 
+        child: _buildBody(context)
+      );
+    }
+    
+    return _buildContainer(
+      context, 
+      child: Stack(
+        children: [
+          _buildBody(context),
+          _buildHandle(context),
+        ],
+      )
     );
   }
 
-  Widget _buildBody(BuildContext context) {
-    final handleArea = sizes.overlayHandleHeight + sizes.overlayHandleMargin;
+  Widget _buildContainer(BuildContext context, {required Widget child}) => Container(
+    width: (constraints?.maxWidth ?? double.infinity),
+    height: (constraints?.maxHeight ?? double.infinity),
+    decoration: decoration,
+    constraints: constraints ?? BoxConstraints.expand(),
+    child: ClipRRect(
+      borderRadius: decoration.borderRadius ?? BorderRadius.zero,
+      child: widget.useSafeArea ? SafeArea(child: child) : child
+    ),
+  );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        SizedBox(height: handleArea),
-        if (options.title != null) _buildTitle(options.title!),
-        Expanded(
-          child: FxOverlayView<T>(
-            options: options,
-            scrollController: scrollController,
-            showTitle: false,
-          )
-        )
-      ]
-    );
-  }
-
-  Widget _buildTitle(String text) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: sizes.md, vertical: sizes.xs),
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: typography.titleMedium.copyWith(
-          color: colors.onSurface,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHandle(BuildContext context) {
-    return GestureDetector(
+  Positioned _buildHandle(BuildContext context) => Positioned(
+    top: overlayTheme.handleMargin,
+    left: 0,
+    right: 0,
+    child: GestureDetector(
       behavior: HitTestBehavior.translucent,
       onVerticalDragUpdate: (details) => _onHandleDrag(context, details),
       child: Center(
         child: Container(
-          width: sizes.overlayHandleWidth,
-          height: sizes.overlayHandleHeight,
-          margin: EdgeInsets.only(top: sizes.overlayHandleMargin),
-          decoration: BoxDecoration(
-            color: colors.outline,
-            borderRadius: BorderRadius.circular(sizes.radiusMd),
-          ),
+          width: overlayTheme.handleSize.width,
+          height: overlayTheme.handleSize.height,
+          decoration: overlayTheme.handleDecoration,
+        )
+      )
+    )
+  );
+
+  Widget _buildBody(BuildContext context) {
+    final body = FxOverlayView<T>(
+      options: widget.options,
+      scrollController: _scrollController,
+      showTitle: false
+    );
+
+    if (widget.options.title == null) return body;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SizedBox(
+          height: showHandle 
+            ? overlayTheme.handleHeight 
+            : overlayTheme.horizontalTitleGap
         ),
-      ),
+        Text(
+          widget.options.title!,
+          textAlign: overlayTheme.titleAlignment,
+          style: overlayTheme.titleStyle,
+        ),
+        SizedBox(height: overlayTheme.horizontalTitleGap),
+        Expanded( child: body )
+      ]
     );
   }
 
   void _onHandleDrag(BuildContext context, DragUpdateDetails details) {
-    if (!sheetController.isAttached) return;
+    if (widget.sheetController == null || widget.bottomSheetOptions == null) return;
+    if (!widget.sheetController!.isAttached) return;
     final delta = -(details.primaryDelta ?? 0) / screenHeight;
-    final newSize =
-        (sheetController.size + delta).clamp(minChildSize, maxChildSize);
-    sheetController.jumpTo(newSize);
+    final newSize = (widget.sheetController!.size + delta)
+        .clamp(widget.bottomSheetOptions!.minChildSize, widget.bottomSheetOptions!.maxChildSize);
+    widget.sheetController!.jumpTo(newSize);
   }
 }

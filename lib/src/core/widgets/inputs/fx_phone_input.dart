@@ -2,6 +2,7 @@ import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_field_options.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_phone_input_theme.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_text_field.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart' show FxOverlayOptions, FxOverlayTile;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +14,7 @@ import 'package:blueprint_flutter_core/src/core/widgets/display/fx_country_flag.
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_select_field.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/overlay/fx_overlay.dart'
-    show FxOverlayOptions, FxOverlayTile;
+    show FxOverlayType;
 
 part 'fx_phone_input_data.dart';
 

@@ -1,7 +1,10 @@
 part of '_steps.dart';
 
 abstract class PhoneStepTemplate extends AuthStepTemplate {
-  const PhoneStepTemplate();
+  const PhoneStepTemplate({
+    super.context,
+    super.ref,
+  });
 
   @override
   String get stepId => 'phone';
@@ -15,5 +18,14 @@ abstract class PhoneStepTemplate extends AuthStepTemplate {
 }
 
 class DefaultPhoneStepTemplate extends PhoneStepTemplate {
-  const DefaultPhoneStepTemplate();
+  const DefaultPhoneStepTemplate({
+    super.context,
+    super.ref,
+  });
+
+  @override
+  PhoneStepTemplate copyWith({
+    required BuildContext context,
+    required WidgetRef ref,
+  }) => DefaultPhoneStepTemplate(context: context, ref: ref);
 }

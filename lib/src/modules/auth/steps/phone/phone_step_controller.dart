@@ -19,8 +19,8 @@ class PhoneStepController extends _$PhoneStepController {
     return const PhoneStepState();
   }
 
-  void setPhone(String phone, {String? countryCode, String? formattedPhone}) {
-    if (phone.isEmpty) {
+  void setPhone({String? phone, String? countryCode, String? formattedPhone}) {
+    if ( phone == null || phone.isEmpty) {
       state = state.copyWith(
         phone: null,
         countryCode: null,

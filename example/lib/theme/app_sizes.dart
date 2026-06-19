@@ -1,8 +1,8 @@
-import 'package:blueprint_flutter_core/blueprint_theme.dart';
+import 'package:blueprint_flutter_core/blueprint_theme.dart' show FxSizes;
 
 class AppSizes extends FxSizes {
-  AppSizes();
 
   @override
-  AppSizes copyWith() => AppSizes();
+  FxSizes copyWith() => this;
+
 }

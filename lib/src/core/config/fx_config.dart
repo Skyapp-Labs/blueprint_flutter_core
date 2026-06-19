@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:blueprint_flutter_core/src/core/network/fx_api_endpoints.dart';
@@ -19,6 +20,15 @@ abstract class FxConfig {
 
   /// Whether the app is running in the staging environment.
 	bool get isStaging => environment.isStaging;
+
+  /// The authentication method to use.
+	AuthMethod get authMethod => AuthMethod.phone;
+
+  /// Whether pin authentication is enabled.
+  bool get pinAuthenticationEnabled => false;
+
+  /// Whether biometric authentication is enabled.
+  bool get biometricAuthenticationEnabled => false;
 
   /// Whether the app is running in the production environment.
 	bool get isProduction => environment.isProduction;

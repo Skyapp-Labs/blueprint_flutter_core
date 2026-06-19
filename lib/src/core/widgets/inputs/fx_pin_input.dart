@@ -1,38 +1,32 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 
+import 'package:pinput/pinput.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_pin_input_field.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_pin_input_theme.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_pin_input_controller.dart';
 
-/// A configurable PIN/digit input widget.
-///
-/// Renders [length] individual digit cells in a row with auto-advance,
-/// backspace navigation, paste support, and shake animation on error.
-/// Supports external controller sync for custom keyboards via [controller].
-///
-/// > **Layout note:** Each cell uses `Flexible + AspectRatio(1)` to be
-/// > equally-sized and square. This requires the parent widget tree to provide
-/// > a bounded height. Wrap in a `SizedBox(height: ...)` if the parent is
-/// > height-unconstrained.
-///
-/// Use [FxOtpInput] for OTP verification flows that also need a resend countdown.
 class FxPinInput extends StatefulWidget {
   const FxPinInput({
     super.key,
-    required this.onCompleted,
+    this.onCompleted,
+    this.onChanged,
+    this.errorText,
+    this.obscureText = false,
+    this.enabled = true,
+    this.isLoading = false,
     this.length = 6,
-    this.theme,
-    this.autoFocus = true,
     this.controller,
     this.focusNode,
   });
 
-  final Future<void> Function(String)? onCompleted;
+  final ValueChanged<String>? onCompleted;
+  final ValueChanged<String>? onChanged;
   final int length;
-  final FxPinInputTheme? theme;
-  final bool autoFocus;
+  final String? errorText;
+  final bool obscureText;
+  final bool enabled;
+  final bool isLoading;
   final TextEditingController? controller;
   final FocusNode? focusNode;
 
@@ -40,138 +34,126 @@ class FxPinInput extends StatefulWidget {
   State<FxPinInput> createState() => FxPinInputState();
 }
 
-class FxPinInputState extends State<FxPinInput>
-    with FxUiToolkit, SingleTickerProviderStateMixin {
-  late final FxPinInputController _pinController;
-  late final AnimationController _shakeController;
-  late final Animation<double> _shakeAnimation;
+class FxPinInputState extends State<FxPinInput> 
+    with FxUiToolkit {
+      
+  late final FocusNode focusNode;
+  late final GlobalKey<FormState> formKey;
+  late final TextEditingController pinController;
+  late final bool _ownsController;
 
   @override
   void initState() {
     super.initState();
-
-    _pinController = FxPinInputController(
-      length: widget.length,
-      onCompleted: _handleCompleted,
-    );
-
-    // Trigger setState whenever loading starts or stops so AnimatedOpacity updates.
-    _pinController.onLoadingChanged = (_) {
-      if (mounted) setState(() {});
-    };
-
-    if (widget.controller != null) {
-      widget.controller!.addListener(_syncFromExternal);
-      _pinController.onValueChanged = (value) {
-        if (widget.controller!.text != value) {
-          widget.controller!.text = value;
-        }
-      };
-    }
-
-    _shakeController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500),
-    );
-
-    _shakeAnimation = Tween<double>(begin: 0, end: 10)
-        .chain(CurveTween(curve: Curves.elasticIn))
-        .animate(_shakeController)
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          _shakeController.reverse();
-        }
-      });
-
-    if (widget.autoFocus) _pinController.requestFirstFocus();
+    if (kIsWeb) BrowserContextMenu.disableContextMenu();
+    formKey = GlobalKey<FormState>();
+    _ownsController = widget.controller == null;
+    pinController = widget.controller ?? TextEditingController();
+    focusNode = widget.focusNode ?? FocusNode();
   }
 
   @override
   void dispose() {
-    widget.controller?.removeListener(_syncFromExternal);
-    _shakeController.dispose();
-    _pinController.dispose();
+    if (kIsWeb) BrowserContextMenu.enableContextMenu();
+    if (_ownsController) pinController.dispose();
+    focusNode.dispose();
     super.dispose();
   }
 
-  /// Clears all cells and triggers the shake animation.
-  ///
-  /// Call via [GlobalKey<FxPinInputState>] to signal a wrong entry to the user.
-  void triggerError() {
-    _pinController.clear();
-    _shakeController.forward(from: 0);
-  }
-
-  void _syncFromExternal() {
-    final externalValue = widget.controller?.text ?? '';
-    if (externalValue != _pinController.currentValue) {
-      _pinController.updateFromExternal(externalValue);
-      setState(() {});
+  @override
+  void didUpdateWidget(covariant FxPinInput oldWidget) {
+    if (oldWidget.errorText != widget.errorText) {
+      pinController.clear();
     }
+    super.didUpdateWidget(oldWidget);
   }
 
-  Future<void> _handleCompleted(String pin) async {
-    try {
-      await widget.onCompleted?.call(pin);
-    } catch (e) {
-      triggerError();
-      setState(() {});
-      rethrow;
-    }
-  }
+  FxPinInputTheme get pinTheme => themeData.pinInputTheme;
 
-  bool get _isLoading => _pinController.isLoading;
+  PinTheme get defaultPinTheme => PinTheme(
+    width: screenWidth * .12,
+    height: pinTheme.height,
+    margin: EdgeInsets.zero,
+    padding: pinTheme.padding ?? EdgeInsets.symmetric(horizontal: sizes.md, vertical: sizes.lg),
+    textStyle: pinTheme.textStyle,
+    constraints: BoxConstraints(
+      maxWidth: pinTheme.width ?? sizes.inputHeight,
+      maxHeight: pinTheme.height ?? sizes.inputHeight,
+    ),
+    decoration: BoxDecoration(
+      color: pinTheme.backgroundColor,
+      borderRadius: pinTheme.borderRadiusFromInput,
+      border: pinTheme.primaryBorder,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
 
-    return AnimatedOpacity(
-      opacity: _isLoading ? 0.3 : 1.0,
-      duration: const Duration(milliseconds: 200),
-      child: AnimatedBuilder(
-        animation: _shakeAnimation,
-        builder: (context, child) => Transform.translate(
-          offset: Offset(_shakeAnimation.value, 0),
-          child: child,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: widget.theme?.spacing ?? 16,
-          children: List.generate(widget.length, _buildField),
+    return Pinput(
+      length: widget.length,
+      enabled: widget.isLoading ? false : widget.enabled,
+      // disabledPinTheme: defaultPinTheme.copyWith(
+      //   decoration: defaultPinTheme.decoration!.copyWith(
+      //     color: Colors.transparent,
+      //     border: null
+      //   ),
+      // ),
+      focusNode: focusNode,
+      errorText: widget.errorText,
+      controller: pinController,
+      obscureText: widget.obscureText,
+      errorTextStyle: pinTheme.errorTextStyle,
+      defaultPinTheme: defaultPinTheme,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      separatorBuilder: _buildSeparator,
+      hapticFeedbackType: HapticFeedbackType.heavyImpact,
+      onCompleted: widget.onCompleted,
+      onChanged: widget.onChanged,
+      validator: (_) {
+        if (widget.errorText == null || widget.errorText!.isEmpty) return null;
+        pinController.clear();
+        return widget.errorText!;
+      },
+      focusedPinTheme: defaultPinTheme.copyWith(
+        decoration: defaultPinTheme.decoration!.copyWith(
+          border: pinTheme.focusBorder
+        )
+      ),
+      submittedPinTheme: defaultPinTheme.copyWith(
+        decoration: defaultPinTheme.decoration!.copyWith(
+          border: pinTheme.primaryBorder,
+        )
+      ),
+      errorPinTheme: defaultPinTheme.copyWith(
+        decoration: defaultPinTheme.decoration!.copyWith(
+          border: pinTheme.errorBorder,
         ),
       ),
     );
   }
 
-  Widget _buildField(int index) {
-    final activeIndex = _pinController.controllers.indexWhere((c) => c.text.isEmpty);
-    final isActiveCell = index == (activeIndex == -1 ? widget.length - 1 : activeIndex);
+  Widget _buildSeparator(int index) {
+    final spacing = themeData.pinInputTheme.spacing ?? sizes.md;
+    // final length = widget.length;
+    // final indexPlusOne = index + 1;
+    // final isSeparator = length % 3 == 0 && indexPlusOne > 0 && indexPlusOne % 3 == 0;
 
-    return Flexible(
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: FxPinInputField(
-          controller: _pinController.controllers[index],
-          focusNode: _pinController.focusNodes[index],
-          enabled: !_isLoading,
-          hasError: _pinController.hasError,
-          pasteLength: isActiveCell ? widget.length : 1,
-          inputTheme: widget.theme ??
-              FxPinInputTheme.fromTheme(theme).copyWith(
-                padding: EdgeInsets.zero,
-              ),
-          onChanged: (value) {
-            _pinController.onChanged(value, index);
-            setState(() {});
-          },
-          onBackspace: () {
-            _pinController.onBackspace(index);
-            setState(() {});
-          },
-          onTap: _pinController.focusActive,
-        ),
-      ),
+    // if (isSeparator) {
+    //   return Container(
+    //     margin: EdgeInsets.only(
+    //       right: spacing * .5,
+    //       left: spacing * .5,
+    //     ),
+    //     color: colorScheme.outline, 
+    //     width: sizes.sm, 
+    //     height: sizes.xs * .5
+    //   );
+    // }
+    return Container(
+      width: screenWidth * .025,
+      constraints: BoxConstraints(maxWidth: spacing)
     );
   }
 }

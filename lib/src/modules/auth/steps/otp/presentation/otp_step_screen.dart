@@ -1,7 +1,7 @@
 import 'package:blueprint_flutter_core/src/core/widgets/feedback/_feedback.dart';
+import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_pin_input.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/flow/steps/_steps.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/steps/otp/otp_step_controller.dart';
-import 'package:blueprint_flutter_core/src/modules/auth/widgets/fx_otp_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,7 +18,6 @@ class OtpStepScreen extends ConsumerStatefulWidget {
 }
 
 class _OtpStepScreenState extends ConsumerState<OtpStepScreen> {
-  final _otpKey = GlobalKey<FxOtpInputState>();
   final _otpController = TextEditingController();
 
   @override
@@ -33,17 +32,16 @@ class _OtpStepScreenState extends ConsumerState<OtpStepScreen> {
     final state = ref.watch(otpStepControllerProvider);
 
     return widget.template.buildShell(
-      context: context,
-      ref: ref,
       children: [
-        FxOtpInput(
-          key: _otpKey,
+        FxPinInput(
           controller: _otpController,
+          isLoading: state.isLoading,
           errorText: state.error,
           onCompleted: (otp) async {
             controller.setOtp(otp);
             await controller.verifyOtp();
           },
+          length: 6,
         ),
         FxCountdownAction(
           prefixText: 'Resend code',
