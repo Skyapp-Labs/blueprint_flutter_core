@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 import 'package:blueprint_flutter_core/src/core/utils/validators.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';

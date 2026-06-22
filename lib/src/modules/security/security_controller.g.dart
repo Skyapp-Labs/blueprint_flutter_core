@@ -75,7 +75,7 @@ final class SecurityControllerProvider
 }
 
 String _$securityControllerHash() =>
-    r'a78d902011a616117c477211f515f7fade9036e8';
+    r'22dc72f87f761820097c8910a5817d26eac7f43c';
 
 /// Central auth controller. Handles both [AuthMethod.phone] and [AuthMethod.email].
 ///

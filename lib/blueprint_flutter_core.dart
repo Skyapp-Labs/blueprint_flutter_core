@@ -45,4 +45,10 @@ export 'src/core/utils/logger.dart';
 
 export 'src/core/routing/fx_router_notifier.dart';
 export 'src/core/routing/fx_route_observer.dart';
-export 'src/core/routing/fx_auth_guard.dart';
+export 'src/core/routing/guards/fx_auth_guard.dart';
+export 'src/core/routing/guards/fx_home_guard.dart';
+export 'src/core/routing/fx_routing_config.dart';
+export 'src/core/routing/fx_app_routes.dart';
+export 'src/core/routing/fx_router_hook.dart';
+export 'src/core/routing/fx_router_redirect.dart';
+export 'src/core/routing/fx_router.dart';

@@ -1,4 +1,6 @@
+import 'package:blueprint_flutter_core/src/core/routing/fx_routing_config.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/entities/user.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'package:blueprint_flutter_core/src/core/network/fx_api_endpoints.dart';
@@ -23,9 +25,6 @@ abstract class FxConfig {
 
   /// The authentication method to use.
 	AuthMethod get authMethod => AuthMethod.phone;
-
-  /// Whether pin authentication is enabled.
-  bool get pinAuthenticationEnabled => false;
 
   /// Whether biometric authentication is enabled.
   bool get biometricAuthenticationEnabled => false;
@@ -66,6 +65,9 @@ abstract class FxConfig {
   /// Favorite countries for phone input picker
   List<String> get favoriteCountries => ['NG', 'US', 'GB', 'Uk', 'CA', 'IN'];
 
+  /// Expected OTP digit count — sent as `X-OTP-Length` on OTP API calls.
+  int get otpLength => 6;
+
   /// Optional full `User-Agent` for API calls. When null, a default is built
   /// from [appName], [apiVersion], and [clientVersion].
   String? get apiUserAgent => null;
@@ -79,6 +81,12 @@ abstract class FxConfig {
 
   /// When non-empty, sent as `X-Org-Id` on every API request.
   String? get orgId => null;
+
+  /// Route paths for splash, auth, home, and home-access gates.
+  FxRoutingConfig get routing;
+
+  /// Whether the user has completed the post registration step.
+  bool isPostRegistrationComplete(User user) => user.onboardingStep >= 2;
 }
 
 /// Override in main.dart with your [FxConfig] implementation.

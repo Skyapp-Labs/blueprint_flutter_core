@@ -21,6 +21,12 @@ class FxApiEndpoints {
   String get resetPassword       => '/auth/reset-password';
   String get resetPasswordPhone  => '/auth/reset-password/phone';
 
+  // Security — PIN
+  String get createPin => '/auth/pin/set';
+  String get verifyPin => '/auth/pin/verify';
+  String get resetPin => '/auth/pin/reset';
+  String pinStatus(String type) => '/auth/pin/status/$type';
+
   // Auth — account management
   String get changePassword => '/auth/account/change-password';
   String get deleteRequest  => '/auth/account/delete-request';

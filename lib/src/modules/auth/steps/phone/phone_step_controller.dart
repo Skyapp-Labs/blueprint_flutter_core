@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 import 'package:blueprint_flutter_core/src/core/network/network_providers.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/payload/send_otp_payload.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/flow/auth_flow_controller.dart';
@@ -42,7 +43,8 @@ class PhoneStepController extends _$PhoneStepController {
     state = state.copyWith(isLoading: true, error: null);
 
     final payload = SendOtpPayload(phone: state.phone!);
-    final result = await _service.sendOtp(payload);
+    final otpLength = ref.read(fxConfigProvider).otpLength;
+    final result = await _service.sendOtp(payload, otpLength: otpLength);
 
     result.when(
       success: (response) {

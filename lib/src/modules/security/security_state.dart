@@ -5,7 +5,8 @@ part 'security_state.freezed.dart';
 enum PinStepView {
   verifyPin,
   createPin,
-  confirmPin,
+  confirmCreatePin,
+  confirmChangePin,
   resetPin,
 }
 
@@ -15,7 +16,10 @@ abstract class SecurityState with _$SecurityState {
     String? pin,
     String? confirmPin,
     PinStepView? stepView,
+    @Default(4) int pinLength,
     @Default(false) bool isLoading,
+    @Default(false) bool isSessionUnlocked,
+    @Default('authentication') String pinType,
     String? error,
   }) = _SecurityState;
 

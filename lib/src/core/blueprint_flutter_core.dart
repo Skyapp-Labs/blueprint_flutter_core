@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:blueprint_flutter_core/src/core/routing/fx_app_routes.dart';
 import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 
 /// Root widget that wires [ProviderScope] with [fxConfigProvider] for the
@@ -21,14 +23,18 @@ import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 class BlueprintFlutterCore extends StatelessWidget {
   const BlueprintFlutterCore({
     super.key,
-    required this.config,
-    required this.child,
-    this.overrides = const [],
     this.observers,
+    this.overrides = const [],
+    required this.config,
+    required this.appRoutes,
+    required this.child,
   });
 
   /// App-specific configuration (API base URL, auth method, feature flags, …).
   final FxConfig config;
+
+  // final GoRouter router;
+  final List<RouteBase> Function(FxConfig) appRoutes;
 
   /// Your app widget tree (typically [MaterialApp] or [MaterialApp.router]).
   final Widget child;
@@ -44,6 +50,7 @@ class BlueprintFlutterCore extends StatelessWidget {
     return ProviderScope(
       overrides: [
         fxConfigProvider.overrideWithValue(config),
+        fxAppRoutesProvider.overrideWith((ref) => appRoutes(config)),
         ...overrides,
       ],
       observers: observers,

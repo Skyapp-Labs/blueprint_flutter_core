@@ -14,17 +14,13 @@ class ResetPinView extends ConsumerWidget with FxUiToolkit {
   Widget build(BuildContext context, WidgetRef ref) {
     setToolkitContext(context);
 
-    final state = ref.watch(securityControllerProvider);
     final controller = ref.read(securityControllerProvider.notifier);
 
     return PinStepTemplate(
       title: 'Forgot your PIN?',
-      subtitle: 'Enter your new PIN to access your account',
-      length: length,
-      isLoading: state.isLoading,
+      subtitle: 'Enter your new $length-digit PIN to access your account',
       onBackPressed: () => controller.goTo(PinStepView.verifyPin),
-      error: state.error,
-      onCompleted: (pin) => controller.onVerifyPinPressed(pin: pin)
+      onCompleted: (pin) => {}
     );
   }
 }

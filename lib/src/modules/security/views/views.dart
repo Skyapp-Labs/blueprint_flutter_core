@@ -1,22 +1,21 @@
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_keyboard.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_pin_input.dart';
+import 'package:blueprint_flutter_core/src/modules/security/security_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 export 'verify_pin.dart';
 export 'create_pin.dart';
 export 'change_pin.dart';
 export 'reset_pin.dart';
 
-class PinStepTemplate extends StatefulWidget {
+class PinStepTemplate extends ConsumerStatefulWidget {
   const PinStepTemplate({
     super.key,
     required this.title,
     required this.subtitle,
-    this.length = 4,
     this.onBackPressed,
-    this.isLoading = false,
-    this.error,
     this.onCompleted,
     this.onActionPressed,
     this.action,
@@ -24,19 +23,16 @@ class PinStepTemplate extends StatefulWidget {
 
   final String title;
   final String subtitle;
-  final int length;
-  final bool isLoading;
-  final String? error;
   final Widget? action;
   final Function(String)? onCompleted;
   final Function()? onActionPressed;
   final Function()? onBackPressed;
 
   @override
-  State<PinStepTemplate> createState() => _PinStepTemplateState();
+  ConsumerState<PinStepTemplate> createState() => _PinStepTemplateState();
 }
 
-class _PinStepTemplateState extends State<PinStepTemplate> with FxUiToolkit {
+class _PinStepTemplateState extends ConsumerState<PinStepTemplate> with FxUiToolkit {
 
   late final TextEditingController pinController;
 
@@ -55,6 +51,10 @@ class _PinStepTemplateState extends State<PinStepTemplate> with FxUiToolkit {
   @override
   Widget build(BuildContext context) {
     setToolkitContext(context);
+
+    ref.listen(securityControllerProvider, (previous, next) {
+      if (previous?.stepView != next.stepView) pinController.clear();
+    });
 
     if (widget.onBackPressed == null) return _buildBody();
 
@@ -78,44 +78,56 @@ class _PinStepTemplateState extends State<PinStepTemplate> with FxUiToolkit {
     );
   }
 
-  Widget _buildBody() => Column(
-    mainAxisAlignment: MainAxisAlignment.center,
+  Widget _buildBody() {
+    final state = ref.watch(securityControllerProvider);
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _buildHeading(),
+              SizedBox(height: sizes.xl),
+              FxPinInput(
+                length: state.pinLength,
+                controller: pinController,
+                errorText: state.error,
+                obscureText: true,
+                isLoading: state.isLoading,
+                onCompleted: widget.onCompleted,
+              )
+            ]
+          )
+        ),
+        FxKeyboard(
+          action: widget.action,
+          enabled: !state.isLoading,
+          maxLength: state.pinLength,
+          controller: pinController,
+          onActionPressed: widget.onActionPressed,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHeading() => Column(
     crossAxisAlignment: CrossAxisAlignment.stretch,
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              widget.title, 
-              style: theme.textTheme.titleLarge,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: sizes.xs),
-            Text(
-              widget.subtitle,
-              style: theme.textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: sizes.xl),
-            FxPinInput(
-              length: widget.length,
-              controller: pinController,
-              errorText: widget.error,
-              obscureText: true,
-              isLoading: widget.isLoading,
-              onCompleted: widget.onCompleted,
-            )
-          ],
-        )
+      Text(
+        widget.title, 
+        style: theme.textTheme.titleLarge,
+        textAlign: TextAlign.center,
       ),
-      FxKeyboard(
-        enabled: !widget.isLoading,
-        controller: pinController,
-        action: widget.action,
-        onActionPressed: widget.onActionPressed,
+      SizedBox(height: sizes.xs),
+      Text(
+        widget.subtitle,
+        style: theme.textTheme.bodyMedium,
+        textAlign: TextAlign.center,
       ),
-    ],
+    ]
   );
 }

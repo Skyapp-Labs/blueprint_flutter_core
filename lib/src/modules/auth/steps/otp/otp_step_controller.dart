@@ -2,6 +2,7 @@ import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/payload/
 import 'package:blueprint_flutter_core/src/modules/auth/core/services/auth_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/auth_controller.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_step.dart';
 import 'package:blueprint_flutter_core/src/core/network/network_providers.dart';
@@ -32,6 +33,8 @@ class OtpStepController extends _$OtpStepController {
   }
 
   AuthFlowController get _authFlow => ref.read(authFlowControllerProvider.notifier);
+
+  int get _otpLength => ref.read(fxConfigProvider).otpLength;
 
   void setOtp(String otp) {
     state = state.copyWith(otp: otp, error: null);
@@ -65,7 +68,7 @@ class OtpStepController extends _$OtpStepController {
       otp: state.otp!,
     );
 
-    final result = await _service.verifyOtp(payload);
+    final result = await _service.verifyOtp(payload, otpLength: _otpLength);
     if (!ref.mounted) return;
 
     await result.when(
@@ -98,7 +101,7 @@ class OtpStepController extends _$OtpStepController {
       refreshToken: state.resendToken!,
     );
     
-    final result = await _service.resendOtp(payload);
+    final result = await _service.resendOtp(payload, otpLength: _otpLength);
 
     result.when(
       success: (response) {
