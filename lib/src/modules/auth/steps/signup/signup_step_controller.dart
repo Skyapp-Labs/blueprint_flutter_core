@@ -42,9 +42,9 @@ class SignupStepController extends _$SignupStepController {
     result.when(
       success: (tokens) async {
         final authController = ref.read(authControllerProvider.notifier);
-        await authController.applyTokens(tokens);
-        // if (!ref.mounted) return;
-        // state = state.copyWith(isLoading: false);
+        await authController.applyTokens(tokens, isNewUser: true);
+        if (!ref.mounted) return;
+        state = state.copyWith(isLoading: false);
       },
       failure: (error) {
         if (!ref.mounted) return;

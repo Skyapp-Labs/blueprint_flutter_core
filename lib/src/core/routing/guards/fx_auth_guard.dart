@@ -1,3 +1,4 @@
+import 'package:blueprint_flutter_core/src/core/routing/fx_routing_config.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/states/auth_state.dart';
 
 /// Handles auth-based route redirection.
@@ -13,18 +14,16 @@ import 'package:blueprint_flutter_core/src/modules/auth/core/models/states/auth_
 /// ```
 abstract final class FxAuthGuard {
   static String? redirect({
-    required AuthState authState,
     required String location,
-    required String initialPath,
-    required String dashboardPath,
-    required List<String> authPaths,
+    required AuthState authState,
+    required FxRoutingConfig routingConfig,
   }) {
     final status = authState.status;
-    final isAuthRoute = authPaths.contains(location);
+    final isAuthRoute = routingConfig.authPaths.contains(location);
     final isAuthenticated = status == AuthStatus.authenticated;
 
     // Always allow splash to resolve itself
-    if (location == initialPath) return null;
+    if (location == routingConfig.splashPath) return null;
 
     // While the session is being restored or an auth action is in flight,
     // hold position — do not redirect. This prevents a bounce to login
@@ -32,11 +31,11 @@ abstract final class FxAuthGuard {
     if (status == AuthStatus.authenticating) return null;
 
     // Authenticated users should not be on login
-    if (isAuthenticated && isAuthRoute) return dashboardPath;
+    // if (isAuthenticated && isAuthRoute) return dashboardPath;
 
     // Unauthenticated users cannot access protected routes
-    if ((!isAuthenticated && !isAuthRoute) && authPaths.isNotEmpty) {
-      return authPaths.first;
+    if ((!isAuthenticated && !isAuthRoute) && routingConfig.authPaths.isNotEmpty) {
+      return routingConfig.authPaths.first;
     }
 
     return null;

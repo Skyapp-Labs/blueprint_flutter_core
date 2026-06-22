@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SecurityState {
 
- String? get pin; String? get confirmPin; PinStepView? get stepView; bool get isLoading; String? get error;
+ String? get pin; String? get confirmPin; PinStepView? get stepView; int get pinLength; bool get isLoading; bool get isSessionUnlocked; String get pinType; String? get error;
 /// Create a copy of SecurityState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $SecurityStateCopyWith<SecurityState> get copyWith => _$SecurityStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityState&&(identical(other.pin, pin) || other.pin == pin)&&(identical(other.confirmPin, confirmPin) || other.confirmPin == confirmPin)&&(identical(other.stepView, stepView) || other.stepView == stepView)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SecurityState&&(identical(other.pin, pin) || other.pin == pin)&&(identical(other.confirmPin, confirmPin) || other.confirmPin == confirmPin)&&(identical(other.stepView, stepView) || other.stepView == stepView)&&(identical(other.pinLength, pinLength) || other.pinLength == pinLength)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSessionUnlocked, isSessionUnlocked) || other.isSessionUnlocked == isSessionUnlocked)&&(identical(other.pinType, pinType) || other.pinType == pinType)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,pin,confirmPin,stepView,isLoading,error);
+int get hashCode => Object.hash(runtimeType,pin,confirmPin,stepView,pinLength,isLoading,isSessionUnlocked,pinType,error);
 
 @override
 String toString() {
-  return 'SecurityState(pin: $pin, confirmPin: $confirmPin, stepView: $stepView, isLoading: $isLoading, error: $error)';
+  return 'SecurityState(pin: $pin, confirmPin: $confirmPin, stepView: $stepView, pinLength: $pinLength, isLoading: $isLoading, isSessionUnlocked: $isSessionUnlocked, pinType: $pinType, error: $error)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $SecurityStateCopyWith<$Res>  {
   factory $SecurityStateCopyWith(SecurityState value, $Res Function(SecurityState) _then) = _$SecurityStateCopyWithImpl;
 @useResult
 $Res call({
- String? pin, String? confirmPin, PinStepView? stepView, bool isLoading, String? error
+ String? pin, String? confirmPin, PinStepView? stepView, int pinLength, bool isLoading, bool isSessionUnlocked, String pinType, String? error
 });
 
 
@@ -62,13 +62,16 @@ class _$SecurityStateCopyWithImpl<$Res>
 
 /// Create a copy of SecurityState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? pin = freezed,Object? confirmPin = freezed,Object? stepView = freezed,Object? isLoading = null,Object? error = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? pin = freezed,Object? confirmPin = freezed,Object? stepView = freezed,Object? pinLength = null,Object? isLoading = null,Object? isSessionUnlocked = null,Object? pinType = null,Object? error = freezed,}) {
   return _then(_self.copyWith(
 pin: freezed == pin ? _self.pin : pin // ignore: cast_nullable_to_non_nullable
 as String?,confirmPin: freezed == confirmPin ? _self.confirmPin : confirmPin // ignore: cast_nullable_to_non_nullable
 as String?,stepView: freezed == stepView ? _self.stepView : stepView // ignore: cast_nullable_to_non_nullable
-as PinStepView?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as PinStepView?,pinLength: null == pinLength ? _self.pinLength : pinLength // ignore: cast_nullable_to_non_nullable
+as int,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,isSessionUnlocked: null == isSessionUnlocked ? _self.isSessionUnlocked : isSessionUnlocked // ignore: cast_nullable_to_non_nullable
+as bool,pinType: null == pinType ? _self.pinType : pinType // ignore: cast_nullable_to_non_nullable
+as String,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -154,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? pin,  String? confirmPin,  PinStepView? stepView,  bool isLoading,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String? pin,  String? confirmPin,  PinStepView? stepView,  int pinLength,  bool isLoading,  bool isSessionUnlocked,  String pinType,  String? error)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SecurityState() when $default != null:
-return $default(_that.pin,_that.confirmPin,_that.stepView,_that.isLoading,_that.error);case _:
+return $default(_that.pin,_that.confirmPin,_that.stepView,_that.pinLength,_that.isLoading,_that.isSessionUnlocked,_that.pinType,_that.error);case _:
   return orElse();
 
 }
@@ -175,10 +178,10 @@ return $default(_that.pin,_that.confirmPin,_that.stepView,_that.isLoading,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? pin,  String? confirmPin,  PinStepView? stepView,  bool isLoading,  String? error)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String? pin,  String? confirmPin,  PinStepView? stepView,  int pinLength,  bool isLoading,  bool isSessionUnlocked,  String pinType,  String? error)  $default,) {final _that = this;
 switch (_that) {
 case _SecurityState():
-return $default(_that.pin,_that.confirmPin,_that.stepView,_that.isLoading,_that.error);case _:
+return $default(_that.pin,_that.confirmPin,_that.stepView,_that.pinLength,_that.isLoading,_that.isSessionUnlocked,_that.pinType,_that.error);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +198,10 @@ return $default(_that.pin,_that.confirmPin,_that.stepView,_that.isLoading,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? pin,  String? confirmPin,  PinStepView? stepView,  bool isLoading,  String? error)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String? pin,  String? confirmPin,  PinStepView? stepView,  int pinLength,  bool isLoading,  bool isSessionUnlocked,  String pinType,  String? error)?  $default,) {final _that = this;
 switch (_that) {
 case _SecurityState() when $default != null:
-return $default(_that.pin,_that.confirmPin,_that.stepView,_that.isLoading,_that.error);case _:
+return $default(_that.pin,_that.confirmPin,_that.stepView,_that.pinLength,_that.isLoading,_that.isSessionUnlocked,_that.pinType,_that.error);case _:
   return null;
 
 }
@@ -210,13 +213,16 @@ return $default(_that.pin,_that.confirmPin,_that.stepView,_that.isLoading,_that.
 
 
 class _SecurityState implements SecurityState {
-  const _SecurityState({this.pin, this.confirmPin, this.stepView, this.isLoading = false, this.error});
+  const _SecurityState({this.pin, this.confirmPin, this.stepView, this.pinLength = 4, this.isLoading = false, this.isSessionUnlocked = false, this.pinType = 'authentication', this.error});
   
 
 @override final  String? pin;
 @override final  String? confirmPin;
 @override final  PinStepView? stepView;
+@override@JsonKey() final  int pinLength;
 @override@JsonKey() final  bool isLoading;
+@override@JsonKey() final  bool isSessionUnlocked;
+@override@JsonKey() final  String pinType;
 @override final  String? error;
 
 /// Create a copy of SecurityState
@@ -229,16 +235,16 @@ _$SecurityStateCopyWith<_SecurityState> get copyWith => __$SecurityStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityState&&(identical(other.pin, pin) || other.pin == pin)&&(identical(other.confirmPin, confirmPin) || other.confirmPin == confirmPin)&&(identical(other.stepView, stepView) || other.stepView == stepView)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.error, error) || other.error == error));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SecurityState&&(identical(other.pin, pin) || other.pin == pin)&&(identical(other.confirmPin, confirmPin) || other.confirmPin == confirmPin)&&(identical(other.stepView, stepView) || other.stepView == stepView)&&(identical(other.pinLength, pinLength) || other.pinLength == pinLength)&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.isSessionUnlocked, isSessionUnlocked) || other.isSessionUnlocked == isSessionUnlocked)&&(identical(other.pinType, pinType) || other.pinType == pinType)&&(identical(other.error, error) || other.error == error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,pin,confirmPin,stepView,isLoading,error);
+int get hashCode => Object.hash(runtimeType,pin,confirmPin,stepView,pinLength,isLoading,isSessionUnlocked,pinType,error);
 
 @override
 String toString() {
-  return 'SecurityState(pin: $pin, confirmPin: $confirmPin, stepView: $stepView, isLoading: $isLoading, error: $error)';
+  return 'SecurityState(pin: $pin, confirmPin: $confirmPin, stepView: $stepView, pinLength: $pinLength, isLoading: $isLoading, isSessionUnlocked: $isSessionUnlocked, pinType: $pinType, error: $error)';
 }
 
 
@@ -249,7 +255,7 @@ abstract mixin class _$SecurityStateCopyWith<$Res> implements $SecurityStateCopy
   factory _$SecurityStateCopyWith(_SecurityState value, $Res Function(_SecurityState) _then) = __$SecurityStateCopyWithImpl;
 @override @useResult
 $Res call({
- String? pin, String? confirmPin, PinStepView? stepView, bool isLoading, String? error
+ String? pin, String? confirmPin, PinStepView? stepView, int pinLength, bool isLoading, bool isSessionUnlocked, String pinType, String? error
 });
 
 
@@ -266,13 +272,16 @@ class __$SecurityStateCopyWithImpl<$Res>
 
 /// Create a copy of SecurityState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? pin = freezed,Object? confirmPin = freezed,Object? stepView = freezed,Object? isLoading = null,Object? error = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? pin = freezed,Object? confirmPin = freezed,Object? stepView = freezed,Object? pinLength = null,Object? isLoading = null,Object? isSessionUnlocked = null,Object? pinType = null,Object? error = freezed,}) {
   return _then(_SecurityState(
 pin: freezed == pin ? _self.pin : pin // ignore: cast_nullable_to_non_nullable
 as String?,confirmPin: freezed == confirmPin ? _self.confirmPin : confirmPin // ignore: cast_nullable_to_non_nullable
 as String?,stepView: freezed == stepView ? _self.stepView : stepView // ignore: cast_nullable_to_non_nullable
-as PinStepView?,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as PinStepView?,pinLength: null == pinLength ? _self.pinLength : pinLength // ignore: cast_nullable_to_non_nullable
+as int,isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
+as bool,isSessionUnlocked: null == isSessionUnlocked ? _self.isSessionUnlocked : isSessionUnlocked // ignore: cast_nullable_to_non_nullable
+as bool,pinType: null == pinType ? _self.pinType : pinType // ignore: cast_nullable_to_non_nullable
+as String,error: freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

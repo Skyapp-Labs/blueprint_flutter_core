@@ -42,7 +42,7 @@ final class SignupStepControllerProvider
 }
 
 String _$signupStepControllerHash() =>
-    r'853d272e297389390594f0457e6448cb5f20592e';
+    r'25f824e8080a558790e2e96003025654e5923874';
 
 abstract class _$SignupStepController extends $Notifier<SignupStepState> {
   SignupStepState build();

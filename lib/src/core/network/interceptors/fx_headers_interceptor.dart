@@ -5,6 +5,22 @@ import 'package:flutter/foundation.dart';
 
 import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
 
+/// Keys and helpers for per-request HTTP headers.
+abstract final class FxRequestHeaders {
+  FxRequestHeaders._();
+
+  static const String otpLength = 'X-OTP-Length';
+  static const String pinLength = 'X-PIN-Length';
+
+  static Options otpLengthOptions(int length) => Options(
+    headers: {otpLength: length.toString()},
+  );
+
+  static Options pinLengthOptions(int length) => Options(
+    headers: {pinLength: length.toString()},
+  );
+}
+
 /// Key for [RequestOptions.extra] / [Options.extra] to send `Idempotency-Key`.
 ///
 /// Use the same value when retrying the same logical operation.

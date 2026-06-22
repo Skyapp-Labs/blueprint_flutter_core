@@ -25,6 +25,7 @@ abstract class AuthState with _$AuthState {
   const factory AuthState({
     @Default(AuthStatus.unauthenticated) AuthStatus status,
     User? user,
+    @Default(false) bool isNewUser,
     String? error,
   }) = _AuthState;
 

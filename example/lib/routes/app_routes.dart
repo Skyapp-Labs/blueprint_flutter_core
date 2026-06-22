@@ -1,3 +1,5 @@
+import 'package:example/modules/home_access/home_unlock_screen.dart';
+import 'package:example/modules/home_access/onboarding_gate_screen.dart';
 import 'package:example/modules/notification/screens/notification_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,13 +27,20 @@ List<RouteBase> appRoutes(FxConfig config) => [
     builder: (context, state) => const AuthScreen(),
   ),
 
-
   GoRoute(
     path: AppPaths.home,
-    builder: (context, state) => DashboardScreen(),
+    builder: (context, state) => const DashboardScreen(),
     routes: [
       GoRoute(
-        path: AppPaths.notifications.replaceAll(AppPaths.home, ''),
+        path: 'onboarding',
+        builder: (context, state) => const OnboardingGateScreen(),
+      ),
+      GoRoute(
+        path: 'unlock',
+        builder: (context, state) => const HomeUnlockScreen(),
+      ),
+      GoRoute(
+        path: 'notifications',
         builder: (context, state) => const NotificationScreen(),
       ),
     ],

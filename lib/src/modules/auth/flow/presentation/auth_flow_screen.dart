@@ -19,7 +19,7 @@ class AuthFlowScreen extends ConsumerStatefulWidget {
     this.templates = const AuthStepTemplates(),
   });
 
-  final void Function(User user)? onAuthSuccess;
+  final void Function(User user, bool isNewUser)? onAuthSuccess;
   final AuthMethod authMethod;
   final void Function(AuthStep? previousStep, AuthStep? currentStep)? onStepChange;
   final AuthStepTemplates templates;
@@ -61,7 +61,9 @@ class _AuthFlowScreenState extends ConsumerState<AuthFlowScreen> with FxUiToolki
     );
 
     ref.listen(authControllerProvider, (_, next) {
-      if (next.isAuthenticated) widget.onAuthSuccess?.call(next.user!);
+      if (next.isAuthenticated) {
+        widget.onAuthSuccess?.call(next.user!, next.isNewUser);
+      }
     });
 
     if (flow.step == null) return const SizedBox.shrink();

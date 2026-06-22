@@ -7,18 +7,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LockScreen extends ConsumerStatefulWidget {
-  const LockScreen({super.key, this.length = 4});
+  const LockScreen({
+    super.key,
+    this.length = 6,
+    this.pinType = 'authentication',
+    this.onUnlocked,
+  });
 
+  /// The type of PIN to check.
+  final String pinType;
+  /// When null, [FxConfig.pinLength] is used.
   final int length;
+  /// Called after PIN verification succeeds and home access is granted.
+  final VoidCallback? onUnlocked;
 
-  static Future<bool?> asDialog(BuildContext context, {int length = 4}) => showFxOverlay<bool, dynamic>(
-    context, 
-    type: FxOverlayType.modal,
-    useSafeArea: false,
-    options: FxOverlayOptions.builder(
-      builder: (context) => LockScreen(length: length),
-    ),
-  );
+  static Future<bool?> asDialog(
+    BuildContext context, {
+    int length = 4,
+    String pinType = 'authentication',
+    VoidCallback? onUnlocked,
+  }) =>
+      showFxOverlay<bool, dynamic>(
+        context,
+        type: FxOverlayType.modal,
+        useSafeArea: false,
+        options: FxOverlayOptions.builder(
+          builder: (context) => LockScreen(
+            length: length,
+            pinType: pinType,
+            onUnlocked: onUnlocked,
+          ),
+        ),
+      );
 
   @override
   ConsumerState<LockScreen> createState() => _LockScreenState();
@@ -31,7 +51,11 @@ class _LockScreenState extends ConsumerState<LockScreen> with FxUiToolkit {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       if (!mounted) return;
-      ref.read(securityControllerProvider.notifier).initializePinScreen();
+      final pinType = widget.pinType;
+      final securityController = ref.read(securityControllerProvider.notifier);
+
+      securityController.setPinLength(length: widget.length);
+      securityController.checkPinStatus(pinType: pinType);
     });
   }
 
@@ -64,11 +88,14 @@ class _LockScreenState extends ConsumerState<LockScreen> with FxUiToolkit {
       layoutBuilder: transitionTheme.layoutBuilder,
       reverseDuration: transitionTheme.reverseDuration,
       child: switch (state.stepView) {
-        PinStepView.verifyPin => VerifyPinView(length: widget.length),
-        PinStepView.createPin => CreatePinView(length: widget.length),
-        PinStepView.confirmPin => ChangePinView(length: widget.length),
-        PinStepView.resetPin => ResetPinView(length: widget.length),
-        null => const SizedBox.shrink(),
+        PinStepView.verifyPin => VerifyPinView(
+          onUnlocked: widget.onUnlocked,
+        ),
+        PinStepView.createPin => CreatePinView(),
+        PinStepView.resetPin => ResetPinView(),
+        PinStepView.confirmCreatePin => CreatePinView(isConfirming: true),
+        PinStepView.confirmChangePin => ChangePinView(isConfirming: true),
+        null => Center(child: CircularProgressIndicator())
       },
     );
   }

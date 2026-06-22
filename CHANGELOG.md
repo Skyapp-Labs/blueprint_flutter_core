@@ -5,6 +5,62 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.4.0
+
+### Added
+
+**Routing**
+- Package-owned router via `fxRouterProvider` with auth and security listeners and a chained redirect pipeline (`FxRouterRedirect`).
+- `FxRoutingConfig` on `FxConfig.routing` for splash, login, home, auth paths, optional `postRegistrationPath`, and optional `pinUnlockPath`.
+- `FxConfig.isPostRegistrationComplete(User)` — apps override the predicate that decides when post-registration onboarding is done (default: `user.onboardingStep >= 2`).
+- `FxHomeGuard` — redirects authenticated users on home routes to post-registration or PIN gates in order; post-registration is user-backed, PIN is session-backed.
+- `FxAuthGuard` moved to `lib/src/core/routing/guards/` and updated to accept `FxRoutingConfig`.
+- `fxAppRoutesProvider` — apps supply the route tree; `BlueprintFlutterCore` accepts `appRoutes` and wires the provider automatically.
+- `fxRouterRedirectHookProvider` — optional app hook for redirects after foundation guards.
+
+**Security**
+- `PinService` with API-backed `hasPin`, `createPin`, and `verifyPin` flows.
+- `PinStatusDto` — server-driven PIN status (`isSet`, `isLocked`, `type`, `length`).
+- `SecurityState.isSessionUnlocked` — in-memory session flag set on successful PIN verification; consumed by `FxHomeGuard`.
+- `SecurityState.pinType` and expanded `PinStepView` values (`confirmCreatePin`, `confirmChangePin`).
+- PIN API endpoints on `FxApiEndpoints`: `createPin`, `verifyPin`, `resetPin`, `pinStatus(type)`.
+- `FxRequestHeaders.pinLengthOptions()` for `X-PIN-Length` on PIN API calls.
+- `LockScreen` accepts `pinType` and `onUnlocked`; calls `checkPinStatus` on init to route to create or verify PIN.
+
+**Auth**
+- `AuthState.isNewUser` — set when tokens are applied after registration.
+- `AuthFlowScreen.onAuthSuccess` now receives `(User user, bool isNewUser)`.
+- `FxConfig.otpLength` — sent as `X-OTP-Length` on OTP API calls via `OtpService`.
+
+**Example app**
+- Uses `fxRouterProvider` instead of a local `app_router`.
+- `AppConfig` implements `FxRoutingConfig` with `pinUnlockPath` and optional `postRegistrationPath`.
+- Home access sample routes: `/home/onboarding` and `/home/unlock`.
+
+### Changed
+
+**Routing**
+- Post-registration gating reads live `User` data from `AuthController`; no local onboarding controller/state required.
+- PIN gating is enabled when `routing.pinUnlockPath` is set (replaces `pinAuthenticationEnabled` flag).
+
+**Security**
+- `SecurityController` refactored around `PinService`: `checkPinStatus`, `onVerifyPin`, `onCreatePin`, and confirm-PIN validation.
+- PIN views and `LockScreen` driven by server-reported PIN length and step from `PinStatusDto`.
+
+**Auth**
+- `AuthController.applyTokens` parameter renamed `isRegistered` → `isNewUser`.
+- OTP send/verify/resend pass `otpLength` from `FxConfig` through `OtpService`.
+
+**Example app**
+- `BlueprintFlutterCore` bootstraps with `config` + `appRoutes`; `MaterialApp.router` watches `fxRouterProvider`.
+- `AuthScreen.onAuthSuccess` navigates to home; guards handle onboarding/PIN redirects.
+
+### Removed
+
+- Example `app_router.dart` / `app_router.g.dart` (replaced by package `fxRouterProvider`).
+- `FxConfig.pinAuthenticationEnabled` — use `routing.pinUnlockPath != null` instead.
+- `FxConfig.pinLength` — PIN length is now returned by the PIN status API.
+
 ## 2.3.1
 
 ### Fixed

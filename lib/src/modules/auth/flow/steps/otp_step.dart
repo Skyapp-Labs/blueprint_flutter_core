@@ -9,28 +9,32 @@ abstract class OtpStepTemplate extends AuthStepTemplate {
   @override
   String get stepId => 'otp';
 
-  int get otpLength => 6;
+  int get otpLength => ref.read(fxConfigProvider).otpLength;
 
   @override
   AuthStepLayout get layout => AuthStepLayout(
     title: 'Verify your number',
-    subtitle: 'Enter the code sent to {{phone}}',
+    subtitle: 'Enter the {{length}}-digit code sent to {{phone}}',
     actionLabel: 'Verify',
     titleOnTap: (_, _) => ref.goToPreviousAuthStep(),
     subtitleOnTap: (_, _) => ref.goToPreviousAuthStep()
   );
 
-  @override
-  String? get title {
-    final phone = ref.read(authFlowControllerProvider.select((state) => state.formattedPhone));
-    return super.title?.replaceAll('{{phone}}', '[${phone ?? ''}]');
+  String? _resolveTemplate(String? template) {
+    if (template == null) return null;
+    final phone = ref.read(
+      authFlowControllerProvider.select((state) => state.formattedPhone),
+    );
+    return template
+        .replaceAll('{{phone}}', '[${phone ?? ''}]')
+        .replaceAll('{{length}}', '$otpLength');
   }
 
   @override
-  String? get subtitle {
-    final phone = ref.read(authFlowControllerProvider.select((state) => state.formattedPhone));
-    return super.subtitle?.replaceAll('{{phone}}', '[${phone ?? ''}]');
-  }
+  String? get title => _resolveTemplate(super.title);
+
+  @override
+  String? get subtitle => _resolveTemplate(super.subtitle);
 }
 
 class DefaultOtpStepTemplate extends OtpStepTemplate {

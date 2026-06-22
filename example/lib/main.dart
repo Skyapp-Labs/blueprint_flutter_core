@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:example/config/app_config.dart';
-import 'package:example/routes/app_router.dart';
+import 'package:example/routes/app_routes.dart';
 import 'package:example/theme/app_theme.dart';
 
 import 'package:blueprint_flutter_core/blueprint_theme.dart' show fxThemeControllerProvider;
@@ -22,8 +22,9 @@ Future<void> main() async {
   runApp(
     BlueprintFlutterCore(
       config: AppConfig(),
+      appRoutes: appRoutes,
       child: const App(),
-    )
+    ),
   );
 }
 
@@ -32,7 +33,7 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(routerProvider);
+    final router = ref.watch(fxRouterProvider);
     final themeMode = ref.watch(fxThemeControllerProvider);
 
     return LayoutBuilder(
