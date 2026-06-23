@@ -35,7 +35,7 @@ class OtpService extends FxService {
       });
 
   FxResponse<SendOtpResponse> resendOtp(
-    RefreshTokenPayload request, {
+    RefreshOtpPayload request, {
     required int otpLength,
   }) =>
       execute(() async {

@@ -77,6 +77,9 @@ class OtpStepController extends _$OtpStepController {
           await _loginWithToken(response.data.verificationToken);
           return;
         }
+        _authFlow.state = _authFlow.state.copyWith(
+          verifyOtpResponse: response,
+        );
         _authFlow.goToStep(AuthStep.signup);
         if (!ref.mounted) return;
         state = state.copyWith(isLoading: false);
@@ -97,8 +100,8 @@ class OtpStepController extends _$OtpStepController {
 
     state = state.copyWith(isLoading: true, error: null);
 
-    final payload = RefreshTokenPayload(
-      refreshToken: state.resendToken!,
+    final payload = RefreshOtpPayload(
+      verificationId: state.verificationId!,
     );
     
     final result = await _service.resendOtp(payload, otpLength: _otpLength);

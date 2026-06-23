@@ -44,4 +44,7 @@ abstract final class FxCountries {
 
   static List<FxCountry> byContinent(String continent) =>
       all.where((c) => c.continent == continent).toList();
+
+  static FxCountry? byPhone(String phone) =>
+      all.where((c) => phone.startsWith(c.dialCode)).firstOrNull;
 }
