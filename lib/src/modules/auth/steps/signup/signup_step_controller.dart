@@ -23,7 +23,7 @@ class SignupStepController extends _$SignupStepController {
   Future<void> onSignUpRequested(FxSignupFormGroup formGroup) async {
     final authFlow = ref.read(authFlowControllerProvider.notifier);
     final isPhoneAuth = authFlow.currentAuthMethod == AuthMethod.phone;
-    final verificationToken = authFlow.state.sendOtpResponse?.data.verificationId;
+    final verificationToken = authFlow.state.verifyOtpResponse?.data.verificationToken;
 
     final payload = SignupPayload(
       email: formGroup.email.value,
