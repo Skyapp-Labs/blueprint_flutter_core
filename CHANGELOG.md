@@ -5,6 +5,32 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.4.1
+
+### Added
+
+**Auth**
+- `RefreshOtpPayload` — dedicated resend-OTP request body with `verificationId`.
+- `FxSignupFormGroup.setValues()` — pre-fill phone and email on the signup form from the auth flow.
+- `FxNameLayout.column` — stacked first/last name layout on signup.
+- `SignupStepTemplate.buildTermsAndConditions` and auth-method-aware `onBackPressed` on signup.
+- `FxFormGroup.setValue()` — programmatically set a control value and controller text.
+
+**Widgets & Inputs**
+- `FxCountries.byPhone()` — resolve country from a full international phone number.
+
+### Changed
+
+**Auth**
+- OTP resend uses `RefreshOtpPayload(verificationId: …)` instead of `RefreshTokenPayload`.
+- `OtpStepController` stores `verifyOtpResponse` on the auth flow before navigating to signup.
+- `SignupStepController` sends `verificationToken` from the OTP response and omits password for phone auth.
+- Signup screen pre-fills phone/email from auth flow; phone field uses integrated layout and is read-only when pre-filled.
+
+**Widgets & Inputs**
+- `FxPhoneInput` detects country from `initialValue`, strips dial code for display, and emits the parsed value on init.
+- Split phone input layout uses `IntrinsicHeight` and `Flexible` for better row alignment.
+
 ## 2.4.0
 
 ### Added
