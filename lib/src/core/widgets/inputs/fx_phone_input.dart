@@ -60,8 +60,12 @@ class _FxPhoneInputState extends ConsumerState<FxPhoneInput> {
               ref.read(fxConfigProvider).initialCountryCode,
         ) ??
         FxCountries.all.first;
-    if (widget.initialValue?.isNotEmpty ?? false) {
-      _controller.text = widget.initialValue!;
+
+    final initialValue = widget.initialValue ?? _controller.text;
+    if (initialValue.isNotEmpty) {
+      _country = FxCountries.byPhone(initialValue) ?? _country;
+      _controller.text = initialValue.replaceAll(_country.dialCode, '');
+      _emitChange();
     }
     _controller.addListener(_emitChange);
   }

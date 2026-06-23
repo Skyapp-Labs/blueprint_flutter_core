@@ -1,5 +1,4 @@
 import 'package:blueprint_flutter_core/src/core/widgets/buttons/_buttons.dart';
-import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/_inputs.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
@@ -31,8 +30,9 @@ class _SignupStepScreenState extends ConsumerState<SignupStepScreen> with FxUiTo
     formGroup = widget.template.formGroup.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final authFlow = ref.read(authFlowControllerProvider.notifier);
-      if(authFlow.currentAuthMethod == AuthMethod.phone) {
+      final authFlow = ref.read(authFlowControllerProvider);
+      formGroup.setValues(phone: authFlow.phone, email: authFlow.email);
+      if(authFlow.authMethod == AuthMethod.phone) {
         formGroup = formGroup.hidePassword();
       }
       setState(() {});
@@ -50,6 +50,8 @@ class _SignupStepScreenState extends ConsumerState<SignupStepScreen> with FxUiTo
     setToolkitContext(context);
 
     final state = ref.watch(signupStepControllerProvider);
+    final authFlow = ref.read(authFlowControllerProvider);
+    formGroup.setValues(phone: authFlow.phone, email: authFlow.email);
 
     return widget.template.buildShell(
       customFooter: (context, ref) => FxButton(
@@ -65,20 +67,7 @@ class _SignupStepScreenState extends ConsumerState<SignupStepScreen> with FxUiTo
         _buildPhoneField(),
         if(!formGroup.password.isHidden) _buildInputField(formGroup.password),
         if(!formGroup.confirmPassword.isHidden) _buildInputField(formGroup.confirmPassword),
-        CheckboxListTile(
-          contentPadding: EdgeInsets.zero,
-          controlAffinity: ListTileControlAffinity.leading,
-          dense: true,
-          value: true, 
-          onChanged: (value) {},
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(sizes.radiusSm),
-          ),
-          title: FxText(
-            'I agree to the [terms & Conditions] and [Privacy Policy]',
-            onTap: (index, text) {},
-          )
-        )
+        widget.template.buildTermsAndConditions
       ]
     );
   }
@@ -90,6 +79,13 @@ class _SignupStepScreenState extends ConsumerState<SignupStepScreen> with FxUiTo
 
     final firstName = _buildInputField(formGroup.firstName);
     final lastName = _buildInputField(formGroup.lastName);
+
+    if (widget.template.nameLayout == FxNameLayout.column) {
+      return Column(
+        spacing: sizes.md,
+        children: [ firstName, lastName ],
+      );
+    }
 
     if (screenWidth > 360) {
       return Row(
@@ -133,6 +129,7 @@ class _SignupStepScreenState extends ConsumerState<SignupStepScreen> with FxUiTo
 
   Widget _buildPhoneField() => FxPhoneInput(
     validator: formGroup.phone.validator,
+    initialValue: formGroup.phone.initialValue,
     onChanged: (country, phone, [parsed]) {
       if(formGroup.phone.controller == null) return;
       formGroup.phone.controller!.text = parsed?.fullNumber ?? '';
@@ -140,7 +137,9 @@ class _SignupStepScreenState extends ConsumerState<SignupStepScreen> with FxUiTo
       formGroup.countryCode.controller!.text = country.code;
     },
     config: FxPhoneInputConfig(
+      layout: FxPhoneInputLayout.integrated,
       options: FxFieldOptions(
+        enabled: formGroup.phone.initialValue == null,
         label: formGroup.phone.label,
         hint: formGroup.phone.hint,
         keyboardType: TextInputType.phone,

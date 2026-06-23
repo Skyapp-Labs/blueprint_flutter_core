@@ -4,6 +4,7 @@ import 'package:blueprint_flutter_core/src/core/widgets/display/fx_text.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/fx_context.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/inputs/fx_form_control.dart';
 import 'package:blueprint_flutter_core/src/core/widgets/layout/_layout.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_step.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/flow/auth_flow_controller.dart';
 import 'package:flutter/material.dart';

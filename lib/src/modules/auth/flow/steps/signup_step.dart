@@ -1,6 +1,6 @@
 part of '_steps.dart';
 
-enum FxNameLayout { fullName,  split }
+enum FxNameLayout { fullName, split, column }
 
 class FxSignupFormGroup extends FxFormGroup {
 
@@ -85,6 +85,14 @@ class FxSignupFormGroup extends FxFormGroup {
     updateControl('confirmPassword', (value) => value.copyWith(isHidden: true));
     return this;
   }
+
+  void setValues({
+    String? phone,
+    String? email,
+  }) {
+    setValue('phone', phone ?? '');
+    setValue('email', email ?? '');
+  }
 }
 
 
@@ -94,7 +102,7 @@ abstract class SignupStepTemplate extends AuthStepTemplate {
     super.ref,
   });
 
-  FxNameLayout get nameLayout => FxNameLayout.split;
+  FxNameLayout get nameLayout => FxNameLayout.column;
 
   FxSignupFormGroup get formGroup => FxSignupFormGroup.initial();
 
@@ -118,9 +126,30 @@ abstract class SignupStepTemplate extends AuthStepTemplate {
     child: Align(
       alignment: Alignment.centerLeft,
       child: IconButton(
-        onPressed: () => ref.goToAuthStep(AuthStep.emailAndPassword), 
+        onPressed: onBackPressed, 
         icon: context.componentTheme.navigateBackIcon
       ),
+    )
+  );
+
+  void onBackPressed() {
+    final authFlow = ref.read(authFlowControllerProvider.notifier);
+    if(authFlow.currentAuthMethod == AuthMethod.phone) {
+      ref.goToAuthStep(AuthStep.phone);
+    } else {
+      ref.goToAuthStep(AuthStep.emailAndPassword);
+    }
+  }
+
+  Widget get buildTermsAndConditions => CheckboxListTile(
+    contentPadding: EdgeInsets.zero,
+    controlAffinity: ListTileControlAffinity.leading,
+    dense: true,
+    value: true, 
+    onChanged: (value) {},
+    title: FxText(
+      'I agree to the [terms & Conditions] and [Privacy Policy]',
+      onTap: (index, text) {},
     )
   );
 }

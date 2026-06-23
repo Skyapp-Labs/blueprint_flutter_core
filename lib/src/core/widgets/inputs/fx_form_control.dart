@@ -81,6 +81,14 @@ class FxFormGroup {
   Map<String, FxFormControl> get controls => _controls;
 
   FxFormControl getControl(String key) => _controls[key] ?? FxFormControl(label: key);
+
+  void setValue(String key, String value) {
+    if (!_controls.containsKey(key)) throw Exception('Control with key $key not found');
+    _controls[key] = _controls[key]!.copyWith(
+      initialValue: value,
+      controller: TextEditingController(text: value)
+    );
+  }
   
   void updateControl(String key, FxFormControl Function(FxFormControl value) updater) {
     if (!_controls.containsKey(key)) {

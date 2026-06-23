@@ -1,5 +1,6 @@
 import 'package:blueprint_flutter_core/src/core/network/network_providers.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/auth_controller.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/enums/auth_method.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/payload/signup_payload.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/services/auth_service.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/flow/auth_flow.dart';
@@ -20,10 +21,14 @@ class SignupStepController extends _$SignupStepController {
   }
 
   Future<void> onSignUpRequested(FxSignupFormGroup formGroup) async {
+    final authFlow = ref.read(authFlowControllerProvider.notifier);
+    final isPhoneAuth = authFlow.currentAuthMethod == AuthMethod.phone;
+    final verificationToken = authFlow.state.sendOtpResponse?.data.verificationId;
+
     final payload = SignupPayload(
       email: formGroup.email.value,
-      password: formGroup.password.value,
-      verificationToken: null,
+      password: isPhoneAuth ? null : formGroup.password.value,
+      verificationToken: verificationToken,
       phoneNumber: formGroup.phone.value,
       profile: SignupProfilePayload(
         firstName: formGroup.firstName.value,

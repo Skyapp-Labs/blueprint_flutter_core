@@ -191,18 +191,20 @@ class _FxPhoneInputLayout extends StatelessWidget with FxUiToolkit {
     };
   }
 
-  Widget _buildSplitLayout() => Row(
-    spacing: data.theme.spacingOf(sizes),
-    children: [
-      Expanded(
-        flex: data.theme.splitCountryFlex,
-        child: countryField(),
-      ),
-      Expanded(
-        flex: data.theme.phoneFlex,
-        child: phoneField(),
-      )
-    ]
+  Widget _buildSplitLayout() => IntrinsicHeight(
+    child: Row(
+      spacing: data.theme.spacingOf(sizes),
+      children: [
+        Flexible(
+          flex: data.theme.splitCountryFlex,
+          child: countryField()
+        ),
+        Flexible(
+          flex: data.theme.phoneFlex,
+          child: phoneField()
+        ),
+      ]
+    )
   );
 
   Widget _buildStackedLayout() => Column(
