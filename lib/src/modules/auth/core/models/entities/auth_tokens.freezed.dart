@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$AuthTokens {
 
  String get accessToken; String get refreshToken;/// Token lifetime in milliseconds.
- int get expiresIn;
+ int get expiresIn; Map<String, dynamic> get user;
 /// Create a copy of AuthTokens
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $AuthTokensCopyWith<AuthTokens> get copyWith => _$AuthTokensCopyWithImpl<AuthTok
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthTokens&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthTokens&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&const DeepCollectionEquality().equals(other.user, user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,expiresIn);
+int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,expiresIn,const DeepCollectionEquality().hash(user));
 
 @override
 String toString() {
-  return 'AuthTokens(accessToken: $accessToken, refreshToken: $refreshToken, expiresIn: $expiresIn)';
+  return 'AuthTokens(accessToken: $accessToken, refreshToken: $refreshToken, expiresIn: $expiresIn, user: $user)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $AuthTokensCopyWith<$Res>  {
   factory $AuthTokensCopyWith(AuthTokens value, $Res Function(AuthTokens) _then) = _$AuthTokensCopyWithImpl;
 @useResult
 $Res call({
- String accessToken, String refreshToken, int expiresIn
+ String accessToken, String refreshToken, int expiresIn, Map<String, dynamic> user
 });
 
 
@@ -66,12 +66,13 @@ class _$AuthTokensCopyWithImpl<$Res>
 
 /// Create a copy of AuthTokens
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? refreshToken = null,Object? expiresIn = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? refreshToken = null,Object? expiresIn = null,Object? user = null,}) {
   return _then(_self.copyWith(
 accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String,expiresIn: null == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
-as int,
+as int,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
   ));
 }
 
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  int expiresIn)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  int expiresIn,  Map<String, dynamic> user)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthTokens() when $default != null:
-return $default(_that.accessToken,_that.refreshToken,_that.expiresIn);case _:
+return $default(_that.accessToken,_that.refreshToken,_that.expiresIn,_that.user);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.accessToken,_that.refreshToken,_that.expiresIn);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  int expiresIn)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String refreshToken,  int expiresIn,  Map<String, dynamic> user)  $default,) {final _that = this;
 switch (_that) {
 case _AuthTokens():
-return $default(_that.accessToken,_that.refreshToken,_that.expiresIn);case _:
+return $default(_that.accessToken,_that.refreshToken,_that.expiresIn,_that.user);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.accessToken,_that.refreshToken,_that.expiresIn);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String refreshToken,  int expiresIn)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String refreshToken,  int expiresIn,  Map<String, dynamic> user)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthTokens() when $default != null:
-return $default(_that.accessToken,_that.refreshToken,_that.expiresIn);case _:
+return $default(_that.accessToken,_that.refreshToken,_that.expiresIn,_that.user);case _:
   return null;
 
 }
@@ -212,13 +213,20 @@ return $default(_that.accessToken,_that.refreshToken,_that.expiresIn);case _:
 @JsonSerializable()
 
 class _AuthTokens implements AuthTokens {
-  const _AuthTokens({required this.accessToken, required this.refreshToken, required this.expiresIn});
+  const _AuthTokens({required this.accessToken, required this.refreshToken, required this.expiresIn, required final  Map<String, dynamic> user}): _user = user;
   factory _AuthTokens.fromJson(Map<String, dynamic> json) => _$AuthTokensFromJson(json);
 
 @override final  String accessToken;
 @override final  String refreshToken;
 /// Token lifetime in milliseconds.
 @override final  int expiresIn;
+ final  Map<String, dynamic> _user;
+@override Map<String, dynamic> get user {
+  if (_user is EqualUnmodifiableMapView) return _user;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_user);
+}
+
 
 /// Create a copy of AuthTokens
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthTokens&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthTokens&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.expiresIn, expiresIn) || other.expiresIn == expiresIn)&&const DeepCollectionEquality().equals(other._user, _user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,expiresIn);
+int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,expiresIn,const DeepCollectionEquality().hash(_user));
 
 @override
 String toString() {
-  return 'AuthTokens(accessToken: $accessToken, refreshToken: $refreshToken, expiresIn: $expiresIn)';
+  return 'AuthTokens(accessToken: $accessToken, refreshToken: $refreshToken, expiresIn: $expiresIn, user: $user)';
 }
 
 
@@ -253,7 +261,7 @@ abstract mixin class _$AuthTokensCopyWith<$Res> implements $AuthTokensCopyWith<$
   factory _$AuthTokensCopyWith(_AuthTokens value, $Res Function(_AuthTokens) _then) = __$AuthTokensCopyWithImpl;
 @override @useResult
 $Res call({
- String accessToken, String refreshToken, int expiresIn
+ String accessToken, String refreshToken, int expiresIn, Map<String, dynamic> user
 });
 
 
@@ -270,12 +278,13 @@ class __$AuthTokensCopyWithImpl<$Res>
 
 /// Create a copy of AuthTokens
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? refreshToken = null,Object? expiresIn = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? refreshToken = null,Object? expiresIn = null,Object? user = null,}) {
   return _then(_AuthTokens(
 accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
 as String,refreshToken: null == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
 as String,expiresIn: null == expiresIn ? _self.expiresIn : expiresIn // ignore: cast_nullable_to_non_nullable
-as int,
+as int,user: null == user ? _self._user : user // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,
   ));
 }
 

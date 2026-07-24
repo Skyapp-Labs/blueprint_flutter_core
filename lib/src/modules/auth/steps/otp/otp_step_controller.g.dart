@@ -41,7 +41,7 @@ final class OtpStepControllerProvider
   }
 }
 
-String _$otpStepControllerHash() => r'9d05087fbfe33b47cbf2ec4c4c6104f48527175f';
+String _$otpStepControllerHash() => r'b1191fa82f80457edbc94a7cfe3f68a6ac85969f';
 
 abstract class _$OtpStepController extends $Notifier<OtpStepState> {
   OtpStepState build();

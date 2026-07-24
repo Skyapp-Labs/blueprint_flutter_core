@@ -15,6 +15,8 @@ abstract class User with _$User {
     required bool isProfileCompleted,
     required String status,
     required String displayName,
+    String? firstName,
+    String? lastName,
     String? username,
     String? email,
     String? phoneNumber,

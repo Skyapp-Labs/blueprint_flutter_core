@@ -1,4 +1,5 @@
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/payload/refresh_token_payload.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/entities/user.dart';
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -122,7 +123,7 @@ class AuthController extends _$AuthController {
   Future<void> applyTokens(AuthTokens tokens, {bool isNewUser = false}) async {
     _tokenManager.setToken(tokens.accessToken);
 
-    final user = JwtHelper.getUserFromToken(tokens.accessToken);
+    final user = User.fromJson(tokens.user);
 
     await Future.wait([
       _authStorage.saveRefreshToken(tokens.refreshToken),

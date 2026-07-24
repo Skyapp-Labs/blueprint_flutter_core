@@ -8,7 +8,7 @@ class AppConfig extends FxConfig {
   String get appName => 'Blueprint Example';
 
   @override
-  String get apiBaseUrl => 'https://goatskin-balance-eliminate.ngrok-free.dev'; // Dummy URL
+  String get apiBaseUrl => 'https://dev-go-my-way.up.railway.app'; // Dummy URL
 
   @override
   String get apiVersion => 'api/v1';
@@ -25,7 +25,7 @@ class AppConfig extends FxConfig {
     loginPath: AppPaths.login,
     homePath: AppPaths.home,
     authPaths: [AppPaths.login],
-    pinUnlockPath: AppPaths.homeUnlock,
+    // pinUnlockPath: AppPaths.homeUnlock,
     // postRegistrationPath: AppPaths.homeOnboarding,
   );
 

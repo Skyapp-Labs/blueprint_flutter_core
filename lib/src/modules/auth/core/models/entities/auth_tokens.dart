@@ -12,6 +12,7 @@ abstract class AuthTokens with _$AuthTokens {
 
     /// Token lifetime in milliseconds.
     required int expiresIn,
+    required Map<String, dynamic> user,
   }) = _AuthTokens;
 
   factory AuthTokens.fromJson(Map<String, dynamic> json) =>
