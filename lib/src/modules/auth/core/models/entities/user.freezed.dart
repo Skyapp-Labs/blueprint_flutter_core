@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$User {
 
- String get id; int get onboardingStep; bool get isEmailVerified; bool get isPhoneVerified; bool get isProfileCompleted; String get status; String get displayName; String? get username; String? get email; String? get phoneNumber; String? get countryCode; List<String> get roles;
+ String get id; int get onboardingStep; bool get isEmailVerified; bool get isPhoneVerified; bool get isProfileCompleted; String get status; String get displayName; String? get firstName; String? get lastName; String? get username; String? get email; String? get phoneNumber; String? get countryCode; List<String> get roles;
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserCopyWith<User> get copyWith => _$UserCopyWithImpl<User>(this as User, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.id, id) || other.id == id)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified)&&(identical(other.isPhoneVerified, isPhoneVerified) || other.isPhoneVerified == isPhoneVerified)&&(identical(other.isProfileCompleted, isProfileCompleted) || other.isProfileCompleted == isProfileCompleted)&&(identical(other.status, status) || other.status == status)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&const DeepCollectionEquality().equals(other.roles, roles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is User&&(identical(other.id, id) || other.id == id)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified)&&(identical(other.isPhoneVerified, isPhoneVerified) || other.isPhoneVerified == isPhoneVerified)&&(identical(other.isProfileCompleted, isProfileCompleted) || other.isProfileCompleted == isProfileCompleted)&&(identical(other.status, status) || other.status == status)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&const DeepCollectionEquality().equals(other.roles, roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,onboardingStep,isEmailVerified,isPhoneVerified,isProfileCompleted,status,displayName,username,email,phoneNumber,countryCode,const DeepCollectionEquality().hash(roles));
+int get hashCode => Object.hash(runtimeType,id,onboardingStep,isEmailVerified,isPhoneVerified,isProfileCompleted,status,displayName,firstName,lastName,username,email,phoneNumber,countryCode,const DeepCollectionEquality().hash(roles));
 
 @override
 String toString() {
-  return 'User(id: $id, onboardingStep: $onboardingStep, isEmailVerified: $isEmailVerified, isPhoneVerified: $isPhoneVerified, isProfileCompleted: $isProfileCompleted, status: $status, displayName: $displayName, username: $username, email: $email, phoneNumber: $phoneNumber, countryCode: $countryCode, roles: $roles)';
+  return 'User(id: $id, onboardingStep: $onboardingStep, isEmailVerified: $isEmailVerified, isPhoneVerified: $isPhoneVerified, isProfileCompleted: $isProfileCompleted, status: $status, displayName: $displayName, firstName: $firstName, lastName: $lastName, username: $username, email: $email, phoneNumber: $phoneNumber, countryCode: $countryCode, roles: $roles)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UserCopyWith<$Res>  {
   factory $UserCopyWith(User value, $Res Function(User) _then) = _$UserCopyWithImpl;
 @useResult
 $Res call({
- String id, int onboardingStep, bool isEmailVerified, bool isPhoneVerified, bool isProfileCompleted, String status, String displayName, String? username, String? email, String? phoneNumber, String? countryCode, List<String> roles
+ String id, int onboardingStep, bool isEmailVerified, bool isPhoneVerified, bool isProfileCompleted, String status, String displayName, String? firstName, String? lastName, String? username, String? email, String? phoneNumber, String? countryCode, List<String> roles
 });
 
 
@@ -65,7 +65,7 @@ class _$UserCopyWithImpl<$Res>
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? onboardingStep = null,Object? isEmailVerified = null,Object? isPhoneVerified = null,Object? isProfileCompleted = null,Object? status = null,Object? displayName = null,Object? username = freezed,Object? email = freezed,Object? phoneNumber = freezed,Object? countryCode = freezed,Object? roles = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? onboardingStep = null,Object? isEmailVerified = null,Object? isPhoneVerified = null,Object? isProfileCompleted = null,Object? status = null,Object? displayName = null,Object? firstName = freezed,Object? lastName = freezed,Object? username = freezed,Object? email = freezed,Object? phoneNumber = freezed,Object? countryCode = freezed,Object? roles = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,onboardingStep: null == onboardingStep ? _self.onboardingStep : onboardingStep // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,9 @@ as bool,isPhoneVerified: null == isPhoneVerified ? _self.isPhoneVerified : isPho
 as bool,isProfileCompleted: null == isProfileCompleted ? _self.isProfileCompleted : isProfileCompleted // ignore: cast_nullable_to_non_nullable
 as bool,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
-as String,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String,firstName: freezed == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String?,lastName: freezed == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String?,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable
@@ -164,10 +166,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  int onboardingStep,  bool isEmailVerified,  bool isPhoneVerified,  bool isProfileCompleted,  String status,  String displayName,  String? username,  String? email,  String? phoneNumber,  String? countryCode,  List<String> roles)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  int onboardingStep,  bool isEmailVerified,  bool isPhoneVerified,  bool isProfileCompleted,  String status,  String displayName,  String? firstName,  String? lastName,  String? username,  String? email,  String? phoneNumber,  String? countryCode,  List<String> roles)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
-return $default(_that.id,_that.onboardingStep,_that.isEmailVerified,_that.isPhoneVerified,_that.isProfileCompleted,_that.status,_that.displayName,_that.username,_that.email,_that.phoneNumber,_that.countryCode,_that.roles);case _:
+return $default(_that.id,_that.onboardingStep,_that.isEmailVerified,_that.isPhoneVerified,_that.isProfileCompleted,_that.status,_that.displayName,_that.firstName,_that.lastName,_that.username,_that.email,_that.phoneNumber,_that.countryCode,_that.roles);case _:
   return orElse();
 
 }
@@ -185,10 +187,10 @@ return $default(_that.id,_that.onboardingStep,_that.isEmailVerified,_that.isPhon
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  int onboardingStep,  bool isEmailVerified,  bool isPhoneVerified,  bool isProfileCompleted,  String status,  String displayName,  String? username,  String? email,  String? phoneNumber,  String? countryCode,  List<String> roles)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  int onboardingStep,  bool isEmailVerified,  bool isPhoneVerified,  bool isProfileCompleted,  String status,  String displayName,  String? firstName,  String? lastName,  String? username,  String? email,  String? phoneNumber,  String? countryCode,  List<String> roles)  $default,) {final _that = this;
 switch (_that) {
 case _User():
-return $default(_that.id,_that.onboardingStep,_that.isEmailVerified,_that.isPhoneVerified,_that.isProfileCompleted,_that.status,_that.displayName,_that.username,_that.email,_that.phoneNumber,_that.countryCode,_that.roles);case _:
+return $default(_that.id,_that.onboardingStep,_that.isEmailVerified,_that.isPhoneVerified,_that.isProfileCompleted,_that.status,_that.displayName,_that.firstName,_that.lastName,_that.username,_that.email,_that.phoneNumber,_that.countryCode,_that.roles);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +207,10 @@ return $default(_that.id,_that.onboardingStep,_that.isEmailVerified,_that.isPhon
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  int onboardingStep,  bool isEmailVerified,  bool isPhoneVerified,  bool isProfileCompleted,  String status,  String displayName,  String? username,  String? email,  String? phoneNumber,  String? countryCode,  List<String> roles)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  int onboardingStep,  bool isEmailVerified,  bool isPhoneVerified,  bool isProfileCompleted,  String status,  String displayName,  String? firstName,  String? lastName,  String? username,  String? email,  String? phoneNumber,  String? countryCode,  List<String> roles)?  $default,) {final _that = this;
 switch (_that) {
 case _User() when $default != null:
-return $default(_that.id,_that.onboardingStep,_that.isEmailVerified,_that.isPhoneVerified,_that.isProfileCompleted,_that.status,_that.displayName,_that.username,_that.email,_that.phoneNumber,_that.countryCode,_that.roles);case _:
+return $default(_that.id,_that.onboardingStep,_that.isEmailVerified,_that.isPhoneVerified,_that.isProfileCompleted,_that.status,_that.displayName,_that.firstName,_that.lastName,_that.username,_that.email,_that.phoneNumber,_that.countryCode,_that.roles);case _:
   return null;
 
 }
@@ -220,7 +222,7 @@ return $default(_that.id,_that.onboardingStep,_that.isEmailVerified,_that.isPhon
 @JsonSerializable()
 
 class _User extends User {
-  const _User({required this.id, required this.onboardingStep, required this.isEmailVerified, required this.isPhoneVerified, required this.isProfileCompleted, required this.status, required this.displayName, this.username, this.email, this.phoneNumber, this.countryCode, final  List<String> roles = const []}): _roles = roles,super._();
+  const _User({required this.id, required this.onboardingStep, required this.isEmailVerified, required this.isPhoneVerified, required this.isProfileCompleted, required this.status, required this.displayName, this.firstName, this.lastName, this.username, this.email, this.phoneNumber, this.countryCode, final  List<String> roles = const []}): _roles = roles,super._();
   factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
 @override final  String id;
@@ -230,6 +232,8 @@ class _User extends User {
 @override final  bool isProfileCompleted;
 @override final  String status;
 @override final  String displayName;
+@override final  String? firstName;
+@override final  String? lastName;
 @override final  String? username;
 @override final  String? email;
 @override final  String? phoneNumber;
@@ -255,16 +259,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.id, id) || other.id == id)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified)&&(identical(other.isPhoneVerified, isPhoneVerified) || other.isPhoneVerified == isPhoneVerified)&&(identical(other.isProfileCompleted, isProfileCompleted) || other.isProfileCompleted == isProfileCompleted)&&(identical(other.status, status) || other.status == status)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&const DeepCollectionEquality().equals(other._roles, _roles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _User&&(identical(other.id, id) || other.id == id)&&(identical(other.onboardingStep, onboardingStep) || other.onboardingStep == onboardingStep)&&(identical(other.isEmailVerified, isEmailVerified) || other.isEmailVerified == isEmailVerified)&&(identical(other.isPhoneVerified, isPhoneVerified) || other.isPhoneVerified == isPhoneVerified)&&(identical(other.isProfileCompleted, isProfileCompleted) || other.isProfileCompleted == isProfileCompleted)&&(identical(other.status, status) || other.status == status)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.firstName, firstName) || other.firstName == firstName)&&(identical(other.lastName, lastName) || other.lastName == lastName)&&(identical(other.username, username) || other.username == username)&&(identical(other.email, email) || other.email == email)&&(identical(other.phoneNumber, phoneNumber) || other.phoneNumber == phoneNumber)&&(identical(other.countryCode, countryCode) || other.countryCode == countryCode)&&const DeepCollectionEquality().equals(other._roles, _roles));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,onboardingStep,isEmailVerified,isPhoneVerified,isProfileCompleted,status,displayName,username,email,phoneNumber,countryCode,const DeepCollectionEquality().hash(_roles));
+int get hashCode => Object.hash(runtimeType,id,onboardingStep,isEmailVerified,isPhoneVerified,isProfileCompleted,status,displayName,firstName,lastName,username,email,phoneNumber,countryCode,const DeepCollectionEquality().hash(_roles));
 
 @override
 String toString() {
-  return 'User(id: $id, onboardingStep: $onboardingStep, isEmailVerified: $isEmailVerified, isPhoneVerified: $isPhoneVerified, isProfileCompleted: $isProfileCompleted, status: $status, displayName: $displayName, username: $username, email: $email, phoneNumber: $phoneNumber, countryCode: $countryCode, roles: $roles)';
+  return 'User(id: $id, onboardingStep: $onboardingStep, isEmailVerified: $isEmailVerified, isPhoneVerified: $isPhoneVerified, isProfileCompleted: $isProfileCompleted, status: $status, displayName: $displayName, firstName: $firstName, lastName: $lastName, username: $username, email: $email, phoneNumber: $phoneNumber, countryCode: $countryCode, roles: $roles)';
 }
 
 
@@ -275,7 +279,7 @@ abstract mixin class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   factory _$UserCopyWith(_User value, $Res Function(_User) _then) = __$UserCopyWithImpl;
 @override @useResult
 $Res call({
- String id, int onboardingStep, bool isEmailVerified, bool isPhoneVerified, bool isProfileCompleted, String status, String displayName, String? username, String? email, String? phoneNumber, String? countryCode, List<String> roles
+ String id, int onboardingStep, bool isEmailVerified, bool isPhoneVerified, bool isProfileCompleted, String status, String displayName, String? firstName, String? lastName, String? username, String? email, String? phoneNumber, String? countryCode, List<String> roles
 });
 
 
@@ -292,7 +296,7 @@ class __$UserCopyWithImpl<$Res>
 
 /// Create a copy of User
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? onboardingStep = null,Object? isEmailVerified = null,Object? isPhoneVerified = null,Object? isProfileCompleted = null,Object? status = null,Object? displayName = null,Object? username = freezed,Object? email = freezed,Object? phoneNumber = freezed,Object? countryCode = freezed,Object? roles = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? onboardingStep = null,Object? isEmailVerified = null,Object? isPhoneVerified = null,Object? isProfileCompleted = null,Object? status = null,Object? displayName = null,Object? firstName = freezed,Object? lastName = freezed,Object? username = freezed,Object? email = freezed,Object? phoneNumber = freezed,Object? countryCode = freezed,Object? roles = null,}) {
   return _then(_User(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,onboardingStep: null == onboardingStep ? _self.onboardingStep : onboardingStep // ignore: cast_nullable_to_non_nullable
@@ -301,7 +305,9 @@ as bool,isPhoneVerified: null == isPhoneVerified ? _self.isPhoneVerified : isPho
 as bool,isProfileCompleted: null == isProfileCompleted ? _self.isProfileCompleted : isProfileCompleted // ignore: cast_nullable_to_non_nullable
 as bool,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,displayName: null == displayName ? _self.displayName : displayName // ignore: cast_nullable_to_non_nullable
-as String,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
+as String,firstName: freezed == firstName ? _self.firstName : firstName // ignore: cast_nullable_to_non_nullable
+as String?,lastName: freezed == lastName ? _self.lastName : lastName // ignore: cast_nullable_to_non_nullable
+as String?,username: freezed == username ? _self.username : username // ignore: cast_nullable_to_non_nullable
 as String?,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String?,phoneNumber: freezed == phoneNumber ? _self.phoneNumber : phoneNumber // ignore: cast_nullable_to_non_nullable
 as String?,countryCode: freezed == countryCode ? _self.countryCode : countryCode // ignore: cast_nullable_to_non_nullable

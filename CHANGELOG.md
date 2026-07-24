@@ -5,6 +5,19 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.4.2
+
+### Added
+
+**Auth**
+- `User.firstName` and `User.lastName` optional profile fields on the authenticated user model.
+- `AuthTokens.user` — login and refresh responses now carry the full user payload alongside tokens.
+
+### Changed
+
+**Auth**
+- `AuthController.applyTokens` builds `User` from `AuthTokens.user` instead of decoding the JWT access token.
+
 ## 2.4.1
 
 ### Added

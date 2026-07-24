@@ -1,4 +1,5 @@
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/dto/payload/refresh_token_payload.dart';
+import 'package:blueprint_flutter_core/src/modules/auth/core/models/entities/user.dart';
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -8,7 +9,6 @@ import 'package:blueprint_flutter_core/blueprint_notifications.dart';
 import 'package:blueprint_flutter_core/src/core/network/firebase/fx_messaging.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/storage/auth_storage.dart';
 import 'package:blueprint_flutter_core/src/core/config/fx_config.dart';
-import 'package:blueprint_flutter_core/src/core/utils/jwt_helper.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/services/auth_service.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/states/auth_state.dart';
 import 'package:blueprint_flutter_core/src/modules/auth/core/models/entities/auth_tokens.dart';
@@ -122,7 +122,7 @@ class AuthController extends _$AuthController {
   Future<void> applyTokens(AuthTokens tokens, {bool isNewUser = false}) async {
     _tokenManager.setToken(tokens.accessToken);
 
-    final user = JwtHelper.getUserFromToken(tokens.accessToken);
+    final user = User.fromJson(tokens.user);
 
     await Future.wait([
       _authStorage.saveRefreshToken(tokens.refreshToken),

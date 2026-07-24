@@ -1,29 +1,15 @@
 PODS:
   - Flutter (1.0.0)
-  - flutter_libphonenumber_darwin (1.0.0):
-    - Flutter
-    - FlutterMacOS
-    - PhoneNumberKit/PhoneNumberKitCore (= 4.2.1)
-  - PhoneNumberKit/PhoneNumberKitCore (4.2.1)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - flutter_libphonenumber_darwin (from `.symlinks/plugins/flutter_libphonenumber_darwin/darwin`)
-
-SPEC REPOS:
-  trunk:
-    - PhoneNumberKit
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  flutter_libphonenumber_darwin:
-    :path: ".symlinks/plugins/flutter_libphonenumber_darwin/darwin"
 
 SPEC CHECKSUMS:
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
-  flutter_libphonenumber_darwin: fd0b33a1dc0f2cadfec5dbedad6d778667b413b7
-  PhoneNumberKit: 040db93c8d8aad1d04c8657b4ba40c49422e7f17
 
 PODFILE CHECKSUM: 53a6aebc29ccee84c41f92f409fc20cd4ca011f1
 
